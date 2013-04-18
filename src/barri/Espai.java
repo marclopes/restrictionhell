@@ -43,7 +43,7 @@ public class Espai {
 	Dades NovaDada= new Dades();
 	NovaDada.id = id;
 	NovaDada.elem=elem;
-	matriuElements[a][b] =(Object) NovaDada;
+	matriuElements[a][b] =NovaDada;
 	Pos aux = new Pos();
 	aux.x = a;
 	aux.y = b;
