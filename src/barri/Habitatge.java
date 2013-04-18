@@ -1,8 +1,13 @@
 package barri;
 import java.util.*;
 
-public class Habitatge extends Edifici{
+/**
+*
+* @author Edu
+*/
 
+public class Habitatge extends Edifici{
+	
 	private int impost;
 	private int aparcament;
 	
