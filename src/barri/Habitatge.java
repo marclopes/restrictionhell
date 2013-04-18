@@ -16,11 +16,11 @@ public class Habitatge extends Edifici{
 		
 	}
 	
-	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, List<String> c)throws Exception{
+	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, List<String> c){
 		super(nom, codi, h, capacitat, c);
 		super.tipusEd = TipusEd.HAB;
-		if(impost < 0) throw new Exception("Impost no pot ser negatiu.");
-		if(aparcament < 0) throw new Exception("Aparcament no pot ser negatiu.");
+		if(impost < 0) 
+		if(aparcament < 0) 
 		this.impost = impost;
 		this.aparcament = aparcament;
 	}
@@ -33,13 +33,11 @@ public class Habitatge extends Edifici{
 		return this.aparcament;
 	}
 	
-	public void ModificarImpost(int impost)throws Exception{
-		if(impost < 0) throw new Exception("Impost no pot ser negatiu.");
+	public void ModificarImpost(int impost){
 		this.impost = impost;
 	}
 	
 	public void ModificarAparcament(int aparcament)throws Exception{
-		if(aparcament < 0) throw new Exception("Aparcament no pot ser negatiu.");
 		this.aparcament = aparcament;
 	}
 }
