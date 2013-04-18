@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class CtrBarriDom {
+	
+
   private static ctrBarri= null;
   private cjtBarris;
   private CtrBarriDom () {
