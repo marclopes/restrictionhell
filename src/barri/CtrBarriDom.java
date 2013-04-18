@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class CtrBarriDom {
-  private static ctrBarri= null;
+  private static CtrBarriDom ctrBarri= null;
   private cjtBarris;
+  
   private CtrBarriDom () {
-    cjtBarris = new CjtBarris();
   }
   public CtrBarriDom GetInstancia() {
     if ( ctrBarri== null ) ctrBarri = new CtrBarriDom();

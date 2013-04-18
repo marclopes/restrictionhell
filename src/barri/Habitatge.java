@@ -19,8 +19,6 @@ public class Habitatge extends Edifici{
 	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, List<String> c){
 		super(nom, codi, h, capacitat, c);
 		super.tipusEd = TipusEd.HAB;
-		if(impost < 0) 
-		if(aparcament < 0) 
 		this.impost = impost;
 		this.aparcament = aparcament;
 	}
@@ -37,7 +35,7 @@ public class Habitatge extends Edifici{
 		this.impost = impost;
 	}
 	
-	public void ModificarAparcament(int aparcament)throws Exception{
+	public void ModificarAparcament(int aparcament){
 		this.aparcament = aparcament;
 	}
 }
