@@ -1,10 +1,9 @@
 package barri;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import projecte.CjtRestriccions;
-//import projecte.Espai;
+import projecte.Espai;
 import projecte.Restriccio;
 
 public class Barri implements Serializable {
@@ -12,9 +11,9 @@ public class Barri implements Serializable {
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, classe, aparcament;
 	
-	private Espai espai;
-	private ArrayList<Restriccio> lRestriccions;
-	private ArrayList<Edifici> lEdificis;
+	private Espai<Illa> espai;
+	private CjtRestriccions lRestriccions;
+	private CjtEdificis lEdificis;
 	
 	Barri(String n, int po, int pr, int c, int cl, int a, int xx, int yy) {
 		modificarNom(n);
@@ -26,20 +25,20 @@ public class Barri implements Serializable {
 		x = xx;
 		y = yy;
 		
-		espai = new Espai(x, y);
-		lRestriccions = new ArrayList<Restriccio>();
-		lEdificis = new ArrayList<Edifici>();
+		espai = new Espai<Illa>(x, y);
+		lRestriccions = new CjtRestriccions();
+		lEdificis = new CjtEdificis();
 		
 		
 		
 	}
 	
 	public void carregaEdifici(Edifici e) {
-		lEdificis.add(e);
+		lEdificis.AfegirEdifici(e);
 	}
 	
 	public void borraEdifici(Edifici e) {
-		lEdificis.remove(e);
+		lEdificis.EliminarEdifici(e);
 	}
 	
 	public void carregaLlista(List<Edifici> l) {
@@ -53,9 +52,15 @@ public class Barri implements Serializable {
 	
 
 	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
-			espai.insertarElement((Object)new Illa(e), id, a, b);
+		try {
+			espai.insertarElement(new Illa(e), id, a, b);
 			
 			
+		} catch (Exception e1) {
+			// error!!
+			System.err.println(e1.getMessage());
+			e1.printStackTrace();
+		}
 	}
 	
 	public boolean comprovarRestriccions() {
@@ -131,3 +136,4 @@ public class Barri implements Serializable {
 	}
 
 }
+
