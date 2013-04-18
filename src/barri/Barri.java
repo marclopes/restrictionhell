@@ -1,6 +1,5 @@
 package barri;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import projecte.CjtRestriccions;
@@ -13,8 +12,8 @@ public class Barri implements Serializable {
 	private int x, y, poblacio, pressupost, cost_m, classe, aparcament;
 	
 	private Espai<Illa> espai;
-	private ArrayList<Restriccio> lRestriccions;
-	private ArrayList<Edifici> lEdificis;
+	private CjtRestriccions lRestriccions;
+	private CjtEdificis lEdificis;
 	
 	Barri(String n, int po, int pr, int c, int cl, int a, int xx, int yy) {
 		modificarNom(n);
@@ -27,19 +26,19 @@ public class Barri implements Serializable {
 		y = yy;
 		
 		espai = new Espai<Illa>(x, y);
-		lRestriccions = new ArrayList<Restriccio>();
-		lEdificis = new ArrayList<Edifici>();
+		lRestriccions = new CjtRestriccions();
+		lEdificis = new CjtEdificis();
 		
 		
 		
 	}
 	
 	public void carregaEdifici(Edifici e) {
-		lEdificis.add(e);
+		lEdificis.AfegirEdifici(e);
 	}
 	
 	public void borraEdifici(Edifici e) {
-		lEdificis.remove(e);
+		lEdificis.EliminarEdifici(e);
 	}
 	
 	public void carregaLlista(List<Edifici> l) {
