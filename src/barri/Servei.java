@@ -12,12 +12,9 @@ public class Servei extends Edifici{
 	Servei(){
 	}
 	
-	public Servei(int cost, int manteniment, int area)throws Exception{
+	public Servei(int cost, int manteniment, int area){
 		super();
 		super.tipusEd = TipusEd.SER;
-		if(cost < 0) throw new Exception("Cost no pot ser negatiu.");
-		if(manteniment < 0) throw new Exception("Manteniment no pot ser negatiu.");
-		if(areaInfluencia < 0) throw new Exception("Area Influencia no pot ser negatiu.");
 		this.cost = cost;
 		this.manteniment = manteniment;
 		this.areaInfluencia = area;
@@ -35,18 +32,15 @@ public class Servei extends Edifici{
 		return this.areaInfluencia;
 	}
 	
-	public void ModificarCost(int cost)throws Exception{
-		if(cost < 0) throw new Exception("Cost no pot ser negatiu.");
+	public void ModificarCost(int cost){
 		this.cost = cost;
 	}
 	
-	public void ModificarManteniment(int manteniment)throws Exception{
-		if(manteniment < 0) throw new Exception("Manteniment no pot ser negatiu.");
+	public void ModificarManteniment(int manteniment){
 		this.manteniment = manteniment;
 	}
 	
-	public void ModificarAreaInfluencia(int area)throws Exception{
-		if(area < 0) throw new Exception("Manteniment no pot ser negatiu.");
+	public void ModificarAreaInfluencia(int area){
 		this.manteniment = area;
 	}
 }

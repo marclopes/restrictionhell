@@ -11,11 +11,9 @@ public class Negoci extends Edifici{
 	Negoci(){
 	}
 	
-	public Negoci(int impost, int aparcament)throws Exception{
+	public Negoci(int impost, int aparcament){
 		super();
 		super.tipusEd = TipusEd.NEG;
-		if(impost < 0) throw new Exception("Impost no pot ser negatiu.");
-		if(aparcament < 0) throw new Exception("Aparcament no pot ser negatiu.");
 		this.impost = impost;
 		this.aparcament = aparcament;
 	}
@@ -28,13 +26,11 @@ public class Negoci extends Edifici{
 		return this.aparcament;
 	}
 	
-	public void ModificarImpost(int impost)throws Exception{
-		if(impost < 0) throw new Exception("Impost no pot ser negatiu.");
+	public void ModificarImpost(int impost){
 		this.impost = impost;
 	}
 	
 	public void ModificarAparcament(int aparcament)throws Exception{
-		if(aparcament < 0) throw new Exception("Aparcament no pot ser negatiu.");
 		this.aparcament = aparcament;
 	}
 }
