@@ -11,7 +11,7 @@ public class Barri implements Serializable {
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, classe, aparcament;
 	
-	private Espai<Illa> espai;
+	private Espai espai;
 	private CjtRestriccions lRestriccions;
 	private CjtEdificis lEdificis;
 	
@@ -25,7 +25,7 @@ public class Barri implements Serializable {
 		x = xx;
 		y = yy;
 		
-		espai = new Espai<Illa>(x, y);
+		espai = new Espai(x, y);
 		lRestriccions = new CjtRestriccions();
 		lEdificis = new CjtEdificis();
 		
@@ -47,27 +47,14 @@ public class Barri implements Serializable {
 		}
 	}
 	
-	
-	
-	
-
 	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
-		try {
 			espai.insertarElement(new Illa(e), id, a, b);
-			
-			
-		} catch (Exception e1) {
-			// error!!
-			System.err.println(e1.getMessage());
-			e1.printStackTrace();
-		}
 	}
 	
 	public boolean comprovarRestriccions() {
 		return lRestriccions.ComprovarRes();
 		
 	}
-	
 	
 	// Consultores i modificadores
 	
