@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 
-public class DriverHabitatge{
+public class DriverNegoci{
     
 	public static void main() throws java.io.IOException{
 		
@@ -14,8 +14,8 @@ public class DriverHabitatge{
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 
                 
-                System.out.println("Driver de la classe Habitatge. ");
-                System.out.println("Crea un Habitatge.");
+                System.out.println("Driver de la classe Negoci. ");
+                System.out.println("Crea un Negoci.");
                 
                 System.out.println("Introdueix el nom: ");
                 nom = br.readLine();
@@ -40,7 +40,7 @@ public class DriverHabitatge{
                 in = br.readLine();
                 apc = Integer.parseInt(in);
                 
-                Habitatge hab = new Habitatge(imp,apc, nom, codi, h, cap);
+                Negoci neg = new Negoci(imp,apc, nom, codi, h, cap);
                 
                 System.out.println("");
                 
@@ -59,21 +59,21 @@ public class DriverHabitatge{
                     opt = Integer.parseInt(in);
                     switch(opt){
                         case 1:
-                            System.out.println("Impostos: " + hab.ConsultarImpost());
+                            System.out.println("Impostos: " + neg.ConsultarImpost());
                             break;
                         case 2:
-                            System.out.println("Aparcament: " + hab.ConsultarAparcament());
+                            System.out.println("Aparcament: " + neg.ConsultarAparcament());
                             break;
                         case 3:
                             in = br.readLine();
                             imp = Integer.parseInt(in);
-                            hab.ModificarImpost(imp);
+                            neg.ModificarImpost(imp);
                             System.out.println("Nou impost: " + imp);
                             break;
                         case 4:
                             in = br.readLine();
                             apc = Integer.parseInt(in);
-                            hab.ModificarAparcament(apc);
+                            neg.ModificarAparcament(apc);
                             System.out.println("Nou aparcament: " + apc);
                             break;
                         case 5:
