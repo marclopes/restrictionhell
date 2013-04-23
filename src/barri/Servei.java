@@ -92,6 +92,6 @@ public class Servei extends Edifici{
          */
         
 	public void ModificarAreaInfluencia(int area){
-		this.manteniment = area;
+		this.areaInfluencia = area;
 	}
 }
