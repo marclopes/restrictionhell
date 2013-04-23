@@ -1,27 +1,27 @@
 package barri;
+import barri.Edifici.Classes;
 import java.io.Serializable;
 import java.util.List;
 
 import projecte.CjtRestriccions;
-import projecte.Espai;
-import projecte.Restriccio;
 
 public class Barri implements Serializable {
 
 	private String nom;
-	private int x, y, poblacio, pressupost, cost_m, classe, aparcament;
+	private int x, y, poblacio, pressupost, cost_m, aparcament;
+        Classes classe;
 	
 	private Espai espai;
 	private CjtRestriccions lRestriccions;
 	private CjtEdificis lEdificis;
 	
-	Barri(String n, int po, int pr, int c, int cl, int a, int xx, int yy) {
-		modificarNom(n);
-		modificarPoblacio(po);
-		modificarPressupost(pr);
-		modificarCost_m(c);
-		modificarClasse(cl);
-		modificarAparcament(a);
+	Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
+		this.nom = n;
+		this.poblacio = po;
+		this.pressupost = pr;
+		this.cost_m = c;
+		this.classe = cl;
+		this.aparcament = a;
 		x = xx;
 		y = yy;
 		
@@ -82,11 +82,11 @@ public class Barri implements Serializable {
 		this.poblacio = poblacio;
 	}
 
-	public int consultarClasse() {
+	public Classes consultarClasse() {
 		return classe;
 	}
 
-	public void modificarClasse(int classe) {
+	public void modificarClasse(Classes classe) {
 		this.classe = classe;
 	}
 
