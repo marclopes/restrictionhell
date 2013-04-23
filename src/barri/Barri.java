@@ -15,7 +15,7 @@ public class Barri implements Serializable {
 	private CjtRestriccions lRestriccions;
 	private CjtEdificis lEdificis;
 	
-	Barri(String n, int po, int pr, int c, int cl, int a, int xx, int yy) {
+	public Barri(String n, int po, int pr, int c, int cl, int a, int xx, int yy) {
 		modificarNom(n);
 		modificarPoblacio(po);
 		modificarPressupost(pr);

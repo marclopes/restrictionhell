@@ -43,7 +43,7 @@ public class Edifici extends Objecte {
         * @param capacitat ens diu quantes persones caben a l'edifici.
         */
         
-	public Edifici(String nom, int id, int h, int capacitat){
+	public Edifici(String nom, int id, int h, int capacitat,String Tipus){
 		super(1, 1);
 		super.nom = nom;
 		super.id = id;

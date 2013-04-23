@@ -3,7 +3,7 @@ import java.util.*;
 public class CtrDomGeneral {
 
   private static CtrDomGeneral ctrDomini= null;
-  private CtrDomBarri ctrBarri;
+  private CtrBarriDom ctrBarri;
   private CtrDomEdificis ctrEdificis;
   private CtrDomRestriccions ctrRestric;
   
@@ -17,40 +17,41 @@ public class CtrDomGeneral {
     return ctrDomini;
   }
   
-  public void CreaBarri(){
+  public void CreaBarri(String n, int po, int pr, int c, String cl, int a, int xx, int yy){
+	
   }
-  public void CrearRestriccio(){
+  public void CrearRestriccio(){ // esperar nova clase restriccio
   }
-  public void CrearEdifici(){
+  public void CrearEdifici(String nom, int h, int capacitat,String clases,){
   }
-  public void ModificaBarri() {
+  public void ModificaBarri(String nomBarri,String atribut, String valor) {
   }
-  public void ModificarEdifici(){
+  public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
   }
-  public void ModificarRestriccio(){
+  public void ModificarRestriccio(String nomRestriccio,String atribut,String valor){
   }
-  public void EliminarEdifici(){
+  public void EliminarEdifici(String nomEdifici){
   }
-  public void EliminarBarri(){
+  public void EliminarBarri(String nomBarri){
   }
-  public void EliminarRestriccio(){
+  public void EliminarRestriccio(String nomRestriccio){
   }
-  public void CarregarCatalegEdifici(){
+  public void CarregarCatalegEdifici(){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
   }
-  public void CarregarCatalegRestriccio(){
+  public void CarregarCatalegRestriccio(String nomCataleg){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
   }
-  public void CarregarBarri(){ //binari barri
+  public void CarregarBarri(String nomBarri){ //binari barri
   }
   
-  public void AfegirEdifici(){//al barri
+  public void AfegirEdifici(String nomBarri,String nomEdifici){//al barri
   }
-  public void ImposarRestriccio(){
+  public void ImposarRestriccio(String nomBarri ,String nomRestriccio){
   }
-  public void TreuEdifici(){
+  public void TreuEdifici(String nomBarri,String nomEdifici){
   }
-  public void TreuRestriccio(){
+  public void TreuRestriccio(String nomBarri,String nomRestriccio){
   }
-  public void GeneraBarri(){
+  public void GeneraBarri(String nomBarri){
   }
   
 }

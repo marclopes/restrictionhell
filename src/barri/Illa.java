@@ -5,7 +5,7 @@ public class Illa{
 
 	private Edifici edifici;
 	
-	Illa(){
+	public Illa(){
 	}
 	
 	public Illa(Edifici e){
@@ -16,7 +16,7 @@ public class Illa{
 		this.edifici = e;
 	}
 	
-	public void EliminaEdifici(Edifici e){
+	public void EliminaEdifici(){
 		this.edifici = null;
 	}
 	
