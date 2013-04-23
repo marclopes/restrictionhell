@@ -14,11 +14,16 @@ public class Edifici extends Objecte {
 		SER,
 		NEG
 	};
-
+	public enum Classes {
+		Alta,
+		Mitja,
+		Baixa
+	};
+	
 	private int h;
 	private int capacitat;
         private String tipus;
-	private List<String> clases;
+	private List<Classes> clases;
 	
 	protected TipusEd tipusEd;
 	
@@ -169,6 +174,7 @@ public class Edifici extends Objecte {
         */
         
         public void AfegirClase(String c){
+	    
             this.clases.add(c);
         }
         
