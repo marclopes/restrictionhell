@@ -19,7 +19,7 @@ public class Servei extends Edifici{
         * Crea una instancia de la clase sense inicialitzar 
         */ 
         
-	Servei(){
+	public Servei(){
 	}
 	
         /** 

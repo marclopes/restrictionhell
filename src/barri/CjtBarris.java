@@ -3,7 +3,7 @@ import java.util.*;
 public class CjtBarris {
     private ArrayList<Barri> cjtBarris;
     
-    cjtBarris(){
+    public cjtBarris(){
       cjtBarris = new ArrayList<Barri>;
     }
     

@@ -23,7 +23,7 @@ public class Espai {
      /**
         * Crea una instancia de la clase sense inicialitzar 
  */  
-  Espai(){}
+  public Espai(){}
   /** 
         * Crea una instancia de la classe Espai.
         * @param a,b Son les mides de la matriu d'espai. 

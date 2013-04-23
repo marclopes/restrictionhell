@@ -24,12 +24,19 @@ public class CjtEdificis{
 	}
 	
 	//MILLORA: CERCA DICOTOMICA (DEPEN D'AFEGIR EN ORDRE)
-	public Edifici ObtenirEdifici(String nom)throws Exception{
+	public Edifici ObtenirEdifici(String nom){
 		for(Edifici e: conEd){
-			if(e.ConsultarNom() == nom) return e;
+			if(e.ConsultarNom().equals(nom)) return e;
 		}
-		throw new Exception("Edifici no existeix.");
+                return null;
 	}
+        
+        public boolean ExisteixEdifici(String nom){
+                for(Edifici e: conEd){
+			if(e.ConsultarNom().equals(nom)) return true;
+		}
+                return false;
+        }
 	
 	public Edifici obtenirEdifici(int pos) {
 		return conEd.get(pos);

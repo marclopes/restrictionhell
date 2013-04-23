@@ -8,6 +8,15 @@ package barri;
 
 public class Habitatge extends Edifici{
 
+	public enum tipusHab {
+		CasaAparellada,
+		Pis,
+		Mansio,
+		PisLuxe,
+		Xalet
+	};
+	
+	private tipusHab tipusHabitage;
 	private int impost;
 	private int aparcament;
 	
@@ -15,7 +24,7 @@ public class Habitatge extends Edifici{
         * Crea una instancia de la clase sense inicialitzar 
         */ 
 	
-	Habitatge(){
+	public Habitatge(){
 		
 	}
 	

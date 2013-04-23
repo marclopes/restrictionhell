@@ -31,7 +31,7 @@ public class Edifici extends Objecte {
         * Crea una instancia de la clase sense inicialitzar 
         */ 
         
-	Edifici(){
+	public Edifici(){
 		super(1, 1);
 	}
 	
@@ -43,7 +43,7 @@ public class Edifici extends Objecte {
         * @param capacitat ens diu quantes persones caben a l'edifici.
         */
         
-	public Edifici(String nom, int id, int h, int capacitat,String Tipus){
+	public Edifici(String nom, int id, int h, int capacitat){
 		super(1, 1);
 		super.nom = nom;
 		super.id = id;

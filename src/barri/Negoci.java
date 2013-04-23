@@ -10,7 +10,7 @@ import barri.Edifici.TipusEd;
  */
 
 public class Negoci extends Edifici{
-
+	
 	private int impost;
 	private int aparcament;
 	
@@ -18,7 +18,7 @@ public class Negoci extends Edifici{
         * Crea una instancia de la clase sense inicialitzar 
         */ 
         
-	Negoci(){
+	public Negoci(){
 	}
 	
         /** 
