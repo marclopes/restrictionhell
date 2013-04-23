@@ -173,7 +173,7 @@ public class Edifici extends Objecte {
         * @param c La classe que volem afegir.
         */
         
-        public void AfegirClase(String c){
+        public void AfegirClase(Classes c){
 	    
             this.clases.add(c);
         }
@@ -183,9 +183,9 @@ public class Edifici extends Objecte {
         * @param c La classe social que volem eliminar.
         */
         
-        public void EliminarClase(String c){
-            for(String clase: clases){
-			if(c.equals(clase)){
+        public void EliminarClase(Classes c){
+            for(Classes clase : clases){
+			if(c==clase){
                             int i;
                             i = this.clases.indexOf(clase);
                             this.clases.remove(i);
