@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import projecte.CjtRestriccions;
+import projecte.Restriccio;
 
 public class Barri implements Serializable {
 
@@ -15,7 +16,7 @@ public class Barri implements Serializable {
 	private CjtRestriccions lRestriccions;
 	private CjtEdificis lEdificis;
 	
-	Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
+	public Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
 		this.nom = n;
 		this.poblacio = po;
 		this.pressupost = pr;
@@ -51,6 +52,10 @@ public class Barri implements Serializable {
 			espai.insertarElement(new Illa(e), id, a, b);
 	}
 	
+        public void AfegeixRestriccio(Restriccio r){
+            lRestriccions.AfegirRes(r);
+        }
+        
 	public boolean comprovarRestriccions() {
 		return lRestriccions.ComprovarRes();
 		
