@@ -1,6 +1,7 @@
 package barri;
 
 import java.util.*;
+import projecte.Objecte;
 
 /**
  *
@@ -60,25 +61,6 @@ public class Edifici extends Objecte {
 		return new Edifici(this.nom, this.id, this.h, this.capacitat);
 	}
 	
-	/** 
-        * Consultora del nom de l'edifici.
-        * @return El nom de l'edifici
-        */
-        
-        @Override
-	public String ConsultarNom(){
-		return super.nom;
-	}
-	
-        /** 
-        * Consultora de l'identificador de l'edifici.
-        * @return El l'identificador de l'edifici
-        */
-        
-	public int ConsultarCodi(){
-		return super.id;
-	}
-	
         /** 
         * Consultora de l'alçada de l'edifici.
         * @return L'alçada de l'edifici
@@ -112,9 +94,9 @@ public class Edifici extends Objecte {
         * @return true si l'edifici pertany a la classe.
         */
         
-	public boolean EtsClase(String c){
-		for(String clase: clases){
-			if(c.equals(clase)) return true;
+	public boolean EtsClase(Classes c){
+		for(Classes clase: clases){
+			if(c == clase) return true;
 		}
 		return false;
 	}
