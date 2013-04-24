@@ -10,10 +10,18 @@ import barri.Edifici.TipusEd;
  */
 
 public class Negoci extends Edifici{
+	public enum tipusNegoci {
+		Discoteca,
+		Banc,
+		Bar,
+		Restaurant,
+		Botiga_alimentacio,
+		Botiga_roba,
 	
+	};
 	private int impost;
 	private int aparcament;
-	
+	private 
         /**
         * Crea una instancia de la clase sense inicialitzar 
         */ 

@@ -22,7 +22,6 @@ public class Edifici extends Objecte {
 	
 	private int h;
 	private int capacitat;
-        private String tipus;
 	private List<Classes> clases;
 	
 	protected TipusEd tipusEd;
