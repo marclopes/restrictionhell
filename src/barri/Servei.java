@@ -9,8 +9,18 @@ import barri.Edifici.TipusEd;
  @author Edu
  */
 
-public class Servei extends Edifici{
-
+public class Servei extends Edifici{ // canviar nom per ServeiPublic
+	
+	public enum tipusServei {
+		Hospital,
+		Escola,
+		Policia,
+		Preso,
+		Bombers,
+		Parc,
+		Centre_Cultural
+	}
+	private tipusServei tipus;
 	private int cost;
 	private int manteniment;
 	private int areaInfluencia;

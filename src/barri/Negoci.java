@@ -17,11 +17,12 @@ public class Negoci extends Edifici{
 		Restaurant,
 		Botiga_alimentacio,
 		Botiga_roba,
-	
+		Escola_privada,
+		Clinica
 	};
 	private int impost;
 	private int aparcament;
-	private 
+	private tipusNegoci tipus;
         /**
         * Crea una instancia de la clase sense inicialitzar 
         */ 

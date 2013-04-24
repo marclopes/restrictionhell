@@ -9,10 +9,9 @@ package barri;
 public class Habitatge extends Edifici{
 
 	public enum tipusHab {
-		CasaAparellada,
+		Casa,
 		Pis,
 		Mansio,
-		PisLuxe,
 		Xalet
 	};
 	
