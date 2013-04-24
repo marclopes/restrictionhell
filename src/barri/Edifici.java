@@ -1,7 +1,6 @@
 package barri;
 
 import java.util.*;
-import projecte.Objecte;
 
 /**
  *

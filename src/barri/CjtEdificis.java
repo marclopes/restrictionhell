@@ -22,6 +22,12 @@ public class CjtEdificis{
 	public void EliminarEdifici(Edifici e){
 		this.conEd.remove(e);
 	}
+        
+        public void EliminarEdifici(String nom){
+		for(Edifici e: conEd){
+			if(e.ConsultarNom().equals(nom)) this.conEd.remove(e);
+		}
+	}
 	
 	//MILLORA: CERCA DICOTOMICA (DEPEN D'AFEGIR EN ORDRE)
 	public Edifici ObtenirEdifici(String nom){
