@@ -40,11 +40,12 @@ public class Negoci extends Edifici{
         * @param capacitat ens diu quantes persones caben al negoci.
         */
         
-	public Negoci(int impost, int aparcament, String nom, int codi, int h, int capacitat){
+	public Negoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusNegoci t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.NEG;
 		this.impost = impost;
 		this.aparcament = aparcament;
+                this.tipus = t;
 	}
         
         /**
@@ -64,6 +65,15 @@ public class Negoci extends Edifici{
 	public int ConsultarAparcament(){
 		return this.aparcament;
 	}
+        
+        	/** 
+        * Consultora de la subclase de Negoci.
+        * @return la subclasse de l'edifici
+        */
+        
+	public tipusNegoci consultarTipus() {
+		return this.tipus;
+	}
 	
         /**
          * Modificadora dels impostos que paga el negoci.
@@ -81,5 +91,14 @@ public class Negoci extends Edifici{
         
 	public void ModificarAparcament(int aparcament){
 		this.aparcament = aparcament;
+	}
+        
+         /** 
+        * Modificadora del tipus de negoci.
+        * @param t El nou tipus de negoci.
+        */
+        
+	public void modificarTipus(tipusNegoci t) {
+		tipus = t;
 	}
 }

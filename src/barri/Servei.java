@@ -43,12 +43,13 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
         * @param capacitat ens diu quantes persones caben al servei.
         */
         
-	public Servei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat){
+	public Servei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, tipusServei t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.SER;
 		this.cost = cost;
 		this.manteniment = manteniment;
 		this.areaInfluencia = area;
+                this.tipus = t;
 	}
 	
         /**
@@ -77,6 +78,15 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
 	public int ConsultarAreaInfluencia(){
 		return this.areaInfluencia;
 	}
+        
+        	/** 
+        * Consultora de la subclase del servei.
+        * @return la subclasse de l'edifici
+        */
+        
+	public tipusServei consultarTipus() {
+		return this.tipus;
+	}
 	
         /**
          * Modifica el cost de construcció del servei.
@@ -104,4 +114,14 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
 	public void ModificarAreaInfluencia(int area){
 		this.areaInfluencia = area;
 	}
+        
+        /** 
+        * Modificadora del tipus del servei.
+        * @param t El nou tipus del servei.
+        */
+        
+	public void modificarTipus(tipusServei t) {
+		tipus = t;
+	}
+        
 }

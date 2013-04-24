@@ -1,6 +1,7 @@
 package barri;
 
 import java.util.*;
+import projecte.Objecte;
 
 /**
  *
@@ -111,20 +112,11 @@ public class Edifici extends Objecte {
         * @return true si l'edifici pertany a la classe.
         */
         
-	public boolean EtsClase(String c){
-		for(String clase: clases){
+	public boolean EtsClase(Classes c){
+		for(Classes clase: clases){
 			if(c.equals(clase)) return true;
 		}
 		return false;
-	}
-	
-	/** 
-        * Consultora de la subclase de l'edifici.
-        * @return la subclasse de l'edifici
-        */
-        
-	public String consultarTipus() {
-		return this.tipus;
 	}
 	
         /** 
@@ -157,16 +149,7 @@ public class Edifici extends Objecte {
 	public void ModificarCapacitat(int capacitat){
 		this.capacitat = capacitat;
 	}
-	
-        /** 
-        * Modificadora del tipus de l'edifici.
-        * @param h El nou tipus de l'edifici.
-        */
-        
-	public void modificarTipus(String t) {
-		tipus = t;
-	}
-        
+	       
         /** 
         * Afegeix la una classe social a l'edifici.
         * @param c La classe que volem afegir.

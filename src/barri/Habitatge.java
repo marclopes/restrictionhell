@@ -15,7 +15,7 @@ public class Habitatge extends Edifici{
 		Xalet
 	};
 	
-	private tipusHab tipusHabitage;
+	private tipusHab tipus;
 	private int impost;
 	private int aparcament;
 	
@@ -37,11 +37,12 @@ public class Habitatge extends Edifici{
         * @param capacitat ens diu quantes persones caben al negoci.
         */
         
-	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat){
+	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusHab t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.HAB;
 		this.impost = impost;
 		this.aparcament = aparcament;
+                this.tipus = t;
 	}
 	
         /**
@@ -62,6 +63,15 @@ public class Habitatge extends Edifici{
 		return this.aparcament;
 	}
 	
+        /** 
+        * Consultora de la subclase de l'edifici.
+        * @return la subclasse de l'edifici
+        */
+        
+	public tipusHab consultarTipus() {
+		return this.tipus;
+	}
+        
         /**
          * Modifica els impostos que paga l'habitatge.
          * @param impost els nous impostos que pagarà l'habitatge.
@@ -80,4 +90,13 @@ public class Habitatge extends Edifici{
 		this.aparcament = aparcament;
 	}
 	
+         /** 
+        * Modificadora del tipus de l'habitatge.
+        * @param t El nou tipus de l'habitatge.
+        */
+        
+	public void modificarTipus(tipusHab t) {
+		tipus = t;
+	}
+        
 }
