@@ -49,7 +49,7 @@ public class Barri implements Serializable {
 	}
 	
 	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
-			espai.insertarElement(new Illa(e), id, a, b);
+			espai.InsertarElement(new Illa(e), id, a, b);
 	}
 	
         public void AfegeixRestriccio(Restriccio r){
