@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import barri.Edifici;
 import barri.Espai;
+import barri.Habitatge;
+import barri.Negoci;
 
 
 public class RDistTipus extends RDistancia{
@@ -40,11 +42,49 @@ public class RDistTipus extends RDistancia{
 		while (x < 10 && y < 10 /**&& e.ExisteixElementxy(x, y)**/) {
 			Edifici ed = (Edifici) e.ConsultarElementxy(x, y);
 			
+			if (ed.consultarSubclasse() == e1.consultarSubclasse()) {
+				switch (ed.consultarSubclasse()) {
+				case HAB:
+					if (((Habitatge)ed).consultarTipus() == ((Habitatge)e1).consultarTipus()) {
+						l1.add(new Pos(x, y));
+					}
+					if (((Habitatge)ed).consultarTipus() == ((Habitatge)e2).consultarTipus()) {
+						l2.add(new Pos(x, y));
+					}
+					break;
+
+					
+				case NEG:
+					if (((Negoci)ed).consultarTipus() == ((Negoci)e1).consultarTipus()) {
+						l1.add(new Pos(x, y));
+					}
+					if (((Negoci)ed).consultarTipus() == ((Negoci)e2).consultarTipus()) {
+						l2.add(new Pos(x, y));
+					}
+					break;
+					
+				case SER:
+					if (((Negoci)ed).consultarTipus() == ((Negoci)e1).consultarTipus()) {
+						l1.add(new Pos(x, y));
+					}
+					if (((Negoci)ed).consultarTipus() == ((Negoci)e2).consultarTipus()) {
+						l2.add(new Pos(x, y));
+					}
+					break;
+
+				default:
+					break;
+				}
+			}
 			
-			if (ed.consultarTipus().equals(e1.consultarTipus())) {
+			
+			
+			
+			
+			if (ed.consultarTipus(). == e1.consultarTipus()) {
 				l1.add(new Pos(x, y));
 				
-			} if (ed.consultarTipus().equals(e2.consultarTipus())) {
+			} if (ed.consultarTipus() == e2.consultarTipus()) {
 				l2.add(new Pos(x, y));
 			}
 			x++;

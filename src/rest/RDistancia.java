@@ -23,7 +23,7 @@ public abstract class RDistancia extends Restriccio {
 		y = y1 - y2;
 		if (y < 0) y = y*(-1);
 		
-		int d = x + y;
+		int d = (int)Math.sqrt(x*x + y*y);
 		return d;
 	}
 	

@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 package projecte;
+
+import rest.TipusRest;
+
 /**
  *
  * @author alex
@@ -13,6 +16,8 @@ public abstract class Restriccio {
         int id;
         boolean compleix;
         
+        TipusRest tr;
+        
         //protected static Espai e;
         
         //Constructora
@@ -21,7 +26,7 @@ public abstract class Restriccio {
         * Crea una instancia de la classe Restriccio.
         * @param ID Es l'identificador associat a la restriccoi que acabem de crear. 
         */
-	public Restriccio(int ID){
+	public Restriccio(int ID, ){
 		id = ID;
 	}
         //Metodes

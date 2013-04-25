@@ -8,10 +8,10 @@ import java.util.*;
 
 public class CjtEdificis{
 
-	private ArrayList<Edifici> conEd;
+	private List<Edifici> conEd;
 	
-	public CjtEdificis(){	
-		conEd = new ArrayList<Edifici>();
+	CjtEdificis(){	
+		
 	}
 	
 	//MILLORA: AFEGIR EN ORDRE  DE NOM
@@ -22,14 +22,27 @@ public class CjtEdificis{
 	public void EliminarEdifici(Edifici e){
 		this.conEd.remove(e);
 	}
+        
+        public void EliminarEdifici(String nom){
+		for(Edifici e: conEd){
+			if(e.ConsultarNom().equals(nom)) this.conEd.remove(e);
+		}
+	}
 	
 	//MILLORA: CERCA DICOTOMICA (DEPEN D'AFEGIR EN ORDRE)
-	public Edifici ObtenirEdifici(String nom)throws Exception{
+	public Edifici ObtenirEdifici(String nom){
 		for(Edifici e: conEd){
-			if(e.ConsultarNom() == nom) return e;
+			if(e.ConsultarNom().equals(nom)) return e;
 		}
-		throw new Exception("Edifici no existeix.");
+                return null;
 	}
+        
+        public boolean ExisteixEdifici(String nom){
+                for(Edifici e: conEd){
+			if(e.ConsultarNom().equals(nom)) return true;
+		}
+                return false;
+        }
 	
 	public Edifici obtenirEdifici(int pos) {
 		return conEd.get(pos);
@@ -39,4 +52,5 @@ public class CjtEdificis{
 	public int tamany() {
 		return conEd.size();
 	}
+
 }
