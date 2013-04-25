@@ -18,12 +18,8 @@ public class CtrBarriDom {
     return ctrBarri;
   }
   
-  public void CreaBarri(String n, int po, int pr, int c, String cl, int a, int xx, int yy) {
-    Classes classe = null;
-    if (cl.equals("alta")){classe = Classes.Alta;}
-    else if(cl.equals("mitja")){classe = Classes.Mitja;}
-    else if(cl.equals("baixa")){classe = Classes.Baixa;}
-    Barri barri = new Barri(n,po,pr,c,classe,a,xx,yy);
+  public void CreaBarri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
+    Barri barri = new Barri(n,po,pr,c,cl,a,xx,yy);
     cjtBarris.AfegirBarri(barri);
   }
   public void EliminarBarri(String n) {
@@ -37,7 +33,10 @@ public class CtrBarriDom {
   }
   public void GuardarBarri(String n) {
     //crida controlador persistencia
+    
   }
-  
+  public void GenerarBarri(String n){
+      Barri barri = cjtBarris.GetBarri(n);
+  }
   
 }

@@ -70,7 +70,7 @@ public class Espai {
 	*@return <code>true</code> L'element existeix;
 		 <code>false</code> L'element no existeix;
  */  
-  public Boolean ExisteixElement(int id) {
+  public boolean ExisteixElement(int id) {
       Pos aux = referencies.get(id);
       if (aux == null ) return false;
       else return true;
@@ -83,7 +83,7 @@ public class Espai {
  */  
 
 
-  public Boolean ExisteixElementxy(int a,int b) {
+  public boolean ExisteixElementxy(int a,int b) {
       Dades aux =(Dades) matriuElements[a][b];
       if (referencies.get(aux.id)==null) return false;
       else return true;
