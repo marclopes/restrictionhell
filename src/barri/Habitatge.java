@@ -16,8 +16,8 @@ public class Habitatge extends Edifici{
 		
 	}
 	
-	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, List<String> c){
-		super(nom, codi, h, capacitat, c);
+	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, List<String> c, String t){
+		super(nom, codi, h, capacitat, c, t);
 		super.tipusEd = TipusEd.HAB;
 		this.impost = impost;
 		this.aparcament = aparcament;

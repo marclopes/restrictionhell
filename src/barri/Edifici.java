@@ -33,19 +33,21 @@ public class Edifici extends Objecte {
 		super(1, 1);
 	}
 	
-	public Edifici(String nom, int codi, int h, int capacitat, List<String> c){
+
+	public Edifici(String nom, int codi, int h, int capacitat, List<String> c, String t){
 		super(1, 1);
 		super.nom = nom;
 		super.id = codi;		//Realment és necessari el codi? 
 		this.h = h;
 		this.capacitat = capacitat;
 		this.clases = c;
+		tipus = t;
 		
 	}
 	
 	public Edifici copia (Edifici e) {
 		int c = cont++;
-		return new Edifici(e.ConsultarNom(), c, e.ConsultarH(), e.ConsultarCapacitat(), e.ConsultarClases());
+		return new Edifici(e.ConsultarNom(), c, e.ConsultarH(), e.ConsultarCapacitat(), e.ConsultarClases(), e.consultarTipus());
 	}
 	
 	
@@ -94,6 +96,8 @@ public class Edifici extends Objecte {
 	public void ModificarH(int h){
 		this.h = h;
 	}
+	
+	
 	
 	public void ModificarCapacitat(int capacitat){
 		this.capacitat = capacitat;

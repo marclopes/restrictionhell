@@ -12,8 +12,8 @@ public class Servei extends Edifici{
 	Servei(){
 	}
 	
-	public Servei(int cost, int manteniment, int area){
-		super();
+	public Servei(String nom, int codi, int h, int capacitat, List<String> c, String t, int cost, int manteniment, int area){
+		super(nom, codi, h, capacitat, c, t);
 		super.tipusEd = TipusEd.SER;
 		this.cost = cost;
 		this.manteniment = manteniment;

@@ -11,8 +11,8 @@ public class Negoci extends Edifici{
 	Negoci(){
 	}
 	
-	public Negoci(int impost, int aparcament){
-		super();
+	public Negoci(String nom, int codi, int h, int capacitat, List<String> c, String t, int impost, int aparcament){
+		super( nom, codi, h, capacitat, c, t);
 		super.tipusEd = TipusEd.NEG;
 		this.impost = impost;
 		this.aparcament = aparcament;

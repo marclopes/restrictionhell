@@ -8,10 +8,10 @@ import java.util.*;
 
 public class CjtEdificis{
 
-	private List<Edifici> conEd;
+	private ArrayList<Edifici> conEd;
 	
-	CjtEdificis(){	
-		
+	public CjtEdificis(){	
+		conEd = new ArrayList<Edifici>();
 	}
 	
 	//MILLORA: AFEGIR EN ORDRE  DE NOM
