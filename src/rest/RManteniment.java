@@ -3,7 +3,7 @@ package rest;
 import barri.CjtEdificis;
 import projecte.Restriccio;
 
-public class RManteniment extends Restriccio {
+public class RManteniment extends RestriccioBarris {
 	
 	int costBarri;
 	CjtEdificis ce;
@@ -14,6 +14,7 @@ public class RManteniment extends Restriccio {
 		id = ID;
 		costBarri = cb;
 		this.ce = ce;
+		super.tr = TipusRest.MANTENIMENT;
 	}
 
 	

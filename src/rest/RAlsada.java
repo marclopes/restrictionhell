@@ -3,7 +3,7 @@ package rest;
 import projecte.Restriccio;
 import barri.CjtEdificis;
 
-public class RAlsada extends Restriccio {
+public class RAlsada extends RestriccioBarris {
 	
 	CjtEdificis ce;
 	int alsada;
@@ -12,6 +12,7 @@ public class RAlsada extends Restriccio {
 		super(ID);
 		this.ce = ce;
 		alsada = al;
+		super.tr = TipusRest.ALSADA;
 		
 	}
 

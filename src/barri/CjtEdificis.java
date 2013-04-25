@@ -10,7 +10,7 @@ public class CjtEdificis{
 
 	private List<Edifici> conEd;
 	
-	CjtEdificis(){	
+	public CjtEdificis(){	
 		
 	}
 	

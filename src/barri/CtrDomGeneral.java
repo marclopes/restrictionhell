@@ -1,3 +1,4 @@
+package barri;
 import java.util.*;
 
 public class CtrDomGeneral {

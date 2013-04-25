@@ -7,7 +7,7 @@ import barri.Negoci;
 import barri.Edifici.TipusEd;
 import projecte.Restriccio;
 
-public class RImpostos extends Restriccio {
+public class RImpostos extends RestriccioBarris {
 	
 	int imp;
 	CjtEdificis ce;
@@ -16,6 +16,7 @@ public class RImpostos extends Restriccio {
 		super(ID);
 		imp = i;
 		this.ce = ce;
+		super.tr = TipusRest.IMPOSTOS;
 		
 	}
 

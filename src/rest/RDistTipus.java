@@ -1,6 +1,8 @@
 package rest;
 import java.util.ArrayList;
 
+import rest.RestriccioBarris.Pos;
+
 import barri.Edifici;
 import barri.Espai;
 import barri.Habitatge;
@@ -9,24 +11,12 @@ import barri.Negoci;
 
 public class RDistTipus extends RDistancia{
 	private Edifici e1, e2;
-	
-	public class Pos {
-		public int x, y;
-		
-		public Pos (int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-		public Pos () {
-			
-		}
-	}
-	
 
 	public RDistTipus(int ID, int d, boolean m, Edifici e1, Edifici e2, Espai e) {
 		super(ID, d, m, e);
 		this.e1 = e1;
 		this.e2 = e2;
+		super.tr = TipusRest.DISTTIPUS;
 		
 	}
 
@@ -36,8 +26,8 @@ public class RDistTipus extends RDistancia{
 		x = y = 0;
 		
 		ArrayList<Pos> l1, l2;
-		l1 = new ArrayList<RDistTipus.Pos>();
-		l2 = new ArrayList<RDistTipus.Pos>();
+		l1 = new ArrayList<Pos>();
+		l2 = new ArrayList<Pos>();
 		
 		while (x < 10 && y < 10 /**&& e.ExisteixElementxy(x, y)**/) {
 			Edifici ed = (Edifici) e.ConsultarElementxy(x, y);
@@ -78,15 +68,6 @@ public class RDistTipus extends RDistancia{
 			}
 			
 			
-			
-			
-			
-			if (ed.consultarTipus(). == e1.consultarTipus()) {
-				l1.add(new Pos(x, y));
-				
-			} if (ed.consultarTipus() == e2.consultarTipus()) {
-				l2.add(new Pos(x, y));
-			}
 			x++;
 			if (x == 10) {
 				x = 0;

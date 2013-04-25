@@ -13,6 +13,7 @@ public class RDistCodi extends RDistancia {
 		this.el1 = el1;
 		this.el2 = el2;
 		this.e = e;
+		super.tr = TipusRest.DISTCODI;
 	}
 
 	

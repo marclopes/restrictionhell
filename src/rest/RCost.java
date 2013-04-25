@@ -7,7 +7,7 @@ import barri.Edifici.TipusEd;
 import projecte.Restriccio;
 
 
-public class RCost extends Restriccio {
+public class RCost extends RestriccioBarris {
 	
 	int cost;
 	boolean max;
@@ -18,6 +18,7 @@ public class RCost extends Restriccio {
 		cost = co;
 		max = m;
 		this.ce = ce;
+		super.tr = TipusRest.COST;
 	}
 
 	
