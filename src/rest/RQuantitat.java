@@ -6,13 +6,13 @@ import barri.Habitatge;
 import barri.Negoci;
 import projecte.Restriccio;
 
-public class RQuantitat extends RestriccioBarris {
+public class RQuantitat extends RestriccioBarris implements RMax{
 	
 	
 	int quant;
 	Edifici ed;
 	boolean max;
-	CjtEdificis ce;
+	//CjtEdificis ce;
 	
 	int q_act;
 
@@ -21,7 +21,7 @@ public class RQuantitat extends RestriccioBarris {
 		quant = q;
 		ed = e;
 		max = m;
-		this.ce = ce;
+		//this.ce = ce;
 		q_act = 0;
 	}
 
@@ -42,5 +42,30 @@ public class RQuantitat extends RestriccioBarris {
 		if (e.ConsultarNom().equals(ed.ConsultarNom())) return true;
 		else return false;
 	}
+	
+	public int consultarQuant() {
+		return quant;
+	}
+	
+	public void modificarQuant(int q) {
+		quant = q;
+	}
+	
+	public boolean esMax() {
+		return max;
+	}
+	
+	public void canviaMax(boolean m) {
+		max = m;
+	}
+	
+	public Edifici quinEdifici() {
+		return ed;
+	}
+	
+	public void assignaEdifici(Edifici e) {
+		ed = e;
+	}
+	
 
 }

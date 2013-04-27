@@ -6,13 +6,13 @@ import barri.Espai;
 public class RDistCodi extends RDistancia {
 	
 	private int el1, el2;
-	Espai e;
+	//Espai e;
 
 	public RDistCodi(int ID, int d, boolean m, int el1, int el2, Espai e) {
 		super(ID, d, m, e);
 		this.el1 = el1;
 		this.el2 = el2;
-		this.e = e;
+		//this.e = e;
 		super.tr = TipusRest.DISTCODI;
 	}
 
@@ -48,7 +48,22 @@ public class RDistCodi extends RDistancia {
 		
 		
 	}
+	
+	public int consultarCodi1() {
+		return el1;
+	}
+	
+	public void modificarCodi1(int c1) {
+		el1 = c1;
+	}
 
+	public int consultarCodi2() {
+		return el2;
+	}
+	
+	public void modificarCodi2(int c2) {
+		el2 = c2;
+	}
 	
 	
 

@@ -1,8 +1,9 @@
 package rest;
 
 import barri.CjtEdificis;
+import barri.Espai;
 
-public class RAlsada extends RestriccioBarris {
+public class RAlsada extends RestriccioBarris implements RCjtEd{
 	
 	CjtEdificis ce;
 	int alsada;
@@ -24,6 +25,19 @@ public class RAlsada extends RestriccioBarris {
 		}
 		
 		return true;
+	}
+	
+	public int consultarAlsada() {
+		return alsada;
+	}
+	
+	public void modificarAlsada(int a) {
+		alsada = a;
+	}
+	
+	
+	public void assignaCe(CjtEdificis ce) {
+		this.ce = ce;
 	}
 
 }

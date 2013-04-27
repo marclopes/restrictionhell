@@ -92,6 +92,22 @@ public class RDistTipus extends RDistancia{
 	}
 	
 	
+	public Edifici consultarEd1() {
+		return e1;
+	}
+	
+	public void modificarEd1(Edifici e) {
+		e1 = e;
+	}
+
+	public Edifici consultarEd2() {
+		return e2;
+	}
+	
+	public void modificarEd2(Edifici e) {
+		e2 = e;
+	}
+	
 
 }
 

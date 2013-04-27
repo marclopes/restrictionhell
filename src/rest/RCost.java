@@ -7,7 +7,7 @@ import barri.Edifici.TipusEd;
 import projecte.Restriccio;
 
 
-public class RCost extends RestriccioBarris {
+public class RCost extends RestriccioBarris implements RMax, RCjtEd{
 	
 	int cost;
 	boolean max;
@@ -36,6 +36,33 @@ public class RCost extends RestriccioBarris {
 		if (!max && c >= cost) return true;
 		
 		return false;
+	}
+	
+	
+	public int consultarCost() {
+		return cost;
+	}
+	
+	public void modificarCost(int c) {
+		cost = c;
+	}
+	
+	
+	public void assignaCe(CjtEdificis ce) {
+		this.ce = ce;
+	}
+
+
+	
+	public boolean esMax() {
+		return max;
+	}
+
+
+	
+	public void canviaMax(boolean m) {
+		max = m;
+		
 	}
 
 }

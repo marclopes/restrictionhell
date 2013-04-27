@@ -30,6 +30,7 @@ public class CtrBarriDom {
   }
   public void AfegeixRestriccions(Barri b,Restriccio r) {
     b.AfegeixRestriccio(r);
+    
   }
   public void GuardarBarri(String n) {
     //crida controlador persistencia

@@ -11,7 +11,7 @@ import barri.Servei;
 import barri.Servei.tipusServei;
 import projecte.Restriccio;
 
-public class RInfluencia extends RDistancia {
+public class RInfluencia extends RDistancia implements REspai{
 
 	
 	//Espai e;
@@ -84,7 +84,7 @@ public class RInfluencia extends RDistancia {
 	}
 	
 	
-	boolean comprovaArees(ArrayList<PosArea> v) {
+	private boolean comprovaArees(ArrayList<PosArea> v) {
 		boolean b = true;
 		for (int i = 0; i < v.size(); i++) {
 			for (int j = 0; j < v.size(); j++) {
@@ -100,6 +100,12 @@ public class RInfluencia extends RDistancia {
 		}
 		
 		return true;
+	}
+	
+	
+	
+	public void assignaEspai(Espai e) {
+		this.e = e;
 	}
 	
 

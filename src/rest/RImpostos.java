@@ -7,7 +7,7 @@ import barri.Negoci;
 import barri.Edifici.TipusEd;
 import projecte.Restriccio;
 
-public class RImpostos extends RestriccioBarris {
+public class RImpostos extends RestriccioBarris implements RCjtEd{
 	
 	int imp;
 	CjtEdificis ce;
@@ -34,6 +34,20 @@ public class RImpostos extends RestriccioBarris {
 		
 		if (c >= imp) return true;
 		else return false;
+	}
+	
+	
+	public int consultarImp() {
+		return imp;
+	}
+	
+	public void modificarImp(int i) {
+		imp = i;
+	}
+	
+	
+	public void assignaCe(CjtEdificis ce) {
+		this.ce = ce;
 	}
 
 }
