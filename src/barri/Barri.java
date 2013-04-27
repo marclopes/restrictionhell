@@ -141,6 +141,13 @@ public class Barri implements Serializable {
 	
 	
 	
+	void preparaBack() {
+		
+	}
+	
+	
+	
+	
 	void back(int id, int x, int y) {		
 		
 		for (int i = 0; i < lEdificis.tamany(); i++) {

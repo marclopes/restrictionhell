@@ -10,7 +10,8 @@ public class CjtEdificis{
 
 	private ArrayList<Edifici> conEd;
 	
-	CjtEdificis(){	
+	public CjtEdificis() {	
+		conEd = new ArrayList<Edifici>();
 	}
 	
 	//MILLORA: AFEGIR EN ORDRE  DE NOM
