@@ -1,6 +1,4 @@
-
 package barri;
-import java.util.*;
 
 import barri.Edifici.TipusEd;
 
@@ -69,7 +67,7 @@ public class Negoci extends Edifici{
         
         	/** 
         * Consultora de la subclase de Negoci.
-        * @return la subclasse de l'edifici
+        * @return El tipus de negoci
         */
         
 	public tipusNegoci consultarTipus() {
@@ -102,5 +100,4 @@ public class Negoci extends Edifici{
 	public void modificarTipus(tipusNegoci t) {
 		tipus = t;
 	}
-
 }
