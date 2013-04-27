@@ -163,7 +163,30 @@ public class CtrRestriccio {
 		return lRest.get(id);
 		
 	}
+	/**
+	public String toString(int id) {
+		RestriccioBarris aux = obtRest(id);
+		String s = aux.obteTipus() + ": ";
+		
+		if (aux instanceof RMax) {
+			if (((RMax)aux).esMax()) s = s + "Maxim ";
+			else s = s + "Minim";
+			
+			if (aux instanceof RDistCodi) {
+				s = s + ((RDistCodi)aux).consultarDist() + " entre " + ((RDistCodi)aux).consultarCodi1() + " i " + ((RDistCodi)aux).consultarCodi2();
+			} else if (aux instanceof RDistTipus) {
+				s = s + ((RDistTipus)aux).consultarDist() + " entre " + ((RDistTipus)aux).consultarEd1().ConsultarNom() + " i " + ((RDistTipus)aux).consultarEd2().ConsultarNom();
+			} else if (aux instanceof RQuantitat) {
+				s = s + ((RQuantitat)aux).consultarQuant() +  "de " + ((RQuantitat)aux).quinEdifici().ConsultarNom();
+			} else {
+				s = s;
+		}
+		
+		return s;
+		
+		
+		}
 
-
+	}**/
 
 }
