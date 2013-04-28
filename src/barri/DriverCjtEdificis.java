@@ -1,6 +1,5 @@
 package barri;
 
-import barri.Edifici.TipusEd;
 import barri.Habitatge.tipusHab;
 import barri.Negoci.tipusNegoci;
 import barri.Servei.tipusServei;
@@ -126,8 +125,7 @@ public class DriverCjtEdificis {
                             System.out.println("Driver de la classe Servei. ");
                             System.out.println("Crea un Servei.");
 
-                            System.out.println("Selecciona el tipus de negoci:");
-                            System.out.println("");
+                            System.out.println("Selecciona el tipus de servei:");
                             System.out.println("1. Bombers");
                             System.out.println("2. Centre cultural");
                             System.out.println("3. Escola");
@@ -271,10 +269,10 @@ public class DriverCjtEdificis {
                     nom = br.readLine();
                     if(ce.ExisteixEdifici(nom)) {
                         ce.EliminarEdifici(nom);
-                        System.out.print("L'edifici" + nom + "s'ha eliminat del conjunt.");
+                        System.out.print("L'edifici " + nom + " s'ha eliminat del conjunt.");
                     }
                     else{
-                        System.out.print("L'edifici" + nom + "no està al conjunt.");
+                        System.out.print("L'edifici " + nom + " no està al conjunt.");
                     }
                     break;
                 case 3:
@@ -289,7 +287,7 @@ public class DriverCjtEdificis {
                         System.out.print("Capacitat" + ed.ConsultarCapacitat());                           
                     }
                     else{
-                        System.out.print("L'edifici" + nom + "no està al conjunt.");
+                        System.out.print("L'edifici " + nom + " no està al conjunt.");
                     }
                     break;
                 case 4:
