@@ -25,10 +25,35 @@ public class CtrDomGeneral {
 	 else tipClas = Classes.Baixa;
 	 ctrBarri.CreaBarri(n,po,pr,c,tipClass,a,xx,yy);
   }
-  public void CrearRestriccio(){ // esperar nova clase restriccio
-  
+  public void CrearRestriccioAlsada(int alsada){ // esperar nova clase restriccio
+      ctrRestric.creaRestAlsada(alsada,null);
+  }
+  public void CrearRestriccioCost(int cost, boolean max) {
+      ctrRestric.creaRestCost(cost,max,null);
+  }
+  public void CrearRestriccioDistanciaCodi(){
+  }
+  public void CrearRestriccioDistanciaTipus(int dist, boolean max, String el1, String el2) {
+    Edifici e1 = ctrEdificis.GetEdifici(el1);
+    Edifici e2 = ctrEdificis.GetEdifici(el2);
+    if (e1!=null && e2!=null) {
+      ctrRestric.creaDistTipus(dist,max,e1,e2,null);
+    }
+  }
+  public void CreaRestriccioArea() {
   
   }
+  public void CreaRestriccioImpostos(int imp) {
+      ctrRestric.creaRestImpostos(imp,null);
+  }
+  public void CreaRestriccioManteniment(int cost) {
+      ctrRestric.creaRestManteniment(cost, null);
+  }
+  public void CreaRestriccioQuantitat(int quatitat,boolean max,String edifici) {
+      Edifici e = ctrEdificis.GetEdifici(edifici);
+      if(e!=null) ctrRestric.creaQuantitat(quantitat,max,e);
+  }
+      
   public void CreaHabitatge(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
      if (ctrEdificis.ExisteixEdifici(nom)) ;//error
      tipusHab k = StringHabtoEnum(tipus);
@@ -52,26 +77,60 @@ public class CtrDomGeneral {
 	      
 	 }
   }
-  public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
+  /* void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
 	 Edifici tmpEdifici = ctrEdificis.GetEdifici(nomEdifici);
-	 switch (atribut) {
-	      //valors del atribut
+	 if (atribut.equals("altura")){
+	    
+	 }
+	 else if(atribut.equals("capacitat")){
 	 
 	 }
-  }
-  public void ModificarRestriccio(String nomRestriccio,String atribut,String valor){
+	 else if(atribut.equals("clase")){
+	 
+	 }
+	 else {
+	    if (tmpEdifici instanceof Habitage) {
+		if(atribut.equals("impost")) {
+		
+		}
+		else if(atribut.equals("aparcament")){
+		
+		}
+	    }
+	    else if (tmpEdifici instanceof Negoci) {
+		if(atribut.equals("impost")) {
+		
+		}
+		else if(atribut.equals("aparcament")){
+		
+		}
+	    }
+	    else if (tmpEdifici instanceof Servei) {
+		if(atribut.equals("cost")){
+		}
+		else if(atribut.equals("manteniment"){
+		}
+		else if(atribut.equals("area influencia")){
+		}
+	    }
+	 }
+	 
+	 
+  }*/
+  public void ModificarRestriccio(int idRest,String atribut,String valor){
+      ctrRestric.ModificarRestriccio(int idRest,atribut,valor);
   }
   public void EliminarEdifici(String nomEdifici){
       if (ctrEdificis.GetEdifici(nomEdifici)== null) //error
       else ctrEdificis.EliminarEdifici(nomEdifici);
   }
   public void EliminarBarri(String nomBarri){
-  
+      ctrBarri.EliminarBarri(nomBarri);
   }
-  public void EliminarRestriccio(String nomRestriccio){
-  
+  public void EliminarRestriccio(int id){
+      ctrRestric.EliminarRestriccio(id);
   }
-  public void CarregarCatalegEdifici(){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
+  public void CarregarCatalegEdifici(String nomCataleg){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
   
   }
   public void CarregarCatalegRestriccio(String nomCataleg){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
@@ -81,10 +140,10 @@ public class CtrDomGeneral {
   
   }
   
-  public void AfegirEdifici(String nomBarri,String nomEdifici){//al barri
-	Edifici e = ctrEdificis.GetEdifici(nomEdifici);
-	Barri b = ctrBarri.GetBarri(nomBarri);
-	ctrBarri.AfegirEdifici(b,e);
+  public void AfegirEdifici(String nomBarri,String nomEdifici){//al barri FALTA FER UNA COPIA DEL EDIFICI
+	Edifici e = ctrEdificis.GetEdifici(nomEdifici).clone();//faig una copia
+	//Barri b = ctrBarri.GetBarri(nomBarri);
+	ctrBarri.AfegirEdifici(nomBarri,e);
 	
   }
   public void ImposarRestriccio(String nomBarri ,String nomRestriccio){
@@ -94,24 +153,39 @@ public class CtrDomGeneral {
 	
   }
   public void TreuEdifici(String nomBarri,String nomEdifici){
-  
+      ctrBarri.TreuEdifici(nomBarri,);
   }
-  public void TreuRestriccio(String nomBarri,String nomRestriccio){
-  
+  public void TreuRestriccio(String nomBarri,int idRestriccio){
+      ctrBarri.EliminarRestriccio(nomBarri,idRestriccio);
   }
-  public void GeneraBarri(String nomBarri){
-  
+  public void GeneraBarri(String nomBarri){//crida a backtraking
+      
   }
   
   private tipusHab StringHabtoEnum(String n) {
-      if (n.equals("Casa)
-      else if(n.equals("Pis"))
+      if (n.equals("Casa") return tipusHab.Casa;
+      else if(n.equals("Pis")) return tipusHab.Pis;
+      else if(n.equals("Mansio")) return tipusHab.Mansio;
+      else if(n.equals("Xalet")) return tipusHab.Xalet;
   }
   private tipusServei StringSertoEnum(String n) {
-  
+      if(n.equals("Hospital") return tipusServei.Hospital;
+      else if(n.equals("Escola")) return tipusServei.Escola;
+      else if(n.equals("Policia")) return tipusServei.Policia;
+      else if(n.equals("Preso")) return tipusServei.Preso;
+      else if(n.equals("Bombers")) return tipusServei.Bombers;
+      else if(n.equals("Parc")) return tipusServei.Parc;
+      else if(n.equals("Centre Cultural")) return tipusServei.Centre_Cultural;
   }
   private tipusNegoci StringNegtoEnum(String n) {
-  
+	if(n.equals("Discoteca") return tipusgoci.Discoteca;
+	else if(n.equals("Banc")) return tipusNegoci.Banc;
+	else if(n.equals("Bar")) return tipusNegoci.Bar;
+	else if(n.equals("Restaurant") return tipusNegoci.Restaurant;
+	else if(n.equals("Botiga alimentacio")) return tipusNegoci.Botiga_alimentacio;
+	else if(n.equals("Botiga roba")) return tipusNegoci.Botiga_roba;
+	else if(n.equals("Escola privada")) return tipusNegoci.Escola_privada;
+	else if(n.equals("Clinica"))  return tipusNegoci.Clinica;
   }
   
 }

@@ -29,15 +29,32 @@ public class CtrBarriDom {
     return cjtBarris.GetBarri(n);
   }
   public void AfegeixRestriccions(Barri b,Restriccio r) {
-    b.AfegeixRestriccio(r);
+      b.AfegeixRestriccio(r);
     
   }
   public void GuardarBarri(String n) {
     //crida controlador persistencia
     
   }
+  public void AfegirEdifici(Edifici e,String nomBarri) {
+      Barri b = ctrBarri.GetBarri(nomBarri);
+      if (b!=null) {
+	  b.carregaEdifici(e);
+      }
+  }
   public void GenerarBarri(String n){
       Barri barri = cjtBarris.GetBarri(n);
   }
-  
+  public void TreureEdifici(String nomBarri,String nomEdifici) {
+      Barri aux = ctrBarri.GetBarri(nomBarri);
+      if (aux!=null) {
+	  
+      }
+  }
+  public void TreureRestriccio(String nomBarri,int idRest) {
+      Barri aux = ctrBarri.GetBarri(nomBarri);
+      if (aux!=null) {
+	  aux.EliminarRestriccio(idRest);
+      }
+  }  
 }

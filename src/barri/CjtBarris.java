@@ -21,7 +21,7 @@ public class CjtBarris {
       }
     }
     
-    public Boolean ExisteixBarri(String nom){
+    public boolean ExisteixBarri(String nom){
       for (int i=0;i<cjtBarris.size();++i) {
 	  if (cjtBarris.get(i).consultarNom().equals(nom)) return true;
       }

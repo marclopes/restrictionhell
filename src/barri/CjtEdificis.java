@@ -37,7 +37,7 @@ public class CjtEdificis{
                 return null;
 	}
         
-        public boolean ExisteixEdifici(String nom){
+        public boolean ExisteixEdifici(String nom){	
                 for(Edifici e: conEd){
 			if(e.ConsultarNom().equals(nom)) return true;
 		}

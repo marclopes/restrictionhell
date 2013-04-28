@@ -39,7 +39,46 @@ public class CtrEdDom {
     Servei hab = new Servei(cost, manteniment, area, nom, codi, h, capacitat, tipus);
     cjtEd.AfegirEdifici(hab);   
   }
-  
+    public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
+	 Edifici tmpEdifici = cjtEd.ObtenirEdifici(nomEdifici);
+	 if (atribut.equals("altura")){
+	    tmpEdifici.ModificarH(Integer.parseInt(valor));
+	 }
+	 else if(atribut.equals("capacitat")){
+	    tmpEdifici.ModificarCapacitat(Integer.parseInt(valor))
+	 }
+	 else if(atribut.equals("clase")){
+	    
+	 }
+	 else {
+	    if (tmpEdifici instanceof Habitage) {
+		if(atribut.equals("impost")) {
+		
+		}
+		else if(atribut.equals("aparcament")){
+		
+		}
+	    }
+	    else if (tmpEdifici instanceof Negoci) {
+		if(atribut.equals("impost")) {
+		
+		}
+		else if(atribut.equals("aparcament")){
+		
+		}
+	    }
+	    else if (tmpEdifici instanceof Servei) {
+		if(atribut.equals("cost")){
+		}
+		else if(atribut.equals("manteniment"){
+		}
+		else if(atribut.equals("area influencia")){
+		}
+	    }
+	 }
+	 
+	 
+  }
   public void EliminarEdifici(String n) {
     cjtEd.EliminarEdifici(n);
   }
@@ -51,11 +90,14 @@ public class CtrEdDom {
   public Edifici GetEdifici(String n) {
     return cjtEd.ObtenirEdifici(n);
   }
+  
   public boolean ExisteixEdifici(String nom){
       cjtEd.ExisteixEdifici(nom);
   }
   public void GuardarEdifici(String n) {
     //crida controlador persistencia
   }
-  
+  private clase StringToClase(String c) {
+      if(c.equals("Alta
+  }
 }
