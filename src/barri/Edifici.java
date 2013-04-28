@@ -22,7 +22,7 @@ public abstract class Edifici extends Objecte {
 	
 	private int h;
 	private int capacitat;
-	private ArrayList<Classes> clases;
+	private ArrayList<Classes> clases = new ArrayList<Classes>();
 	
 	protected TipusEd tipusEd;
 	
@@ -92,7 +92,7 @@ public abstract class Edifici extends Objecte {
         * @return La llista de classes a les que pertany l'edifici.
         */
         
-	public List ConsultarClases(){
+	public ArrayList ConsultarClases(){
 		return this.clases;
 	}
 	
@@ -103,9 +103,11 @@ public abstract class Edifici extends Objecte {
         */
         
 	public boolean EtsClase(Classes c){
-		for(Classes clase: clases){
-			if(c.equals(clase)) return true;
-		}
+                if(this.clases != null){
+                    for(Classes clase: clases){
+                            if(c == clase) return true;
+                    }
+                }
 		return false;
 	}
 	
@@ -113,11 +115,9 @@ public abstract class Edifici extends Objecte {
         * Consultora del tipus de l'edifici.
         * @return El tipus de l'edifici
         */
-        //Podriem retornar un String del tipus????
 	public TipusEd consultarSubclasse() {
 		return this.tipusEd;
-	}
-	
+        }
 	
 	
 	/* MODIFICADORES */
@@ -146,8 +146,9 @@ public abstract class Edifici extends Objecte {
         */
         
         public void AfegirClase(Classes c){
-	    
-            this.clases.add(c);
+	    if (!this.EtsClase(c)){
+                this.clases.add(c);
+            }
         }
         
         /** 
@@ -156,12 +157,10 @@ public abstract class Edifici extends Objecte {
         */
         
         public void EliminarClase(Classes c){
-            for(Classes clase : clases){
-			if(c==clase){
-                            int i;
-                            i = this.clases.indexOf(clase);
-                            this.clases.remove(i);
-                        }
+            if(this.EtsClase(c)){
+                int i;
+                i = this.clases.indexOf(c);
+                this.clases.remove(i);
             }
         }
 	

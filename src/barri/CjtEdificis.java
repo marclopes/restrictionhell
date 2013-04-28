@@ -10,8 +10,7 @@ public class CjtEdificis{
 
 	private ArrayList<Edifici> conEd;
 	
-	public CjtEdificis() {	
-		conEd = new ArrayList<Edifici>();
+	CjtEdificis(){	
 	}
 	
 	//MILLORA: AFEGIR EN ORDRE  DE NOM
@@ -43,6 +42,13 @@ public class CjtEdificis{
 		}
                 return false;
         }
+        
+        public int obtenirPosicio(String nom) {
+                for(Edifici e: conEd){
+			if(e.ConsultarNom().equals(nom)) return this.conEd.indexOf(e);
+		}
+                return -1;
+	}
 	
         public int obtenirPosicio(Edifici e) {
 		return conEd.indexOf(e);
