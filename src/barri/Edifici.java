@@ -92,7 +92,7 @@ public abstract class Edifici extends Objecte {
         * @return La llista de classes a les que pertany l'edifici.
         */
         
-	public List ConsultarClases(){
+	public ArrayList ConsultarClases(){
 		return this.clases;
 	}
 	
@@ -104,7 +104,7 @@ public abstract class Edifici extends Objecte {
         
 	public boolean EtsClase(Classes c){
 		for(Classes clase: clases){
-			if(c.equals(clase)) return true;
+			if(c == clase) return true;
 		}
 		return false;
 	}
@@ -113,11 +113,9 @@ public abstract class Edifici extends Objecte {
         * Consultora del tipus de l'edifici.
         * @return El tipus de l'edifici
         */
-        //Podriem retornar un String del tipus????
 	public TipusEd consultarSubclasse() {
 		return this.tipusEd;
-	}
-	
+        }
 	
 	
 	/* MODIFICADORES */
@@ -146,8 +144,7 @@ public abstract class Edifici extends Objecte {
         */
         
         public void AfegirClase(Classes c){
-	    
-            this.clases.add(c);
+	    if (!this.EtsClase(c)) this.clases.add(c);
         }
         
         /** 
