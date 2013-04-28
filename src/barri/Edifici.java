@@ -22,7 +22,7 @@ public abstract class Edifici extends Objecte {
 	
 	private int h;
 	private int capacitat;
-	private ArrayList<Classes> clases;
+	private ArrayList<Classes> clases = new ArrayList<Classes>();
 	
 	protected TipusEd tipusEd;
 	
@@ -103,9 +103,11 @@ public abstract class Edifici extends Objecte {
         */
         
 	public boolean EtsClase(Classes c){
-		for(Classes clase: clases){
-			if(c == clase) return true;
-		}
+                if(this.clases != null){
+                    for(Classes clase: clases){
+                            if(c == clase) return true;
+                    }
+                }
 		return false;
 	}
 	
@@ -144,7 +146,9 @@ public abstract class Edifici extends Objecte {
         */
         
         public void AfegirClase(Classes c){
-	    if (!this.EtsClase(c)) this.clases.add(c);
+	    if (!this.EtsClase(c)){
+                this.clases.add(c);
+            }
         }
         
         /** 
@@ -153,12 +157,10 @@ public abstract class Edifici extends Objecte {
         */
         
         public void EliminarClase(Classes c){
-            for(Classes clase : clases){
-			if(c==clase){
-                            int i;
-                            i = this.clases.indexOf(clase);
-                            this.clases.remove(i);
-                        }
+            if(this.EtsClase(c)){
+                int i;
+                i = this.clases.indexOf(c);
+                this.clases.remove(i);
             }
         }
 	

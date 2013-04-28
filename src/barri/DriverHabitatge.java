@@ -1,10 +1,10 @@
 package barri;
 
+import barri.Habitatge.tipusHab;
 import barri.Edifici.Classes;
 import barri.Edifici.TipusEd;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import barri.Habitatge.tipusHab;
 import java.util.ArrayList;
 
 
@@ -123,12 +123,17 @@ public class DriverHabitatge{
                         case 5:
                             ArrayList<Classes> cl;
                             cl = hab.ConsultarClases();
-                            System.out.println("Aquest habitatge pertany a la/les clase/es:");
-                            System.out.println("");
-                            for(Classes clase: cl){
-                                if(clase == Classes.Alta){System.out.println("Alta");}
-                                if(clase == Classes.Mitja){System.out.println("Mitja");}
-                                if(clase == Classes.Baixa){System.out.println("Baixa");}
+                            if (cl != null){
+                                System.out.println("Aquest habitatge pertany a la/les clase/es:");
+                                System.out.println("");
+                                for(Classes clase: cl){
+                                    if(clase == Classes.Alta){System.out.println("Alta");}
+                                    if(clase == Classes.Mitja){System.out.println("Mitja");}
+                                    if(clase == Classes.Baixa){System.out.println("Baixa");}
+                                }
+                            }
+                            else{
+                                System.out.println("Aquest habitatge no pertany a cap classe.");
                             }
                             break;
                         case 6:
@@ -187,6 +192,7 @@ public class DriverHabitatge{
                             h = Integer.parseInt(in);
                             hab.ModificarH(h);
                             System.out.println("Nova alçada: " + h);
+                            break;
                         case 14:
                             System.out.println("Introdueix la nova capacitat:");
                             System.out.print("> ");
