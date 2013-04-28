@@ -51,7 +51,9 @@ public class CtrEdDom {
   public Edifici GetEdifici(String n) {
     return cjtEd.ObtenirEdifici(n);
   }
-  
+  public boolean ExisteixEdifici(String nom){
+      cjtEd.ExisteixEdifici(nom);
+  }
   public void GuardarEdifici(String n) {
     //crida controlador persistencia
   }

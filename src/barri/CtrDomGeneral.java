@@ -4,7 +4,7 @@ public class CtrDomGeneral {
 
   private static CtrDomGeneral ctrDomini= null;
   private CtrBarriDom ctrBarri;
-  private CtrDomEdificis ctrEdificis;
+  private CtrEdDom ctrEdificis;
   private CtrDomRestriccions ctrRestric;
   
   private CtrDomGeneral(){
@@ -25,14 +25,30 @@ public class CtrDomGeneral {
 	 ctrBarri.CreaBarri(n,po,pr,c,tipClass,a,xx,yy);
   }
   public void CrearRestriccio(){ // esperar nova clase restriccio
+  
+  
   }
-  public void CrearEdifici(String nom, int h, int capacitat,String clases,){
+  public void CreaHabitatge(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
+     if (ctrEdificis.ExisteixEdifici(nom)) ;//error
+     tipusHab k = StringHabtoEnum(tipus);
+     ctrEdificis.CreaHabitatge(impost,aparcament,nom,0,h,capacitat,k);
+     
+  }
+  public void CreaNegoci(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
+     if (ctrEdificis.ExisteixEdifici(nom)) ;//error;
+     tipusNegoci k = StringNegtoEnum(tipus);
+     ctrEdificis.CreaNegoci(impost,aparcament,nom,0,h,capacitat,k);
+  }
+  public void CreaServei(int cost, int manteniment, int area, String nom, int h, int capacitat, String tipus) {
+     if (ctrEdificis.ExisteixEdifici(nom)) ;//error;
+     tipusServei k = StringSertoEnum(tipus);
+     ctrEdificis.CreaServei(cost,manteniment,area,nom,0,h,capacitat,k);
   }
   public void ModificaBarri(String nomBarri,String atribut, String valor) {
 	 Barri tmpBarri = ctrBarri.GetBarri(nomBarri);
 	 switch (atribut) {
 	      //valors del atribut
-	 
+	      
 	 }
   }
   public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
@@ -45,28 +61,56 @@ public class CtrDomGeneral {
   public void ModificarRestriccio(String nomRestriccio,String atribut,String valor){
   }
   public void EliminarEdifici(String nomEdifici){
-	  
+      if (ctrEdificis.GetEdifici(nomEdifici)== null) //error
+      else ctrEdificis.EliminarEdifici(nomEdifici);
   }
   public void EliminarBarri(String nomBarri){
+  
   }
   public void EliminarRestriccio(String nomRestriccio){
+  
   }
   public void CarregarCatalegEdifici(){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
+  
   }
   public void CarregarCatalegRestriccio(String nomCataleg){// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
+  
   }
-  public void CarregarBarri(String nomBarri){ //binari barri
+  public void CarregarBarri(String nomBarri){ //binari barri.
+  
   }
   
   public void AfegirEdifici(String nomBarri,String nomEdifici){//al barri
+	Edifici e = ctrEdificis.GetEdifici(nomEdifici);
+	Barri b = ctrBarri.GetBarri(nomBarri);
+	ctrBarri.AfegirEdifici(b,e);
+	
   }
   public void ImposarRestriccio(String nomBarri ,String nomRestriccio){
+	Barri b = ctrBarri.GetBarri(nomBarri);
+	Restriccio r=//crida al ctrRestric
+	ctrBarri.AfegeixRestriccio(b,r);
+	
   }
   public void TreuEdifici(String nomBarri,String nomEdifici){
+  
   }
   public void TreuRestriccio(String nomBarri,String nomRestriccio){
+  
   }
   public void GeneraBarri(String nomBarri){
+  
+  }
+  
+  private tipusHab StringHabtoEnum(String n) {
+      if (n.equals("Casa)
+      else if(n.equals("Pis"))
+  }
+  private tipusServei StringSertoEnum(String n) {
+  
+  }
+  private tipusNegoci StringNegtoEnum(String n) {
+  
   }
   
 }
