@@ -2,14 +2,12 @@ package barri;
 
 import java.util.*;
 
-import projecte.Objecte;
-
 /**
  *
  * @author Edu
  */
 
-public class Edifici extends Objecte {
+public abstract class Edifici extends Objecte {
 	
 	public enum TipusEd {
 		HAB,
@@ -24,7 +22,7 @@ public class Edifici extends Objecte {
 	
 	private int h;
 	private int capacitat;
-	private List<Classes> clases;
+	private ArrayList<Classes> clases;
 	
 	protected TipusEd tipusEd;
 	
@@ -50,16 +48,7 @@ public class Edifici extends Objecte {
 		super.id = id;
 		this.h = h;
 		this.capacitat = capacitat;	
-	}
-	
-        /** 
-        * Crea una copia de l'edifici que es passa per paràmetre.
-        * @param e és l'edifici que volem copiar.
-        */
-        
-	public Edifici Copia (Edifici e) {
-		return new Edifici(this.nom, this.id, this.h, this.capacitat);
-	}
+        }
 	
 	/** 
         * Consultora del nom de l'edifici.
@@ -176,5 +165,4 @@ public class Edifici extends Objecte {
             }
         }
 	
-
 }

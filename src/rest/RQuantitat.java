@@ -2,34 +2,70 @@ package rest;
 
 import barri.CjtEdificis;
 import barri.Edifici;
+import barri.Habitatge;
+import barri.Negoci;
 import projecte.Restriccio;
 
-public class RQuantitat extends Restriccio{
+public class RQuantitat extends RestriccioBarris implements RMax{
+	
 	
 	int quant;
-	String tipusEdifici;
+	Edifici ed;
 	boolean max;
-	CjtEdificis ce;
+	//CjtEdificis ce;
+	
+	int q_act;
 
-	public RQuantitat(int ID, int q, Edifici e, boolean m, CjtEdificis ce) {
+	public RQuantitat(int ID, int q, Edifici e, boolean m) {
 		super(ID);
 		quant = q;
-		tipusEdifici = e.consultarTipus();
+		ed = e;
 		max = m;
-		this.ce = ce;
+		//this.ce = ce;
+		q_act = 0;
 	}
 
 	
 	public boolean CompleixRes() {
-		int cont = 0;
-		for (int i = 0; i < ce.tamany(); i++) {
-			if (ce.obtenirEdifici(i).consultarTipus().equals(tipusEdifici)) cont++;
-		}
+		if (max && quant < q_act) return false;
+		else if (!max && quant > q_act) return false;
 		
-		if (max && cont <= quant) return true;
-		if (!max && cont >= quant) return true;
+		return true;
 		
-		return false;
 	}
+	
+	public void incrementa() {
+		q_act++;
+	}
+	
+	public boolean esAquest(Edifici e) {
+		if (e.ConsultarNom().equals(ed.ConsultarNom())) return true;
+		else return false;
+	}
+	
+	public int consultarQuant() {
+		return quant;
+	}
+	
+	public void modificarQuant(int q) {
+		quant = q;
+	}
+	
+	public boolean esMax() {
+		return max;
+	}
+	
+	public void canviaMax(boolean m) {
+		max = m;
+	}
+	
+	public Edifici quinEdifici() {
+		return ed;
+	}
+	
+	public void assignaEdifici(Edifici e) {
+		ed = e;
+	}
+	
 
 }

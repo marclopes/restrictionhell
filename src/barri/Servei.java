@@ -124,5 +124,4 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
 		tipus = t;
 	}
         
-
 }

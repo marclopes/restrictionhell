@@ -16,7 +16,7 @@ public abstract class Restriccio {
         int id;
         boolean compleix;
         
-        TipusRest tr;
+        //protected TipusRest tr;
         
         //protected static Espai e;
         
@@ -26,7 +26,7 @@ public abstract class Restriccio {
         * Crea una instancia de la classe Restriccio.
         * @param ID Es l'identificador associat a la restriccoi que acabem de crear. 
         */
-	public Restriccio(int ID, ){
+	public Restriccio(int ID){
 		id = ID;
 	}
         //Metodes

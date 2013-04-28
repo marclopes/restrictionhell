@@ -6,6 +6,9 @@ import java.util.List;
 
 import projecte.CjtRestriccions;
 import projecte.Restriccio;
+import rest.RCjtEd;
+import rest.REspai;
+import rest.RestriccioBarris;
 import rest.TipusRest;
 
 public class Barri implements Serializable {
@@ -15,7 +18,7 @@ public class Barri implements Serializable {
         Classes classe;
 	
 	private Espai espai;
-	private ArrayList<Restriccio> lRestriccions;
+	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
 	
 	public Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
@@ -29,7 +32,7 @@ public class Barri implements Serializable {
 		y = yy;
 		
 		espai = new Espai(x, y);
-		lRestriccions = new ArrayList<Restriccio>();
+		lRestriccions = new ArrayList<RestriccioBarris>();
 		lEdificis = new CjtEdificis();
 		
 		
@@ -51,15 +54,18 @@ public class Barri implements Serializable {
 	}
 	
 	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
-			espai.InsertarElement(new Illa(e), id, a, b);
+		espai.InsertarElement(new Illa(e), id, a, b);
 	}
 	
-        public void AfegeixRestriccio(Restriccio r){
-            lRestriccions.AfegirRes(r);
-        }
+    public void AfegeixRestriccio(RestriccioBarris r){
+    	if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
+    	else if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
+    	
+    	lRestriccions.add(r);
+    }
         
 	public boolean comprovarRestriccions() {
-		return lRestriccions.ComprovarRes();
+		return true;
 		
 	}
 	
@@ -120,7 +126,7 @@ public class Barri implements Serializable {
 	public void modificarX(int x) {
 		this.x = x;
 	}
-
+ 
 	public int consultarY() {
 		return y;
 	}
@@ -129,12 +135,24 @@ public class Barri implements Serializable {
 		this.y = y;
 	}
 	
+	public Edifici consultarEdifici(int x, int y) {
+		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());
+	}
 	
 	
-	void back(int n, int x, int y) {		
+	
+	void preparaBack() {
 		
-		for (int i = n; i < lEdificis.tamany(); i++) {
-			espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
+	}
+	
+	
+	
+	
+	void back(int id, int x, int y) {		
+		
+		for (int i = 0; i < lEdificis.tamany(); i++) {
+			//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
+			this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
 			
 			if (legal()) {
 				if (x == this.x) {
@@ -142,7 +160,7 @@ public class Barri implements Serializable {
 					y++;
 				}
 				
-				back(n+1, x+1, y);
+				back(id+1, x+1, y);
 			}
 			
 			
@@ -155,11 +173,16 @@ public class Barri implements Serializable {
 	boolean legal() {
 		boolean comp = true;
 		for (int i = 0; i < lRestriccions.size(); i++) {
-			TipusRest tr = lRestriccions.get(i).tipus();
+			TipusRest tr = lRestriccions.get(i).obteTipus();
 			if (tr == TipusRest.DISTCODI || tr == TipusRest.DISTTIPUS || tr == TipusRest.INFUENCIA) {
 				comp = (comp && lRestriccions.get(i).CompleixRes());
+				
+				if (!comp) return false;
 			}
 		}
+		return comp;
+		
+		
 	}
 	
 	

@@ -3,7 +3,7 @@ package rest;
 import barri.CjtEdificis;
 import projecte.Restriccio;
 
-public class RManteniment extends Restriccio {
+public class RManteniment extends RestriccioBarris implements RCjtEd{
 	
 	int costBarri;
 	CjtEdificis ce;
@@ -14,12 +14,26 @@ public class RManteniment extends Restriccio {
 		id = ID;
 		costBarri = cb;
 		this.ce = ce;
+		super.tr = TipusRest.MANTENIMENT;
 	}
 
 	
 	public boolean CompleixRes() {
 		return new RImpostos(id, costBarri, ce).CompleixRes();
 		
+	}
+	
+	public int consultarCostBarri() {
+		return costBarri;
+	}
+	
+	public void modificarCostBArri(int cb) {
+		costBarri = cb;
+	}
+	
+	
+	public void assignaCe(CjtEdificis ce) {
+		this.ce = ce;
 	}
 
 }
