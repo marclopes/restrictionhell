@@ -13,7 +13,7 @@ public class CtrDomGeneral {
     ctrEdificis = CtrDomEdificis.GetInstancia();
     ctrRestric = CtrDomRestriccions.GetInstancia();
   }
-  public CtrDomGeneral GetInstancia() {
+  public static CtrDomGeneral GetInstancia() {
     if ( ctrDomini== null ) ctrDomini = new CtrBarriDom();
     return ctrDomini;
   }
@@ -80,7 +80,6 @@ public class CtrDomGeneral {
   }
   public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
 	 ctrEdificis.ModificarEdifici(nomEdifici,atribut ,valor );
-	 
   }
   public void ModificarRestriccio(int idRest,String atribut,String valor){
       ctrRestric.ModificarRestriccio(int idRest,atribut,valor);

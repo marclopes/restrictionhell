@@ -20,7 +20,7 @@ public class CtrEdDom {
   private CtrEdDom () {
   }
   
-  public CtrEdDom GetInstancia() {
+  public static CtrEdDom GetInstancia() {
     if ( ctrEd== null ) ctrEd = new CtrEdDom();
     return ctrEd;
   }
@@ -48,31 +48,36 @@ public class CtrEdDom {
 	    tmpEdifici.ModificarCapacitat(Integer.parseInt(valor))
 	 }
 	 else if(atribut.equals("clase")){
+	    clase k = StringToClase(valor);
+	    tmpEdifici.AfegirClase(k);
 	    
 	 }
 	 else {
 	    if (tmpEdifici instanceof Habitage) {
 		if(atribut.equals("impost")) {
-		
+		    tmpEdifici.ModificarImpost(Integer.parseInt(valor));
 		}
 		else if(atribut.equals("aparcament")){
-		
+		    tmpEdifici.ModificarAparcament(Integer.parseInt(valor));
 		}
 	    }
 	    else if (tmpEdifici instanceof Negoci) {
 		if(atribut.equals("impost")) {
-		
+		    tmpEdifici.ModificarImpost(Integer.parseInt(valor));
 		}
 		else if(atribut.equals("aparcament")){
-		
+		     tmpEdifici.ModificarAparcament(Integer.parseInt(valor));
 		}
 	    }
 	    else if (tmpEdifici instanceof Servei) {
 		if(atribut.equals("cost")){
+		    tmpEdifici.ModificarCost(Integer.parseInt(valor));
 		}
 		else if(atribut.equals("manteniment"){
+		    tmpEdifici.ModificarManteniment(Integer.parseInt(valor));
 		}
 		else if(atribut.equals("area influencia")){
+		    tmpEdifici.ModificarAreaInfluencia(Integer.parseInt(valor));
 		}
 	    }
 	 }
@@ -97,7 +102,10 @@ public class CtrEdDom {
   public void GuardarEdifici(String n) {
     //crida controlador persistencia
   }
+  
   private clase StringToClase(String c) {
-      if(c.equals("Alta
+      if(c.equals("Alta")) return clase.Alta;
+      else if(c.equals("Mitja")) return clase.Mitja;
+      else return clase.Baixa;
   }
 }

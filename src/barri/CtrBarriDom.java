@@ -13,7 +13,7 @@ public class CtrBarriDom {
   
   private CtrBarriDom () {
   }
-  public CtrBarriDom GetInstancia() {
+  public static CtrBarriDom GetInstancia() {
     if ( ctrBarri== null ) ctrBarri = new CtrBarriDom();
     return ctrBarri;
   }

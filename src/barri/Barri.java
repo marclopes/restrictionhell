@@ -20,7 +20,6 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
-	private lastID;
 	public Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
 		this.nom = n;
 		this.poblacio = po;
@@ -130,18 +129,22 @@ public class Barri implements Serializable {
 		return x;
 	}
 
-	public void modificarX(int x) {
+	/*public void modificarX(int x) {
 		this.x = x;
-	}
+	}*/
  
 	public int consultarY() {
 		return y;
 	}
 
-	public void modificarY(int y) {
+	/*public void modificarY(int y) {
 		this.y = y;
+	}*/
+	public void ModificarXY(int x,int y) {
+	    this.x=x;
+	    this.y=y;
+	    espai = new Espai(x,y);
 	}
-	
 	public Edifici consultarEdifici(int x, int y) {
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());
 	}
