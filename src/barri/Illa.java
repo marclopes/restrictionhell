@@ -1,9 +1,5 @@
 package barri;
-
-/**
- *
- * @author Edu
- */
+import java.util.*;
 
 public class Illa{
 
@@ -44,11 +40,4 @@ public class Illa{
 		return this.edifici;
 	}
 
-        /** 
-        * Consulta si l'illa es buida 
-        * @return cert si l'illa conté un edifici
-	*/
-        public boolean Empty(){
-		return (this.edifici == null);
-	}
 }

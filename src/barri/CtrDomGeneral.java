@@ -32,6 +32,7 @@ public class CtrDomGeneral {
       ctrRestric.creaRestCost(cost,max,null);
   }
   public void CrearRestriccioDistanciaCodi(){
+  
   }
   public void CrearRestriccioDistanciaTipus(int dist, boolean max, String el1, String el2) {
     Edifici e1 = ctrEdificis.GetEdifici(el1);
@@ -77,46 +78,10 @@ public class CtrDomGeneral {
 	      
 	 }
   }
-  /* void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
-	 Edifici tmpEdifici = ctrEdificis.GetEdifici(nomEdifici);
-	 if (atribut.equals("altura")){
-	    
-	 }
-	 else if(atribut.equals("capacitat")){
+  public void ModificarEdifici(String nomEdifici,String atribut ,String valor ){
+	 ctrEdificis.ModificarEdifici(nomEdifici,atribut ,valor );
 	 
-	 }
-	 else if(atribut.equals("clase")){
-	 
-	 }
-	 else {
-	    if (tmpEdifici instanceof Habitage) {
-		if(atribut.equals("impost")) {
-		
-		}
-		else if(atribut.equals("aparcament")){
-		
-		}
-	    }
-	    else if (tmpEdifici instanceof Negoci) {
-		if(atribut.equals("impost")) {
-		
-		}
-		else if(atribut.equals("aparcament")){
-		
-		}
-	    }
-	    else if (tmpEdifici instanceof Servei) {
-		if(atribut.equals("cost")){
-		}
-		else if(atribut.equals("manteniment"){
-		}
-		else if(atribut.equals("area influencia")){
-		}
-	    }
-	 }
-	 
-	 
-  }*/
+  }
   public void ModificarRestriccio(int idRest,String atribut,String valor){
       ctrRestric.ModificarRestriccio(int idRest,atribut,valor);
   }
