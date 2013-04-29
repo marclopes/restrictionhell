@@ -22,6 +22,9 @@ public class RDistCodi extends RDistancia {
 		int x1, y1, x2, y2;
 		
 		try {
+			
+			if (!(e.ExisteixElement(el1) || e.ExisteixElement(el2))) return true;
+			
 			x1 = e.ConsultarPosx(el1);
 			y1 = e.ConsultarPosy(el1);
 			x2 = e.ConsultarPosx(el2);

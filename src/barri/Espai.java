@@ -86,7 +86,8 @@ public class Espai {
 
 
   public boolean ExisteixElementxy(int a,int b) {
-      Dades aux =(Dades) matriuElements[a][b];
+	  Dades aux;
+      if ((aux = (Dades) matriuElements[a][b]) == null) return false;
       if (referencies.get(aux.id)==null) return false;
       else return true;
 	
@@ -128,6 +129,14 @@ public class Espai {
   public Object ConsultarElementxy (int a,int b) {
       Dades aux =(Dades) matriuElements[a][b];
       return aux.elem;
+  }
+  
+  public int obteX() {
+	  return matriuElements.length;
+  }
+  
+  public int obteY() {
+	  return matriuElements[0].length;
   }
 
 }

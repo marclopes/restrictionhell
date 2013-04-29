@@ -9,6 +9,8 @@ import barri.Espai;
 import barri.CjtEdificis;
 import barri.Habitatge;
 import barri.Negoci;
+import barri.Servei;
+import barri.Servei.tipusServei;
 
 
 
@@ -97,7 +99,18 @@ public class DriverRest {
 			
 			
 		case 3:
-			distcodi();
+			System.out.println("Distancia:");
+			try {
+				n = Integer.parseInt(br.readLine());
+			} catch (NumberFormatException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			
+			distcodi(n);
 			break;
 			
 	
@@ -267,7 +280,7 @@ public class DriverRest {
 			else ce.AfegirEdifici(neg);
 		}
 		
-		RQuantitat ra = new RQuantitat(1, q, hab, true, ce);
+		RQuantitat ra = new RQuantitat(1, q, hab, true);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -282,7 +295,7 @@ public class DriverRest {
 			else ce.AfegirEdifici(neg);
 		}
 		
-		ra = new RQuantitat(1, q, hab, true, ce);
+		ra = new RQuantitat(1, q, hab, true);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -300,7 +313,7 @@ public class DriverRest {
 			else ce.AfegirEdifici(neg);
 		}
 		
-		ra = new RQuantitat(1, q, hab, false, ce);
+		ra = new RQuantitat(1, q, hab, false);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -315,7 +328,7 @@ public class DriverRest {
 			else ce.AfegirEdifici(neg);
 		}
 		
-		ra = new RQuantitat(1, q, hab, false, ce);
+		ra = new RQuantitat(1, q, hab, false);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -420,7 +433,7 @@ public class DriverRest {
 	private void distipus(int dist) {
 		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
 		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
-		Negoci n2 = new Negoci(2, 1, "n2", 2, 1, 1, Negoci.tipusNegoci.Banc);
+		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.tipusNegoci.Banc);
 		
 		Espai e = new Espai(10, 10);
 		// COMPROVEM QUE ES COMPLEIXEN...
@@ -504,14 +517,131 @@ public class DriverRest {
 	}
 
 
-	private void distcodi() {
-		// TODO Auto-generated method stub
+	private void distcodi(int dist) {
+		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
+		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
+		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.tipusNegoci.Banc);
+		
+		Espai e = new Espai(10, 10);
+		// COMPROVEM QUE ES COMPLEIXEN...
+		System.out.println("Comprovem que es compleixen...");
+		for (int i = 0; i < 100; i++) {
+			int x = i/10;
+			int y = i%10;
+			//MAX
+			if (x == 0 && y == 0) {
+				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
+				e.InsertarElement(n1, 1, x, y);
+				
+			} else if (x == dist/2 && y == dist/2+dist%2-1) {
+				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
+				e.InsertarElement(n1, 2, x, y);
+			//MIN	
+			} else if (x == 9 && y == 9) {
+				System.out.println("Posant edifici " + n2.ConsultarNom() + " Pos: " + x + ", " + y);
+				e.InsertarElement(n2, 3, x, y);
+				
+			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2-1) {
+				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
+				e.InsertarElement(n2, 4, x, y);
+				
+			} else {
+				e.InsertarElement(h, 4, x, y);
+			}
+			
+		}
+		
+		RDistCodi rdtM = new RDistCodi(1, dist, true, n1.ConsultarCodi(), n1.ConsultarCodi(), e);
+		RDistCodi rdtm = new RDistCodi(1, dist, false, n2.ConsultarCodi(), n2.ConsultarCodi(), e);
+		
+		if (rdtM.CompleixRes() && rdtm.CompleixRes()) System.out.println("Yeah");
+		else System.out.println("Naaah");	
+		
+		//-------------------------------
+		
+		e = new Espai(10, 10);
+		// COMPROVEM QUE NO ES COMPLEIXEN...
+		System.out.println("Comprovem que NO es compleixen...");
+		for (int i = 0; i < 100; i++) {
+			int x = i/10;
+			int y = i%10;
+			//MAX
+			if (x == 0 && y == 0) {
+				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
+				e.InsertarElement(n1, 1, x, y);
+				
+			} else if (x == dist/2 && y == dist/2+dist%2+1) {
+				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
+				e.InsertarElement(n1, 2, x, y);
+			//MIN	
+			} else if (x == 9 && y == 9) {
+				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
+				e.InsertarElement(n2, 3, x, y);
+				
+			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2+1) {
+				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
+				e.InsertarElement(n2, 4, x, y);
+				
+			} else {
+				e.InsertarElement(h, 4, x, y);
+			}
+			
+		}
+		
+
+		rdtM = new RDistCodi(1, dist, true, n1.ConsultarCodi(), n1.ConsultarCodi(), e);
+		rdtm = new RDistCodi(1, dist, false, n2.ConsultarCodi(), n2.ConsultarCodi(), e);
+		
+		/**
+		if (rdtM.CompleixRes() || rdtm.CompleixRes()) System.out.println("Yeah");
+		else System.out.println("Naaah");	
+		**/
+		
+		if (rdtM.CompleixRes()) System.out.println("Yeah");
+		else System.out.println("Naaah");
+		if (rdtm.CompleixRes()) System.out.println("Yeah");
+		else System.out.println("Naaah");
+		
+	
 		
 	}
 
 
-	private void cost() {
-		// TODO Auto-generated method stub
+	private void cost(int co) {
+		Servei s = new Servei(co/5, 0, 0, "ser", 1, 1, 1, tipusServei.Bombers);
+		// PROVANT COMPLEIX...
+		int acum = 0;
+		CjtEdificis ce = new CjtEdificis();
+		int i;
+		for (i = 0; i < 5; i++) {
+			acum = acum + s.ConsultarCost();
+			ce.AfegirEdifici(s);
+		}
+		System.out.println("Afegint edificis amb cost totals: " + acum);
+		
+		// hauria de complir!
+		RCost ra = new RCost(1, co, true, ce);
+		boolean compleix = ra.CompleixRes();
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");		
+		
+		
+		// PROVANT NO COMPLEIX...
+		
+		ce = new CjtEdificis();
+		for (i = 0; i < im-2; i++) {
+			if (i%2 == 0) ce.AfegirEdifici(h);
+			else ce.AfegirEdifici(n);
+		}
+		System.out.println("Afegint edificis amb impostos totals: " + i);
+		
+		// hauria de complir!
+		ra = new RManteniment(1, im, ce);
+		compleix = ra.CompleixRes();
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");	
 		
 	}
 

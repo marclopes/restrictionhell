@@ -8,6 +8,7 @@ import projecte.CjtRestriccions;
 import projecte.Restriccio;
 import rest.RCjtEd;
 import rest.REspai;
+import rest.RQuantitat;
 import rest.RestriccioBarris;
 import rest.TipusRest;
 
@@ -15,7 +16,7 @@ public class Barri implements Serializable {
 
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, aparcament;
-        Classes classe;
+    private Classes classe;
 	
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
@@ -136,6 +137,7 @@ public class Barri implements Serializable {
 	}
 	
 	public Edifici consultarEdifici(int x, int y) {
+		if (espai.ExisteixElementxy(x, y) == false) return null;
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());
 	}
 	
@@ -152,9 +154,10 @@ public class Barri implements Serializable {
 		
 		for (int i = 0; i < lEdificis.tamany(); i++) {
 			//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
+			lEdificis.obtenirEdifici(i).ModificarId(id);
 			this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
 			
-			if (legal()) {
+			if (legal(lEdificis.obtenirEdifici(i))) {
 				if (x == this.x) {
 					x = -1;
 					y++;
@@ -170,7 +173,7 @@ public class Barri implements Serializable {
 		
 	}
 	
-	boolean legal() {
+	boolean legal(Edifici ed) {
 		boolean comp = true;
 		for (int i = 0; i < lRestriccions.size(); i++) {
 			TipusRest tr = lRestriccions.get(i).obteTipus();
@@ -178,6 +181,14 @@ public class Barri implements Serializable {
 				comp = (comp && lRestriccions.get(i).CompleixRes());
 				
 				if (!comp) return false;
+			}
+			
+			if (tr == TipusRest.QUANTITAT) {
+				RQuantitat raux = ((RQuantitat) lRestriccions.get(i));
+				if (raux.esAquest(ed)) {
+					raux.incrementa();
+				}
+				
 			}
 		}
 		return comp;
