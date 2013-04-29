@@ -1,6 +1,5 @@
-package barri;
 
-import barri.Edifici.TipusEd;
+
 
 /**
  *

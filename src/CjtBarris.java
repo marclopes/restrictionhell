@@ -1,6 +1,5 @@
-package barri;
+import java.util.ArrayList;
 
-import java.util.*;
 
 public class CjtBarris {
     private ArrayList<Barri> cjtBarris;

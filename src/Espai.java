@@ -1,8 +1,6 @@
-package barri;
 
 
-import java.util.*;
-import java.lang.Object;
+import java.util.Hashtable;
 /**
  *
  *

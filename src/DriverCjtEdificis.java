@@ -1,8 +1,6 @@
-package barri;
 
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 

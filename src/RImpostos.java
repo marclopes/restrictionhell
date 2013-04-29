@@ -1,11 +1,4 @@
-package rest;
 
-import barri.CjtEdificis;
-import barri.Edifici;
-import barri.Habitatge;
-import barri.Negoci;
-import barri.Edifici.TipusEd;
-import projecte.Restriccio;
 
 public class RImpostos extends RestriccioBarris implements RCjtEd{
 	

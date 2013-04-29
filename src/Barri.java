@@ -1,16 +1,6 @@
-package barri;
-import barri.Edifici.Classes;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-import projecte.CjtRestriccions;
-import projecte.Restriccio;
-import rest.RCjtEd;
-import rest.REspai;
-import rest.RQuantitat;
-import rest.RestriccioBarris;
-import rest.TipusRest;
+import com.sun.tools.internal.jxc.gen.config.Classes;
 
 public class Barri implements Serializable {
 

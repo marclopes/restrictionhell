@@ -1,10 +1,3 @@
-package rest;
-
-import barri.CjtEdificis;
-import barri.Edifici;
-import barri.Habitatge;
-import barri.Negoci;
-import projecte.Restriccio;
 
 public class RQuantitat extends RestriccioBarris implements RMax{
 	

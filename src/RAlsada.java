@@ -1,7 +1,4 @@
-package rest;
 
-import barri.CjtEdificis;
-import barri.Espai;
 
 public class RAlsada extends RestriccioBarris implements RCjtEd{
 	

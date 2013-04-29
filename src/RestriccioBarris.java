@@ -1,6 +1,3 @@
-package rest;
-
-import projecte.Restriccio;
 
 public abstract class RestriccioBarris extends Restriccio {
 	public class Pos {

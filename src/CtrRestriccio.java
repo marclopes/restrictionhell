@@ -1,21 +1,6 @@
-package barri;
+
 
 import java.util.ArrayList;
-
-import rest.RAlsada;
-import rest.RCjtEd;
-import rest.RCost;
-import rest.RDistCodi;
-import rest.RDistTipus;
-import rest.RDistancia;
-import rest.REspai;
-import rest.RImpostos;
-import rest.RInfluencia;
-import rest.RManteniment;
-import rest.RMax;
-import rest.RQuantitat;
-import rest.RestriccioBarris;
-import rest.TipusRest;
 
 public class CtrRestriccio {
 	

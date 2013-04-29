@@ -1,16 +1,7 @@
-package rest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import projecte.CjtRestriccions;
-import barri.Espai;
-import barri.CjtEdificis;
-import barri.Habitatge;
-import barri.Negoci;
-import barri.Servei;
-import barri.Servei.tipusServei;
 
 
 

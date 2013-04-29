@@ -1,4 +1,3 @@
-package rest;
 
 public interface RMax {
 	public boolean esMax();

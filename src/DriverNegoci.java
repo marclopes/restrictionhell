@@ -1,8 +1,6 @@
-package barri;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import barri.Negoci.tipusNegoci;
 
 
 public class DriverNegoci{

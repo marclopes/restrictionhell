@@ -1,15 +1,5 @@
-package rest;
 
 import java.util.ArrayList;
-
-import barri.Edifici;
-import barri.Edifici.TipusEd;
-import barri.Espai;
-import barri.Espai.Pos;
-import barri.Habitatge.tipusHab;
-import barri.Servei;
-import barri.Servei.tipusServei;
-import projecte.Restriccio;
 
 public class RInfluencia extends RDistancia implements REspai{
 

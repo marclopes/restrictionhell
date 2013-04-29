@@ -1,6 +1,4 @@
-package rest;
-import barri.Illa;
-import barri.Espai;
+
 
 
 public class RDistCodi extends RDistancia {

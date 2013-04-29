@@ -1,7 +1,5 @@
-package rest;
 
-import barri.Espai;
-import projecte.Restriccio;
+
 
 public abstract class RDistancia extends RestriccioBarris implements RMax, REspai{
 

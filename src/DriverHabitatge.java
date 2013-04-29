@@ -1,11 +1,10 @@
-package barri;
 
-import barri.Habitatge.tipusHab;
-import barri.Edifici.Classes;
-import barri.Edifici.TipusEd;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+
+
 
 
 public class DriverHabitatge{
@@ -14,7 +13,7 @@ public class DriverHabitatge{
 		
                 String in, nom;
                 int codi, h, cap, imp, apc, tip, c;
-                tipusHab t = null;
+                TipusHab t = null;
                 boolean opcio;
             
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

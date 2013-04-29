@@ -1,16 +1,7 @@
-package barri;
-
-import rest.RDistCodi;
-import rest.RDistTipus;
-import rest.RInfluencia;
-import rest.RQuantitat;
-import barri.Edifici.Classes;
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+import Habitatge.tipusHab;
 
 public class Main {
-	Habitatge h1 = new Habitatge(100, 5, "hp", 1, 1, 100, tipusHab.Casa);
+	Habitatge h1 = new Habitatge(100, 5, "hp", 1, 1, 100, tipusHab.Pis);
 	Habitatge h2 = new Habitatge(200, 10, "hm", 2, 2, 200, tipusHab.Pis);
 	Habitatge h3 = new Habitatge(300, 15, "hg", 3, 3, 300, tipusHab.Pis);
 	//Habitatge h1 = new Habitatge(impost, aparcament, nom, codi, h, capacitat, t);

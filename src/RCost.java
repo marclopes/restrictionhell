@@ -1,10 +1,4 @@
-package rest;
 
-import barri.CjtEdificis;
-import barri.Edifici;
-import barri.Servei;
-import barri.Edifici.TipusEd;
-import projecte.Restriccio;
 
 
 public class RCost extends RestriccioBarris implements RMax, RCjtEd{

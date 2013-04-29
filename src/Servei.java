@@ -1,7 +1,3 @@
-package barri;
-import java.util.*;
-
-import barri.Edifici.TipusEd;
 
 /**
  *

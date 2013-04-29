@@ -1,7 +1,5 @@
-package barri;
+import com.sun.tools.internal.jxc.gen.config.Classes;
 
-import barri.Edifici.Classes;
-import projecte.Restriccio;
 
 public class CtrBarriDom {
 

@@ -4,7 +4,6 @@
  */
 package barri;
 
-import barri.Servei.tipusServei;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 

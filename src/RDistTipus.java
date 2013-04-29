@@ -1,14 +1,5 @@
-package rest;
 
 import java.util.ArrayList;
-
-import rest.RestriccioBarris.Pos;
-
-import barri.Edifici;
-import barri.Espai;
-import barri.Habitatge;
-import barri.Negoci;
-import barri.Illa;
 
 public class RDistTipus extends RDistancia {
 	private Edifici e1, e2;

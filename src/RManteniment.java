@@ -1,7 +1,3 @@
-package rest;
-
-import barri.CjtEdificis;
-import projecte.Restriccio;
 
 public class RManteniment extends RestriccioBarris implements RCjtEd{
 	
