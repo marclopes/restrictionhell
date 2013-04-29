@@ -1,6 +1,6 @@
 package barri;
-import com.sun.tools.internal.jxc.gen.config.Classes;
 
+import barri.Edifici.Classes;
 
 public class CtrBarriDom {
 
@@ -27,9 +27,9 @@ public class CtrBarriDom {
   public Barri GetBarri(String n) {
     return cjtBarris.GetBarri(n);
   }
-  public void AfegeixRestriccions(Barri b,Restriccio r) {
-      b.AfegeixRestriccio(r);
-    
+  public void AfegeixRestriccions(String nomBarri,RestriccioBarris r) {
+      Barri b = ctrBarri.GetBarri(nomBarri);
+      b.AfegeixRestriccio(r);    
   }
   public void GuardarBarri(String n) {
     //crida controlador persistencia
