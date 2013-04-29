@@ -21,7 +21,6 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
-	
 	public Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
 		this.nom = n;
 		this.poblacio = po;
@@ -31,7 +30,6 @@ public class Barri implements Serializable {
 		this.aparcament = a;
 		x = xx;
 		y = yy;
-		
 		espai = new Espai(x, y);
 		lRestriccions = new ArrayList<RestriccioBarris>();
 		lEdificis = new CjtEdificis();
@@ -48,7 +46,7 @@ public class Barri implements Serializable {
 		lEdificis.EliminarEdifici(e);
 	}
 	
-	public void carregaLlista(List<Edifici> l) {
+	public void carregaLlista(ArrayList<Edifici> l) {
 		for(Edifici e: l) {
 			carregaEdifici(e);
 		}
@@ -57,14 +55,22 @@ public class Barri implements Serializable {
 	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
 		espai.InsertarElement(new Illa(e), id, a, b);
 	}
-	
-    public void AfegeixRestriccio(RestriccioBarris r){
-    	if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
-    	else if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
-    	
-    	lRestriccions.add(r);
-    }
+	    
+	public void AfegeixRestriccio(RestriccioBarris r){
+	    if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
+	    else if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
+	    
+	    lRestriccions.add(r);
+	}
+        public void EliminarRestriccio(int id) {
+	    for(int i=0;i<lRestriccions.size();++i) {
+		if(lRestriccions.get(i).ObtenirId()==id) {
+		    lRestriccions.remove(i);
+		    break;
+		}
+	    }
         
+        }
 	public boolean comprovarRestriccions() {
 		return true;
 		
@@ -124,18 +130,22 @@ public class Barri implements Serializable {
 		return x;
 	}
 
-	public void modificarX(int x) {
+	/*public void modificarX(int x) {
 		this.x = x;
-	}
+	}*/
  
 	public int consultarY() {
 		return y;
 	}
 
-	public void modificarY(int y) {
+	/*public void modificarY(int y) {
 		this.y = y;
+	}*/
+	public void ModificarXY(int x,int y) {
+	    this.x=x;
+	    this.y=y;
+	    espai = new Espai(x,y);
 	}
-	
 	public Edifici consultarEdifici(int x, int y) {
 		if (espai.ExisteixElementxy(x, y) == false) return null;
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());

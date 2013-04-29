@@ -22,7 +22,7 @@ public class Espai {
   private Object matriuElements[][];
   private Hashtable<Integer,Pos> referencies;
   
-     /**
+ /**
         * Crea una instancia de la clase sense inicialitzar 
  */  
   public Espai(){}
