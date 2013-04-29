@@ -4,7 +4,7 @@ package barri;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.sun.tools.internal.jxc.gen.config.Classes;
+import barri.Edifici.Classes;;
 
 public class Barri implements Serializable {
 
@@ -15,12 +15,14 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
-	public Barri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
+	
+	
+	public Barri(String n, int po, int pr, int c, Classes mitja, int a, int xx, int yy) {
 		this.nom = n;
 		this.poblacio = po;
 		this.pressupost = pr;
 		this.cost_m = c;
-		this.classe = cl;
+		this.classe = mitja;
 		this.aparcament = a;
 		x = xx;
 		y = yy;
@@ -154,26 +156,29 @@ public class Barri implements Serializable {
 	
 	
 	
-	void back(int id, int x, int y) {		
-		
-		for (int i = 0; i < lEdificis.tamany(); i++) {
-			//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
-			lEdificis.obtenirEdifici(i).ModificarId(id);
-			this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
+	void back(int id, int x, int y) {	
+		if (id < (this.x * this.y)) {
+			System.out.println("BAAAACK "+ id  + " "+ x + ", " + y);
 			
-			if (legal(lEdificis.obtenirEdifici(i))) {
-				if (x == this.x) {
-					x = -1;
-					y++;
+			for (int i = 0; i < lEdificis.tamany(); i++) {
+				//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
+				lEdificis.obtenirEdifici(i).ModificarId(id);
+				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
+			
+				System.out.println("afegir: " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
+			
+				//if (x == 14 && y == 14) continue;
+				if (legal(lEdificis.obtenirEdifici(i))) {
+					
+					
+					if (x == (this.x)-1) back(id+1, 0, y+1);
+					else back(id+1, x+1, y);
 				}
-				
-				back(id+1, x+1, y);
+			
+			
+			
 			}
-			
-			
-			
 		}
-		
 		
 	}
 	
@@ -195,6 +200,8 @@ public class Barri implements Serializable {
 				
 			}
 		}
+		
+		System.out.println(ed.nom + " " + comp);
 		return comp;
 		
 		

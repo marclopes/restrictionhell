@@ -27,16 +27,18 @@ public class Main {
 	RDistCodi rcodi = new RDistCodi(1, 3, false, 4, 4, null);
 	RDistTipus rtip = new RDistTipus(2, 3, true, s3, h1, null);
 	RQuantitat rq1 = new RQuantitat(3, 1, s3, true);
-	//RInfluencia rinf = new RInfluencia(4, null);
+	RInfluencia rinf = new RInfluencia(4, null);
 	
 	Barri b;
 	
 	
 	public Main() {
 		b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
+		//b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
 		//b = new Barri(n, po, pr, c, cl, a, xx, yy)
 		
 		b.carregaEdifici(h1);
+		/**
 		b.carregaEdifici(h2);
 		b.carregaEdifici(h3);
 		b.carregaEdifici(n1);
@@ -44,12 +46,13 @@ public class Main {
 		b.carregaEdifici(n3);
 		b.carregaEdifici(s1);
 		b.carregaEdifici(s2);
+		**/
 		b.carregaEdifici(s3);
 		
-		b.AfegeixRestriccio(rcodi);
-		b.AfegeixRestriccio(rtip);
-		b.AfegeixRestriccio(rq1);
-		//b.AfegeixRestriccio(rinf);
+		//b.AfegeixRestriccio(rcodi);
+		//b.AfegeixRestriccio(rtip);
+		//b.AfegeixRestriccio(rq1);
+		b.AfegeixRestriccio(rinf);
 		
 		
 		b.back(0, 0, 0);

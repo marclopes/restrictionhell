@@ -2,6 +2,7 @@ package barri;
 import java.util.ArrayList;
 
 import barri.Edifici.TipusEd;
+import barri.Servei.tipusServei;
 
 public class RInfluencia extends RDistancia implements REspai{
 
