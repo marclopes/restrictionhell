@@ -18,7 +18,7 @@ public class DriverCjtEdificis {
         
         int opt = 0, tip, imp, apc, codi, h, cap, cost,mant, ai, pos, tam;
         String in, nom;
-        boolean opcio;
+        boolean opcio, opcio2;
         tipusHab t = null;
         tipusNegoci n = null;
         tipusServei s = null;
@@ -56,13 +56,12 @@ public class DriverCjtEdificis {
                     System.out.println("1. Habitatge");
                     System.out.println("2. Servei");
                     System.out.println("3. Negoci");
-
-                    opcio = true;
-                    while(opcio){
+                    opcio2 = true;
+                    while(opcio2){
                         System.out.print("Opció: ");
                         in = br.readLine();
                         tip = Integer.parseInt(in);
-                        opcio = false;
+                        opcio2 = false;
                         if(tip == 1){
                             System.out.println("Crea un Habitatge.");
                             System.out.println("Selecciona el tipus d'habitatge:");
@@ -117,7 +116,7 @@ public class DriverCjtEdificis {
                             apc = Integer.parseInt(in);
 
                             Habitatge hab = new Habitatge(imp,apc, nom, codi, h, cap, t);
-                            
+
                             ce.AfegirEdifici(hab);
                             System.out.println("Habitatge afegit al conjunt.");
                         }
@@ -259,7 +258,7 @@ public class DriverCjtEdificis {
                         }
                         else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
-                            opcio = true;
+                            opcio2 = true;
                         }
                     }
                     break;
@@ -281,13 +280,14 @@ public class DriverCjtEdificis {
                     nom = br.readLine();
                     if(ce.ExisteixEdifici(nom)) {
                         ed = ce.ObtenirEdifici(nom);
-                        System.out.print("Nom: " + ed.ConsultarNom());
-                        System.out.print("Codi: " + ed.ConsultarCodi());
-                        System.out.print("Alçada: " + ed.ConsultarH());
-                        System.out.print("Capacitat" + ed.ConsultarCapacitat());                           
+                        System.out.println("Nom: " + ed.ConsultarNom());
+                        System.out.println("Codi: " + ed.ConsultarCodi());
+                        System.out.println("Alçada: " + ed.ConsultarH());
+                        System.out.println("Capacitat" + ed.ConsultarCapacitat());
+                        System.out.println("");
                     }
                     else{
-                        System.out.print("L'edifici " + nom + " no està al conjunt.");
+                        System.out.println("L'edifici " + nom + " no està al conjunt.");
                     }
                     break;
                 case 4:
