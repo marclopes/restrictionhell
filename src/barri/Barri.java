@@ -42,6 +42,9 @@ public class Barri implements Serializable {
 	public void borraEdifici(Edifici e) {
 		lEdificis.EliminarEdifici(e);
 	}
+        public void borraEdifici(String e) {
+		lEdificis.EliminarEdifici(e);
+	}
 	
 	public void carregaLlista(ArrayList<Edifici> l) {
 		for(Edifici e: l) {

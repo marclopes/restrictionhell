@@ -54,7 +54,7 @@ public class CtrBinaris {
         try {
 			ob = ois.readObject();
 		} catch (ClassNotFoundException e) {
-			// aix˜ no hauria de passar mai...
+			// aixo no hauria de passar mai...
 			System.err.println("ERROR");
 		}
             

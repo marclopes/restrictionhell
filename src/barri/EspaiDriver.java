@@ -20,6 +20,7 @@ public class EspaiDriver {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String in;
         while (select != 11) {
+            try {
             System.out.println("Elegeix l'accio que vols fer\n");
             System.out.println("1. Definir les mides del espai\n");
             System.out.println("2. Afegeir un element a una posicio\n");
@@ -32,6 +33,8 @@ public class EspaiDriver {
             System.out.println("9. Consultar coordenada x del element per id\n");
             System.out.println("10. Consultar coordenada y del element per id\n");
             System.out.println("11. Sortir\n");
+            in = br.readLine();
+            select=Integer.parseInt(in);
             switch (select) {
                 case 1:
                     System.out.println("Introdueix un enter positiu (Cord X)");
@@ -121,11 +124,15 @@ public class EspaiDriver {
                     System.out.println("La coordenada X del element amb id "+Integer.parseInt(in) + " es " +cordx );
                     break;
                 case 10:
-                                        System.out.println("Introdueix id del element");
+                    System.out.println("Introdueix id del element");
                     in = br.readLine();
                     cordy = espai.ConsultarPosx(Integer.parseInt(in));
                     System.out.println("La coordenada Y del element amb id "+Integer.parseInt(in) + " es " +cordy );
                     break;
+            }
+            }
+            catch(Exception e){
+                System.out.println("error, torna a començar");
             }
         }
 
