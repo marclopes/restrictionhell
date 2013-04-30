@@ -17,7 +17,7 @@ public class DriverHabitatge{
 	public static void main(String[] args) throws java.io.IOException{
 		
                 String in, nom;
-                int codi, h, cap, imp, apc, tip, c;
+                int codi, h, cap, imp, apc, tip, c, err;
                 tipusHab t = null;
                 boolean opcio;
             
@@ -37,15 +37,21 @@ public class DriverHabitatge{
                 while(opcio){
                     System.out.print("> ");
                     in = br.readLine();
-                    tip = Integer.parseInt(in);
-                    opcio = false;
-                    if(tip == 1) t = tipusHab.Casa;
-                    else if(tip == 2) t = tipusHab.Pis;
-                    else if(tip == 3) t = tipusHab.Mansio;
-                    else if(tip == 4) t = tipusHab.Xalet;
-                    else {
-                        System.out.println("Opció incorrecte. Torna-ho a provar...");
-                        opcio = true;
+                    try{
+                        tip = Integer.parseInt(in);
+
+                        opcio = false;
+                        if(tip == 1) t = tipusHab.Casa;
+                        else if(tip == 2) t = tipusHab.Pis;
+                        else if(tip == 3) t = tipusHab.Mansio;
+                        else if(tip == 4) t = tipusHab.Xalet;
+                        else {
+                            System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            opcio = true;
+                        }
+                    }
+                    catch(NumberFormatException e){
+                        System.out.println("ERROR: " + in + " no és una opció vàlida");
                     }
                 }
                 
@@ -54,29 +60,49 @@ public class DriverHabitatge{
                 nom = br.readLine();
                 
                 System.out.println("Introdueix l'identificador: ");
-                System.out.print("> ");
-                in = br.readLine();
-                codi = Integer.parseInt(in);
+                err = -1000;
+                while (err == -1000){
+                    System.out.print("> ");
+                    in = br.readLine();
+                    err = LlegirEnter(in);
+                }
+                codi = err;
                 
                 System.out.println("Introdueix l'alçada: ");
-                System.out.print("> ");
-                in = br.readLine();
-                h = Integer.parseInt(in);
+                err = -1000;
+                while (err == -1000){
+                    System.out.print("> ");
+                    in = br.readLine();
+                    err = LlegirEnter(in);
+                }
+                h = err;
                 
                 System.out.println("Introdueix la capacitat: ");
-                System.out.print("> ");
-                in = br.readLine();
-                cap = Integer.parseInt(in);
+                err = -1000;
+                while (err == -1000){
+                    System.out.print("> ");
+                    in = br.readLine();
+                    err = LlegirEnter(in);
+                }
+                cap = err;
                 
-                System.out.println("Introdueix els impostos:");
-                System.out.print("> ");
-                in = br.readLine();
-                imp = Integer.parseInt(in);
+                System.out.println("Introdueix els impostos: ");
+                err = -1000;
+                while (err == -1000){
+                    System.out.print("> ");
+                    in = br.readLine();
+                    err = LlegirEnter(in);
+                }
+                imp = err;
                 
-                System.out.println("Introdueix l'aparcament:");
-                System.out.print("> ");
-                in = br.readLine();
-                apc = Integer.parseInt(in);
+                System.out.println("Introdueix l'aparcament: ");
+                err = -1000;
+                while (err == -1000){
+                    System.out.print("> ");
+                    in = br.readLine();
+                    err = LlegirEnter(in);
+                }
+                apc = err;
                 
                 Habitatge hab = new Habitatge(imp,apc, nom, codi, h, cap, t);
                 
@@ -110,7 +136,7 @@ public class DriverHabitatge{
                 while(opt != 21){
                     System.out.print("> ");
                     in = br.readLine();
-                    opt = Integer.parseInt(in);
+                    opt = LlegirEnter(in);
                     switch(opt){
                         case 1:
                             System.out.println("Nom: " + hab.ConsultarNom());
@@ -153,13 +179,18 @@ public class DriverHabitatge{
                             else if(hab.consultarTipus() == tipusHab.Xalet) System.out.println("Xalet");
                             break;
                         case 9:
-                            System.out.println("Afegir classe: ");
+                            System.out.println("Pertany a la classe... ");
                             System.out.println("1. Alta");
                             System.out.println("2. Mitja");
                             System.out.println("3. Baixa");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            c = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                c = LlegirEnter(in);
+                                if(c < 1 || c > 3) System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            c = err;
                             boolean ets = false;
                             if(c == 1) ets = hab.EtsClase(Classes.Alta);
                             else if(c == 2) ets = hab.EtsClase(Classes.Mitja);
@@ -183,25 +214,40 @@ public class DriverHabitatge{
                             break;
                         case 12:
                             System.out.println("Introdueix el nou identificador:");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            codi = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                err = Integer.parseInt(in);
+                                if(err == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            codi = err;
                             hab.ModificarId(codi);
                             System.out.println("Nou identificador: " + codi);
                             break;
                         case 13:
                             System.out.println("Introdueix la nova alçada:");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            h = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                err = Integer.parseInt(in);
+                                if(err == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            h = err;
                             hab.ModificarH(h);
                             System.out.println("Nova alçada: " + h);
                             break;
                         case 14:
                             System.out.println("Introdueix la nova capacitat:");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            cap = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                err = Integer.parseInt(in);
+                                if(err == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            cap = err;
                             hab.ModificarCapacitat(cap);
                             System.out.println("Nou capacitat: " + cap);
                             break;
@@ -211,8 +257,14 @@ public class DriverHabitatge{
                             System.out.println("2. Mitja");
                             System.out.println("3. Baixa");
                             System.out.print("> ");
-                            in = br.readLine();
-                            c = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                c = LlegirEnter(in);
+                                if(c < 1 || c > 3) System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            c = err;
                             if(c == 1) hab.AfegirClase(Classes.Alta);
                             else if(c == 2) hab.AfegirClase(Classes.Mitja);
                             else if(c == 3) hab.AfegirClase(Classes.Baixa);
@@ -222,26 +274,41 @@ public class DriverHabitatge{
                             System.out.println("1. Alta");
                             System.out.println("2. Mitja");
                             System.out.println("3. Baixa");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            c = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                c = LlegirEnter(in);
+                                if(c < 1 || c > 3) System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            c = err;
                             if(c == 1) hab.EliminarClase(Classes.Alta);
                             else if(c == 2) hab.EliminarClase(Classes.Mitja);
                             else if(c == 3) hab.EliminarClase(Classes.Baixa);
                             break;
                         case 17:
                             System.out.println("Introdueix el nou impost:");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            imp = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                err = Integer.parseInt(in);
+                                if(err == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            imp = err;
                             hab.ModificarImpost(imp);
                             System.out.println("Nou impost: " + imp);
                             break;
                         case 18:
                             System.out.println("Introdueix el nou aparcament:");
-                            System.out.print("> ");
-                            in = br.readLine();
-                            apc = Integer.parseInt(in);
+                            err = -1000;
+                            while(err == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                err = Integer.parseInt(in);
+                                if(err == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                            }
+                            apc = err;
                             hab.ModificarAparcament(apc);
                             System.out.println("Nou aparcament: " + apc);
                             break;
@@ -257,16 +324,21 @@ public class DriverHabitatge{
                             while(opcio){
                                 System.out.print("> ");
                                 in = br.readLine();
-                                tip = Integer.parseInt(in);
-                                
-                                opcio = false;
-                                if(tip == 1) t = tipusHab.Casa;
-                                else if(tip == 2) t = tipusHab.Pis;
-                                else if(tip == 3) t = tipusHab.Mansio;
-                                else if(tip == 4) t = tipusHab.Xalet;
-                                else {
-                                    System.out.println("Opció incorrecte. Torna-ho a provar...");
-                                    opcio = true;
+                                try{
+                                    tip = Integer.parseInt(in);
+
+                                    opcio = false;
+                                    if(tip == 1) t = tipusHab.Casa;
+                                    else if(tip == 2) t = tipusHab.Pis;
+                                    else if(tip == 3) t = tipusHab.Mansio;
+                                    else if(tip == 4) t = tipusHab.Xalet;
+                                    else {
+                                        System.out.println("Opció incorrecte. Torna-ho a provar...");
+                                        opcio = true;
+                                    }
+                                }
+                                catch(NumberFormatException e){
+                                    System.out.println("ERROR: " + in + " no és una opció vàlida");
                                 }
                             }
                             hab.modificarTipus(t);
@@ -303,4 +375,16 @@ public class DriverHabitatge{
                     }    
                 }
 	}
+        
+        private static int LlegirEnter(String s){
+            int res;
+            try{
+                res = Integer.parseInt(s);
+                return res;
+            }
+            catch(NumberFormatException e){
+                System.out.println("ERROR: " + s + " no és una entrada vàlida");
+                return -1000;
+            }
+        }
 }
