@@ -1,9 +1,8 @@
 package barri;
+import barri.Edifici.Classes;
 import barri.Habitatge.tipusHab;
 import barri.Negoci.tipusNegoci;
 import barri.Servei.tipusServei;
-
-import com.sun.tools.internal.jxc.gen.config.Classes;
 
 /*
  * To change this template, choose Tools | Templates

@@ -1,4 +1,5 @@
 package barri;
+import barri.Habitatge.tipusHab;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
