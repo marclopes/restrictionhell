@@ -6,7 +6,7 @@ import barri.Servei.tipusServei;
 
 /**
  *
- * @author Eduard Ricou
+ * @authors Albert Navarro i Eduard Ricou
  */
 public class CtrEdDom {
     

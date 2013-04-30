@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Edu
+ * @author Eduard Ricou
  */
 
 public abstract class Edifici extends Objecte {
-	
+
 	public enum TipusEd {
 		HAB,
 		SER,

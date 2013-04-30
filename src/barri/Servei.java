@@ -2,7 +2,7 @@ package barri;
 /**
  *
  *
- @author Edu
+ @author Eduard Ricou
  */
 
 public class Servei extends Edifici{ // canviar nom per ServeiPublic
