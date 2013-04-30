@@ -108,7 +108,7 @@ public class DriverCtrEdDom {
                         }
                     }
 
-                    CtrEdDom.CreaHabitatge(imp, apc, nom, codi, h, cap, t);
+                    ctrEd.CreaHabitatge(imp, apc, nom, codi, h, cap, t);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -196,7 +196,7 @@ public class DriverCtrEdDom {
                         }
                     }
 
-                    CtrEdDom.CreaNegoci(imp, apc, nom, codi, h, cap, t2);
+                    ctrEd.CreaNegoci(imp, apc, nom, codi, h, cap, t2);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -294,7 +294,7 @@ public class DriverCtrEdDom {
                         }
                     }
 
-                    CtrEdDom.CreaServei(cost, mant, ai, nom, codi, h, cap, t3);
+                    ctrEd.CreaServei(cost, mant, ai, nom, codi, h, cap, t3);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -326,11 +326,11 @@ public class DriverCtrEdDom {
                     System.out.print("> ");
                     nomval = br.readLine();
 
-                    Edifici edif = CtrEd.GetEdifici(nomed);
+                    Edifici edif = ctrEd.ObtenirEdifici(nomed);
 
-                    CtrEd.ModificarEdifici(nomed, nomatr, nomval);
+                    ctrEd.ModificarEdifici(nomed, nomatr, nomval);
 
-                    Edifici edif2 = CtrEd.GetEdifici(nomed);
+                    Edifici edif2 = ctrEd.ObtenirEdifici(nomed);
                     TipusEd tipus = edif.consultarSubclasse();
                     if ((edif.ConsultarH() == edif2.ConsultarH()) && (edif.ConsultarCapacitat() == edif2.ConsultarCapacitat()) && (edif.ConsultarNom().equals(edif2.ConsultarNom()))) {
 
