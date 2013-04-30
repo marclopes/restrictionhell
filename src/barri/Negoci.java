@@ -4,7 +4,7 @@ package barri;
 /**
  *
  *
- @author Edu
+ @author Eduard Ricou
  */
 
 public class Negoci extends Edifici{

@@ -3,7 +3,7 @@ package barri;
 /**
  *
  *
- @author Edu
+ @author Eduard Ricou
  */
 
 public class Habitatge extends Edifici{
