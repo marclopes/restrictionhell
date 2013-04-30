@@ -42,21 +42,21 @@ public class DriverIlla {
             opt = Integer.parseInt(in);
             switch(opt){
                 case 1:
-                    if(illa.Empty()){
+                    if(illa.EsBuida()){
                         illa.AssignaEdifici(hab);
                         System.out.println("Edifici assignat correctament.");
                     }
                     else{System.out.println("L'illa ja conté un edifici.");}
                     break;
                 case 2:
-                    if(!illa.Empty()){
+                    if(!illa.EsBuida()){
                         illa.EliminaEdifici();
                         System.out.println("Edifici eliminat correctament.");
                     }
                     else{System.out.println("L'illa no conté cap edifici.");}
                     break;
                 case 3:
-                    if(!illa.Empty()){
+                    if(!illa.EsBuida()){
                         e = illa.ConsultaEdifici();
                         nom = e.ConsultarNom();
                         System.out.println("El nom de l'edifici es:" + nom);
@@ -64,7 +64,7 @@ public class DriverIlla {
                     else{System.out.println("L'illa no conté cap edifici.");}
                     break;
                 case 4:
-                    if(illa.Empty())System.out.println("L'illa té assignat un edifici.");
+                    if(illa.EsBuida())System.out.println("L'illa té assignat un edifici.");
                     else System.out.println("L'illa no conté cap edifici.");
                     break;
                 case 5:
