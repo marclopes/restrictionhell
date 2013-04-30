@@ -48,10 +48,10 @@ public class RDistTipus extends RDistancia {
 						break;
 
 					case SER:
-						if (((Negoci) ed).consultarTipus() == ((Negoci) e1).consultarTipus()) {
+						if (((Servei) ed).consultarTipus() == ((Servei) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
+						if (((Servei) ed).consultarTipus() == ((Servei) e2).consultarTipus()) {
 							l2.add(new Pos(x, y));
 						}
 						break;
@@ -63,7 +63,7 @@ public class RDistTipus extends RDistancia {
 
 			}
 			x++;
-			if (x == 10) {
+			if (x == e.obteX()) {
 				x = 0;
 				y++;
 			}
