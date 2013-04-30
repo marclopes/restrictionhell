@@ -4,24 +4,22 @@ import barri.Habitatge.tipusHab;
 import barri.Negoci.tipusNegoci;
 import barri.Servei.tipusServei;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Edu
+ * @author Eduard Ricou
  */
 public class CtrEdDom {
     
   private static CtrEdDom ctrEd= null;
   private CjtEdificis cjtEd;
   
+  /**
+   * Crea una instancia buida del controlador d'edificis.
+   */
   private CtrEdDom () {
   }
   
-  public static CtrEdDom GetInstancia() {
+  public static CtrEdDom ObteInstancia() {
     if ( ctrEd== null ) ctrEd = new CtrEdDom();
     return ctrEd;
   }
