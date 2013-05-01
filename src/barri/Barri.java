@@ -160,196 +160,24 @@ public class Barri implements Serializable {
 		espai.EliminarElementxy(x, y);
 	}
 	
-	
-	public boolean preparaBack() {
-		boolean b = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RAlsada) {
-				RestriccioBarris raux = lRestriccions.get(i);
-				
-				if (!raux.CompleixRes()) {
-					System.out.println("No compleix: " + raux.tr);
-					b = false;
-				}
-			}
-		}
-		return b;
-	}
-	
-	
-	public boolean postBack() {
-		boolean b = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RQuantitat && !((RQuantitat)lRestriccions.get(i)).esMax()) {
-				RQuantitat raux = (RQuantitat) lRestriccions.get(i);
-				if (raux.esMax() == false) {
-					b = b && raux.CompleixRes();
-				}
-			}
-		}
-		return b;
-	}
-	
-	
-	
-	
-	void back(int id, int x, int y) {
-		if (id < this.x * this.y) {
-		//if (id < (10)) {
-			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
-			
-			for (int i = 0; i < lEdificis.Tamany() && !trobat; i++) {
-				
-				
-				lEdificis.ObtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
-				boolean b;
-				if ( b = legal(lEdificis.ObtenirEdifici(i), x, y)) {
-					
-					if (x == (this.x)-1) back(id+1, 0, y+1);
-					else back(id+1, x+1, y);			
-					
-				}
-				
 
-			}
-			if (!trobat) borraIlla(x, y);
-				
-		} else {
-			trobat = true;
-
-		}
+	
+	public int tamRest() {
+		return lRestriccions.size();
 	}
 	
-	boolean legal(Edifici ed, int x, int y) {
-		boolean comp = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			TipusRest tr = lRestriccions.get(i).obteTipus();
-			
-			if (tr == TipusRest.QUANTITAT) {
-				RQuantitat raux = ((RQuantitat) lRestriccions.get(i));
-				if (raux.esMax()) comp = comp && raux.CompleixRes();
-				
-			}
-			
-			if (tr == TipusRest.DISTTIPUS) {
-				comp = (comp && lRestriccions.get(i).CompleixRes());
-				
-				if (!comp) {
-					System.out.println( " --> " + false + "  " + lRestriccions.get(i).obteTipus());
-					System.out.println();
-					//comp = false;
-				}
-			}
-			
-			
-			if (tr == TipusRest.INFUENCIA) {
-				((RInfluencia)lRestriccions.get(i)).recorreCjt();
-				((RInfluencia)lRestriccions.get(i)).assignaPos(x, y);
-				comp = (comp && lRestriccions.get(i).CompleixRes());
-				
-				if (!comp) {
-					System.out.println( " --> " + false + "  " + lRestriccions.get(i).obteTipus());
-					System.out.println();
-					//comp = false;
-				}
-			}
-			
-			if (tr == TipusRest.COST) {
-				if (ed.consultarSubclasse() == TipusEd.SER) {
-					if( ((RCost)lRestriccions.get(i)).esMax()) {
-						int c = ((Servei)ed).ConsultarCost();
-						((RCost)lRestriccions.get(i)).augmentaCost(c);
-						boolean b = ((RCost)lRestriccions.get(i)).CompleixRes();
-						comp = comp && b;
-						if (!b) ((RCost)lRestriccions.get(i)).redueixCost(c);
-					}
-				}
-			}
-			
-			
-			if (tr == TipusRest.IMPOSTOS) {
-				RImpostos raux = ((RImpostos)lRestriccions.get(i));
-				int c;
-				if (ed.consultarSubclasse() == TipusEd.HAB) {
-					c = ((Habitatge)ed).ConsultarImpost();
-					
-				} else if (ed.consultarSubclasse() == TipusEd.NEG) {
-					c = ((Negoci)ed).ConsultarImpost();
-					
-				} else c = -1; 
-				
-				raux.assignaImpAct(c);
-				
-				boolean b = raux.CompleixRes();
-				comp = comp && b;
-				
-			}
-			
-			
-		}
-		
-		System.out.println( " --> " + comp);
-		System.out.println();
-		return comp;
-		
-		
+	public RestriccioBarris obteRest(int i) {
+		return lRestriccions.get(i);
 	}
 	
-	
-	public void imprimeix() {
-		for (int i = 0; i < this.consultarX(); i++) {
-			for (int j = 0; j < this.consultarY(); j++) {
-				String n;
-				if (this.consultarEdifici(i, j) != null) n = this.consultarEdifici(i, j).ConsultarNom();
-				else n = "nn";		
-				System.out.print(n + " ");
-			}
-			System.out.println();
-		}
-		
+	public int tamEd() {
+		return lEdificis.Tamany();
 	}
 	
-	
-	void back2(int id, int x, int y) {
-		if (id < this.x * this.y) {
-		//if (id < (10)) {
-			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
-			
-			int index = (int) (Math.random()*lEdificis.Tamany());
-			
-			for (int j = 0; j < lEdificis.Tamany() && !trobat; j++) {
-				
-				int i = (index+j)%lEdificis.Tamany();
-				
-				lEdificis.ObtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
-				boolean b;
-				if ( b = legal(lEdificis.ObtenirEdifici(i), x, y)) {
-					
-					if (x == (this.x)-1) back2(id+1, 0, y+1);
-					else back2(id+1, x+1, y);			
-					
-				}
-				System.out.println( " --> " + b);
-				System.out.println();
-
-			}
-			if (!trobat) borraIlla(x, y);
-			
-		} else {
-			trobat = true;
-
-		}
+	public Edifici obteEd(int i) {
+		return lEdificis.ObtenirEdifici(i);
 	}
+	
 	
 	
 	/**	

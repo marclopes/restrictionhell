@@ -49,7 +49,7 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		
 		
 		if (max && q > quant) return false;
-		if (!max && q < quant) return false;
+		if (!max && q < quant && e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return false;
 		return true;
 	}
 	
