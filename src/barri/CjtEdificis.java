@@ -78,7 +78,7 @@ public class CjtEdificis{
          * @param nom és el nom de l'edifici que volem consultar-ne la posició.
          * @return la posició de l'edifici dins del conjunt.
          */
-        public int obtenirPosicio(String nom) {
+        public int ObtenirPosicio(String nom) {
                 for(Edifici e: conEd){
 			if(e.ConsultarNom().equals(nom)) return this.conEd.indexOf(e);
 		}
@@ -90,7 +90,7 @@ public class CjtEdificis{
          * @param e és l'edifici que volem consultar-ne la posició.
          * @return la posició de l'edifici dins del conjunt.
          */
-        public int obtenirPosicio(Edifici e) {
+        public int ObtenirPosicio(Edifici e) {
 		return conEd.indexOf(e);
 	}
         
@@ -99,7 +99,7 @@ public class CjtEdificis{
          * @param pos és la posició al conjunt de l'edifici que volem obtenir.
          * @return l'edifici de la posició pos.
          */
-	public Edifici obtenirEdifici(int pos) {
+	public Edifici ObtenirEdifici(int pos) {
 		return conEd.get(pos);
 	}
 	
@@ -107,7 +107,7 @@ public class CjtEdificis{
          * Consultora del tamany del conjunt.
          * @return el tamany del conjunt.
          */
-	public int tamany() {
+	public int Tamany() {
 		return conEd.size();
 	}
 }

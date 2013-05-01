@@ -50,16 +50,6 @@ public abstract class Edifici extends Objecte {
 		this.capacitat = capacitat;	
         }
 	
-	/** 
-        * Consultora del nom de l'edifici.
-        * @return El nom de l'edifici
-        */
-        
-        @Override
-	public String ConsultarNom(){
-		return super.nom;
-	}
-	
         /** 
         * Consultora de l'identificador de l'edifici.
         * @return El l'identificador de l'edifici

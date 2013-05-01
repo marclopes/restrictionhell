@@ -11,7 +11,7 @@ import barri.Servei.TipusServei;
 public class CtrEdDom {
     
   private static CtrEdDom ctrEd= null;
-  private CjtEdificis cjtEd;
+  private CjtEdificis cjtEd = new CjtEdificis();
   
   /**
    * Crea una instancia buida del controlador d'edificis.

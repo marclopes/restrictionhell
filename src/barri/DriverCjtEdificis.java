@@ -386,7 +386,7 @@ public class DriverCjtEdificis {
                     System.out.print("> ");
                     nom = br.readLine();
                     if(ce.ExisteixEdifici(nom)){
-                        pos = ce.obtenirPosicio(nom);
+                        pos = ce.ObtenirPosicio(nom);
                         System.out.println("L'edifici està a la posició: " + pos);
                     }
                     else System.out.println("L'edifici no està al conjunt.");
@@ -402,8 +402,8 @@ public class DriverCjtEdificis {
                         try{
                         pos = Integer.parseInt(in);
                         trall = false;
-                        if(pos >= 0 && pos < ce.tamany()){
-                            ed = ce.obtenirEdifici(pos);
+                        if(pos >= 0 && pos < ce.Tamany()){
+                            ed = ce.ObtenirEdifici(pos);
                             System.out.println("Nom: " + ed.ConsultarNom());
                             System.out.println("Codi: " + ed.ConsultarCodi());
                             System.out.println("Alçada: " + ed.ConsultarH());
@@ -419,7 +419,7 @@ public class DriverCjtEdificis {
                     
                     break;
                 case 7:
-                    tam = ce.tamany();
+                    tam = ce.Tamany();
                     System.out.println("Hi ha " + tam + " edificis al conjunt.");
                     break;
                 case 8:
