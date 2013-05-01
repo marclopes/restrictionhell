@@ -4,7 +4,8 @@ package barri;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import barri.Edifici.Classes;;
+import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
 
 public class Barri implements Serializable {
 
@@ -55,7 +56,7 @@ public class Barri implements Serializable {
 	    
 	public void AfegeixRestriccio(RestriccioBarris r){
 	    if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
-	    else if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
+	    if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
 	    
 	    lRestriccions.add(r);
 	}
@@ -149,11 +150,16 @@ public class Barri implements Serializable {
 	}
 	
 	
+	public void borraIlla(int x, int y) {
+		espai.InsertarElement(null, x + y*this.x, x, y);
+		espai.EliminarElementxy(x, y);
+	}
+	
 	
 	public boolean preparaBack() {
 		boolean b = true;
 		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RCjtEd) {
+			if (lRestriccions.get(i) instanceof RAlsada) {
 				RestriccioBarris raux = lRestriccions.get(i);
 				
 				if (!raux.CompleixRes()) {
@@ -169,7 +175,7 @@ public class Barri implements Serializable {
 	public boolean postBack() {
 		boolean b = true;
 		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RQuantitat) {
+			if (lRestriccions.get(i) instanceof RQuantitat && !((RQuantitat)lRestriccions.get(i)).esMax()) {
 				RQuantitat raux = (RQuantitat) lRestriccions.get(i);
 				if (raux.esMax() == false) {
 					b = b && raux.CompleixRes();
@@ -197,7 +203,7 @@ public class Barri implements Serializable {
 				//if (x == 14 && y == 14) continue;
 				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i))) {
+				if ( b = legal(lEdificis.obtenirEdifici(i), x, y)) {
 					
 					if (x == (this.x)-1) back(id+1, 0, y+1);
 					else back(id+1, x+1, y);			
@@ -206,37 +212,83 @@ public class Barri implements Serializable {
 				
 
 			}
+			if (!trobat) borraIlla(x, y);
+				
 		} else {
 			trobat = true;
 
 		}
 	}
 	
-	boolean legal(Edifici ed) {
+	boolean legal(Edifici ed, int x, int y) {
 		boolean comp = true;
 		for (int i = 0; i < lRestriccions.size(); i++) {
 			TipusRest tr = lRestriccions.get(i).obteTipus();
 			
 			if (tr == TipusRest.QUANTITAT) {
 				RQuantitat raux = ((RQuantitat) lRestriccions.get(i));
-				if (raux.esMax()) comp = raux.CompleixRes();
+				if (raux.esMax()) comp = comp && raux.CompleixRes();
 				
 			}
 			
-			if (tr == TipusRest.DISTCODI || tr == TipusRest.DISTTIPUS || tr == TipusRest.INFUENCIA) {
+			if (tr == TipusRest.DISTTIPUS) {
 				comp = (comp && lRestriccions.get(i).CompleixRes());
 				
 				if (!comp) {
 					System.out.println( " --> " + false + "  " + lRestriccions.get(i).obteTipus());
 					System.out.println();
-					return false;
+					//comp = false;
 				}
+			}
+			
+			
+			if (tr == TipusRest.INFUENCIA) {
+				((RInfluencia)lRestriccions.get(i)).recorreCjt();
+				((RInfluencia)lRestriccions.get(i)).assignaPos(x, y);
+				comp = (comp && lRestriccions.get(i).CompleixRes());
+				
+				if (!comp) {
+					System.out.println( " --> " + false + "  " + lRestriccions.get(i).obteTipus());
+					System.out.println();
+					//comp = false;
+				}
+			}
+			
+			if (tr == TipusRest.COST) {
+				if (ed.consultarSubclasse() == TipusEd.SER) {
+					if( ((RCost)lRestriccions.get(i)).esMax()) {
+						int c = ((Servei)ed).ConsultarCost();
+						((RCost)lRestriccions.get(i)).augmentaCost(c);
+						boolean b = ((RCost)lRestriccions.get(i)).CompleixRes();
+						comp = comp && b;
+						if (!b) ((RCost)lRestriccions.get(i)).redueixCost(c);
+					}
+				}
+			}
+			
+			
+			if (tr == TipusRest.IMPOSTOS) {
+				RImpostos raux = ((RImpostos)lRestriccions.get(i));
+				int c;
+				if (ed.consultarSubclasse() == TipusEd.HAB) {
+					c = ((Habitatge)ed).ConsultarImpost();
+					
+				} else if (ed.consultarSubclasse() == TipusEd.NEG) {
+					c = ((Negoci)ed).ConsultarImpost();
+					
+				} else c = -1; 
+				
+				raux.assignaImpAct(c);
+				
+				boolean b = raux.CompleixRes();
+				comp = comp && b;
+				
 			}
 			
 			
 		}
 		
-		System.out.println( " --> " + true);
+		System.out.println( " --> " + comp);
 		System.out.println();
 		return comp;
 		
@@ -276,7 +328,7 @@ public class Barri implements Serializable {
 				//if (x == 14 && y == 14) continue;
 				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i))) {
+				if ( b = legal(lEdificis.obtenirEdifici(i), x, y)) {
 					
 					if (x == (this.x)-1) back2(id+1, 0, y+1);
 					else back2(id+1, x+1, y);			
@@ -286,6 +338,8 @@ public class Barri implements Serializable {
 				System.out.println();
 
 			}
+			if (!trobat) borraIlla(x, y);
+			
 		} else {
 			trobat = true;
 
@@ -293,8 +347,7 @@ public class Barri implements Serializable {
 	}
 	
 	
-	
-	
+	/**	
 	void randomtrack(int id, boolean[][] t) {
 		if (id < this.x * this.y) {	
 			
@@ -329,9 +382,8 @@ public class Barri implements Serializable {
 			trobat = true;
 
 		}
-	}
-	
-	
+	}	
+	**/
 	
 	
 

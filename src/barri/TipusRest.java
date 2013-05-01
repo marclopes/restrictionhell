@@ -2,6 +2,7 @@ package barri;
 
 public enum TipusRest {
 	ALSADA,
+	APARCAMENT,
 	COST,
 	DISTTIPUS,
 	DISTCODI,

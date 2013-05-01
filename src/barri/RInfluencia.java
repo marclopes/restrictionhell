@@ -1,14 +1,20 @@
 package barri;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Queue;
 
 import barri.Edifici.TipusEd;
 import barri.Servei.tipusServei;
 
-public class RInfluencia extends RDistancia implements REspai{
+public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 
 	
-	//Espai e;
+	Espai e;
 	ArrayList<ArrayList<PosArea>> v;
+	CjtEdificis ce;
+	HashSet<tipusServei> vt;
+	int x, y;
 	
 
 	public RInfluencia(int ID, Espai e) {
@@ -16,11 +22,119 @@ public class RInfluencia extends RDistancia implements REspai{
 		//this.e = e;
 		v = new ArrayList<ArrayList<PosArea>>(); 
 		super.tr = TipusRest.INFUENCIA;
+		//vt = new ArrayList<Servei.tipusServei>();
+	}
+	
+	public void assignaPos(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void recorreCjt () {
+		vt = new HashSet<tipusServei>();
+		for (int i = 0; i < ce.tamany(); i++) {
+			if (ce.obtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
+			vt.add(((Servei)ce.obtenirEdifici(i)).consultarTipus());
+		}
+	}
+	
+	private boolean bfs (int x, int y) {
+		int tam = e.obteX()*e.obteY();
+		//int p = y*15+x;
+		
+		Queue<Integer> q = new ArrayDeque<Integer>();
+		
+		boolean[][] b = new boolean[e.obteX()][e.obteY()];
+		int[][] d = new int[e.obteX()][e.obteY()];
+		for (int i = 0; i < b.length; i++) {
+			for (int j = 0; j < b[0].length; j++) {
+				b[i][j] = false;
+				d[i][j] = 0;
+			}
+				
+		}
+		
+		//for (int i = 0; i < tam; i++) {
+			
+		if (!b[x][y]) {
+			q.add(y*15+x);
+			b[x][y] = true;
+			
+			while (!q.isEmpty()) {
+				int v = q.poll();
+				int i,j;
+				i = v%e.obteX();
+				j = v/e.obteX();
+				
+				if (e.ExisteixElementxy(i, j )) {
+					Edifici aux = ((Illa)e.ConsultarElementxy(i, j )).ConsultaEdifici();
+					int dis = d[i][j];
+					
+					if (aux.consultarSubclasse() == TipusEd.SER) {
+						tipusServei t = ((Servei)aux).consultarTipus();
+						
+						if (vt.contains(t)) {
+							if (((Servei)aux).ConsultarAreaInfluencia() < d[i][j]) return false;
+						}
+						
+						if (vt.isEmpty()) return true;
+						
+					}
+				}
+				
+				
+				
+				if (i+1 >= 0 && i+1 <= e.obteX()-1 && e.ExisteixElementxy(i+1, j) && !b[i+1][j] ) {
+					q.add(v+1);
+					b[i+1][j] = true;
+					d[i+1][j] = d[i][j]+1;
+					
+				}
+				
+				if (i-1 >= 0 && i-1 <= e.obteX()-1 && e.ExisteixElementxy(i-1, j) && !b[i-1][j] ) {
+					q.add(v+1);
+					b[i-1][j] = true;
+					d[i-1][j] = d[i][j]+1;
+					
+				}
+				
+				if (j+1 >= 0 && j+1 <= e.obteY()-1 && e.ExisteixElementxy(i, j+1) && !b[i][j+1]) {
+					q.add(v+e.obteX());
+					b[i][j+1] = true;
+					d[i][j+1] = d[i][j]+1;
+					
+				}
+				if (j-1 >= 0 && j-1 <= e.obteY()-1 && e.ExisteixElementxy(i, j-1) && !b[i][j-1] ) {
+					q.add(v-e.obteX());
+					b[i][j-1] = true;
+					d[i][j-1] = d[i][j]+1;
+					
+				}
+				
+				
+				
+					
+				//cosaaa
+				
+								
+			}
+			return true;
+			
+			
+		}
+		return true;
+			
+		//}
+	}
+	
+	public boolean CompleixRes() {
+		return bfs(x, y);
+		
 	}
 	
 
 
-	public boolean CompleixRes() {
+	public boolean CompleixRes2() {
 		
 		System.out.println("M'HAN CRIDAT!!!");
 		
@@ -127,6 +241,12 @@ public class RInfluencia extends RDistancia implements REspai{
 	
 	public void assignaEspai(Espai e) {
 		this.e = e;
+	}
+
+	
+	public void assignaCe(CjtEdificis ce) {
+		this.ce = ce;
+		
 	}
 	
 

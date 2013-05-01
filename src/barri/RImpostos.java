@@ -1,23 +1,29 @@
 package barri;
 
 import barri.Edifici.TipusEd;
+import barri.RestriccioBarris.Pos;
 
 
 
-public class RImpostos extends RestriccioBarris implements RCjtEd{
+public class RImpostos extends RestriccioBarris implements REspai{
 	
-	int imp;
-	CjtEdificis ce;
+	int imp, ia;
+	//CjtEdificis ce;
+	Espai e;
+	
+	int iMin;
 
-	public RImpostos(int ID, int i, CjtEdificis ce) {
+	public RImpostos(int ID, int i, Espai e) {
 		super(ID);
 		imp = i;
-		this.ce = ce;
+		this.e = e;
 		super.tr = TipusRest.IMPOSTOS;
+		ia = 0;
+		iMin = 0;
 		
 	}
 
-	
+	/**
 	public boolean CompleixRes() {
 		int c = 0;
 		
@@ -32,7 +38,7 @@ public class RImpostos extends RestriccioBarris implements RCjtEd{
 		if (c >= imp) return true;
 		else return false;
 	}
-	
+	**/
 	
 	public int consultarImp() {
 		return imp;
@@ -43,8 +49,65 @@ public class RImpostos extends RestriccioBarris implements RCjtEd{
 	}
 	
 	
-	public void assignaCe(CjtEdificis ce) {
-		this.ce = ce;
+	public void assignaImpAct(int i) {
+		ia = i;
 	}
+	
+	
+	public boolean CompleixRes() {
+		if (e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return CompleixFi();
+		
+		if (ia == -1) return true;
+		return (ia >= iMin);
+		
+	}
+	
+	public boolean CompleixFi() {
+		int n = 0;
+		for (int i = 0; i < e.obteX(); i++) {
+			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
+				switch (ed.consultarSubclasse()) {
+				case HAB:
+					n = n + ((Habitatge) ed).ConsultarImpost();
+					
+					break;
+
+				case NEG:
+					n = n + ((Negoci) ed).ConsultarImpost();
+					break;
+					
+				default:
+					break;
+				}
+			}
+		}
+		/**
+		if (n < imp) {
+			System.out.println("iTotal = " + n  + " Semblava que si pero noooooo!!!");
+			System.exit(1);
+		}
+		**/
+		if (n >= imp) return true;
+		else return false;
+		
+	}
+
+	
+	private int calcMin() {
+		int s = e.obteX() * e.obteY();
+		s = 4*s/5;
+		s = imp / s;
+		return s;
+	}
+
+	@Override
+	public void assignaEspai(Espai e) {
+		this.e = e;
+		iMin = calcMin();
+		
+	}
+	
+	
 
 }

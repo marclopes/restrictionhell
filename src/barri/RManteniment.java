@@ -1,21 +1,24 @@
 package barri;
-public class RManteniment extends RestriccioBarris implements RCjtEd{
+public class RManteniment extends RestriccioBarris implements REspai{
 	
 	int costBarri;
-	CjtEdificis ce;
-	private int id;
+	Espai e;
+	int ia, im;
+	
+	RImpostos rint;
 
-	public RManteniment(int ID, int cb , CjtEdificis ce) {
+	public RManteniment(int ID, int cb , Espai e) {
 		super(ID);
-		id = ID;
 		costBarri = cb;
-		this.ce = ce;
+		this.e = e;
 		super.tr = TipusRest.MANTENIMENT;
+		rint = new RImpostos(id, costBarri, e);
+		
 	}
 
 	
 	public boolean CompleixRes() {
-		return new RImpostos(id, costBarri, ce).CompleixRes();
+		return rint.CompleixRes();
 		
 	}
 	
@@ -26,10 +29,23 @@ public class RManteniment extends RestriccioBarris implements RCjtEd{
 	public void modificarCostBArri(int cb) {
 		costBarri = cb;
 	}
-	
-	
-	public void assignaCe(CjtEdificis ce) {
-		this.ce = ce;
+
+
+	@Override
+	public void assignaEspai(Espai e) {
+		this.e = e;
+		rint.assignaEspai(e);
 	}
+	
+	
+	public void assignaImpAct(int i) {
+		ia = i;
+		rint.assignaImpAct(ia);
+	}
+	
+	
+	
+	
+
 
 }

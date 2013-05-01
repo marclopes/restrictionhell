@@ -19,18 +19,21 @@ public class Main {
 	Negoci n3 = new Negoci(300, 15, "n3", 6, 1, 100, tipusNegoci.Clinica);
 	//Negoci n = new Negoci(impost, aparcament, nom, codi, h, capacitat, t);
 	
-	Servei s1 = new Servei(100, 100, 4, "s1", 7, 1, 100, tipusServei.Escola);
-	Servei s2 = new Servei(200, 200, 4, "s2", 8, 1, 200, tipusServei.Escola);
-	Servei s3 = new Servei(300, 300, 6, "s3", 9, 4, 300, tipusServei.Preso);
+	Servei s1 = new Servei(100, 100, 5, "s1", 7, 1, 100, tipusServei.Escola);
+	Servei s2 = new Servei(200, 200, 8, "s2", 8, 1, 200, tipusServei.Escola);
+	Servei s3 = new Servei(300, 300, 10, "s3", 9, 4, 300, tipusServei.Preso);
 	//Servei s = new Servei(cost, manteniment, area, nom, codi, h, capacitat, t);
 
 	RDistCodi rcodi = new RDistCodi(1, 3, false, 4, 4, null);
-	RDistTipus rtip = new RDistTipus(2, 3, false, s3, s3, null);
-	RDistTipus rtip2 = new RDistTipus(5, 3, false, h3, h3, null);
-	RQuantitat rq1 = new RQuantitat(3, 4, s3, true);
+	RDistTipus rtip = new RDistTipus(2, 4, false, s1, s1, null);
+	RDistTipus rtip2 = new RDistTipus(5, 5, true, n3, n3, null);
+	RQuantitat rq1 = new RQuantitat(3, 20, s1, true);
+	RQuantitat rq2 = new RQuantitat(3, 10, s1, false);
 	RInfluencia rinf = new RInfluencia(4, null);
+	RImpostos rimp = new RImpostos(10, 1800, null);
 	
 	RAlsada ralsada = new RAlsada(8, 3, null);
+	RCost rc = new RCost(6, 19000, true, null);
 	
 	Barri b;
 	
@@ -40,31 +43,35 @@ public class Main {
 		//b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
 		//b = new Barri(n, po, pr, c, cl, a, xx, yy)
 		b.carregaEdifici(s1);
-		b.carregaEdifici(s3);
-		/**
-		b.carregaEdifici(h2);
-		b.carregaEdifici(h3);
-		b.carregaEdifici(n1);
-		b.carregaEdifici(n2);
-		b.carregaEdifici(n3);
+		//b.carregaEdifici(s3);
 		
-		b.carregaEdifici(s2);
-		**/
-		b.carregaEdifici(h3);
+		//b.carregaEdifici(h2);
+		//b.carregaEdifici(h3);
+		//b.carregaEdifici(n1);
+		//b.carregaEdifici(n2);
+		//b.carregaEdifici(n3);
+		
+		//b.carregaEdifici(s2);
+		
+		//b.carregaEdifici(h3);
 		b.carregaEdifici(h1);
+		//b.carregaEdifici(h2);
 
 		
 		//b.AfegeixRestriccio(rcodi);
 		//b.AfegeixRestriccio(rtip);
-		b.AfegeixRestriccio(rtip2);
+		//b.AfegeixRestriccio(rtip2);
 		//b.AfegeixRestriccio(rq1);
+		//b.AfegeixRestriccio(rq2);
 		b.AfegeixRestriccio(rinf);
 		//b.AfegeixRestriccio(ralsada);
+		//b.AfegeixRestriccio(rc);
+		//b.AfegeixRestriccio(rimp);
 		
 		
 		
 		if (b.preparaBack()) {
-			b.back2(0, 0, 0);
+			b.back(0, 0, 0);
 			imprimeix();
 		}
 		/**
