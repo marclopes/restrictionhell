@@ -10,20 +10,20 @@ public class Barri implements Serializable {
 
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, aparcament;
-        private Classes classe;
+    private Classes classe;
 	
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
 	boolean trobat = false;
 	
-	public Barri(String n,  Classes mitja,int xx, int yy) {
+	public Barri(String n, int po, int pr, int c, Classes mitja, int a, int xx, int yy) {
 		this.nom = n;
-		this.poblacio = 0;
-		this.pressupost = 0;
-		this.cost_m = 0;
+		this.poblacio = po;
+		this.pressupost = pr;
+		this.cost_m = c;
 		this.classe = mitja;
-		this.aparcament = 0;
+		this.aparcament = a;
 		x = xx;
 		y = yy;
 		espai = new Espai(x, y);
