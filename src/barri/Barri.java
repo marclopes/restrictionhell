@@ -10,7 +10,7 @@ public class Barri implements Serializable {
 
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, aparcament;
-    private Classes classe;
+        private Classes classe;
 	
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
@@ -34,24 +34,24 @@ public class Barri implements Serializable {
 		
 	}
 	
-	public void carregaEdifici(Edifici e) {
+	public void CarregaEdifici(Edifici e) {
 		lEdificis.AfegirEdifici(e);
 	}
 	
-	public void borraEdifici(Edifici e) {
+	public void BorraEdifici(Edifici e) {
 		lEdificis.EliminarEdifici(e);
 	}
-        public void borraEdifici(String e) {
+        public void BorraEdifici(String e) {
 		lEdificis.EliminarEdifici(e);
 	}
 	
-	public void carregaLlista(ArrayList<Edifici> l) {
+	public void CarregaLlista(ArrayList<Edifici> l) {
 		for(Edifici e: l) {
-			carregaEdifici(e);
+			CarregaEdifici(e);
 		}
 	}
 	
-	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
+	public void AfegirAlBarri(Edifici e, int id ,int a,int b) {
 		espai.InsertarElement(new Illa(e), id, a, b);
 	}
 	    
@@ -70,109 +70,105 @@ public class Barri implements Serializable {
 	    }
         
         }
-	public boolean comprovarRestriccions() {
+	public boolean ComprovarRestriccions() {
 		return true;
 		
 	}
 	
 	// Consultores i modificadores
 	
-	public String consultarNom() {
+	public String ConsultarNom() {
 		return nom;
 	}
 
-	public void modificarNom(String nom) {
+	public void ModificarNom(String nom) {
 		this.nom = nom;
 	}
 
-	public int constultarPressupost() {
+	public int ConstultarPressupost() {
 		return pressupost;
 	}
 
-	public void modificarPressupost(int pressupost) {
+	public void ModificarPressupost(int pressupost) {
 		this.pressupost = pressupost;
 	}
 
-	public int consultarPoblacio() {
+	public int ConsultarPoblacio() {
 		return poblacio;
 	}
 
-	public void modificarPoblacio(int poblacio) {
+	public void ModificarPoblacio(int poblacio) {
 		this.poblacio = poblacio;
 	}
 
-	public Classes consultarClasse() {
+	public Classes ConsultarClasse() {
 		return classe;
 	}
 
-	public void modificarClasse(Classes classe) {
+	public void ModificarClasse(Classes classe) {
 		this.classe = classe;
 	}
 
-	public int consultarCost_m() {
+	public int ConsultarCost_m() {
 		return cost_m;
 	}
 
-	public void modificarCost_m(int cost_m) {
+	public void ModificarCost_m(int cost_m) {
 		this.cost_m = cost_m;
 	}
 
-	public int consultarAparcament() {
+	public int ConsultarAparcament() {
 		return aparcament;
 	}
 
-	public void modificarAparcament(int aparcament) {
+	public void ModificarAparcament(int aparcament) {
 		this.aparcament = aparcament;
 	}
 
-	public int consultarX() {
+	public int ConsultarX() {
 		return x;
 	}
 
-	public void modificarX(int x) {
+	public void ModificarX(int x) {
 		this.x = x;
                 espai = new Espai(x,this.y);
 	}
  
-	public int consultarY() {
+	public int ConsultarY() {
 		return y;
 	}
 
-	public void modificarY(int y) {
+	public void ModificarY(int y) {
 		this.y = y;
                 espai = new Espai(this.x,y);
 	}
-	/*public void ModificarXY(int x,int y) {
-	    this.x=x;
-	    this.y=y;
-	    espai = new Espai(x,y);
-	}*/
-	public Edifici consultarEdifici(int x, int y) {
+	
+	public Edifici ConsultarEdifici(int x, int y) {
 		if (espai.ExisteixElementxy(x, y) == false) return null;
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());
 	}
 	
 	
-	public void borraIlla(int x, int y) {
+	public void BorraIlla(int x, int y) {
 		espai.InsertarElement(null, x + y*this.x, x, y);
 		espai.EliminarElementxy(x, y);
 	}
 	
 
 	
-	public int tamRest() {
+	public int TamRest() {
 		return lRestriccions.size();
 	}
 	
-	public RestriccioBarris obteRest(int i) {
+	public RestriccioBarris ObteRest(int i) {
 		return lRestriccions.get(i);
 	}
 	
-	public int tamEd() {
+	public int TamEd() {
 		return lEdificis.Tamany();
 	}
 	
-	public Edifici obteEd(int i) {
+	public Edifici ObteEd(int i) {
 		return lEdificis.ObtenirEdifici(i);
 	}
 
