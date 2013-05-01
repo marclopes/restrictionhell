@@ -1,5 +1,9 @@
 package barri;
 
+/**
+ *
+ * @author Marc Lopez
+ */
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,13 +20,24 @@ public class Barri implements Serializable {
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
 	
-	public Barri(String n, int po, int pr, int c, Classes mitja, int a, int xx, int yy) {
+        /**
+         * Crea una instancia de la classe Barri
+         * @param n Nom del Barri
+         * @param po Població del barri
+         * @param pr 
+         * @param c
+         * @param mitja
+         * @param a
+         * @param xx
+         * @param yy 
+         */
+	public Barri(String n, Classes mitja, int xx, int yy) {
 		this.nom = n;
-		this.poblacio = po;
-		this.pressupost = pr;
-		this.cost_m = c;
+		this.poblacio = 0;
+		this.pressupost = 0;
+		this.cost_m = 0;
 		this.classe = mitja;
-		this.aparcament = a;
+		this.aparcament = 0;
 		x = xx;
 		y = yy;
 		espai = new Espai(x, y);
