@@ -7,6 +7,7 @@ import barri.Edifici.Classes;
 import barri.Habitatge.tipusHab;
 import barri.Negoci.tipusNegoci;
 import barri.Servei.tipusServei;
+import java.util.ArrayList;
 
 public class CtrDomGeneral {
 
@@ -43,10 +44,10 @@ public class CtrDomGeneral {
    * @param xx Dimensio X del barri
    * @param yy Dimensio Y del barri
    */
-    public void CreaBarri(String n, int po, int pr, int c, String cl, int a, int xx, int yy) {
+    public void CreaBarri(String n, String cl, int xx, int yy) {
         Classes tipClas;
         tipClas = StringToClase(cl);
-        ctrBarri.CreaBarri(n, po, pr, c, tipClas, a, xx, yy);
+        ctrBarri.CreaBarri(n, tipClas, xx, yy);
     }
     /**
      * Crea una restriccio de tipus alçada 
@@ -358,5 +359,9 @@ public class CtrDomGeneral {
             return Atribut.CJTEDIFICIS;
         }
         return null;
+    }
+
+    ArrayList<String> llistatEdificis() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

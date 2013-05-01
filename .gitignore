@@ -5,3 +5,5 @@
 *.war
 *.ear
 /bin
+/HellRest/nbproject/private/
+/HellRest/build/

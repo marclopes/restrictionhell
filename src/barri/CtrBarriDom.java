@@ -41,8 +41,8 @@ public class CtrBarriDom {
      * @param xx Dimensio X del barri
      * @param yy Dimensio Y del barri
      */
-    public void CreaBarri(String n, int po, int pr, int c, Classes cl, int a, int xx, int yy) {
-        Barri barri = new Barri(n, po, pr, c, cl, a, xx, yy);
+    public void CreaBarri(String n, Classes cl, int xx, int yy) {
+        Barri barri = new Barri(n, cl, xx, yy);
         cjtBarris.AfegirBarri(barri);
     }
 

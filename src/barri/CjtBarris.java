@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CjtBarris {
     private ArrayList<Barri> cjtBarris;
     
-    public void cjtBarris(){
+    public CjtBarris(){
       cjtBarris = new ArrayList<Barri>();
     }
     

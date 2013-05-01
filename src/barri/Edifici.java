@@ -1,4 +1,4 @@
-package barri;
+ºpackage barri;
 
 import java.util.ArrayList;
 

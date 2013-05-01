@@ -17,6 +17,7 @@ public class CtrEdDom {
    * Crea una instancia buida del controlador d'edificis.
    */
   private CtrEdDom () {
+    cjtEd= new CjtEdificis();
   }
   
   /**
