@@ -4,9 +4,10 @@ package barri;
  */
 import barri.CtrDomRestriccio.Atribut;
 import barri.Edifici.Classes;
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+import barri.Habitatge.TipusHab;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 
 public class CtrDomGeneral {
 
@@ -120,7 +121,7 @@ public class CtrDomGeneral {
      */
     public void CreaHabitatge(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
         if (ctrEdificis.ExisteixEdifici(nom)) ;//error
-        tipusHab k = StringHabtoEnum(tipus);
+        TipusHab k = StringHabtoEnum(tipus);
         ctrEdificis.CreaHabitatge(impost, aparcament, nom, 0, h, capacitat, k);
 
     }
@@ -136,7 +137,7 @@ public class CtrDomGeneral {
 
     public void CreaNegoci(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
         if (ctrEdificis.ExisteixEdifici(nom)) ;//error;
-        tipusNegoci k = StringNegtoEnum(tipus);
+        TipusNegoci k = StringNegtoEnum(tipus);
         ctrEdificis.CreaNegoci(impost, aparcament, nom, 0, h, capacitat, k);
     }
     /**
@@ -151,7 +152,7 @@ public class CtrDomGeneral {
      */
     public void CreaServei(int cost, int manteniment, int area, String nom, int h, int capacitat, String tipus) {
         if (ctrEdificis.ExisteixEdifici(nom)) ;//error;
-        tipusServei k = StringSertoEnum(tipus);
+        TipusServei k = StringSertoEnum(tipus);
         ctrEdificis.CreaServei(cost, manteniment, area, nom, 0, h, capacitat, k);
     }
     /**
@@ -268,55 +269,55 @@ public class CtrDomGeneral {
     public void GeneraBarri(String nomBarri) {//crida a backtraking
     }
 
-    private tipusHab StringHabtoEnum(String n) {
+    private TipusHab StringHabtoEnum(String n) {
         if (n.equals("Casa")) {
-            return tipusHab.Casa;
+            return TipusHab.Casa;
         } else if (n.equals("Pis")) {
-            return tipusHab.Pis;
+            return TipusHab.Pis;
         } else if (n.equals("Mansio")) {
-            return tipusHab.Mansio;
+            return TipusHab.Mansio;
         } else if (n.equals("Xalet")) {
-            return tipusHab.Xalet;
+            return TipusHab.Xalet;
         }
         return null;
     }
 
-    private tipusServei StringSertoEnum(String n) {
+    private TipusServei StringSertoEnum(String n) {
         if (n.equals("Hospital")) {
-            return tipusServei.Hospital;
+            return TipusServei.Hospital;
         } else if (n.equals("Escola")) {
-            return tipusServei.Escola;
+            return TipusServei.Escola;
         } else if (n.equals("Policia")) {
-            return tipusServei.Policia;
+            return TipusServei.Policia;
         } else if (n.equals("Preso")) {
-            return tipusServei.Preso;
+            return TipusServei.Preso;
         } else if (n.equals("Bombers")) {
-            return tipusServei.Bombers;
+            return TipusServei.Bombers;
         } else if (n.equals("Parc")) {
-            return tipusServei.Parc;
+            return TipusServei.Parc;
         } else if (n.equals("Centre Cultural")) {
-            return tipusServei.Centre_Cultural;
+            return TipusServei.Centre_Cultural;
         }
         return null;
     }
 
-    private tipusNegoci StringNegtoEnum(String n) {
+    private TipusNegoci StringNegtoEnum(String n) {
         if (n.equals("Discoteca")) {
-            return tipusNegoci.Discoteca;
+            return TipusNegoci.Discoteca;
         } else if (n.equals("Banc")) {
-            return tipusNegoci.Banc;
+            return TipusNegoci.Banc;
         } else if (n.equals("Bar")) {
-            return tipusNegoci.Bar;
+            return TipusNegoci.Bar;
         } else if (n.equals("Restaurant")) {
-            return tipusNegoci.Restaurant;
+            return TipusNegoci.Restaurant;
         } else if (n.equals("Botiga alimentacio")) {
-            return tipusNegoci.Botiga_alimentacio;
+            return TipusNegoci.Botiga_alimentacio;
         } else if (n.equals("Botiga roba")) {
-            return tipusNegoci.Botiga_roba;
+            return TipusNegoci.Botiga_roba;
         } else if (n.equals("Escola privada")) {
-            return tipusNegoci.Escola_privada;
+            return TipusNegoci.Escola_privada;
         } else if (n.equals("Clinica")) {
-            return tipusNegoci.Clinica;
+            return TipusNegoci.Clinica;
         }
         return null;
     }

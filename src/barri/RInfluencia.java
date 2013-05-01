@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Queue;
 
 import barri.Edifici.TipusEd;
-import barri.Servei.tipusServei;
+import barri.Servei.TipusServei;
+import barri.Servei.TipusServei;
 
 public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 
@@ -13,7 +14,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	Espai e;
 	ArrayList<ArrayList<PosArea>> v;
 	CjtEdificis ce;
-	HashSet<tipusServei> vt;
+	HashSet<TipusServei> vt;
 	int x, y;
 	
 
@@ -22,7 +23,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		//this.e = e;
 		v = new ArrayList<ArrayList<PosArea>>(); 
 		super.tr = TipusRest.INFUENCIA;
-		//vt = new ArrayList<Servei.tipusServei>();
+		//vt = new ArrayList<Servei.TipusServei>();
 	}
 	
 	public void assignaPos(int x, int y) {
@@ -31,10 +32,10 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	}
 	
 	public void recorreCjt () {
-		vt = new HashSet<tipusServei>();
-		for (int i = 0; i < ce.tamany(); i++) {
-			if (ce.obtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
-			vt.add(((Servei)ce.obtenirEdifici(i)).consultarTipus());
+		vt = new HashSet<TipusServei>();
+		for (int i = 0; i < ce.Tamany(); i++) {
+			if (ce.ObtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
+			vt.add(((Servei)ce.ObtenirEdifici(i)).consultarTipus());
 		}
 	}
 	
@@ -71,7 +72,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 					int dis = d[i][j];
 					
 					if (aux.consultarSubclasse() == TipusEd.SER) {
-						tipusServei t = ((Servei)aux).consultarTipus();
+						TipusServei t = ((Servei)aux).consultarTipus();
 						
 						if (vt.contains(t)) {
 							if (((Servei)aux).ConsultarAreaInfluencia() < d[i][j]) return false;
@@ -138,7 +139,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		
 		System.out.println("M'HAN CRIDAT!!!");
 		
-		for (int i = 0; i < tipusServei.values().length; i++) {
+		for (int i = 0; i < TipusServei.values().length; i++) {
 			v.add(new ArrayList<PosArea>());
 			v.get(i).clear();
 		}
@@ -154,8 +155,8 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 					
 					System.out.println("Detectat servei: " + se.ConsultarCodi() + " " + se.ConsultarNom());
 					
-					for (int x = 0; x < tipusServei.values().length; x++) {
-						if (se.consultarTipus() == tipusServei.values()[x]) {
+					for (int x = 0; x < TipusServei.values().length; x++) {
+						if (se.consultarTipus() == TipusServei.values()[x]) {
 							System.out.println("afegit " + se.ConsultarNom() + " a: " + i + "," +j + " --> " + se.consultarTipus());
 							v.get(x).add(new PosArea(i, j, se.ConsultarAreaInfluencia()));
 							break;

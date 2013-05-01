@@ -1,27 +1,27 @@
 package barri;
 
 import barri.Edifici.Classes;
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 
 
 
 public class Main {
-	Habitatge h1 = new Habitatge(100, 5, "h1", 1, 1, 100, tipusHab.Pis);
-	Habitatge h2 = new Habitatge(200, 10, "h2", 2, 2, 200, tipusHab.Pis);
-	Habitatge h3 = new Habitatge(300, 15, "h3", 5, 3, 300, tipusHab.Casa);
+	Habitatge h1 = new Habitatge(100, 5, "h1", 1, 1, 100, TipusHab.Pis);
+	Habitatge h2 = new Habitatge(200, 10, "h2", 2, 2, 200, TipusHab.Pis);
+	Habitatge h3 = new Habitatge(300, 15, "h3", 5, 3, 300, TipusHab.Casa);
 	//Habitatge h1 = new Habitatge(impost, aparcament, nom, codi, h, capacitat, t);
 	
 	
-	Negoci n1 = new Negoci(100, 5, "n1", 4, 1, 100, tipusNegoci.Bar);
-	Negoci n2 = new Negoci(200, 10, "n2", 5, 1, 100, tipusNegoci.Bar);
-	Negoci n3 = new Negoci(300, 15, "n3", 6, 1, 100, tipusNegoci.Clinica);
+	Negoci n1 = new Negoci(100, 5, "n1", 4, 1, 100, TipusNegoci.Bar);
+	Negoci n2 = new Negoci(200, 10, "n2", 5, 1, 100, TipusNegoci.Bar);
+	Negoci n3 = new Negoci(300, 15, "n3", 6, 1, 100, TipusNegoci.Clinica);
 	//Negoci n = new Negoci(impost, aparcament, nom, codi, h, capacitat, t);
 	
-	Servei s1 = new Servei(100, 100, 5, "s1", 7, 1, 100, tipusServei.Escola);
-	Servei s2 = new Servei(200, 200, 8, "s2", 8, 1, 200, tipusServei.Escola);
-	Servei s3 = new Servei(300, 300, 10, "s3", 9, 4, 300, tipusServei.Preso);
+	Servei s1 = new Servei(100, 100, 5, "s1", 7, 1, 100, TipusServei.Escola);
+	Servei s2 = new Servei(200, 200, 8, "s2", 8, 1, 200, TipusServei.Escola);
+	Servei s3 = new Servei(300, 300, 10, "s3", 9, 4, 300, TipusServei.Preso);
 	//Servei s = new Servei(cost, manteniment, area, nom, codi, h, capacitat, t);
 
 	RDistCodi rcodi = new RDistCodi(1, 3, false, 4, 4, null);

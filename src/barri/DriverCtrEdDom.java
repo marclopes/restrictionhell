@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 import barri.CtrEdDom;
 import barri.Edifici;
 import barri.Edifici.TipusEd;
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+import barri.Habitatge.TipusHab;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 
 public class DriverCtrEdDom {
 
@@ -49,7 +50,7 @@ public class DriverCtrEdDom {
                      imp,
                      apc,
                      tip;
-                    tipusHab t = null;
+                    TipusHab t = null;
                     boolean opcio;
 
                     System.out.println("Introdueix el nom: ");
@@ -95,13 +96,13 @@ public class DriverCtrEdDom {
                         tip = Integer.parseInt(in);
                         opcio = false;
                         if (tip == 1) {
-                            t = tipusHab.Casa;
+                            t = TipusHab.Casa;
                         } else if (tip == 2) {
-                            t = tipusHab.Pis;
+                            t = TipusHab.Pis;
                         } else if (tip == 3) {
-                            t = tipusHab.Mansio;
+                            t = TipusHab.Mansio;
                         } else if (tip == 4) {
-                            t = tipusHab.Xalet;
+                            t = TipusHab.Xalet;
                         } else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
                             opcio = true;
@@ -124,7 +125,7 @@ public class DriverCtrEdDom {
 
                 case 2:
 
-                    tipusNegoci t2 = null;
+                    TipusNegoci t2 = null;
 
                     System.out.println("Driver de la classe Negoci. ");
                     System.out.println("Crea un Negoci.");
@@ -175,21 +176,21 @@ public class DriverCtrEdDom {
                         tip = Integer.parseInt(in);
                         opcio = false;
                         if (tip == 1) {
-                            t2 = tipusNegoci.Banc;
+                            t2 = TipusNegoci.Banc;
                         } else if (tip == 2) {
-                            t2 = tipusNegoci.Bar;
+                            t2 = TipusNegoci.Bar;
                         } else if (tip == 3) {
-                            t2 = tipusNegoci.Botiga_alimentacio;
+                            t2 = TipusNegoci.Botiga_alimentacio;
                         } else if (tip == 4) {
-                            t2 = tipusNegoci.Botiga_roba;
+                            t2 = TipusNegoci.Botiga_roba;
                         } else if (tip == 5) {
-                            t2 = tipusNegoci.Clinica;
+                            t2 = TipusNegoci.Clinica;
                         } else if (tip == 6) {
-                            t2 = tipusNegoci.Discoteca;
+                            t2 = TipusNegoci.Discoteca;
                         } else if (tip == 7) {
-                            t2 = tipusNegoci.Escola_privada;
+                            t2 = TipusNegoci.Escola_privada;
                         } else if (tip == 8) {
-                            t2 = tipusNegoci.Restaurant;
+                            t2 = TipusNegoci.Restaurant;
                         } else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
                             opcio = true;
@@ -218,7 +219,7 @@ public class DriverCtrEdDom {
                      mant,
                      ai;
                     //int cost,mant;
-                    tipusServei t3 = null;
+                    TipusServei t3 = null;
                     //  boolean opcio;
 
                     System.out.println("Crea un Servei.");
@@ -275,19 +276,19 @@ public class DriverCtrEdDom {
                         tip = Integer.parseInt(in);
                         opcio = false;
                         if (tip == 1) {
-                            t3 = tipusServei.Bombers;
+                            t3 = TipusServei.Bombers;
                         } else if (tip == 2) {
-                            t3 = tipusServei.Centre_Cultural;
+                            t3 = TipusServei.Centre_Cultural;
                         } else if (tip == 3) {
-                            t3 = tipusServei.Escola;
+                            t3 = TipusServei.Escola;
                         } else if (tip == 4) {
-                            t3 = tipusServei.Hospital;
+                            t3 = TipusServei.Hospital;
                         } else if (tip == 5) {
-                            t3 = tipusServei.Parc;
+                            t3 = TipusServei.Parc;
                         } else if (tip == 6) {
-                            t3 = tipusServei.Policia;
+                            t3 = TipusServei.Policia;
                         } else if (tip == 7) {
-                            t3 = tipusServei.Preso;
+                            t3 = TipusServei.Preso;
                         } else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
                             opcio = true;

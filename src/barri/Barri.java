@@ -198,17 +198,17 @@ public class Barri implements Serializable {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
 			
-			for (int i = 0; i < lEdificis.tamany() && !trobat; i++) {
+			for (int i = 0; i < lEdificis.Tamany() && !trobat; i++) {
 				
 				
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
+				lEdificis.ObtenirEdifici(i).ModificarId(id);
+				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
 			
 			
 				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
+				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i), x, y)) {
+				if ( b = legal(lEdificis.ObtenirEdifici(i), x, y)) {
 					
 					if (x == (this.x)-1) back(id+1, 0, y+1);
 					else back(id+1, x+1, y);			
@@ -320,20 +320,20 @@ public class Barri implements Serializable {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
 			
-			int index = (int) (Math.random()*lEdificis.tamany());
+			int index = (int) (Math.random()*lEdificis.Tamany());
 			
-			for (int j = 0; j < lEdificis.tamany() && !trobat; j++) {
+			for (int j = 0; j < lEdificis.Tamany() && !trobat; j++) {
 				
-				int i = (index+j)%lEdificis.tamany();
+				int i = (index+j)%lEdificis.Tamany();
 				
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
+				lEdificis.ObtenirEdifici(i).ModificarId(id);
+				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
 			
 			
 				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
+				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i), x, y)) {
+				if ( b = legal(lEdificis.ObtenirEdifici(i), x, y)) {
 					
 					if (x == (this.x)-1) back2(id+1, 0, y+1);
 					else back2(id+1, x+1, y);			
@@ -365,17 +365,17 @@ public class Barri implements Serializable {
 				y = (int) (Math.random()*this.y);
 			}
 		
-			for (int i = 0; i < lEdificis.tamany() && !trobat; i++) {
+			for (int i = 0; i < lEdificis.Tamany() && !trobat; i++) {
 				
-				//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
+				//espai.InsertarElement(lEdificis.ObtenirEdifici(i), id, x, y);
+				lEdificis.ObtenirEdifici(i).ModificarId(id);
+				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
 			
 			
 				//if (x == 14 && y == 14) continue;
-				if (legal(lEdificis.obtenirEdifici(i))) {
+				if (legal(lEdificis.ObtenirEdifici(i))) {
 					System.out.println("wea");
-					//System.out.println("afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
+					//System.out.println("afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
 					t[x][y] = false;
 					
 					if (x == (this.x)-1) randomtrack(id+1, t);

@@ -17,8 +17,8 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
 	
 	public boolean CompleixRes() {
 		//boolean comp = true;
-		for (int i = 0; i < ce.tamany(); i++) {
-			if (ce.obtenirEdifici(i).ConsultarH() > alsada) return false;
+		for (int i = 0; i < ce.Tamany(); i++) {
+			if (ce.ObtenirEdifici(i).ConsultarH() > alsada) return false;
 		}
 		
 		return true;
