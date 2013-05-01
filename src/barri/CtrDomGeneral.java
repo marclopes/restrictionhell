@@ -81,9 +81,7 @@ public class CtrDomGeneral {
             ctrRestric.creaDistTipus(dist, max, e1, e2, null);
         }
     }
-
-    public void CreaRestriccioArea() {
-    }
+    
     /**
      * Crea una restriccio d'impostos
      * @param imp Impostos minims que cal recaptar
@@ -103,12 +101,26 @@ public class CtrDomGeneral {
      * @param quantitat Quantitat maxima/minima d'edificis
      * @param max Indica si es maxim o minim d'edificis
      * @param edifici Edifici sobre el que s'aplica la restriccio
+     * @return Retorna un codi d'error (0 si s'ha fet be, -1 si s'ha fet malament)
      */
-    public void CreaRestriccioQuantitat(int quantitat, boolean max, String edifici) {
+    public int CreaRestriccioQuantitat(int id,int quantitat, boolean max, String edifici) {
         Edifici e = ctrEdificis.ObtenirEdifici(edifici);
         if (e != null) {
-            ctrRestric.creaQuantitat(quantitat, max, e);
+            return ctrRestric.CreaRestQuantitat(id, quantitat, max, e);
+            
         }
+        return -1;
+    }
+    /**
+     * 
+     * @param id
+     * @param aparcaments
+     * @return 
+     */
+    public int CreaRestAparcaments(int id,int aparcaments){
+        
+            return ctrRestric.CreaRestAparcaments(id, aparcaments);
+
     }
     /**
      * Crea un habitatge amb les dades donades
