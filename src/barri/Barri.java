@@ -1,29 +1,43 @@
 package barri;
 
+/**
+ *
+ * @author Marc Lopez
+ */
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import barri.Edifici.Classes;;
+import barri.Edifici.Classes;
 
 public class Barri implements Serializable {
 
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, aparcament;
-    private Classes classe;
+        private Classes classe;
 	
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
-	boolean trobat = false;
 	
-	public Barri(String n, int po, int pr, int c, Classes mitja, int a, int xx, int yy) {
+        /**
+         * Crea una instancia de la classe Barri
+         * @param n Nom del Barri
+         * @param po Població del barri
+         * @param pr 
+         * @param c
+         * @param mitja
+         * @param a
+         * @param xx
+         * @param yy 
+         */
+	public Barri(String n, Classes mitja, int xx, int yy) {
 		this.nom = n;
-		this.poblacio = po;
-		this.pressupost = pr;
-		this.cost_m = c;
+		this.poblacio = 0;
+		this.pressupost = 0;
+		this.cost_m = 0;
 		this.classe = mitja;
-		this.aparcament = a;
+		this.aparcament = 0;
 		x = xx;
 		y = yy;
 		espai = new Espai(x, y);
@@ -35,30 +49,30 @@ public class Barri implements Serializable {
 		
 	}
 	
-	public void carregaEdifici(Edifici e) {
+	public void CarregaEdifici(Edifici e) {
 		lEdificis.AfegirEdifici(e);
 	}
 	
-	public void borraEdifici(Edifici e) {
+	public void BorraEdifici(Edifici e) {
 		lEdificis.EliminarEdifici(e);
 	}
-        public void borraEdifici(String e) {
+        public void BorraEdifici(String e) {
 		lEdificis.EliminarEdifici(e);
 	}
 	
-	public void carregaLlista(ArrayList<Edifici> l) {
+	public void CarregaLlista(ArrayList<Edifici> l) {
 		for(Edifici e: l) {
-			carregaEdifici(e);
+			CarregaEdifici(e);
 		}
 	}
 	
-	public void afegirAlBarri(Edifici e, int id ,int a,int b) {
+	public void AfegirAlBarri(Edifici e, int id ,int a,int b) {
 		espai.InsertarElement(new Illa(e), id, a, b);
 	}
 	    
 	public void AfegeixRestriccio(RestriccioBarris r){
 	    if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
-	    else if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
+	    if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
 	    
 	    lRestriccions.add(r);
 	}
@@ -71,274 +85,107 @@ public class Barri implements Serializable {
 	    }
         
         }
-	public boolean comprovarRestriccions() {
+	public boolean ComprovarRestriccions() {
 		return true;
 		
 	}
 	
 	// Consultores i modificadores
 	
-	public String consultarNom() {
+	public String ConsultarNom() {
 		return nom;
 	}
 
-	public void modificarNom(String nom) {
+	public void ModificarNom(String nom) {
 		this.nom = nom;
 	}
 
-	public int constultarPressupost() {
+	public int ConstultarPressupost() {
 		return pressupost;
 	}
 
-	public void modificarPressupost(int pressupost) {
+	public void ModificarPressupost(int pressupost) {
 		this.pressupost = pressupost;
 	}
 
-	public int consultarPoblacio() {
+	public int ConsultarPoblacio() {
 		return poblacio;
 	}
 
-	public void modificarPoblacio(int poblacio) {
+	public void ModificarPoblacio(int poblacio) {
 		this.poblacio = poblacio;
 	}
 
-	public Classes consultarClasse() {
+	public Classes ConsultarClasse() {
 		return classe;
 	}
 
-	public void modificarClasse(Classes classe) {
+	public void ModificarClasse(Classes classe) {
 		this.classe = classe;
 	}
 
-	public int consultarCost_m() {
+	public int ConsultarCost_m() {
 		return cost_m;
 	}
 
-	public void modificarCost_m(int cost_m) {
+	public void ModificarCost_m(int cost_m) {
 		this.cost_m = cost_m;
 	}
 
-	public int consultarAparcament() {
+	public int ConsultarAparcament() {
 		return aparcament;
 	}
 
-	public void modificarAparcament(int aparcament) {
+	public void ModificarAparcament(int aparcament) {
 		this.aparcament = aparcament;
 	}
 
-	public int consultarX() {
+	public int ConsultarX() {
 		return x;
 	}
 
-	public void modificarX(int x) {
+	public void ModificarX(int x) {
 		this.x = x;
                 espai = new Espai(x,this.y);
 	}
  
-	public int consultarY() {
+	public int ConsultarY() {
 		return y;
 	}
 
-	public void modificarY(int y) {
+	public void ModificarY(int y) {
 		this.y = y;
                 espai = new Espai(this.x,y);
 	}
-	/*public void ModificarXY(int x,int y) {
-	    this.x=x;
-	    this.y=y;
-	    espai = new Espai(x,y);
-	}*/
-	public Edifici consultarEdifici(int x, int y) {
+	
+	public Edifici ConsultarEdifici(int x, int y) {
 		if (espai.ExisteixElementxy(x, y) == false) return null;
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());
 	}
 	
 	
-	
-	public boolean preparaBack() {
-		boolean b = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RCjtEd) {
-				RestriccioBarris raux = lRestriccions.get(i);
-				
-				if (!raux.CompleixRes()) {
-					System.out.println("No compleix: " + raux.tr);
-					b = false;
-				}
-			}
-		}
-		return b;
+	public void BorraIlla(int x, int y) {
+		espai.InsertarElement(null, x + y*this.x, x, y);
+		espai.EliminarElementxy(x, y);
 	}
 	
-	
-	public boolean postBack() {
-		boolean b = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			if (lRestriccions.get(i) instanceof RQuantitat) {
-				RQuantitat raux = (RQuantitat) lRestriccions.get(i);
-				if (raux.esMax() == false) {
-					b = b && raux.CompleixRes();
-				}
-			}
-		}
-		return b;
-	}
-	
-	
-	
-	
-	void back(int id, int x, int y) {
-		if (id < this.x * this.y) {
-		//if (id < (10)) {
-			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
-			
-			for (int i = 0; i < lEdificis.tamany() && !trobat; i++) {
-				
-				
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
-				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i))) {
-					
-					if (x == (this.x)-1) back(id+1, 0, y+1);
-					else back(id+1, x+1, y);			
-					
-				}
-				
 
-			}
-		} else {
-			trobat = true;
-
-		}
+	
+	public int TamRest() {
+		return lRestriccions.size();
 	}
 	
-	boolean legal(Edifici ed) {
-		boolean comp = true;
-		for (int i = 0; i < lRestriccions.size(); i++) {
-			TipusRest tr = lRestriccions.get(i).obteTipus();
-			
-			if (tr == TipusRest.QUANTITAT) {
-				RQuantitat raux = ((RQuantitat) lRestriccions.get(i));
-				if (raux.esMax()) comp = raux.CompleixRes();
-				
-			}
-			
-			if (tr == TipusRest.DISTCODI || tr == TipusRest.DISTTIPUS || tr == TipusRest.INFUENCIA) {
-				comp = (comp && lRestriccions.get(i).CompleixRes());
-				
-				if (!comp) {
-					System.out.println( " --> " + false + "  " + lRestriccions.get(i).obteTipus());
-					System.out.println();
-					return false;
-				}
-			}
-			
-			
-		}
-		
-		System.out.println( " --> " + true);
-		System.out.println();
-		return comp;
-		
-		
+	public RestriccioBarris ObteRest(int i) {
+		return lRestriccions.get(i);
 	}
 	
-	
-	public void imprimeix() {
-		for (int i = 0; i < this.consultarX(); i++) {
-			for (int j = 0; j < this.consultarY(); j++) {
-				String n;
-				if (this.consultarEdifici(i, j) != null) n = this.consultarEdifici(i, j).ConsultarNom();
-				else n = "nn";		
-				System.out.print(n + " ");
-			}
-			System.out.println();
-		}
-		
+	public int TamEd() {
+		return lEdificis.Tamany();
 	}
 	
-	
-	void back2(int id, int x, int y) {
-		if (id < this.x * this.y) {
-		//if (id < (10)) {
-			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
-			
-			int index = (int) (Math.random()*lEdificis.tamany());
-			
-			for (int j = 0; j < lEdificis.tamany() && !trobat; j++) {
-				
-				int i = (index+j)%lEdificis.tamany();
-				
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
-				boolean b;
-				if ( b = legal(lEdificis.obtenirEdifici(i))) {
-					
-					if (x == (this.x)-1) back2(id+1, 0, y+1);
-					else back2(id+1, x+1, y);			
-					
-				}
-				System.out.println( " --> " + b);
-				System.out.println();
-
-			}
-		} else {
-			trobat = true;
-
-		}
+	public Edifici ObteEd(int i) {
+		return lEdificis.ObtenirEdifici(i);
 	}
-	
-	
-	
-	
-	void randomtrack(int id, boolean[][] t) {
-		if (id < this.x * this.y) {	
-			
-			int x = (int) (Math.random()*this.x);
-			int y = (int) (Math.random()*this.y);
-			
-			while (!t[x][y]) {
-				//System.out.println(t[x][y]);
-				x = (int) (Math.random()*this.x);
-				y = (int) (Math.random()*this.y);
-			}
-		
-			for (int i = 0; i < lEdificis.tamany() && !trobat; i++) {
-				
-				//espai.InsertarElement(lEdificis.obtenirEdifici(i), id, x, y);
-				lEdificis.obtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.obtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				if (legal(lEdificis.obtenirEdifici(i))) {
-					System.out.println("wea");
-					//System.out.println("afegir: " + id + " " + i + " " + lEdificis.obtenirEdifici(i).nom + " a " + x + ", " + y);
-					t[x][y] = false;
-					
-					if (x == (this.x)-1) randomtrack(id+1, t);
-					else randomtrack(id+1, t);			
-					
-				}
-			}
-		} else {
-			trobat = true;
-
-		}
-	}
-	
-	
-	
-	
 
 }
 

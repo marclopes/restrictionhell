@@ -1,6 +1,7 @@
 package barri;
 
 import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
 
 /**
  *
@@ -10,6 +11,8 @@ public class CtrBarriDom {
 
     private static CtrBarriDom ctrBarri = null;
     private CjtBarris cjtBarris;
+    
+    private boolean trobat = false;
 
     /**
      * Crea una instancia del controlador de Barris
@@ -169,4 +172,217 @@ public class CtrBarriDom {
             return Classes.Baixa;
         }
     }
+    
+    
+    
+    
+    
+    
+    
+	
+	public boolean preparaBack(String n) {
+		trobat = false;
+		Barri aux = ObtenirBarri(n);
+		boolean b = true;
+		for (int i = 0; i < aux.tamRest(); i++) {
+			if (aux.obteRest(i) instanceof RAlsada) {
+				RestriccioBarris raux = aux.obteRest(i);
+				
+				if (!raux.CompleixRes()) {
+					System.out.println("No compleix: " + raux.tr);
+					b = false;
+				}
+			}
+		}
+		return b;
+	}
+	
+	
+	public boolean postBack(String n) {
+		Barri aux = ObtenirBarri(n);
+		boolean b = true;
+		for (int i = 0; i < aux.tamRest(); i++) {
+			if (aux.obteRest(i) instanceof RQuantitat && !((RQuantitat)aux.obteRest(i)).esMax()) {
+				RQuantitat raux = (RQuantitat) aux.obteRest(i);
+				if (raux.esMax() == false) {
+					b = b && raux.CompleixRes();
+				}
+			}
+		}
+		return b;
+	}
+	
+	
+	
+	
+	void back(int id, int x, int y, Barri aux) {
+		if (id < aux.consultarX() * aux.consultarY()) {
+		//if (id < (10)) {
+			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
+			
+			for (int i = 0; i < aux.tamEd() && !trobat; i++) {
+				
+				
+				aux.obteEd(i).ModificarId(id);
+				aux.afegirAlBarri(aux.obteEd(i), id, x, y);
+			
+			
+				//if (x == 14 && y == 14) continue;
+				System.out.println("Intento afegir: " + id + " " + i + " " + aux.obteEd(i).nom + " a " + x + ", " + y);
+				boolean b;
+				if ( b = legal(aux.obteEd(i), x, y, aux)) {
+					
+					if (x == (aux.consultarX())-1) back(id+1, 0, y+1, aux);
+					else back(id+1, x+1, y, aux);			
+					
+				}
+				
+
+			}
+			if (!trobat) aux.borraIlla(x, y);
+				
+		} else {
+			trobat = true;
+
+		}
+	}
+	
+	boolean legal(Edifici ed, int x, int y, Barri aux) {
+		boolean comp = true;
+		for (int i = 0; i < aux.tamRest(); i++) {
+			TipusRest tr = aux.obteRest(i).obteTipus();
+			
+			if (tr == TipusRest.QUANTITAT) {
+				RQuantitat raux = ((RQuantitat) aux.obteRest(i));
+				if (raux.esMax()) comp = comp && raux.CompleixRes();
+				
+			}
+			
+			if (tr == TipusRest.DISTTIPUS) {
+				comp = (comp && aux.obteRest(i).CompleixRes());
+				
+				if (!comp) {
+					System.out.println( " --> " + false + "  " + aux.obteRest(i).obteTipus());
+					System.out.println();
+					//comp = false;
+				}
+			}
+			
+			
+			if (tr == TipusRest.INFUENCIA) {
+				((RInfluencia)aux.obteRest(i)).recorreCjt();
+				((RInfluencia)aux.obteRest(i)).assignaPos(x, y);
+				comp = (comp && aux.obteRest(i).CompleixRes());
+				
+				if (!comp) {
+					System.out.println( " --> " + false + "  " + aux.obteRest(i).obteTipus());
+					System.out.println();
+					//comp = false;
+				}
+			}
+			
+			if (tr == TipusRest.COST) {
+				if (ed.consultarSubclasse() == TipusEd.SER) {
+					if( ((RCost)aux.obteRest(i)).esMax()) {
+						int c = ((Servei)ed).ConsultarCost();
+						((RCost)aux.obteRest(i)).augmentaCost(c);
+						boolean b = ((RCost)aux.obteRest(i)).CompleixRes();
+						comp = comp && b;
+						if (!b) ((RCost)aux.obteRest(i)).redueixCost(c);
+					}
+				}
+			}
+			
+			
+			if (tr == TipusRest.IMPOSTOS) {
+				RImpostos raux = ((RImpostos)aux.obteRest(i));
+				int c;
+				if (ed.consultarSubclasse() == TipusEd.HAB) {
+					c = ((Habitatge)ed).ConsultarImpost();
+					
+				} else if (ed.consultarSubclasse() == TipusEd.NEG) {
+					c = ((Negoci)ed).ConsultarImpost();
+					
+				} else c = -1; 
+				
+				raux.assignaImpAct(c);
+				
+				boolean b = raux.CompleixRes();
+				comp = comp && b;
+				
+			}
+			
+			
+		}
+		
+		System.out.println( " --> " + comp);
+		System.out.println();
+		return comp;
+		
+		
+	}
+	
+	
+	public void imprimeix(Barri aux) {
+		for (int i = 0; i < aux.consultarX(); i++) {
+			for (int j = 0; j < aux.consultarY(); j++) {
+				String n;
+				if (aux.consultarEdifici(i, j) != null) n = aux.consultarEdifici(i, j).ConsultarNom();
+				else n = "nn";		
+				System.out.print(n + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	
+	void back2(int id, int x, int y, Barri aux) {
+		if (id < aux.consultarX() * aux.consultarY()) {
+		//if (id < (10)) {
+			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
+			
+			int index = (int) (Math.random()* aux.tamEd());
+			
+			for (int j = 0; j < aux.tamEd() && !trobat; j++) {
+				
+				int i = (index+j)%aux.tamEd();
+				
+				aux.obteEd(i).ModificarId(id);
+				aux.afegirAlBarri(aux.obteEd(i), id, x, y);
+			
+			
+				//if (x == 14 && y == 14) continue;
+				System.out.println("Intento afegir: " + id + " " + i + " " + aux.obteEd(i) + " a " + x + ", " + y);
+				boolean b;
+				if ( b = legal(aux.obteEd(i), x, y, aux)) {
+					
+					if (x == (aux.consultarX())-1) back2(id+1, 0, y+1, aux);
+					else back2(id+1, x+1, y, aux);			
+					
+				}
+				System.out.println( " --> " + b);
+				System.out.println();
+
+			}
+			if (!trobat) aux.borraIlla(x, y);
+			
+		} else {
+			trobat = true;
+
+		}
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

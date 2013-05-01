@@ -85,8 +85,7 @@ public class Espai {
 
   public boolean ExisteixElementxy(int a,int b) {
 	  Dades aux;
-      if ((aux = (Dades) matriuElements[a][b]) == null) return false;
-      if (referencies.get(aux.id)==null) return false;
+      if ((aux = (Dades) matriuElements[a][b]) == null || referencies.get(aux.id)==null) return false;
       else return true;
 	
   }

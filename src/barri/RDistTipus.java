@@ -21,10 +21,11 @@ public class RDistTipus extends RDistancia {
 		l1 = new ArrayList<Pos>();
 		l2 = new ArrayList<Pos>();
 
-		while (x < e.obteX() && y < e.obteY()) {
+		while (x < e.obteX() && y < e.obteY() && e.ExisteixElementxy(x, y)) {
 
 			if (e.ExisteixElementxy(x, y)) {
-
+				Object o = e.ConsultarElementxy(x, y);
+				if (o == null) System.out.println(e.ExisteixElementxy(x, y) + " pero ES NULLLLLL!!!!!");
 				Edifici ed = ((Illa) e.ConsultarElementxy(x, y)).ConsultaEdifici();
 
 				if (ed.consultarSubclasse() == e1.consultarSubclasse()) {

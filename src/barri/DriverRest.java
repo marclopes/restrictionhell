@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import barri.Servei.TipusServei;
+
 
 
 public class DriverRest {
@@ -224,37 +226,13 @@ public class DriverRest {
 		else System.out.println("Naaah");
 		
 		
-		
-		/**
-		
-		Locuraaaaaaah
-		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				switch (j%2) {
-				case 0:
-					e.InsertarElement(hbaix, i*10 + j, i, j);
-					break;
-					
-				case 1:
-					e.InsertarElement(hbaix2, i*10 + j, i, j);
-					break;
-
-				default:
-					break;
-				}
-			}
-			
-		}
-		**/
-		
 	}
 	
 	
 	
 	private void quantitat(int q) {
-		Habitatge hab = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
-		Negoci neg = new Negoci(1, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
+		Habitatge hab = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		Negoci neg = new Negoci(1, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
 		
 		//Negoci n = new Negoci(impost, aparcament, nom, codi, h, capacitat, t)
 		
@@ -265,13 +243,16 @@ public class DriverRest {
 		System.out.println("Provant restriccio de quantitat maxima:");
 		System.out.println("Afegint " + (q) + " edificis:");
 		
-		CjtEdificis ce = new CjtEdificis();
-		for (int i = 0; i < q+10; i++) {
-			if (i < q) ce.AfegirEdifici(hab);
-			else ce.AfegirEdifici(neg);
+		Espai e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i*10+j < q) e.InsertarElement(hab, 1, i, j);
+				else e.InsertarElement(neg, 2, i, j);
+			}
 		}
 		
 		RQuantitat ra = new RQuantitat(1, q, hab, true);
+		ra.assignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -280,13 +261,16 @@ public class DriverRest {
 		//PROVANT NO COMPLEIX...
 		System.out.println("Ara afegint " + (q+1) + " edificis:");
 		
-		ce = new CjtEdificis();
-		for (int i = 0; i < q+10; i++) {
-			if (i < q+1) ce.AfegirEdifici(hab);
-			else ce.AfegirEdifici(neg);
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i*10+j < q+1) e.InsertarElement(hab, 1, i, j);
+				else e.InsertarElement(neg, 2, i, j);
+			}
 		}
 		
 		ra = new RQuantitat(1, q, hab, true);
+		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -298,13 +282,16 @@ public class DriverRest {
 		System.out.println("Provant restriccio de quantitat minima:");
 		System.out.println("Afegint " + (q) + " edificis:");
 		
-		ce = new CjtEdificis();
-		for (int i = 0; i < q+10; i++) {
-			if (i < q) ce.AfegirEdifici(hab);
-			else ce.AfegirEdifici(neg);
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i*10+j < q+1) e.InsertarElement(hab, 1, i, j);
+				else e.InsertarElement(neg, 2, i, j);
+			}
 		}
 		
 		ra = new RQuantitat(1, q, hab, false);
+		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -313,13 +300,16 @@ public class DriverRest {
 		//PROVANT NO COMPLEIX...
 		System.out.println("Ara afegint " + (q-1) + " edificis:");
 		
-		ce = new CjtEdificis();
-		for (int i = 0; i < q+10; i++) {
-			if (i < q-1) ce.AfegirEdifici(hab);
-			else ce.AfegirEdifici(neg);
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (i*10+j < q-1) e.InsertarElement(hab, 1, i, j);
+				else e.InsertarElement(neg, 2, i, j);
+			}
 		}
 		
 		ra = new RQuantitat(1, q, hab, false);
+		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -333,8 +323,9 @@ public class DriverRest {
 
 
 	private void manteniment(int cb) {
-		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
-		Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
+		Habitatge h = new Habitatge(100, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		//Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Servei s = new Servei(100, 100, 5, "s1", 7, 1, 100, TipusServei.Escola);
 
 		
 		// PROVANT COMPLEIX...
@@ -345,6 +336,16 @@ public class DriverRest {
 			if (i%2 == 0) ce.AfegirEdifici(h);
 			else ce.AfegirEdifici(n);
 		}
+		int a = 0;
+		Espai e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < cb) e.InsertarElement(hab, 1, i, j);
+				else e.InsertarElement(s, 2, i, j);
+			}
+		}
+		
+		
 		System.out.println("Afegint edificis amb impostos totals: " + i);
 		
 		// hauria de complir!
@@ -381,8 +382,8 @@ public class DriverRest {
 
 
 	private void impostos(int im) {
-		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
-		Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
+		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
 		
 		// PROVANT COMPLEIX...
 		
@@ -422,9 +423,9 @@ public class DriverRest {
 
 
 	private void distipus(int dist) {
-		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
-		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
-		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.tipusNegoci.Banc);
+		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.TipusNegoci.Banc);
 		
 		Espai e = new Espai(10, 10);
 		// COMPROVEM QUE ES COMPLEIXEN...
@@ -509,9 +510,9 @@ public class DriverRest {
 
 
 	private void distcodi(int dist) {
-		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.tipusHab.Casa);
-		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.tipusNegoci.Bar);
-		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.tipusNegoci.Banc);
+		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.TipusNegoci.Banc);
 		
 		Espai e = new Espai(10, 10);
 		// COMPROVEM QUE ES COMPLEIXEN...
@@ -599,7 +600,7 @@ public class DriverRest {
 
 
 	private void cost(int co) {
-		Servei s = new Servei(co/5, 0, 0, "ser", 1, 1, 1, tipusServei.Bombers);
+		Servei s = new Servei(co/5, 0, 0, "ser", 1, 1, 1, TipusServei.Bombers);
 		// PROVANT COMPLEIX...
 		int acum = 0;
 		CjtEdificis ce = new CjtEdificis();

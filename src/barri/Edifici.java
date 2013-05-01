@@ -1,4 +1,4 @@
-ºpackage barri;
+package barri;
 
 import java.util.ArrayList;
 
@@ -49,16 +49,6 @@ public abstract class Edifici extends Objecte {
 		this.h = h;
 		this.capacitat = capacitat;	
         }
-	
-	/** 
-        * Consultora del nom de l'edifici.
-        * @return El nom de l'edifici
-        */
-        
-        @Override
-	public String ConsultarNom(){
-		return super.nom;
-	}
 	
         /** 
         * Consultora de l'identificador de l'edifici.

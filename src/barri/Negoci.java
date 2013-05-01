@@ -8,7 +8,7 @@ package barri;
  */
 
 public class Negoci extends Edifici{
-	public enum tipusNegoci {
+	public enum TipusNegoci {
 		Discoteca,
 		Banc,
 		Bar,
@@ -20,7 +20,7 @@ public class Negoci extends Edifici{
 	};
 	private int impost;
 	private int aparcament;
-	private tipusNegoci tipus;
+	private TipusNegoci tipus;
         /**
         * Crea una instancia de la clase sense inicialitzar 
         */ 
@@ -38,7 +38,7 @@ public class Negoci extends Edifici{
         * @param capacitat ens diu quantes persones caben al negoci.
         */
         
-	public Negoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusNegoci t){
+	public Negoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusNegoci t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.NEG;
 		this.impost = impost;
@@ -69,7 +69,7 @@ public class Negoci extends Edifici{
         * @return El tipus de negoci
         */
         
-	public tipusNegoci consultarTipus() {
+	public TipusNegoci consultarTipus() {
 		return this.tipus;
 	}
 	
@@ -96,7 +96,7 @@ public class Negoci extends Edifici{
         * @param t El nou tipus de negoci.
         */
         
-	public void modificarTipus(tipusNegoci t) {
+	public void modificarTipus(TipusNegoci t) {
 		tipus = t;
 	}
 }

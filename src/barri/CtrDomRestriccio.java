@@ -26,7 +26,7 @@ public class CtrDomRestriccio {
      * Crea una instancia del controlador de restriccions del domini
      */
     private CtrDomRestriccio() {
-        ctrRestriccio.creaRestInfluencia();
+        ctrRestriccio.CreaRestInfluencia();
     }
     /**
      * 
@@ -36,7 +36,7 @@ public class CtrDomRestriccio {
         return ctrRestriccio;
     }
 
-    public int creaRestAlsada(int id, int alsada) {
+    public int CreaRestAlsada(int id, int alsada) {
         if (!ctrRestriccio.ExisteixRestriccio(id)){
              lRest.add(new RAlsada(id, alsada, null));
              return 0;
@@ -44,7 +44,7 @@ public class CtrDomRestriccio {
         return -1;
     }
 
-    public int creaRestCost(int id, int cost, boolean max) {
+    public int CreaRestCost(int id, int cost, boolean max) {
         if (!ctrRestriccio.ExisteixRestriccio(id)){
             lRest.add(new RCost(id, cost, max, null));
             return 0;
@@ -52,7 +52,7 @@ public class CtrDomRestriccio {
         return -1;
     }
 
-    public int creaRestDistCodi(int id, int dist, boolean max, int el1, int el2) {
+    public int CreaRestDistCodi(int id, int dist, boolean max, int el1, int el2) {
           if (!ctrRestriccio.ExisteixRestriccio(id)){
              lRest.add(new RDistCodi(id, dist, max, el1, el2, null));
              return 0;
@@ -60,7 +60,7 @@ public class CtrDomRestriccio {
           return -1;
     }
 
-    public int creaDistTipus(int id, int dist, boolean max, Edifici el1, Edifici el2) {
+    public int CreaDistTipus(int id, int dist, boolean max, Edifici el1, Edifici el2) {
         if (!ctrRestriccio.ExisteixRestriccio(id)){
             lRest.add(new RDistTipus(id, dist, max, el1, el2, null));
             return 0;
@@ -68,7 +68,7 @@ public class CtrDomRestriccio {
         return -1;
     }
 
-    public int creaRestImpostos(int id, int imp) {
+    public int CreaRestImpostos(int id, int imp) {
        if (!ctrRestriccio.ExisteixRestriccio(id)){
          lRest.add(new RImpostos(id, imp, null));
          return 0;
@@ -76,11 +76,11 @@ public class CtrDomRestriccio {
        return -1;
     }
 
-    private void creaRestInfluencia() {
+    private void CreaRestInfluencia() {
         lRest.add(new RInfluencia(0, null));
     }
 
-    public int creaRestManteniment(int id, int costBarri) {
+    public int CreaRestManteniment(int id, int costBarri) {
      if (!ctrRestriccio.ExisteixRestriccio(id)){
         lRest.add(new RManteniment(id, costBarri, null));
         return 0;
@@ -88,15 +88,21 @@ public class CtrDomRestriccio {
      return -1;
     }
 
-    public int creaQuantitat(int id,int quantitat, boolean max, Edifici e) {
+    public int CreaRestQuantitat(int id,int quantitat, boolean max, Edifici e) {
         if (!ctrRestriccio.ExisteixRestriccio(id)){
             lRest.add(new RQuantitat(id, quantitat, e, max));
             return 0;
         }
         return -1;
     }
-
-    public TipusRest constultarTipus(int id) {
+    public int CreaRestAparcaments(int id,int aparcaments){
+        if (!ctrRestriccio.ExisteixRestriccio(id)){
+            
+            return 0;
+        }
+        return -1;
+    }
+    public TipusRest ConstultarTipus(int id) {
         for (int i = 0; i < lRest.size(); ++i) {
             if (lRest.get(id).ObtenirId() == id) {
                 return lRest.get(id).obteTipus();
@@ -170,7 +176,7 @@ public class CtrDomRestriccio {
     }
 
     public void assignaEspai(int id, Espai e) {
-        RestriccioBarris aux = obtRest(id);
+        RestriccioBarris aux = obtenirRest(id);
         if (aux instanceof REspai) {
             ((REspai) aux).assignaEspai(e);
         }
