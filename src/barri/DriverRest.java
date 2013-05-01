@@ -14,6 +14,8 @@ public class DriverRest {
 	InputStreamReader r;
 	BufferedReader br;
 	
+	Espai e;
+	
 	
 	
 	
@@ -87,12 +89,7 @@ public class DriverRest {
 			
 			
 		case 2:
-			cost();
-			break;
-			
-			
-		case 3:
-			System.out.println("Distancia:");
+			System.out.println("Cost max (entre 100 i 20000):");
 			try {
 				n = Integer.parseInt(br.readLine());
 			} catch (NumberFormatException e) {
@@ -103,7 +100,23 @@ public class DriverRest {
 				e.printStackTrace();
 			}
 			
-			distcodi(n);
+			cost(n);
+			break;
+			
+			
+		case 3:
+			System.out.println("Aparcament:");
+			try {
+				n = Integer.parseInt(br.readLine());
+			} catch (NumberFormatException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			
+			//distcodi(n);
 			break;
 			
 	
@@ -124,7 +137,7 @@ public class DriverRest {
 	
 			
 		case 5:
-			System.out.println("Impostos minims (milor entre 1 i 100):");
+			System.out.println("Impostos minims (milor entre 100 i 2000):");
 			try {
 				n = Integer.parseInt(br.readLine());
 			} catch (NumberFormatException e) {
@@ -144,7 +157,7 @@ public class DriverRest {
 			
 	
 		case 7:
-			System.out.println("Cost barri (milor entre 1 i 100):");
+			System.out.println("Cost barri (milor entre 100 i 2000):");
 			try {
 				n = Integer.parseInt(br.readLine());
 			} catch (NumberFormatException e) {
@@ -243,11 +256,11 @@ public class DriverRest {
 		System.out.println("Provant restriccio de quantitat maxima:");
 		System.out.println("Afegint " + (q) + " edificis:");
 		
-		Espai e = new Espai(10, 10);
+		e = new Espai(10, 10);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (i*10+j < q) e.InsertarElement(hab, 1, i, j);
-				else e.InsertarElement(neg, 2, i, j);
+				if (i*10+j < q) InsertarElement(hab, 1, i, j);
+				else InsertarElement(neg, 2, i, j);
 			}
 		}
 		
@@ -264,8 +277,8 @@ public class DriverRest {
 		e = new Espai(10, 10);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (i*10+j < q+1) e.InsertarElement(hab, 1, i, j);
-				else e.InsertarElement(neg, 2, i, j);
+				if (i*10+j < q+1) InsertarElement(hab, 1, i, j);
+				else InsertarElement(neg, 2, i, j);
 			}
 		}
 		
@@ -285,8 +298,8 @@ public class DriverRest {
 		e = new Espai(10, 10);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (i*10+j < q+1) e.InsertarElement(hab, 1, i, j);
-				else e.InsertarElement(neg, 2, i, j);
+				if (i*10+j < q+1) InsertarElement(hab, 1, i, j);
+				else InsertarElement(neg, 2, i, j);
 			}
 		}
 		
@@ -303,8 +316,8 @@ public class DriverRest {
 		e = new Espai(10, 10);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (i*10+j < q-1) e.InsertarElement(hab, 1, i, j);
-				else e.InsertarElement(neg, 2, i, j);
+				if (i*10+j < q-1) InsertarElement(hab, 1, i, j);
+				else InsertarElement(neg, 2, i, j);
 			}
 		}
 		
@@ -330,26 +343,25 @@ public class DriverRest {
 		
 		// PROVANT COMPLEIX...
 		
-		CjtEdificis ce = new CjtEdificis();
-		int i;
-		for (i = 0; i < cb; i++) {
-			if (i%2 == 0) ce.AfegirEdifici(h);
-			else ce.AfegirEdifici(n);
-		}
+
 		int a = 0;
-		Espai e = new Espai(10, 10);
+		e = new Espai(10, 10);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (a < cb) e.InsertarElement(hab, 1, i, j);
-				else e.InsertarElement(s, 2, i, j);
+				if (a < cb) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarImpost();
+				}
+				else InsertarElement(s, 2, i, j);
 			}
 		}
 		
 		
-		System.out.println("Afegint edificis amb impostos totals: " + i);
+		System.out.println("Afegint edificis amb impostos totals: " + a);
 		
 		// hauria de complir!
-		RManteniment ra = new RManteniment(1, cb, ce);
+		RManteniment ra = new RManteniment(1, cb, e);
+		ra.assignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -358,15 +370,22 @@ public class DriverRest {
 		
 		// PROVANT NO COMPLEIX...
 		
-		ce = new CjtEdificis();
-		for (i = 0; i < cb-2; i++) {
-			if (i%2 == 0) ce.AfegirEdifici(h);
-			else ce.AfegirEdifici(n);
+		a = 0;
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < cb-h.ConsultarImpost()) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarImpost();
+				}
+				else InsertarElement(s, 2, i, j);
+			}
 		}
-		System.out.println("Afegint edificis amb impostos totals: " + i);
+		System.out.println("Afegint edificis amb impostos totals: " + a);
 		
 		// hauria de complir!
-		ra = new RManteniment(1, cb, ce);
+		ra = new RManteniment(1, cb, e);
+		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -382,21 +401,30 @@ public class DriverRest {
 
 
 	private void impostos(int im) {
-		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
-		Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Habitatge h = new Habitatge(100, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		//Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Servei s = new Servei(100, 100, 5, "s1", 7, 1, 100, TipusServei.Escola);
+
 		
 		// PROVANT COMPLEIX...
 		
-		CjtEdificis ce = new CjtEdificis();
-		int i;
-		for (i = 0; i < im; i++) {
-			if (i%2 == 0) ce.AfegirEdifici(h);
-			else ce.AfegirEdifici(n);
+
+		int a = 0;
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < im) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarImpost();
+				}
+				else InsertarElement(s, 2, i, j);
+			}
 		}
-		System.out.println("Afegint edificis amb impostos totals: " + i);
+		System.out.println("Afegint edificis amb impostos totals: " + a);
 		
 		// hauria de complir!
-		RManteniment ra = new RManteniment(1, im, ce);
+		RManteniment ra = new RManteniment(1, im, e);
+		ra.assignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -405,15 +433,23 @@ public class DriverRest {
 		
 		// PROVANT NO COMPLEIX...
 		
-		ce = new CjtEdificis();
-		for (i = 0; i < im-2; i++) {
-			if (i%2 == 0) ce.AfegirEdifici(h);
-			else ce.AfegirEdifici(n);
+
+		a = 0;
+		e = new Espai(10, 10);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < im - h.ConsultarImpost()) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarImpost();
+				}
+				else InsertarElement(s, 2, i, j);
+			}
 		}
-		System.out.println("Afegint edificis amb impostos totals: " + i);
+		System.out.println("Afegint edificis amb impostos totals: " + a);
 		
 		// hauria de complir!
-		ra = new RManteniment(1, im, ce);
+		ra = new RManteniment(1, im, e);
+		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -427,7 +463,7 @@ public class DriverRest {
 		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
 		Negoci n2 = new Negoci(2, 1, "n2", 3, 1, 1, Negoci.TipusNegoci.Banc);
 		
-		Espai e = new Espai(10, 10);
+		e = new Espai(10, 10);
 		// COMPROVEM QUE ES COMPLEIXEN...
 		System.out.println("Comprovem que es compleixen...");
 		for (int i = 0; i < 100; i++) {
@@ -436,22 +472,22 @@ public class DriverRest {
 			//MAX
 			if (x == 0 && y == 0) {
 				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 1, x, y);
+				InsertarElement(n1, 1, x, y);
 				
 			} else if (x == dist/2 && y == dist/2+dist%2-1) {
 				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 2, x, y);
+				InsertarElement(n1, 2, x, y);
 			//MIN	
 			} else if (x == 9 && y == 9) {
 				System.out.println("Posant edifici " + n2.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 3, x, y);
+				InsertarElement(n2, 3, x, y);
 				
 			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2-1) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 4, x, y);
+				InsertarElement(n2, 4, x, y);
 				
 			} else {
-				e.InsertarElement(h, 4, x, y);
+				InsertarElement(h, 4, x, y);
 			}
 			
 		}
@@ -473,22 +509,22 @@ public class DriverRest {
 			//MAX
 			if (x == 0 && y == 0) {
 				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 1, x, y);
+				InsertarElement(n1, 1, x, y);
 				
 			} else if (x == dist/2 && y == dist/2+dist%2+1) {
 				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 2, x, y);
+				InsertarElement(n1, 2, x, y);
 			//MIN	
 			} else if (x == 9 && y == 9) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 3, x, y);
+				InsertarElement(n2, 3, x, y);
 				
 			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2+1) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 4, x, y);
+				InsertarElement(n2, 4, x, y);
 				
 			} else {
-				e.InsertarElement(h, 4, x, y);
+				InsertarElement(h, 4, x, y);
 			}
 			
 		}
@@ -508,7 +544,7 @@ public class DriverRest {
 		
 	}
 
-
+/**
 	private void distcodi(int dist) {
 		Habitatge h = new Habitatge(1, 1, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
 		Negoci n1= new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
@@ -523,22 +559,22 @@ public class DriverRest {
 			//MAX
 			if (x == 0 && y == 0) {
 				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 1, x, y);
+				InsertarElement(n1, 1, x, y);
 				
 			} else if (x == dist/2 && y == dist/2+dist%2-1) {
 				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 2, x, y);
+				InsertarElement(n1, 2, x, y);
 			//MIN	
 			} else if (x == 9 && y == 9) {
 				System.out.println("Posant edifici " + n2.ConsultarNom() + " Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 3, x, y);
+				InsertarElement(n2, 3, x, y);
 				
 			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2-1) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 4, x, y);
+				InsertarElement(n2, 4, x, y);
 				
 			} else {
-				e.InsertarElement(h, 4, x, y);
+				InsertarElement(h, 4, x, y);
 			}
 			
 		}
@@ -560,22 +596,22 @@ public class DriverRest {
 			//MAX
 			if (x == 0 && y == 0) {
 				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 1, x, y);
+				InsertarElement(n1, 1, x, y);
 				
 			} else if (x == dist/2 && y == dist/2+dist%2+1) {
 				System.out.println("Posant edifici " + n1.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n1, 2, x, y);
+				InsertarElement(n1, 2, x, y);
 			//MIN	
 			} else if (x == 9 && y == 9) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 3, x, y);
+				InsertarElement(n2, 3, x, y);
 				
 			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2+1) {
 				System.out.println("Posant edifici " + n2.consultarTipus() + "Pos: " + x + ", " + y);
-				e.InsertarElement(n2, 4, x, y);
+				InsertarElement(n2, 4, x, y);
 				
 			} else {
-				e.InsertarElement(h, 4, x, y);
+				InsertarElement(h, 4, x, y);
 			}
 			
 		}
@@ -584,10 +620,7 @@ public class DriverRest {
 		rdtM = new RDistCodi(1, dist, true, n1.ConsultarCodi(), n1.ConsultarCodi(), e);
 		rdtm = new RDistCodi(1, dist, false, n2.ConsultarCodi(), n2.ConsultarCodi(), e);
 		
-		/**
-		if (rdtM.CompleixRes() || rdtm.CompleixRes()) System.out.println("Yeah");
-		else System.out.println("Naaah");	
-		**/
+
 		
 		if (rdtM.CompleixRes()) System.out.println("Yeah");
 		else System.out.println("Naaah");
@@ -597,22 +630,32 @@ public class DriverRest {
 	
 		
 	}
-
+	**/
 
 	private void cost(int co) {
 		Servei s = new Servei(co/5, 0, 0, "ser", 1, 1, 1, TipusServei.Bombers);
+		Servei s2 = new Servei(0, 0, 0, "ser2", 1, 1, 1, TipusServei.Bombers);
 		// PROVANT COMPLEIX...
-		int acum = 0;
-		CjtEdificis ce = new CjtEdificis();
-		int i;
-		for (i = 0; i < 5; i++) {
-			acum = acum + s.ConsultarCost();
-			ce.AfegirEdifici(s);
+		
+		int a = 0;
+		e = new Espai(10, 10);
+		RCost ra = new RCost(1, co, true, e);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < co) {
+					InsertarElement(s, 1, i, j);
+					a = a + s.ConsultarCost();
+					ra.augmentaCost(s.ConsultarCost());
+				}
+				else InsertarElement(s2, 2, i, j);
+			}
 		}
-		System.out.println("Afegint edificis amb cost totals: " + acum);
+		
+		System.out.println("Afegint edificis amb cost totals: " + a);
 		
 		// hauria de complir!
-		RCost ra = new RCost(1, co, true, ce);
+		
+		ra.assignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -621,20 +664,34 @@ public class DriverRest {
 		
 		// PROVANT NO COMPLEIX...
 		
-		ce = new CjtEdificis();
-		for (i = 0; i < im-2; i++) {
-			if (i%2 == 0) ce.AfegirEdifici(h);
-			else ce.AfegirEdifici(n);
+		a = 0;
+		e = new Espai(10, 10);
+		ra = new RCost(1, co, true, e);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < co+s.ConsultarCost()) {
+					InsertarElement(s, 1, i, j);
+					a = a + s.ConsultarCost();
+					ra.augmentaCost(s.ConsultarCost());
+				}
+				else InsertarElement(s2, 2, i, j);
+			}
 		}
-		System.out.println("Afegint edificis amb impostos totals: " + i);
+		System.out.println("Afegint edificis amb cost totals: " + a);
 		
-		// hauria de complir!
-		RManteniment rm = new RManteniment(1, im, ce); //albert : hu he modificat per que em donava error de tipus
-		compleix = rm.CompleixRes();
+		
+		ra.assignaEspai(e);
+		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
 		else System.out.println("Naaah");	
 		
+	}
+	
+	
+	
+	private void InsertarElement(Edifici ed, int id, int x, int y) {
+		e.InsertarElement(new Illa(ed), id, x, y);
 	}
 
 }

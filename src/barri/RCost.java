@@ -5,11 +5,11 @@ import barri.Edifici.TipusEd;
 
 
 
-public class RCost extends RestriccioBarris implements RMax {
+public class RCost extends RestriccioBarris implements RMax, REspai {
 	
 	int cost, cAct;
 	boolean max;
-	//Espai e;
+	Espai e;
 
 	public RCost(int ID, int co, boolean m, Espai e) {
 		super(ID);
@@ -30,9 +30,29 @@ public class RCost extends RestriccioBarris implements RMax {
 	}
 	
 	public boolean CompleixRes() {
+		if (e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return CompleixFi();
+		
 		if (max && cAct <= cost) return true;
 		if (!max && cAct >= cost) return true;
 		return false;
+	}
+	
+	
+	public boolean CompleixFi() {
+		int n = 0;
+		for (int i = 0; i < e.obteX(); i++) {
+			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
+				if (ed.consultarSubclasse() == TipusEd.SER) {
+					n = n + ((Servei)ed).ConsultarCost();
+				}
+			}
+		}
+
+		if (!max && n >= cost) return true;
+		if (max && n <= cost) return true;
+		else return false;
+		
 	}
 	
 	/**
@@ -92,6 +112,13 @@ public class RCost extends RestriccioBarris implements RMax {
 	
 	public void canviaMax(boolean m) {
 		max = m;
+		
+	}
+
+
+	@Override
+	public void assignaEspai(Espai e) {
+		this.e = e;
 		
 	}
 
