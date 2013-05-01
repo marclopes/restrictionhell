@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import barri.Edifici.Classes;
-import barri.Edifici.TipusEd;
 
 public class Barri implements Serializable {
 
@@ -16,7 +15,6 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
-	boolean trobat = false;
 	
 	public Barri(String n, int po, int pr, int c, Classes mitja, int a, int xx, int yy) {
 		this.nom = n;
@@ -177,48 +175,6 @@ public class Barri implements Serializable {
 	public Edifici obteEd(int i) {
 		return lEdificis.ObtenirEdifici(i);
 	}
-	
-	
-	
-	/**	
-	void randomtrack(int id, boolean[][] t) {
-		if (id < this.x * this.y) {	
-			
-			int x = (int) (Math.random()*this.x);
-			int y = (int) (Math.random()*this.y);
-			
-			while (!t[x][y]) {
-				//System.out.println(t[x][y]);
-				x = (int) (Math.random()*this.x);
-				y = (int) (Math.random()*this.y);
-			}
-		
-			for (int i = 0; i < lEdificis.Tamany() && !trobat; i++) {
-				
-				//espai.InsertarElement(lEdificis.ObtenirEdifici(i), id, x, y);
-				lEdificis.ObtenirEdifici(i).ModificarId(id);
-				this.afegirAlBarri(lEdificis.ObtenirEdifici(i), id, x, y);
-			
-			
-				//if (x == 14 && y == 14) continue;
-				if (legal(lEdificis.ObtenirEdifici(i))) {
-					System.out.println("wea");
-					//System.out.println("afegir: " + id + " " + i + " " + lEdificis.ObtenirEdifici(i).nom + " a " + x + ", " + y);
-					t[x][y] = false;
-					
-					if (x == (this.x)-1) randomtrack(id+1, t);
-					else randomtrack(id+1, t);			
-					
-				}
-			}
-		} else {
-			trobat = true;
-
-		}
-	}	
-	**/
-	
-	
 
 }
 
