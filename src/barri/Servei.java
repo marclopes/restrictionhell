@@ -7,7 +7,7 @@ package barri;
 
 public class Servei extends Edifici{ // canviar nom per ServeiPublic
 	
-	public enum tipusServei {
+	public enum TipusServei {
 		Hospital,
 		Escola,
 		Policia,
@@ -16,7 +16,7 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
 		Parc,
 		Centre_Cultural
 	}
-	private tipusServei tipus;
+	private TipusServei tipus;
 	private int cost;
 	private int manteniment;
 	private int areaInfluencia;
@@ -39,7 +39,7 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
         * @param capacitat ens diu quantes persones caben al servei.
         */
         
-	public Servei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, tipusServei t){
+	public Servei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, TipusServei t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.SER;
 		this.cost = cost;
@@ -80,7 +80,7 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
         * @return la subclasse de l'edifici
         */
         
-	public tipusServei consultarTipus() {
+	public TipusServei consultarTipus() {
 		return this.tipus;
 	}
 	
@@ -116,7 +116,7 @@ public class Servei extends Edifici{ // canviar nom per ServeiPublic
         * @param t El nou tipus del servei.
         */
         
-	public void modificarTipus(tipusServei t) {
+	public void modificarTipus(TipusServei t) {
 		tipus = t;
 	}
         

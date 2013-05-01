@@ -1,12 +1,12 @@
 package barri;
 import barri.Edifici.Classes;
-import barri.Habitatge.tipusHab;
-import barri.Negoci.tipusNegoci;
-import barri.Servei.tipusServei;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 
 /**
  *
- * @authors Albert Navarro i Eduard Ricou
+ * @authors Eduard Ricou
  */
 public class CtrEdDom {
     
@@ -38,7 +38,7 @@ public class CtrEdDom {
    * @param capacitat Nombre de persones que poden viure a l'habitatge.
    * @param tipus Tipus d'habitatge.
    */
-  public void CreaHabitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusHab tipus) {
+  public void CreaHabitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusHab tipus) {
     Habitatge hab = new Habitatge(impost,aparcament,nom,codi,h,capacitat,tipus);
     cjtEd.AfegirEdifici(hab);   
   }
@@ -53,7 +53,7 @@ public class CtrEdDom {
    * @param capacitat Aforament del negoci.
    * @param tipus Tipus de negoci.
    */
-  public void CreaNegoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusNegoci tipus) {
+  public void CreaNegoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusNegoci tipus) {
     Negoci hab = new Negoci(impost,aparcament,nom,codi,h,capacitat,tipus);
     cjtEd.AfegirEdifici(hab);   
   }
@@ -69,7 +69,7 @@ public class CtrEdDom {
    * @param capacitat Aforament del servei.
    * @param tipus Tipus de servei.
    */
-  public void CreaServei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, tipusServei tipus) {
+  public void CreaServei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, TipusServei tipus) {
     Servei hab = new Servei(cost, manteniment, area, nom, codi, h, capacitat, tipus);
     cjtEd.AfegirEdifici(hab);   
   }
