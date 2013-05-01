@@ -112,30 +112,30 @@ public class CtrDomRestriccio {
     }
 
     public int ModificarRestriccio(int id, Atribut atribut, String valor) {
-        RestriccioBarris aux = obtenirRest(id);
+        RestriccioBarris aux = ObtenirRest(id);
         int val = Integer.parseInt(valor);
 
         if (atribut == Atribut.ALSADA && aux.obteTipus() == TipusRest.ALSADA) {
-            ((RAlsada) aux).modificarAlsada(val);
+            ((RAlsada) aux).ModificarAlsada(val);
             return 0;
 
         } else if (atribut == Atribut.COST && aux.obteTipus() == TipusRest.COST) {
-            ((RCost) aux).modificarCost(val);
+            ((RCost) aux).ModificarCost(val);
             return 0;
         } else if (atribut == Atribut.DISTANCIA && (aux.obteTipus() == TipusRest.DISTCODI || aux.obteTipus() == TipusRest.DISTTIPUS)) {
-            ((RDistancia) aux).modificarDist(val);
+            ((RDistancia) aux).ModificarDist(val);
             return 0;
         } else if (atribut == Atribut.IMPOSTOS && aux.obteTipus() == TipusRest.IMPOSTOS) {
-            ((RImpostos) aux).modificarImp(val);
+            ((RImpostos) aux).ModificarImp(val);
             return 0;
         } else if (atribut == Atribut.QUANTITAT && aux.obteTipus() == TipusRest.QUANTITAT) {
-            ((RQuantitat) aux).modificarQuant(val);
+            ((RQuantitat) aux).ModificarQuant(val);
             return 0;
         } else if (atribut == Atribut.CODI1 && aux.obteTipus() == TipusRest.DISTCODI) {
-            ((RDistCodi) aux).modificarCodi1(val);
+            //((RDistCodi) aux).ModificarCodi1(val);
             return 0;
         } else if (atribut == Atribut.CODI2 && aux.obteTipus() == TipusRest.DISTCODI) {
-            ((RDistCodi) aux).modificarCodi2(val);
+            //((RDistCodi) aux).ModificarCodi2(val);
             return 0;
             /**
              * } else if (atribut == Atribut.ESPAI && aux instanceof REspai) {
@@ -143,9 +143,9 @@ public class CtrDomRestriccio {
              */
         } else if (atribut == Atribut.MAXIM && aux instanceof RMax) {
             if (val != 0) {
-                ((RMax) aux).canviaMax(true);
+                ((RMax) aux).CanviaMax(true);
             } else {
-                ((RMax) aux).canviaMax(false);
+                ((RMax) aux).CanviaMax(false);
             }
             return 0;
 
@@ -155,30 +155,30 @@ public class CtrDomRestriccio {
     }
 
     public void assignaEd(int id, int nEd, Edifici ed) {
-        RestriccioBarris aux = obtRest(id);
+        RestriccioBarris aux = ObtenirRest(id);
         if (nEd == 2 && aux instanceof RDistTipus) {
-            ((RDistTipus) aux).modificarEd2(ed);
+            ((RDistTipus) aux).ModificarEd2(ed);
 
         } else if (nEd == 1) {
             if (aux instanceof RDistTipus) {
-                ((RDistTipus) aux).modificarEd1(ed);
+                ((RDistTipus) aux).ModificarEd1(ed);
             } else if (aux instanceof RQuantitat) {
-                ((RQuantitat) aux).assignaEdifici(ed);
+                ((RQuantitat) aux).AssignaEdifici(ed);
             }
         }
     }
 
     public void assignaCjtEd(int id, CjtEdificis ce) {
-        RestriccioBarris aux = obtRest(id);
+        RestriccioBarris aux = ObtenirRest(id);
         if (aux instanceof RCjtEd) {
-            ((RCjtEd) aux).assignaCe(ce);
+            ((RCjtEd) aux).AssignaCe(ce);
         }
     }
 
     public void assignaEspai(int id, Espai e) {
-        RestriccioBarris aux = obtenirRest(id);
+        RestriccioBarris aux = ObtenirRest(id);
         if (aux instanceof REspai) {
-            ((REspai) aux).assignaEspai(e);
+            ((REspai) aux).AssignaEspai(e);
         }
     }
 

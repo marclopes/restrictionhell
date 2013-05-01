@@ -26,12 +26,12 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		//vt = new ArrayList<Servei.TipusServei>();
 	}
 	
-	public void assignaPos(int x, int y) {
+	public void AssignaPos(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void recorreCjt () {
+	public void RecorreCjt () {
 		vt = new HashSet<TipusServei>();
 		for (int i = 0; i < ce.Tamany(); i++) {
 			if (ce.ObtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
@@ -128,16 +128,16 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		//}
 	}
 	
-	public boolean CompleixRes() {
+	public boolean CompleixRes2() {
 		return bfs(x, y);
 		
 	}
 	
 
 
-	public boolean CompleixRes2() {
+	public boolean CompleixRes() {
 		
-		System.out.println("M'HAN CRIDAT!!!");
+		//System.out.println("M'HAN CRIDAT!!!");
 		
 		for (int i = 0; i < TipusServei.values().length; i++) {
 			v.add(new ArrayList<PosArea>());
@@ -146,18 +146,18 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		
 		
 		for (int i = 0; i < e.obteX(); i++) {
-			System.out.print("it: " + i + ",");
+			//System.out.print("it: " + i + ",");
 			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
-				System.out.println(j);
+				//System.out.println(j);
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (ed.consultarSubclasse() == TipusEd.SER) {
 					Servei se = (Servei)ed;
 					
-					System.out.println("Detectat servei: " + se.ConsultarCodi() + " " + se.ConsultarNom());
+					//System.out.println("Detectat servei: " + se.ConsultarCodi() + " " + se.ConsultarNom());
 					
 					for (int x = 0; x < TipusServei.values().length; x++) {
 						if (se.consultarTipus() == TipusServei.values()[x]) {
-							System.out.println("afegit " + se.ConsultarNom() + " a: " + i + "," +j + " --> " + se.consultarTipus());
+							//System.out.println("afegit " + se.ConsultarNom() + " a: " + i + "," +j + " --> " + se.consultarTipus());
 							v.get(x).add(new PosArea(i, j, se.ConsultarAreaInfluencia()));
 							break;
 						}
@@ -204,19 +204,19 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 			}
 
 		}
-		System.out.println("fora bucle ueee");
+		//System.out.println("fora bucle ueee");
 		
 		//boolean bool = true;
 		for (int i = 0; i < v.size(); i++) {
 			ArrayList<PosArea> vaux = v.get(i);
-			if (!comprovaArees(vaux)) return false;	
+			if (!ComprovaArees(vaux)) return false;	
 			
 		}
 		return true;
 	}
 	
 	
-	private boolean comprovaArees(ArrayList<PosArea> v) {
+	private boolean ComprovaArees(ArrayList<PosArea> v) {
 		//boolean b = true;
 		int Md, md;
 		for (int i = 0; i < v.size()-1; i++) {
@@ -228,7 +228,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 			int inf = p1.area + p2.area;
 			int d = dist(p1.x, p1.y, p2.x, p2.y);
 				
-			System.out.println(i + " vs " + i+1 + "   " + p1.x + "," + p1.y + " vs. " + p2.x + "," + p2.y + " ---- " + inf + "  " + d);
+			//System.out.println(i + " vs " + i+1 + "   " + p1.x + "," + p1.y + " vs. " + p2.x + "," + p2.y + " ---- " + inf + "  " + d);
 				
 			if (inf < d || inf/2 > d) return false;
 			//}
@@ -240,13 +240,25 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	
 	
 	
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
 	}
 
 	
-	public void assignaCe(CjtEdificis ce) {
+	public void AssignaCe(CjtEdificis ce) {
 		this.ce = ce;
+		
+	}
+
+	@Override
+	public boolean EsMax() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void CanviaMax(boolean m) {
+		// TODO Auto-generated method stub
 		
 	}
 	

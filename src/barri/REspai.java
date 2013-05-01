@@ -1,4 +1,4 @@
 package barri;
 public interface REspai {
-	public void assignaEspai(Espai e);
+	public void AssignaEspai(Espai e);
 }

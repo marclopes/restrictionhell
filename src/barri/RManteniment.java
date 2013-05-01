@@ -22,25 +22,25 @@ public class RManteniment extends RestriccioBarris implements REspai{
 		
 	}
 	
-	public int consultarCostBarri() {
+	public int ConsultarCostBarri() {
 		return costBarri;
 	}
 	
-	public void modificarCostBArri(int cb) {
+	public void ModificarCostBArri(int cb) {
 		costBarri = cb;
 	}
 
 
 	@Override
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
-		rint.assignaEspai(e);
+		rint.AssignaEspai(e);
 	}
 	
 	
-	public void assignaImpAct(int i) {
+	public void AssignaImpAct(int i) {
 		ia = i;
-		rint.assignaImpAct(ia);
+		rint.AssignaImpAct(ia);
 	}
 	
 	

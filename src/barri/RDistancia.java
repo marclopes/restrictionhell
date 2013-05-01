@@ -41,23 +41,23 @@ public abstract class RDistancia extends RestriccioBarris implements RMax, REspa
 	}
 	
 	
-	public int consultarDist() {
+	public int ConsultarDist() {
 		return dist;
 	}
 	
-	public void modificarDist(int d) {
+	public void ModificarDist(int d) {
 		dist = d;
 	}
 	
-	public boolean esMax() {
+	public boolean EsMax() {
 		return max;
 	}
 	
-	public void canviaMax(boolean m) {
+	public void CanviaMax(boolean m) {
 		max = m;
 	}
 	
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
 	}
 

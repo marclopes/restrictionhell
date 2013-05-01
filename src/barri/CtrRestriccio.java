@@ -76,19 +76,19 @@ public class CtrRestriccio {
 		int val = Integer.parseInt(valor);
 		
 		if (atribut == Atribut.ALSADA && aux.obteTipus() == TipusRest.ALSADA) {
-			((RAlsada)aux).modificarAlsada(val);
+			((RAlsada)aux).ModificarAlsada(val);
 			
 		} else if (atribut == Atribut.COST && aux.obteTipus() == TipusRest.COST) {
-			((RCost)aux).modificarCost(val);
+			((RCost)aux).ModificarCost(val);
 			
 		} else if (atribut == Atribut.DISTANCIA && (aux.obteTipus() == TipusRest.DISTCODI || aux.obteTipus() == TipusRest.DISTTIPUS)) {
-			((RDistancia)aux).modificarDist(val);
+			((RDistancia)aux).ModificarDist(val);
 			
 		} else if (atribut == Atribut.IMPOSTOS && aux.obteTipus() == TipusRest.IMPOSTOS) {
-			((RImpostos)aux).modificarImp(val);
+			((RImpostos)aux).ModificarImp(val);
 
 		} else if (atribut == Atribut.QUANTITAT && aux.obteTipus() == TipusRest.QUANTITAT) {
-			((RQuantitat)aux).modificarQuant(val);
+			((RQuantitat)aux).ModificarQuant(val);
 						
 		} else if (atribut == Atribut.CODI1 && aux.obteTipus() == TipusRest.DISTCODI) {
 			((RDistCodi)aux).modificarCodi1(val);
@@ -101,8 +101,8 @@ public class CtrRestriccio {
 		**/	
 			
 		} else if (atribut == Atribut.MAXIM && aux instanceof RMax) {
-			if (val != 0) ((RMax)aux).canviaMax(true);
-			else ((RMax)aux).canviaMax(false);
+			if (val != 0) ((RMax)aux).CanviaMax(true);
+			else ((RMax)aux).CanviaMax(false);
 
 			
 		} 
@@ -112,13 +112,13 @@ public class CtrRestriccio {
 	public void assignaEd(int id, int nEd, Edifici ed) {
 		RestriccioBarris aux = obtRest(id);
 		if (nEd == 2 && aux instanceof RDistTipus) {
-			((RDistTipus) aux).modificarEd2(ed);
+			((RDistTipus) aux).ModificarEd2(ed);
 			
 		} else if (nEd == 1) {
 			if ( aux instanceof RDistTipus) {
-				((RDistTipus) aux).modificarEd1(ed);
+				((RDistTipus) aux).ModificarEd1(ed);
 			} else if (aux instanceof RQuantitat) {
-				((RQuantitat) aux).assignaEdifici(ed);
+				((RQuantitat) aux).AssignaEdifici(ed);
 			}
 		}
 	}
@@ -126,14 +126,14 @@ public class CtrRestriccio {
 	public void assignaCjtEd(int id, CjtEdificis ce) {
 		RestriccioBarris aux = obtRest(id);
 		if (aux instanceof RCjtEd) {
-			((RCjtEd)aux).assignaCe(ce);
+			((RCjtEd)aux).AssignaCe(ce);
 		}
 	}
 	
 	public void assignaEspai(int id, Espai e) {
 		RestriccioBarris aux = obtRest(id);
 		if (aux instanceof REspai) {
-			((REspai)aux).assignaEspai(e);
+			((REspai)aux).AssignaEspai(e);
 		}
 	}
 	

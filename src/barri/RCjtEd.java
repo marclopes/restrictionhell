@@ -1,5 +1,5 @@
 package barri;
 
 public interface RCjtEd {
-	public void assignaCe(CjtEdificis ce);
+	public void AssignaCe(CjtEdificis ce);
 }

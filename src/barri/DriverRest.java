@@ -116,7 +116,7 @@ public class DriverRest {
 				e.printStackTrace();
 			}
 			
-			//distcodi(n);
+			aparcament(n);
 			break;
 			
 	
@@ -152,7 +152,18 @@ public class DriverRest {
 			
 			
 		case 6:
-			infuencia();
+			System.out.println("Area influencia (milor entre 6 i 15):");
+			try {
+				n = Integer.parseInt(br.readLine());
+			} catch (NumberFormatException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		
+			infuencia(n);
 			break;
 			
 	
@@ -394,7 +405,64 @@ public class DriverRest {
 	}
 
 
-	private void infuencia() {
+	private void infuencia(int in) {
+		Habitatge h = new Habitatge(100, 10, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		//Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Servei s = new Servei(100, 100, in, "s1", 7, 1, 100, TipusServei.Escola);
+
+		
+		// PROVANT COMPLEIX...
+
+		int a = 0;
+		e = new Espai(10+2*in, 10+2*in);
+		RInfluencia ra = new RInfluencia(1, e);
+		
+		for (int i = 0; i < e.obteX(); i++) {
+			for (int j = 0; j < e.obteY(); j++) {
+				if ((i+j) == 0 || (i == in && j == in)) {
+					InsertarElement(s, 1, i, j);
+					a = a + h.ConsultarAparcament();
+				}
+				else InsertarElement(h, 2, i, j);
+			}
+		}
+		System.out.println("Afegint edificis amb distancia entre ells " + in*2);
+		
+		// hauria de complir!
+		
+		ra.assignaEspai(e);
+		boolean compleix = ra.CompleixRes();
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");		
+		
+		
+		// PROVANT NO COMPLEIX...
+		
+
+		a = 0;
+		e = new Espai(10+2*in, 10+2*in);
+		ra = new RInfluencia(1, e);
+		
+		for (int i = 0; i < e.obteX(); i++) {
+			for (int j = 0; j < e.obteY(); j++) {
+				if ((i+j) == 0 || (i == in+1 && j == in)) {
+					InsertarElement(s, 1, i, j);
+					a = a + h.ConsultarAparcament();
+				}
+				else InsertarElement(h, 2, i, j);
+			}
+		}
+		System.out.println("Afegint edificis amb distancia entre ells " + (in*2+1));
+		
+		// hauria de complir!
+		
+		ra.assignaEspai(e);
+		compleix = ra.CompleixRes();
+		
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");	
 		
 		
 	}
@@ -679,6 +747,65 @@ public class DriverRest {
 		}
 		System.out.println("Afegint edificis amb cost totals: " + a);
 		
+		
+		ra.assignaEspai(e);
+		compleix = ra.CompleixRes();
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");	
+		
+	}
+	
+	private void aparcament(int ap) {
+		Habitatge h = new Habitatge(100, ap/10, "h", 1, 1, 1, Habitatge.TipusHab.Casa);
+		//Negoci n = new Negoci(2, 1, "n", 2, 1, 1, Negoci.TipusNegoci.Bar);
+		Servei s = new Servei(100, 100, 5, "s1", 7, 1, 100, TipusServei.Escola);
+
+		
+		// PROVANT COMPLEIX...
+		
+
+		int a = 0;
+		e = new Espai(10, 10);
+		RAparcament ra = new RAparcament(1, ap, e);
+		for (int i = 0; i < e.obteX(); i++) {
+			for (int j = 0; j < e.obteY(); j++) {
+				if (a < ap) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarAparcament();
+				}
+				else InsertarElement(s, 2, i, j);
+			}
+		}
+		System.out.println("Afegint edificis amb aparcaments totals: " + a);
+		
+		// hauria de complir!
+		
+		ra.assignaEspai(e);
+		boolean compleix = ra.CompleixRes();
+		
+		if (compleix) System.out.println("Yeah");
+		else System.out.println("Naaah");		
+		
+		
+		// PROVANT NO COMPLEIX...
+		
+
+		a = 0;
+		e = new Espai(10, 10);
+		ra = new RAparcament(1, ap, e);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (a < ap - h.ConsultarAparcament()) {
+					InsertarElement(h, 1, i, j);
+					a = a + h.ConsultarAparcament();
+				}
+				else InsertarElement(s, 2, i, j);
+			}
+		}
+		System.out.println("Afegint edificis amb aparcaments totals: " + a);
+		
+		// hauria de complir!
 		
 		ra.assignaEspai(e);
 		compleix = ra.CompleixRes();
