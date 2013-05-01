@@ -97,7 +97,7 @@ public class CtrBarriDom {
     public void AfegirEdifici(Edifici e, String nomBarri) {
         Barri b = ctrBarri.ObtenirBarri(nomBarri);
         if (b != null) {
-            b.carregaEdifici(e);
+            b.CarregaEdifici(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class CtrBarriDom {
     public void TreureEdifici(String nomBarri, String nomEdifici) {
         Barri aux = ctrBarri.ObtenirBarri(nomBarri);
         if (aux != null) {
-            aux.borraEdifici(nomEdifici);
+            aux.BorraEdifici(nomEdifici);
         }
     }
 
@@ -147,19 +147,19 @@ public class CtrBarriDom {
     public void ModificarBarri(String nomBarri, String atribut, String valor) {
         Barri aux = ctrBarri.ObtenirBarri(nomBarri);
         if (atribut.equals("Nom")) {
-            aux.modificarNom(valor);
+            aux.ModificarNom(valor);
         } else if (atribut.equals("Pressupost")) {
-            aux.modificarPressupost(Integer.parseInt(valor));
+            aux.ModificarPressupost(Integer.parseInt(valor));
         } else if (atribut.equals("Poblacio")) {
-            aux.modificarPoblacio(Integer.parseInt(valor));
+            aux.ModificarPoblacio(Integer.parseInt(valor));
         } else if (atribut.equals("Classe")) {
-            aux.modificarClasse(StringToClase(valor));
+            aux.ModificarClasse(StringToClase(valor));
         } else if (atribut.equals("Aparcament")) {
-            aux.modificarAparcament(Integer.parseInt(valor));
+            aux.ModificarAparcament(Integer.parseInt(valor));
         } else if (atribut.equals("MidaX")) {
-            aux.modificarX(Integer.parseInt(valor));
+            aux.ModificarX(Integer.parseInt(valor));
         } else if (atribut.equals("MidaY")) {
-            aux.modificarY(Integer.parseInt(valor));
+            aux.ModificarY(Integer.parseInt(valor));
         }
     }
 
@@ -184,9 +184,9 @@ public class CtrBarriDom {
 		trobat = false;
 		Barri aux = ObtenirBarri(n);
 		boolean b = true;
-		for (int i = 0; i < aux.tamRest(); i++) {
-			if (aux.obteRest(i) instanceof RAlsada) {
-				RestriccioBarris raux = aux.obteRest(i);
+		for (int i = 0; i < aux.TamRest(); i++) {
+			if (aux.ObteRest(i) instanceof RAlsada) {
+				RestriccioBarris raux = aux.ObteRest(i);
 				
 				if (!raux.CompleixRes()) {
 					System.out.println("No compleix: " + raux.tr);
@@ -201,10 +201,10 @@ public class CtrBarriDom {
 	public boolean postBack(String n) {
 		Barri aux = ObtenirBarri(n);
 		boolean b = true;
-		for (int i = 0; i < aux.tamRest(); i++) {
-			if (aux.obteRest(i) instanceof RQuantitat && !((RQuantitat)aux.obteRest(i)).esMax()) {
-				RQuantitat raux = (RQuantitat) aux.obteRest(i);
-				if (raux.esMax() == false) {
+		for (int i = 0; i < aux.TamRest(); i++) {
+			if (aux.ObteRest(i) instanceof RQuantitat && !((RQuantitat)aux.ObteRest(i)).EsMax()) {
+				RQuantitat raux = (RQuantitat) aux.ObteRest(i);
+				if (raux.EsMax() == false) {
 					b = b && raux.CompleixRes();
 				}
 			}
@@ -216,30 +216,30 @@ public class CtrBarriDom {
 	
 	
 	void back(int id, int x, int y, Barri aux) {
-		if (id < aux.consultarX() * aux.consultarY()) {
+		if (id < aux.ConsultarX() * aux.ConsultarY()) {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
 			
-			for (int i = 0; i < aux.tamEd() && !trobat; i++) {
+			for (int i = 0; i < aux.TamEd() && !trobat; i++) {
 				
 				
-				aux.obteEd(i).ModificarId(id);
-				aux.afegirAlBarri(aux.obteEd(i), id, x, y);
+				aux.ObteEd(i).ModificarId(id);
+				aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
 			
 			
 				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + aux.obteEd(i).nom + " a " + x + ", " + y);
+				System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i).nom + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(aux.obteEd(i), x, y, aux)) {
+				if ( b = legal(aux.ObteEd(i), x, y, aux)) {
 					
-					if (x == (aux.consultarX())-1) back(id+1, 0, y+1, aux);
+					if (x == (aux.ConsultarX())-1) back(id+1, 0, y+1, aux);
 					else back(id+1, x+1, y, aux);			
 					
 				}
 				
 
 			}
-			if (!trobat) aux.borraIlla(x, y);
+			if (!trobat) aux.BorraIlla(x, y);
 				
 		} else {
 			trobat = true;
@@ -249,20 +249,20 @@ public class CtrBarriDom {
 	
 	boolean legal(Edifici ed, int x, int y, Barri aux) {
 		boolean comp = true;
-		for (int i = 0; i < aux.tamRest(); i++) {
-			TipusRest tr = aux.obteRest(i).obteTipus();
+		for (int i = 0; i < aux.TamRest(); i++) {
+			TipusRest tr = aux.ObteRest(i).obteTipus();
 			
 			if (tr == TipusRest.QUANTITAT) {
-				RQuantitat raux = ((RQuantitat) aux.obteRest(i));
-				if (raux.esMax()) comp = comp && raux.CompleixRes();
+				RQuantitat raux = ((RQuantitat) aux.ObteRest(i));
+				if (raux.EsMax()) comp = comp && raux.CompleixRes();
 				
 			}
 			
 			if (tr == TipusRest.DISTTIPUS) {
-				comp = (comp && aux.obteRest(i).CompleixRes());
+				comp = (comp && aux.ObteRest(i).CompleixRes());
 				
 				if (!comp) {
-					System.out.println( " --> " + false + "  " + aux.obteRest(i).obteTipus());
+					System.out.println( " --> " + false + "  " + aux.ObteRest(i).obteTipus());
 					System.out.println();
 					//comp = false;
 				}
@@ -270,12 +270,12 @@ public class CtrBarriDom {
 			
 			
 			if (tr == TipusRest.INFUENCIA) {
-				((RInfluencia)aux.obteRest(i)).recorreCjt();
-				((RInfluencia)aux.obteRest(i)).assignaPos(x, y);
-				comp = (comp && aux.obteRest(i).CompleixRes());
+				((RInfluencia)aux.ObteRest(i)).RecorreCjt();
+				((RInfluencia)aux.ObteRest(i)).AssignaPos(x, y);
+				comp = (comp && aux.ObteRest(i).CompleixRes());
 				
 				if (!comp) {
-					System.out.println( " --> " + false + "  " + aux.obteRest(i).obteTipus());
+					System.out.println( " --> " + false + "  " + aux.ObteRest(i).obteTipus());
 					System.out.println();
 					//comp = false;
 				}
@@ -283,19 +283,19 @@ public class CtrBarriDom {
 			
 			if (tr == TipusRest.COST) {
 				if (ed.consultarSubclasse() == TipusEd.SER) {
-					if( ((RCost)aux.obteRest(i)).esMax()) {
+					if( ((RCost)aux.ObteRest(i)).EsMax()) {
 						int c = ((Servei)ed).ConsultarCost();
-						((RCost)aux.obteRest(i)).augmentaCost(c);
-						boolean b = ((RCost)aux.obteRest(i)).CompleixRes();
+						((RCost)aux.ObteRest(i)).AugmentaCost(c);
+						boolean b = ((RCost)aux.ObteRest(i)).CompleixRes();
 						comp = comp && b;
-						if (!b) ((RCost)aux.obteRest(i)).redueixCost(c);
+						if (!b) ((RCost)aux.ObteRest(i)).RedueixCost(c);
 					}
 				}
 			}
 			
 			
 			if (tr == TipusRest.IMPOSTOS) {
-				RImpostos raux = ((RImpostos)aux.obteRest(i));
+				RImpostos raux = ((RImpostos)aux.ObteRest(i));
 				int c;
 				if (ed.consultarSubclasse() == TipusEd.HAB) {
 					c = ((Habitatge)ed).ConsultarImpost();
@@ -305,7 +305,7 @@ public class CtrBarriDom {
 					
 				} else c = -1; 
 				
-				raux.assignaImpAct(c);
+				raux.AssignaImpAct(c);
 				
 				boolean b = raux.CompleixRes();
 				comp = comp && b;
@@ -324,10 +324,10 @@ public class CtrBarriDom {
 	
 	
 	public void imprimeix(Barri aux) {
-		for (int i = 0; i < aux.consultarX(); i++) {
-			for (int j = 0; j < aux.consultarY(); j++) {
+		for (int i = 0; i < aux.ConsultarX(); i++) {
+			for (int j = 0; j < aux.ConsultarY(); j++) {
 				String n;
-				if (aux.consultarEdifici(i, j) != null) n = aux.consultarEdifici(i, j).ConsultarNom();
+				if (aux.ConsultarEdifici(i, j) != null) n = aux.ConsultarEdifici(i, j).ConsultarNom();
 				else n = "nn";		
 				System.out.print(n + " ");
 			}
@@ -338,26 +338,26 @@ public class CtrBarriDom {
 	
 	
 	void back2(int id, int x, int y, Barri aux) {
-		if (id < aux.consultarX() * aux.consultarY()) {
+		if (id < aux.ConsultarX() * aux.ConsultarY()) {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
 			
-			int index = (int) (Math.random()* aux.tamEd());
+			int index = (int) (Math.random()* aux.TamEd());
 			
-			for (int j = 0; j < aux.tamEd() && !trobat; j++) {
+			for (int j = 0; j < aux.TamEd() && !trobat; j++) {
 				
-				int i = (index+j)%aux.tamEd();
+				int i = (index+j)%aux.TamEd();
 				
-				aux.obteEd(i).ModificarId(id);
-				aux.afegirAlBarri(aux.obteEd(i), id, x, y);
+				aux.ObteEd(i).ModificarId(id);
+				aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
 			
 			
 				//if (x == 14 && y == 14) continue;
-				System.out.println("Intento afegir: " + id + " " + i + " " + aux.obteEd(i) + " a " + x + ", " + y);
+				System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i) + " a " + x + ", " + y);
 				boolean b;
-				if ( b = legal(aux.obteEd(i), x, y, aux)) {
+				if ( b = legal(aux.ObteEd(i), x, y, aux)) {
 					
-					if (x == (aux.consultarX())-1) back2(id+1, 0, y+1, aux);
+					if (x == (aux.ConsultarX())-1) back2(id+1, 0, y+1, aux);
 					else back2(id+1, x+1, y, aux);			
 					
 				}
@@ -365,7 +365,7 @@ public class CtrBarriDom {
 				System.out.println();
 
 			}
-			if (!trobat) aux.borraIlla(x, y);
+			if (!trobat) aux.BorraIlla(x, y);
 			
 		} else {
 			trobat = true;
