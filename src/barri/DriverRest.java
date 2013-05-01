@@ -69,7 +69,7 @@ public class DriverRest {
 		int n = 0;
 		switch (t) {
 		case 1:
-			System.out.println("Alçada:");
+			System.out.println("Alsada:");
 			
 			try {
 				n = Integer.parseInt(br.readLine());
@@ -262,7 +262,7 @@ public class DriverRest {
 		// PROVANT QUANTITAT MAXIMA
 		// PROVANT COMPLEIX...
 		
-		System.out.println("Provant restricció de quantitat maxima:");
+		System.out.println("Provant restriccio de quantitat maxima:");
 		System.out.println("Afegint " + (q) + " edificis:");
 		
 		CjtEdificis ce = new CjtEdificis();
@@ -295,7 +295,7 @@ public class DriverRest {
 		// PROVANT QUANTITAT MINIMA
 		// PROVANT COMPLEIX...
 		System.out.println();
-		System.out.println("Provant restricció de quantitat minima:");
+		System.out.println("Provant restriccio de quantitat minima:");
 		System.out.println("Afegint " + (q) + " edificis:");
 		
 		ce = new CjtEdificis();
@@ -628,8 +628,8 @@ public class DriverRest {
 		System.out.println("Afegint edificis amb impostos totals: " + i);
 		
 		// hauria de complir!
-		ra = new RManteniment(1, im, ce);
-		compleix = ra.CompleixRes();
+		RManteniment rm = new RManteniment(1, im, ce); //albert : hu he modificat per que em donava error de tipus
+		compleix = rm.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
 		else System.out.println("Naaah");	

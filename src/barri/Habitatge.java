@@ -3,19 +3,19 @@ package barri;
 /**
  *
  *
- @author Edu
+ @author Eduard Ricou
  */
 
 public class Habitatge extends Edifici{
 
-	public enum tipusHab {
+	public enum TipusHab {
 		Casa,
 		Pis,
 		Mansio,
 		Xalet
 	};
 	
-	private tipusHab tipus;
+	private TipusHab tipus;
 	private int impost;
 	private int aparcament;
 	
@@ -37,7 +37,7 @@ public class Habitatge extends Edifici{
         * @param capacitat ens diu quantes persones caben al negoci.
         */
         
-	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, tipusHab t){
+	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusHab t){
 		super(nom, codi, h, capacitat);
 		super.tipusEd = TipusEd.HAB;
 		this.impost = impost;
@@ -68,7 +68,7 @@ public class Habitatge extends Edifici{
         * @return la subclasse de l'edifici
         */
         
-	public tipusHab consultarTipus() {
+	public TipusHab consultarTipus() {
 		return this.tipus;
 	}
         
@@ -95,7 +95,7 @@ public class Habitatge extends Edifici{
         * @param t El nou tipus de l'habitatge.
         */
         
-	public void modificarTipus(tipusHab t) {
+	public void modificarTipus(TipusHab t) {
 		tipus = t;
 	}
         

@@ -43,6 +43,9 @@ public class Barri implements Serializable {
 	public void borraEdifici(Edifici e) {
 		lEdificis.EliminarEdifici(e);
 	}
+        public void borraEdifici(String e) {
+		lEdificis.EliminarEdifici(e);
+	}
 	
 	public void carregaLlista(ArrayList<Edifici> l) {
 		for(Edifici e: l) {
@@ -128,22 +131,24 @@ public class Barri implements Serializable {
 		return x;
 	}
 
-	/*public void modificarX(int x) {
+	public void modificarX(int x) {
 		this.x = x;
-	}*/
+                espai = new Espai(x,this.y);
+	}
  
 	public int consultarY() {
 		return y;
 	}
 
-	/*public void modificarY(int y) {
+	public void modificarY(int y) {
 		this.y = y;
-	}*/
-	public void ModificarXY(int x,int y) {
+                espai = new Espai(this.x,y);
+	}
+	/*public void ModificarXY(int x,int y) {
 	    this.x=x;
 	    this.y=y;
 	    espai = new Espai(x,y);
-	}
+	}*/
 	public Edifici consultarEdifici(int x, int y) {
 		if (espai.ExisteixElementxy(x, y) == false) return null;
 		return (((Illa)(espai.ConsultarElementxy(x, y))).ConsultaEdifici());

@@ -27,7 +27,7 @@ public class CtrDomRestriccio {
 	
 	private CtrDomRestriccio() {}
 	
-	public static CtrDomRestriccio GetInstancia() {
+	public static CtrDomRestriccio ObteInstancia() {
 		return ctrRestriccio;
 	}
 	

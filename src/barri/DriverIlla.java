@@ -1,5 +1,5 @@
 package barri;
-import barri.Habitatge.tipusHab;
+import barri.Habitatge.TipusHab;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -17,7 +17,7 @@ public class DriverIlla {
         String in, nom;
         Edifici e;
         int opt = 0;
-        Habitatge hab = new Habitatge(1000,3, "Casa", 180, 2, 8, tipusHab.Casa);
+        Habitatge hab = new Habitatge(1000,3, "Casa", 180, 2, 8, TipusHab.Casa);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         System.out.println("Driver de la classe Illa. ");
@@ -39,24 +39,24 @@ public class DriverIlla {
         while(opt != 6){
             System.out.print("Opció: ");
             in = br.readLine();
-            opt = Integer.parseInt(in);
+            opt = LlegirEnter(in);
             switch(opt){
                 case 1:
-                    if(illa.Empty()){
+                    if(illa.EsBuida()){
                         illa.AssignaEdifici(hab);
                         System.out.println("Edifici assignat correctament.");
                     }
                     else{System.out.println("L'illa ja conté un edifici.");}
                     break;
                 case 2:
-                    if(!illa.Empty()){
+                    if(!illa.EsBuida()){
                         illa.EliminaEdifici();
                         System.out.println("Edifici eliminat correctament.");
                     }
                     else{System.out.println("L'illa no conté cap edifici.");}
                     break;
                 case 3:
-                    if(!illa.Empty()){
+                    if(!illa.EsBuida()){
                         e = illa.ConsultaEdifici();
                         nom = e.ConsultarNom();
                         System.out.println("El nom de l'edifici es:" + nom);
@@ -64,7 +64,7 @@ public class DriverIlla {
                     else{System.out.println("L'illa no conté cap edifici.");}
                     break;
                 case 4:
-                    if(illa.Empty())System.out.println("L'illa té assignat un edifici.");
+                    if(illa.EsBuida())System.out.println("L'illa té assignat un edifici.");
                     else System.out.println("L'illa no conté cap edifici.");
                     break;
                 case 5:
@@ -80,5 +80,17 @@ public class DriverIlla {
                 default:
             }
         }   
+    }
+    
+    private static int LlegirEnter(String s){
+            int res;
+            try{
+                res = Integer.parseInt(s);
+                return res;
+            }
+            catch(NumberFormatException e){
+                System.out.println("ERROR: " + s + " no és una entrada vàlida");
+                return -1000;
+            }
     }
 }
