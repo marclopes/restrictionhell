@@ -91,19 +91,30 @@ public class CtrDomGeneral {
      * @param el2 Tipus d'edifici sobre el que s'imposa la restriccio
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int CrearRestriccioDistanciaTipus(int id, int dist, boolean max, String el1, String el2, ) {
-        ctrRestric.CreaDistTipus(id, dist, max, null, null);
-        
-        TipusHab hab = StringHabtoEnum(el1);
-        TipusNegoci neg = StringNegtoEnum(el1);
-        TipusServei serv = StringSertoEnum(el1);
-        if ( hab != null ) ctrRestric.AssignaHab(id, 1 ,StringHabtoEnum(el1));
-        if (neg != null ) ctrRestric.AssignaNeg(id, 1 ,StringNegtoEnum(el1));
-        else ctrRestric.AssignaSer(id, 1 , StringSertoEnum(el1));
-        if ( hab != null ) ctrRestric.AssignaHab(id, 1 ,StringHabtoEnum(el2));
-        if (neg != null ) ctrRestric.AssignaNeg(id, 1 ,StringNegtoEnum(el2));
-        else ctrRestric.AssignaSer(id, 1 , StringSertoEnum(el2));
-        return ctrRestric.CreaDistTipus(id, dist, max, e1, e2);
+    public int CrearRestriccioDistanciaTipus(int id, int dist, boolean max, String el1, String el2) {
+        int rest = ctrRestric.CreaDistTipus(id, dist, max, null, null);
+        if (rest == 0) {
+            TipusHab hab = StringHabtoEnum(el1);
+            TipusNegoci neg = StringNegtoEnum(el1);
+            TipusServei serv = StringSertoEnum(el1);
+            if (hab != null) {
+                ctrRestric.AssignaHab(id, 1, StringHabtoEnum(el1));
+            }
+            if (neg != null) {
+                ctrRestric.AssignaNeg(id, 1, StringNegtoEnum(el1));
+            } else {
+                ctrRestric.AssignaSer(id, 1, StringSertoEnum(el1));
+            }
+            if (hab != null) {
+                ctrRestric.AssignaHab(id, 1, StringHabtoEnum(el2));
+            }
+            if (neg != null) {
+                ctrRestric.AssignaNeg(id, 1, StringNegtoEnum(el2));
+            } else {
+                ctrRestric.AssignaSer(id, 1, StringSertoEnum(el2));
+            }
+        }
+        return rest;
     }
 
     /**
@@ -118,8 +129,11 @@ public class CtrDomGeneral {
 
     /**
      * Crea una restriccio sobre el cost de manteniment
-     * @
+     *
+     * 
      * @param cost Qost maxim de manteniment de serveis publics
+     * @return Retorna un codi d'error (0 si s'ha fet be, -1 si s'ha fet
+     * malament)
      */
     public int CreaRestriccioManteniment(int id, int cost) {
         return ctrRestric.CreaRestManteniment(id, cost);
@@ -127,6 +141,7 @@ public class CtrDomGeneral {
 
     /**
      * Crea una restriccio de quantitat maxima/minima sobre un edifici
+     *
      * @param id Identificador de la restriccio
      * @param quantitat Quantitat maxima/minima d'edificis
      * @param max Indica si es maxim o minim d'edificis
@@ -145,9 +160,10 @@ public class CtrDomGeneral {
 
     /**
      * Crea una restriccio de quantitat minim d'aparcaments
+     *
      * @param id Identificador de la restriccio
      * @param aparcaments nombre minim d'aparcaments
-     * @@return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
+     * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
     public int CreaRestriccioAparcament(int id, int aparcaments) {
 
@@ -248,8 +264,10 @@ public class CtrDomGeneral {
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
     public int EliminarEdifici(String nomEdifici) {
-        int r= ctrEdificis.EliminarEdifici(nomEdifici);
-        if (r==0) ctrBarri.NetejarEdificis(nomEdifici);
+        int r = ctrEdificis.EliminarEdifici(nomEdifici);
+        if (r == 0) {
+            ctrBarri.NetejarEdificis(nomEdifici);
+        }
         return r;
     }
 
@@ -270,9 +288,11 @@ public class CtrDomGeneral {
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
     public int EliminarRestriccio(int id) {
-        
+
         int r = ctrRestric.EliminarRestriccio(id);
-        if (r==0) ctrBarri.NetejarRestriccions(id);
+        if (r == 0) {
+            ctrBarri.NetejarRestriccions(id);
+        }
         return r;
 
     }
@@ -423,9 +443,11 @@ public class CtrDomGeneral {
             return Classes.Alta;
         } else if (c.equals("Mitja")) {
             return Classes.Mitja;
-        } else if (c.equals("Baixa"))return Classes.Baixa;
+        } else if (c.equals("Baixa")) {
+            return Classes.Baixa;
+        }
         return null;
-        
+
     }
 
     private Atribut StringToAtribut(String c) {
