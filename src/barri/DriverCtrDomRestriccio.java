@@ -14,13 +14,13 @@ public class DriverCtrDomRestriccio {
 		DriverCtrDomRestriccio driv = new DriverCtrDomRestriccio();
 		
 		pr("Op");
-		driver.
+		driv.creaRest();
 
 	}
 	
 	public void creaRest() {
 		for (int i = 0; i < TipusRest.values().length; i++) {
-			pr(TipusRest.values()[i].toString());
+			pr(i + ": " + TipusRest.values()[i].toString());
 		}
 	}
 	

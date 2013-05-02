@@ -73,6 +73,9 @@ public class RDistTipus extends RDistancia {
 		}
 
 		Pos p1, p2;
+		
+		boolean b = true;
+		
 		for (int i = 0; i < l1.size(); i++) {
 			p1 = l1.get(i);
 			for (int j = 0; j < l2.size(); j++) {
@@ -84,11 +87,11 @@ public class RDistTipus extends RDistancia {
 					return false;
 				else if (!max && (dist(p1.x, p1.y, p2.x, p2.y) < dist)
 						&& dist(p1.x, p1.y, p2.x, p2.y) != 0)
-					return false;
+					b = false;
 
 			}
 		}
-		return true;
+		return b;
 
 	}
 

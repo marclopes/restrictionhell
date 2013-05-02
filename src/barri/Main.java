@@ -25,7 +25,7 @@ public class Main {
 	//Servei s = new Servei(cost, manteniment, area, nom, codi, h, capacitat, t);
 
 	RDistCodi rcodi = new RDistCodi(1, 3, false, 4, 4, null);
-	RDistTipus rtip = new RDistTipus(2, 4, false, s1, s1, null);
+	RDistTipus rtip = new RDistTipus(2, 4, false, s1, h1, null);
 	RDistTipus rtip2 = new RDistTipus(5, 5, true, n3, n3, null);
 	RQuantitat rq1 = new RQuantitat(3, 20, s1, true);
 	RQuantitat rq2 = new RQuantitat(3, 10, s1, false);
@@ -38,7 +38,12 @@ public class Main {
 	Barri b;
 	
 	
+	
+	
 	public Main() {
+		
+		CtrBarriDom cb = CtrBarriDom.ObteInstancia();
+		
 		b = new Barri("BonBarri",  Classes.Mitja, 15, 15);
 		//b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
 		//b = new Barri(n, po, pr, c, cl, a, xx, yy)
@@ -69,11 +74,26 @@ public class Main {
 		//b.AfegeixRestriccio(rimp);
 		
 		
+		cb.CreaBarri("Bon", Classes.Mitja, 15, 15);
+		cb.AfegirEdifici(s1, "Bon");
+		cb.AfegirEdifici(h1, "Bon");
+		cb.AfegirEdifici(h3, "Bon");
+		cb.AfegeixRestriccions("Bon", rtip);
 		
+		if (cb.ObtenirBarri("Bon") != null) {
+			cb.Back(0, 0, 0, cb.ObtenirBarri("Bon"));
+			
+		} else System.out.println("NUUUUUULL");
+		
+		cb.Imprimeix(cb.ObtenirBarri("Bon"));
+		
+		/**
 		if (b.preparaBack()) {
 			b.back(0, 0, 0);
 			imprimeix();
 		}
+		
+		**/
 		/**
 		if (b.preparaBack()) {
 			boolean[][] taula = new boolean[b.consultarX()][b.consultarY()];
@@ -88,7 +108,7 @@ public class Main {
 		}
 		**/
 	}
-	
+	/**
 	public void imprimeix() {
 		for (int i = 0; i < b.consultarX(); i++) {
 			for (int j = 0; j < b.consultarY(); j++) {
@@ -101,7 +121,7 @@ public class Main {
 		}
 		System.out.println();
 	}
-	
+	**/
 	
 
 
