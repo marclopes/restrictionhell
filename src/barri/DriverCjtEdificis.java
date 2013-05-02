@@ -143,7 +143,7 @@ public class DriverCjtEdificis {
                             apc = err;
 
                             Habitatge hab = new Habitatge(imp,apc, nom, codi, h, cap, t);
-
+                            System.out.println("Habitatge creat correctament");
                             afegit = ce.AfegirEdifici(hab);
                             if(afegit) System.out.println("Habitatge afegit al conjunt.");
                             else System.out.println("Ja existeix un edifici amb aquest nom.");
@@ -243,7 +243,7 @@ public class DriverCjtEdificis {
                             ai = err;
 
                             Servei ser = new Servei(cost,mant, ai,nom, codi, h, cap, s);
-                            
+                            System.out.println("Servei creat correctament");
                             afegit = ce.AfegirEdifici(ser);
                             if(afegit) System.out.println("Servei afegit al conjunt.");
                             else System.out.println("Ja existeix un edifici amb aquest nom.");
@@ -335,7 +335,7 @@ public class DriverCjtEdificis {
                             apc = err;
 
                             Negoci neg = new Negoci(imp,apc, nom, codi, h, cap, n);
-                            
+                            System.out.println("Negoci creat correctament");
                             afegit = ce.AfegirEdifici(neg);
                             if(afegit) System.out.println("Negoci afegit al conjunt.");
                             else System.out.println("Ja existeix un edifici amb aquest nom.");

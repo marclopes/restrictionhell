@@ -110,7 +110,7 @@ public class DriverNegoci{
                 apc = err;
                 
                 Negoci neg = new Negoci(imp,apc, nom, codi, h, cap, t);
-                
+                System.out.println("Negoci creat correctament");
                 System.out.println("");
                 
                 int opt = 0;
