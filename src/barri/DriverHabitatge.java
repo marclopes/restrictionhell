@@ -102,7 +102,7 @@ public class DriverHabitatge{
                 apc = err;
                 
                 Habitatge hab = new Habitatge(imp,apc, nom, codi, h, cap, t);
-                
+                System.out.println("Habitatge creat correctament");
                 System.out.println("");
                 
                 int opt = 0;

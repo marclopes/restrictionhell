@@ -118,7 +118,7 @@ public class DriverServei{
                 ai = err;
                 
                 Servei ser = new Servei(cost,mant, ai,nom, codi, h, cap, t);
-                
+                System.out.println("Servei creat correctament");
                 System.out.println("");
                 
                 int opt = 0;
