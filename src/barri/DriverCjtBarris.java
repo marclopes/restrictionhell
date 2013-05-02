@@ -187,13 +187,13 @@ public class DriverCjtBarris {
                      
                      if (cb.ExisteixBarri(in) ) {
                         
-                         Barri barrr = cb.GetBarri(in);
+                         Barri barrr = cb.ObtenirBarri(in);
                         
                          System.out.println("El barri existeix i aquestes son les seves caracteristiques:");
                          
-                         System.out.println("Barri amb nom: " + barrr.consultarNom() + ".");
-                         System.out.println("Barri amb amplada [x]: " + barrr.consultarX() + ".");
-                         System.out.println("Barri amb longitud [y]: " + barrr.consultarY() + ".");
+                         System.out.println("Barri amb nom: " + barrr.ConsultarNom() + ".");
+                         System.out.println("Barri amb amplada [x]: " + barrr.ConsultarX() + ".");
+                         System.out.println("Barri amb longitud [y]: " + barrr.ConsultarY() + ".");
 
                     }
                     

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import barri.Edifici.TipusEd;
 import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 
 public class DriverCtrEdDom {
     private static Edifici.Classes StringToClase(String c) {
@@ -56,7 +57,7 @@ public class DriverCtrEdDom {
                     int mant;
                     int ai;
                     
-                    tipusHab t = null;
+                    TipusHab t = null;
                     boolean opcio;
                     
         while (opt != 9) {
@@ -280,7 +281,7 @@ public class DriverCtrEdDom {
 
                     //                	 String  nom;
                     //int cost,mant;
-                    tipusServei t3 = null;
+                    TipusServei t3 = null;
                     //  boolean opcio;
 
                     System.out.println("Crea un Servei.");
@@ -350,19 +351,19 @@ public class DriverCtrEdDom {
                             }
                         opcio = false;
                         if (tip == 1) {
-                            t3 = tipusServei.Bombers;
+                            t3 = TipusServei.Bombers;
                         } else if (tip == 2) {
-                            t3 = tipusServei.Centre_Cultural;
+                            t3 = TipusServei.Centre_Cultural;
                         } else if (tip == 3) {
-                            t3 = tipusServei.Escola;
+                            t3 = TipusServei.Escola;
                         } else if (tip == 4) {
-                            t3 = tipusServei.Hospital;
+                            t3 = TipusServei.Hospital;
                         } else if (tip == 5) {
-                            t3 = tipusServei.Parc;
+                            t3 = TipusServei.Parc;
                         } else if (tip == 6) {
-                            t3 = tipusServei.Policia;
+                            t3 = TipusServei.Policia;
                         } else if (tip == 7) {
-                            t3 = tipusServei.Preso;
+                            t3 = TipusServei.Preso;
                         } else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
                             opcio = true;
