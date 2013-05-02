@@ -23,6 +23,7 @@ public class RManteniment extends RestriccioBarris implements REspai {
 	}
 
 
+
     public RManteniment(int ID, int cb, Espai e) {
         super(ID);
         costBarri = cb;

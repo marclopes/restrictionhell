@@ -89,7 +89,6 @@ public class RAparcament extends RestriccioBarris implements REspai {
 		}
 
 		
-
 		private int CalcMin() {
 			int s = e.ObteX() * e.ObteY();
 			s = 4*s/5;

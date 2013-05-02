@@ -108,10 +108,12 @@ public class CtrBarriDom {
     public int AfegirEdifici(Edifici e, String nomBarri) {
         Barri b = ctrBarri.ObtenirBarri(nomBarri);
         if (b != null) {
+
             if (b.ExisteixEdifici(e.ConsultarNom())) {
                 return -1;
             }
             return b.CarregaEdifici(e);
+
         }
         return -1;
     }
@@ -144,6 +146,7 @@ public class CtrBarriDom {
      */
     public int TreureEdifici(String nomBarri, String nomEdifici) {
         Barri aux = ctrBarri.ObtenirBarri(nomBarri);
+
         if (aux == null) {
             return -1;
         }
@@ -180,6 +183,7 @@ public class CtrBarriDom {
         }
         if (atribut.equals("Nom")) {
             aux.ModificarNom(valor);
+
             return 0;
             //  } else if (atribut.equals("Pressupost")) {
             //    aux.ModificarPressupost(Integer.parseInt(valor));
@@ -196,6 +200,7 @@ public class CtrBarriDom {
         } else if (atribut.equals("MidaY")) {
             aux.ModificarY(Integer.parseInt(valor));
             return 0;
+
         }
         return -1;
     }
@@ -252,7 +257,9 @@ public class CtrBarriDom {
 	
 	
 	
+
 	void Back(int id, int x, int y, Barri aux) {
+
 		if (id < aux.ConsultarX() * aux.ConsultarY()) {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);
@@ -267,6 +274,7 @@ public class CtrBarriDom {
 				//if (x == 14 && y == 14) continue;
 				System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i).nom + " a " + x + ", " + y);
 				boolean b;
+
 				if ( b = Legal(aux.ObteEd(i), x, y, aux)) {
 					
 					if (x == (aux.ConsultarX())-1) Back(id+1, 0, y+1, aux);
@@ -360,6 +368,7 @@ public class CtrBarriDom {
 	}
 	
 	
+
 	public void Imprimeix(Barri aux) {
 		for (int i = 0; i < aux.ConsultarX(); i++) {
 			for (int j = 0; j < aux.ConsultarY(); j++) {
@@ -374,7 +383,11 @@ public class CtrBarriDom {
 	}
 	
 	
+
 	/*void Back2(int id, int x, int y, Barri aux) {
+=======
+	void back2(int id, int x, int y, Barri aux) {
+>>>>>>> 32c3a16cb5e8ed9c719c46a39138df014b1d5753
 		if (id < aux.ConsultarX() * aux.ConsultarY()) {
 		//if (id < (10)) {
 			System.out.println("BAAAACK id:"+ id  + " pos: "+ x + ", " + y);

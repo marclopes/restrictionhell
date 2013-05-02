@@ -90,7 +90,6 @@ public class RImpostos extends RestriccioBarris implements REspai{
 		
 	}
 
-	
 
 	private int CalcMin() {
 		int s = e.ObteX() * e.ObteY();

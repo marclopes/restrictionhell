@@ -6,7 +6,6 @@ import java.util.Queue;
 
 import barri.Edifici.TipusEd;
 import barri.Servei.TipusServei;
-import barri.Servei.TipusServei;
 
 public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 
@@ -145,17 +144,10 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		}
 		
 		
-/*<<<<<<< HEAD
-		for (int i = 0; i < e.ObteX(); i++) {
-			System.out.print("it: " + i + ",");
-			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
-				System.out.println(j);
-=======*/
 		for (int i = 0; i < e.ObteX(); i++) {
 			//System.out.print("it: " + i + ",");
 			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 				//System.out.println(j);
-//>>>>>>> branch 'master' of https://github.com/marclopes/restrictionhell.git
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (ed.consultarSubclasse() == TipusEd.SER) {
 					Servei se = (Servei)ed;
