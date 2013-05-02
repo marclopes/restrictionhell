@@ -54,7 +54,11 @@ public class Espai {
         * @param id és l'identificador del objecte a eliminar
  */ 
   public void EliminarElement(int id) {
-      referencies.remove(id);
+      
+      Pos aux = referencies.get(id);
+      if(aux!=null) {
+          matriuElements[aux.x][aux.y]=null;
+      }
   }
    /**
         * Elimina l'element de la posició indicada 
@@ -63,6 +67,7 @@ public class Espai {
   public void EliminarElementxy(int a,int b) {
       Dades aux =(Dades) matriuElements[a][b];
       referencies.remove(aux.id);
+      matriuElements[a][b]=null;
   }
    /**
         * Comprova si l'element amb l'identificador indicat existex

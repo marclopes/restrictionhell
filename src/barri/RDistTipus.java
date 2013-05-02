@@ -2,6 +2,9 @@ package barri;
 import java.util.ArrayList;
 
 import barri.Edifici.TipusEd;
+import static barri.Edifici.TipusEd.HAB;
+import static barri.Edifici.TipusEd.NEG;
+import static barri.Edifici.TipusEd.SER;
 
 public class RDistTipus extends RDistancia {
 	private Edifici e1, e2;
@@ -27,7 +30,7 @@ public class RDistTipus extends RDistancia {
 
 			if (e.ExisteixElementxy(x, y)) {
 				Object o = e.ConsultarElementxy(x, y);
-				if (o == null) System.out.println(e.ExisteixElementxy(x, y) + " pero ES NULLLLLL!!!!!");
+				//if (o == null) //System.out.println(e.ExisteixElementxy(x, y) + " pero ES NULLLLLL!!!!!");
 				Edifici ed = ((Illa) e.ConsultarElementxy(x, y)).ConsultaEdifici();
 
 				if (ed.consultarSubclasse() == e1.consultarSubclasse()) {
@@ -36,24 +39,46 @@ public class RDistTipus extends RDistancia {
 						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e2).consultarTipus()) {
-							l2.add(new Pos(x, y));
-						}
+						
 						break;
 
 					case NEG:
 						if (((Negoci) ed).consultarTipus() == ((Negoci) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
-							l2.add(new Pos(x, y));
-						}
+						
 						break;
 
 					case SER:
 						if (((Servei) ed).consultarTipus() == ((Servei) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
+						
+						break;
+
+					default:
+						break;
+					}
+				}
+                                
+                                if (ed.consultarSubclasse() == e2.consultarSubclasse()) {
+					switch (ed.consultarSubclasse()) {
+					case HAB:
+						
+						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e2).consultarTipus()) {
+							l2.add(new Pos(x, y));
+						}
+						break;
+
+					case NEG:
+						
+						if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
+							l2.add(new Pos(x, y));
+						}
+						break;
+
+					case SER:
+						
 						if (((Servei) ed).consultarTipus() == ((Servei) e2).consultarTipus()) {
 							l2.add(new Pos(x, y));
 						}
