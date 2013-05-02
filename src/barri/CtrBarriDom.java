@@ -310,8 +310,6 @@ public class CtrBarriDom {
             
 
             if (tr == TipusRest.INFUENCIA) {
-                ((RInfluencia) aux.ObteRest(i)).RecorreCjt();
-                ((RInfluencia) aux.ObteRest(i)).AssignaPos(x, y);
                 comp = (comp && aux.ObteRest(i).CompleixRes());
 
                /* if (!comp) {

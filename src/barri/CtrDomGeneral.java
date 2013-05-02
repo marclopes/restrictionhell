@@ -465,10 +465,10 @@ public class CtrDomGeneral {
             //    return Atribut.CODI1;
             //} else if (c.equals("Codi2")) {
             //     return Atribut.CODI2;
-        } else if (c.equals("Edifici1")) {
-            return Atribut.EDIFICI1;
-        } else if (c.equals("Edifici2")) {
-            return Atribut.EDIFICI2;
+    //    } else if (c.equals("Edifici1")) {
+    //        return Atribut.EDIFICI1;
+   //     } else if (c.equals("Edifici2")) {
+   //         return Atribut.EDIFICI2;
         } else if (c.equals("Impostos")) {
             return Atribut.IMPOSTOS;
         } else if (c.equals("Influencia")) {
@@ -477,10 +477,10 @@ public class CtrDomGeneral {
             return Atribut.QUANTITAT;
         } else if (c.equals("Maxim")) {
             return Atribut.MAXIM;
-        } else if (c.equals("Espai")) {
-            return Atribut.ESPAI;
-        } else if (c.equals("Cjt Edificis")) {
-            return Atribut.CJTEDIFICIS;
+    //    } else if (c.equals("Espai")) {
+    //        return Atribut.ESPAI;
+     //   } else if (c.equals("Cjt Edificis")) {
+     //       return Atribut.CJTEDIFICIS;
         }
         return null;
     }
