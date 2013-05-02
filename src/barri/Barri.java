@@ -140,7 +140,7 @@ public class Barri implements Serializable {
          * @return El pressupost del barri.
          */
 	public int ConstultarPressupost() {
-		return pressupost;
+		return pessupost;
 	}
 
         /**

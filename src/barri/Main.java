@@ -20,9 +20,16 @@ public class Main {
 	//Servei s = new Servei(cost, manteniment, area, nom, codi, h, capacitat, t);
 
 	RDistCodi rcodi = new RDistCodi(1, 3, false, 4, 4, null);
+<<<<<<< HEAD
 	RDistTipus rtip = new RDistTipus(2, 3, false, s3, s3, null);
 	RDistTipus rtip2 = new RDistTipus(5, 3, false, h3, h3, null);
 	RQuantitat rq1 = new RQuantitat(3, 4, s3, true);
+=======
+	RDistTipus rtip = new RDistTipus(2, 4, false, s1, h1, null);
+	RDistTipus rtip2 = new RDistTipus(5, 5, true, n3, n3, null);
+	RQuantitat rq1 = new RQuantitat(3, 20, s1, true);
+	RQuantitat rq2 = new RQuantitat(3, 10, s1, false);
+>>>>>>> 55245f900a5dedb2d6f6a23f78bd8fb3fd012f21
 	RInfluencia rinf = new RInfluencia(4, null);
 	
 	RAlsada ralsada = new RAlsada(8, 3, null);
@@ -30,8 +37,17 @@ public class Main {
 	Barri b;
 	
 	
+	
+	
 	public Main() {
+<<<<<<< HEAD
 		b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
+=======
+		
+		CtrBarriDom cb = CtrBarriDom.ObteInstancia();
+		
+		b = new Barri("BonBarri",  Classes.Mitja, 15, 15);
+>>>>>>> 55245f900a5dedb2d6f6a23f78bd8fb3fd012f21
 		//b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
 		//b = new Barri(n, po, pr, c, cl, a, xx, yy)
 		b.CarregaEdifici(s1);
@@ -57,11 +73,54 @@ public class Main {
 		//b.AfegeixRestriccio(ralsada);
 		
 		
+		cb.CreaBarri("Bon", Classes.Mitja, 15, 15);
 		
+		
+		s1.AfegirClase(Classes.Mitja);
+		h1.AfegirClase(Classes.Mitja);
+		h3.AfegirClase(Classes.Mitja);
+		
+		System.out.print(cb.AfegirEdifici(s1, "Bon"));
+		System.out.print(cb.AfegirEdifici(h1, "Bon"));
+		System.out.print(cb.AfegirEdifici(h3, "Bon"));
+		System.out.print(cb.AfegeixRestriccions("Bon", rtip));
+		
+
+		
+		b = cb.ObtenirBarri("Bon");
+		System.out.println();
+		System.out.println(b.ConsultarNom());
+		System.out.println(b.ObteEd(0).ConsultarNom() + "  " + b.ObteRest(0));
+		
+		if (cb.ObtenirBarri("Bon") != null) {
+			cb.Back(0, 0, 0, cb.ObtenirBarri("Bon"));
+			
+		} else System.out.println("NUUUUUULL");
+		
+		cb.Imprimeix(cb.ObtenirBarri("Bon"));
+		
+<<<<<<< HEAD
 		//if (b.reparaBack()) {
 			b.back2(0, 0, 0);
 			imprimeix();
 		//}
+=======
+		
+		
+		
+		
+		
+		
+		
+		
+		/**
+		if (b.preparaBack()) {
+			b.back(0, 0, 0);
+			imprimeix();
+		}
+		
+		**/
+>>>>>>> 55245f900a5dedb2d6f6a23f78bd8fb3fd012f21
 		/**
 		if (b.preparaBack()) {
 			boolean[][] taula = new boolean[b.ConsultarX()][b.ConsultarY()];
@@ -76,7 +135,7 @@ public class Main {
 		}
 		**/
 	}
-	
+	/**
 	public void imprimeix() {
 		for (int i = 0; i < b.ConsultarX(); i++) {
 			for (int j = 0; j < b.ConsultarY(); j++) {
@@ -89,7 +148,7 @@ public class Main {
 		}
 		System.out.println();
 	}
-	
+	**/
 	
 
 

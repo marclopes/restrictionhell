@@ -198,14 +198,14 @@ public class CtrDomRestriccio {
         }
     }
 
-    public void assignaCjtEd(int id, CjtEdificis ce) {
+    public void AssignaCjtEd(int id, CjtEdificis ce) {
         RestriccioBarris aux = ObtenirRest(id);
         if (aux instanceof RCjtEd) {
             ((RCjtEd) aux).AssignaCe(ce);
         }
     }
 
-    public void assignaEspai(int id, Espai e) {
+    public void AssignaEspai(int id, Espai e) {
         RestriccioBarris aux = ObtenirRest(id);
         if (aux instanceof REspai) {
             ((REspai) aux).AssignaEspai(e);

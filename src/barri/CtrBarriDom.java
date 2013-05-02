@@ -289,7 +289,6 @@ public class CtrBarriDom {
         boolean comp = true;
         for (int i = 0; i < aux.TamRest(); i++) {
             TipusRest tr = aux.ObteRest(i).obteTipus();
-
             if (tr == TipusRest.QUANTITAT) {
                 RQuantitat raux = ((RQuantitat) aux.ObteRest(i));
                 if (raux.EsMax()) {
@@ -301,11 +300,11 @@ public class CtrBarriDom {
             if (tr == TipusRest.DISTTIPUS) {
                 comp = (comp && aux.ObteRest(i).CompleixRes());
 
-                if (!comp) {
-                    System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
-                    System.out.println();
-                    //comp = false;
-                }
+               // if (!comp) {
+                   // System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
+               //     System.out.println();
+                   //comp = false;
+              //  }
             }
 
 
@@ -314,11 +313,11 @@ public class CtrBarriDom {
                 ((RInfluencia) aux.ObteRest(i)).AssignaPos(x, y);
                 comp = (comp && aux.ObteRest(i).CompleixRes());
 
-                if (!comp) {
+               /* if (!comp) {
                     System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
                     System.out.println();
                     //comp = false;
-                }
+                }*/
             }
 
             if (tr == TipusRest.COST) {
@@ -359,8 +358,8 @@ public class CtrBarriDom {
 
         }
 
-        System.out.println(" --> " + comp);
-        System.out.println();
+      //  System.out.println(" --> " + comp);
+      //  System.out.println();
         return comp;
 
 
@@ -385,7 +384,7 @@ public class CtrBarriDom {
     void Back2(int id, int x, int y, Barri aux) {
         if (id < aux.ConsultarX() * aux.ConsultarY()) {
             //if (id < (10)) {
-            System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
+           // System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
 
             int index = (int) (Math.random() * aux.TamEd());
 
@@ -398,7 +397,7 @@ public class CtrBarriDom {
 
 
                 //if (x == 14 && y == 14) continue;
-                System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i) + " a " + x + ", " + y);
+               // System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i) + " a " + x + ", " + y);
                 boolean b;
                 if (b = Legal(aux.ObteEd(i), x, y, aux)) {
 
@@ -409,8 +408,8 @@ public class CtrBarriDom {
                     }
 
                 }
-                System.out.println(" --> " + b);
-                System.out.println();
+           //     System.out.println(" --> " + b);
+              //  System.out.println();
 
             }
             if (!trobat) {

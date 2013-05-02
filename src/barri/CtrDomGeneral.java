@@ -100,22 +100,23 @@ public class CtrDomGeneral {
             if (hab != null) {
                 ctrRestric.AssignaHab(id, 1, StringHabtoEnum(el1));
             }
-            if (neg != null) {
+            else if (neg != null) {
                 ctrRestric.AssignaNeg(id, 1, StringNegtoEnum(el1));
-            } else {
+            } else if (serv != null){
                 ctrRestric.AssignaSer(id, 1, StringSertoEnum(el1));
             }
+            else return -1;
             hab = StringHabtoEnum(el2);
             neg = StringNegtoEnum(el2);
             serv = StringSertoEnum(el2);
             if (hab != null) {
                 ctrRestric.AssignaHab(id, 2, StringHabtoEnum(el2));
             }
-            if (neg != null) {
+            else if (neg != null) {
                 ctrRestric.AssignaNeg(id, 2, StringNegtoEnum(el2));
-            } else {
+            } else if (serv != null){
                 ctrRestric.AssignaSer(id, 2, StringSertoEnum(el2));
-            }
+            } else return -1;
         }
         return rest;
     }

@@ -3,16 +3,37 @@ package barri;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import barri.CtrEdDom;
-import barri.Edifici;
 import barri.Edifici.TipusEd;
 import barri.Habitatge.TipusHab;
-import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
-import barri.Servei.TipusServei;
 
 public class DriverCtrEdDom {
-
+    private static Edifici.Classes StringToClase(String c) {
+        
+        if (c.equals("Alta")) {
+            return Edifici.Classes.Alta;
+        } else if (c.equals("Mitja")) {
+            return Edifici.Classes.Mitja;
+        } else {
+            return Edifici.Classes.Baixa;
+        }
+        
+    }
+            
+         private static int LlegirEnter(String s){
+             
+            int res;
+            try{
+                res = Integer.parseInt(s);
+                return res;
+            }
+            catch(NumberFormatException e){
+                System.out.println("ERROR: " + s + " no és una entrada vàlida");
+                return -1000;
+            }
+            
+        }
+         
     public static void main(String[] args) throws java.io.IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,8 +44,33 @@ public class DriverCtrEdDom {
 
         CtrEdDom ctrEd = CtrEdDom.ObteInstancia();
 
-        int opt = 0;
-
+                    int opt = -1000;
+                    String nom;
+                    int codi;
+                    int h = -1000;
+                    int cap = -1000;
+                    int imp = -1000;
+                    int apc = -1000;
+                    int tip = -1000;
+                    int cost;
+                    int mant;
+                    int ai;
+                    
+                    tipusHab t = null;
+                    boolean opcio;
+                    
+        while (opt != 9) {
+            
+                    opt = -1000;                  
+                    h = -1000;
+                    cap = -1000;
+                    imp = -1000;
+                    apc = -1000;
+                    tip = -1000;
+                    cost = -1000;
+                    mant = -1000;
+                    ai = -1000;
+                    
         System.out.println("Opcions:");
         System.out.println("1. Crear habitatge.");
         System.out.println("2. Crear negoci.");
@@ -35,52 +81,57 @@ public class DriverCtrEdDom {
         System.out.println("7. Comprovar exist�ncia d'edifici.");
         System.out.println("8. Guardar edifici.");
         System.out.println("9. Sortir");
-
-        while (opt != 9) {
-            System.out.print("> ");
-            in = br.readLine();
-            opt = Integer.parseInt(in);
-            switch (opt) {
+        
+            System.out.print("Opció: ");
+            opt = -1000;
+            while(opt == -1000) {
+                
+                 System.out.print("> ");
+                 in = br.readLine();
+                 opt = LlegirEnter(in);
+                 if(opt == -1000)System.out.println("Opció incorrecte. Torna-ho a provar...");
+                 
+                 }
+                            
+            switch(opt){
                 case 1:
-
-                    String nom;
-                    int codi,
-                     h,
-                     cap,
-                     imp,
-                     apc,
-                     tip;
-                    TipusHab t = null;
-                    boolean opcio;
 
                     System.out.println("Introdueix el nom: ");
                     System.out.print("> ");
                     nom = br.readLine();
 
-                    System.out.println("Introdueix l'identificador: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    codi = Integer.parseInt(in);
-
                     System.out.println("Introdueix l'alçada: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    h = Integer.parseInt(in);
+                    
+                    while(h == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                h = LlegirEnter(in);
+                                if(h == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix la capacitat: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    cap = Integer.parseInt(in);
+                    while(cap == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                cap = LlegirEnter(in);
+                                if(cap == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix els impostos:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    imp = Integer.parseInt(in);
+                    while(imp == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                imp = LlegirEnter(in);
+                                if(imp == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix l'aparcament:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    apc = Integer.parseInt(in);
+                    while(apc == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                apc = LlegirEnter(in);
+                                if(apc == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Selecciona el tipus d'habitatge:");
                     System.out.println("1. Casa");
@@ -91,9 +142,12 @@ public class DriverCtrEdDom {
 
                     opcio = true;
                     while (opcio) {
-                        System.out.print("> ");
-                        in = br.readLine();
-                        tip = Integer.parseInt(in);
+                    while(tip == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                tip = LlegirEnter(in);
+                                if(tip == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
                         opcio = false;
                         if (tip == 1) {
                             t = TipusHab.Casa;
@@ -109,7 +163,7 @@ public class DriverCtrEdDom {
                         }
                     }
 
-                    ctrEd.CreaHabitatge(imp, apc, nom, codi, h, cap, t);
+                    ctrEd.CreaHabitatge(imp, apc, nom, 0 , h, cap, t);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -134,30 +188,37 @@ public class DriverCtrEdDom {
                     System.out.print("> ");
                     nom = br.readLine();
 
-                    System.out.println("Introdueix l'identificador: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    codi = Integer.parseInt(in);
-
                     System.out.println("Introdueix l'alçada: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    h = Integer.parseInt(in);
+                    while(h == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                h = LlegirEnter(in);
+                                if(h == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix la capacitat: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    cap = Integer.parseInt(in);
+                    while(cap == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                cap = LlegirEnter(in);
+                                if(cap == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix els impostos:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    imp = Integer.parseInt(in);
+                    while(cap == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                cap = LlegirEnter(in);
+                                if(cap == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix l'aparcament:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    apc = Integer.parseInt(in);
+                    while(apc == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                apc = LlegirEnter(in);
+                                if(apc == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Selecciona el tipus de negoci:");
                     System.out.println("1. Banc");
@@ -171,9 +232,12 @@ public class DriverCtrEdDom {
 
                     opcio = true;
                     while (opcio) {
-                        System.out.print("> ");
-                        in = br.readLine();
-                        tip = Integer.parseInt(in);
+                    while(tip == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                tip = LlegirEnter(in);
+                                if(tip == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
                         opcio = false;
                         if (tip == 1) {
                             t2 = TipusNegoci.Banc;
@@ -197,7 +261,7 @@ public class DriverCtrEdDom {
                         }
                     }
 
-                    ctrEd.CreaNegoci(imp, apc, nom, codi, h, cap, t2);
+                    ctrEd.CreaNegoci(imp, apc, nom, 0, h, cap, t2);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -215,11 +279,8 @@ public class DriverCtrEdDom {
                 case 3:
 
                     //                	 String  nom;
-                    int cost,
-                     mant,
-                     ai;
                     //int cost,mant;
-                    TipusServei t3 = null;
+                    tipusServei t3 = null;
                     //  boolean opcio;
 
                     System.out.println("Crea un Servei.");
@@ -228,35 +289,45 @@ public class DriverCtrEdDom {
                     System.out.print("> ");
                     nom = br.readLine();
 
-                    System.out.println("Introdueix l'identificador: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    codi = Integer.parseInt(in);
-
                     System.out.println("Introdueix l'alçada: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    h = Integer.parseInt(in);
+                    while(h == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                h = LlegirEnter(in);
+                                if(h == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix la capacitat: ");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    cap = Integer.parseInt(in);
+                    while(cap == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                cap = LlegirEnter(in);
+                                if(cap == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix el cost de construcció:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    cost = Integer.parseInt(in);
+                    while(cost == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                cost = LlegirEnter(in);
+                                if(cost == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix el cost de manteniment:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    mant = Integer.parseInt(in);
+                    while(mant == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                mant = LlegirEnter(in);
+                                if(mant == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
                     System.out.println("Introdueix l'area d'influencia:");
-                    System.out.print("> ");
-                    in = br.readLine();
-                    ai = Integer.parseInt(in);
+                    while(ai == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                ai = LlegirEnter(in);
+                                if(ai == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
 
 
                     System.out.println("Selecciona el tipus de negoci:");
@@ -271,31 +342,34 @@ public class DriverCtrEdDom {
 
                     opcio = true;
                     while (opcio) {
-                        System.out.print("> ");
-                        in = br.readLine();
-                        tip = Integer.parseInt(in);
+                    while(tip == -1000){
+                                System.out.print("> ");
+                                in = br.readLine();
+                                tip = LlegirEnter(in);
+                                if(tip == -1000)System.out.println("Valor incorrecte. Torna-ho a provar...");
+                            }
                         opcio = false;
                         if (tip == 1) {
-                            t3 = TipusServei.Bombers;
+                            t3 = tipusServei.Bombers;
                         } else if (tip == 2) {
-                            t3 = TipusServei.Centre_Cultural;
+                            t3 = tipusServei.Centre_Cultural;
                         } else if (tip == 3) {
-                            t3 = TipusServei.Escola;
+                            t3 = tipusServei.Escola;
                         } else if (tip == 4) {
-                            t3 = TipusServei.Hospital;
+                            t3 = tipusServei.Hospital;
                         } else if (tip == 5) {
-                            t3 = TipusServei.Parc;
+                            t3 = tipusServei.Parc;
                         } else if (tip == 6) {
-                            t3 = TipusServei.Policia;
+                            t3 = tipusServei.Policia;
                         } else if (tip == 7) {
-                            t3 = TipusServei.Preso;
+                            t3 = tipusServei.Preso;
                         } else {
                             System.out.println("Opció incorrecte. Torna-ho a provar...");
                             opcio = true;
                         }
                     }
 
-                    ctrEd.CreaServei(cost, mant, ai, nom, codi, h, cap, t3);
+                    ctrEd.CreaServei(cost, mant, ai, nom, 0, h, cap, t3);
 
                     if (ctrEd.ExisteixEdifici(nom)) {
 
@@ -373,6 +447,8 @@ public class DriverCtrEdDom {
                     } else {
                         System.out.println("S'ha canviat el valor.");
                     }
+                    
+                    break;
                 case 5: //Eliminar edifici per nom
 
                     String nomed2;
@@ -397,20 +473,22 @@ public class DriverCtrEdDom {
                         System.out.println("No existeix l'edifici a esborrar.");
                     }
 
+                   break;
                 case 6: //Portar edifici
 
                     String nomed3;
 
-                    System.out.println(
-                            "Introdueix el nom de l'edifici a portar.");
-                    System.out.print(
-                            "> ");
+                    System.out.println("Introdueix el nom de l'edifici a portar.");
+                    System.out.print( "> ");
                     nomed3 = br.readLine();
                     Edifici edif3 = ctrEd.ObtenirEdifici(nomed3);
 
-                    System.out.println(
-                            "L'edifici s'ha portat correctament.");
+                    if (edif3 != null) {
+                    System.out.println("L'edifici s'ha portat correctament.");
+                    }
+                    else { System.out.println("ERROR: L'edifici no s'ha portat correctament.");}
 
+                    break;
                 case 7:
 
                     String nomed4;
@@ -427,7 +505,7 @@ public class DriverCtrEdDom {
 
                     System.out.println("L'edifici no existeix.");
 
-
+                    break;
                 case 8:
 
                     System.out.println("Encara no disponible.");

@@ -539,15 +539,15 @@ public class DriverRest {
 			int y = i%10;
 			//MAX
 			if (x == 0 && y == 0) {
-				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
+				System.out.println("Posant edifici " + n1.consultarTipus() + " Pos: " + x + ", " + y);
 				InsertarElement(n1, 1, x, y);
 				
 			} else if (x == dist/2 && y == dist/2+dist%2-1) {
-				System.out.println("Posant edifici " + n1.ConsultarNom() + " Pos: " + x + ", " + y);
+				System.out.println("Posant edifici " + n1.consultarTipus() + " Pos: " + x + ", " + y);
 				InsertarElement(n1, 2, x, y);
 			//MIN	
 			} else if (x == 9 && y == 9) {
-				System.out.println("Posant edifici " + n2.ConsultarNom() + " Pos: " + x + ", " + y);
+				System.out.println("Posant edifici " + n2.consultarTipus() + " Pos: " + x + ", " + y);
 				InsertarElement(n2, 3, x, y);
 				
 			} else if (x == 9-(dist)/2 && y == 9-(dist)/2-dist%2-1) {
@@ -563,7 +563,9 @@ public class DriverRest {
 		RDistTipus rdtM = new RDistTipus(1, dist, true, n1, n1, e);
 		RDistTipus rdtm = new RDistTipus(1, dist, false, n2, n2, e);
 		
-		if (rdtM.CompleixRes() && rdtm.CompleixRes()) System.out.println("Yeah");
+		if (rdtM.CompleixRes()) System.out.println("Yeah");
+		else System.out.println("Naaah");
+		if (rdtm.CompleixRes()) System.out.println("Yeah");
 		else System.out.println("Naaah");	
 		
 		//-------------------------------

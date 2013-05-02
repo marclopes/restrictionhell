@@ -30,7 +30,6 @@ public class RDistTipus extends RDistancia {
 
 			if (e.ExisteixElementxy(x, y)) {
 				Object o = e.ConsultarElementxy(x, y);
-				//if (o == null) //System.out.println(e.ExisteixElementxy(x, y) + " pero ES NULLLLLL!!!!!");
 				Edifici ed = ((Illa) e.ConsultarElementxy(x, y)).ConsultaEdifici();
 
 				if (ed.consultarSubclasse() == e1.consultarSubclasse()) {
@@ -39,54 +38,53 @@ public class RDistTipus extends RDistancia {
 						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						
+
 						break;
 
 					case NEG:
 						if (((Negoci) ed).consultarTipus() == ((Negoci) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						
+				
 						break;
 
 					case SER:
 						if (((Servei) ed).consultarTipus() == ((Servei) e1).consultarTipus()) {
 							l1.add(new Pos(x, y));
 						}
-						
 						break;
 
 					default:
 						break;
 					}
+					
 				}
-                                
-                                if (ed.consultarSubclasse() == e2.consultarSubclasse()) {
-					switch (ed.consultarSubclasse()) {
-					case HAB:
-						
-						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e2).consultarTipus()) {
-							l2.add(new Pos(x, y));
-						}
-						break;
+					if (ed.consultarSubclasse() == e2.consultarSubclasse()) {
+						switch (ed.consultarSubclasse()) {
+						case HAB:
 
-					case NEG:
-						
-						if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
-							l2.add(new Pos(x, y));
-						}
-						break;
+							if (((Habitatge) ed).consultarTipus() == ((Habitatge) e2).consultarTipus()) {
+								l2.add(new Pos(x, y));
+							}
+							break;
 
-					case SER:
-						
-						if (((Servei) ed).consultarTipus() == ((Servei) e2).consultarTipus()) {
-							l2.add(new Pos(x, y));
-						}
-						break;
+						case NEG:
 
-					default:
-						break;
-					}
+							if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
+								l2.add(new Pos(x, y));
+							}
+							break;
+
+						case SER:
+
+							if (((Servei) ed).consultarTipus() == ((Servei) e2).consultarTipus()) {
+								l2.add(new Pos(x, y));
+							}
+							break;
+
+						default:
+							break;
+						}
 				}
 
 			}
@@ -97,22 +95,24 @@ public class RDistTipus extends RDistancia {
 			}
 		}
 
-		Pos p1, p2;
+		Pos p1;
+		Pos p2;
+		
+		//boolean b = true;
+		int di = 999999999;
 		for (int i = 0; i < l1.size(); i++) {
 			p1 = l1.get(i);
 			for (int j = 0; j < l2.size(); j++) {
 				p2 = l2.get(j);
-				// System.err.println("RDistTipus: Distancia: " + dist(p1.x,
-				// p1.y, p2.x, p2.y));
-				if (max && (dist(p1.x, p1.y, p2.x, p2.y) > dist)
-						&& dist(p1.x, p1.y, p2.x, p2.y) != 0)
-					return false;
-				else if (!max && (dist(p1.x, p1.y, p2.x, p2.y) < dist)
-						&& dist(p1.x, p1.y, p2.x, p2.y) != 0)
-					return false;
+				
+				if (dist(p1.x, p1.y, p2.x, p2.y) < di && dist(p1.x, p1.y, p2.x, p2.y) != 0) di = dist(p1.x, p1.y, p2.x, p2.y);
 
-			}
+			}	
+			
+			
 		}
+		if(max && di > dist) return false;
+		if (!max && di < dist) return false;
 		return true;
 
 	}
@@ -138,8 +138,9 @@ public class RDistTipus extends RDistancia {
 		if (max) s = "maxima";
 		else s = "minima";
 		String s2, s3;
-		s2 = "";
-		s3 = "";
+		s2 = "null";
+		s3 = "null";
+		
 		if (e1.consultarSubclasse() == TipusEd.NEG) s2 = ((Negoci)e1).consultarTipus().toString();
 		else if (e1.consultarSubclasse() == TipusEd.HAB) s2 = ((Habitatge)e1).consultarTipus().toString();
 		else if (e1.consultarSubclasse() == TipusEd.SER) s2 = ((Servei)e1).consultarTipus().toString();
