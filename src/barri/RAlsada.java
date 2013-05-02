@@ -36,5 +36,9 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
 	public void AssignaCe(CjtEdificis ce) {
 		this.ce = ce;
 	}
+	
+	public String Info() {
+		return ("Alçada maxima "+ alsada);
+	}
 
 }

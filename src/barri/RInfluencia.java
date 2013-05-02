@@ -261,5 +261,9 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		
 	}
 	
+	public String Info() {
+		return ("Compliment de les arees d'influencia");
+	}
+	
 
 }

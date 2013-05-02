@@ -105,6 +105,10 @@ public class RImpostos extends RestriccioBarris implements REspai{
 		
 	}
 	
+	public String Info() {
+		return ("Impostos maxims "+ imp);
+	}
+	
 	
 
 }

@@ -44,5 +44,9 @@ public class RManteniment extends RestriccioBarris implements REspai {
 		rint.AssignaImpAct(ia);
 	}
 	
+	public String Info() {
+		return ("Barri autosuficient en el seu manteniment");
+	}
+	
 
 }

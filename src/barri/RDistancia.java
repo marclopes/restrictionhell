@@ -60,5 +60,7 @@ public abstract class RDistancia extends RestriccioBarris implements RMax, REspa
 	public void AssignaEspai(Espai e) {
 		this.e = e;
 	}
+	
+
 
 }

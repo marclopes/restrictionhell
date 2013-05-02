@@ -1,6 +1,8 @@
 package barri;
 import java.util.ArrayList;
 
+import barri.Edifici.TipusEd;
+
 public class RDistTipus extends RDistancia {
 	private Edifici e1, e2;
 
@@ -104,6 +106,25 @@ public class RDistTipus extends RDistancia {
 
 	public void ModificarEd2(Edifici e) {
 		e2 = e;
+	}
+	
+	public String Info() {
+		String s;
+		if (max) s = "maxima";
+		else s = "minima";
+		String s2, s3;
+		s2 = "";
+		s3 = "";
+		if (e1.consultarSubclasse() == TipusEd.NEG) s2 = ((Negoci)e1).consultarTipus().toString();
+		else if (e1.consultarSubclasse() == TipusEd.HAB) s2 = ((Habitatge)e1).consultarTipus().toString();
+		else if (e1.consultarSubclasse() == TipusEd.SER) s2 = ((Servei)e1).consultarTipus().toString();
+		
+		if (e2.consultarSubclasse() == TipusEd.NEG) s3 = ((Negoci)e2).consultarTipus().toString();
+		else if (e2.consultarSubclasse() == TipusEd.HAB) s3 = ((Habitatge)e2).consultarTipus().toString();
+		else if (e2.consultarSubclasse() == TipusEd.SER) s3 = ((Servei)e2).consultarTipus().toString();
+		
+		
+		return ("Distancia " + s + " " + dist + " entre "+ s2 + " i " + s3);
 	}
 
 }

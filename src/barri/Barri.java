@@ -93,8 +93,8 @@ public class Barri implements Serializable {
          * @param r Restriccio que volem afegir.
          */
 	public int AfegeixRestriccio(RestriccioBarris r){
-	    if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
-	    if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
+	    if (r instanceof REspai) ((REspai)r).AssignaEspai(espai);
+	    if (r instanceof RCjtEd) ((RCjtEd)r).AssignaCe(lEdificis);
 	    for (int i=0;i<lRestriccions.size() ;++i){
                 if(lRestriccions.get(i).ObtenirId()==r.ObtenirId()) return -1;
             }
