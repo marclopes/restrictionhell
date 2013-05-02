@@ -11,24 +11,41 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	boolean max;
 	Espai e;
 
+        /**
+         * Crea una instancia de la restricció de cost.
+         * @param ID Identificador de la restrició.
+         * @param co Cost que s'assigna a la restricció. 
+         * @param m Indica si el cost és m´nim o màxim.
+         * @param e Espai on s'aplicarà la restricció.
+         */
 	public RCost(int ID, int co, boolean m, Espai e) {
 		super(ID);
 		cost = co;
 		max = m;
-		//this.e = e;
 		super.tr = TipusRest.COST;
 		cAct = 0; 
 	}
 
-	
+	/**
+         * Incrementa el cost actual de la restricció.
+         * @param c L'increment del cost.
+         */
 	public void AugmentaCost(int c) {
 		cAct = cAct+c;
 	}
 	
+        /**
+         * Decrementa el cost actual de la restricció.
+         * @param c El decrement del cost.
+         */
 	public void RedueixCost(int c) {
 		cAct = cAct - c;
 	}
 	
+        /**
+         * Comprova si es compleix la restricció.
+         * @return Cert si es compleix la restricció.
+         */
 	public boolean CompleixRes() {
 		if (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return CompleixFi();
 		
@@ -37,7 +54,10 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		return false;
 	}
 	
-	
+	/**
+         * Comprova que es compleixi la restricció un cop generat el barri.
+         * @return Cert si es compleix la restricció.
+         */
 	public boolean CompleixFi() {
 		int n = 0;
 		for (int i = 0; i < e.ObteX(); i++) {
@@ -55,66 +75,38 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		
 	}
 	
-	/**
-	
-	public boolean CompleixRes2() {
-		int c = 0;
-		boolean b1, b2, b3;
-		//System.out.println((e.ObteY()-1)/3 + " " );
-		b1 = ( (e.ExisteixElementxy(0, (e.ObteY()-1)/3) && !e.ExisteixElementxy(1, (e.ObteY()-1)/3)));
-		b2 = (e.ExisteixElementxy(0, 2*(e.ObteY()-1)/3) && !e.ExisteixElementxy(1, 2*(e.ObteY()-1)/3)); 
-		b3 = (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1));
-		
-		if (true) {
-			for (int i = 0; i < e.ObteX(); i++) {
-				for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
-					Edifici aux = ((Illa)e.ConsultarElementxy(i, j)).ConsultaEdifici();
-					if (aux.consultarSubclasse() == TipusEd.SER) {
-						c = c + ((Servei) aux).ConsultarCost();
-					}
-				}
-			}
-			
-			//if (b1) {
-				if (max && c <= cost) return true;
-				if (!max && c >= cost) return true;
-				
-			//} else if (b2 || b3) {
-			//	if (max && c <= cost) return true;
-			//	if (!max && c >= cost) return true;
-				
-			//}
-			System.out.println("c = " + c + ", cost = " + cost);
-			return false;
-			
-		} 
-		return true;
-	}
-	
-	**/
-	
+        /**
+         * Consultora del cost assignat al barri.
+         * @return El cost assignat al barri.
+         */
 	public int ConsultarCost() {
 		return cost;
 	}
-	
+        
+	/**
+         * Modificadora del cost assignat al barri.
+         * @param c Nou cost assignat al barri.
+         */
 	public void ModificarCost(int c) {
 		cost = c;
 	}
 	
-
-
-	
+        /**
+         * Consulta si el cost es màxim o mínim.
+         * @return Cert si el cost és màxim.
+         */
 	public boolean EsMax() {
 		return max;
 	}
 
-
-	
+        /**
+         * Modifica si el cost es màxim o mínim.
+         * @param m Nou indicador de si el cost es màxim o mínim.
+         */
 	public void CanviaMax(boolean m) {
 		max = m;
 		
 	}
-
 
 	@Override
 	public void AssignaEspai(Espai e) {
@@ -129,7 +121,5 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		
 		return ("Cost " + s + " " + cost);
 	}
-
-
 
 }

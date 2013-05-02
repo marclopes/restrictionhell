@@ -13,237 +13,81 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	Espai e;
 	ArrayList<ArrayList<PosArea>> v;
 	CjtEdificis ce;
-	HashSet<TipusServei> vt;
 	int x, y;
 	
-
+        /**
+         * Crea una instancia de la restricció d'influencia.
+         * @param ID Identificador de la restricció.
+         * @param e Espai sobre el que es comprovarà la restricció.
+         */
 	public RInfluencia(int ID, Espai e) {
 		super(ID, 0, false, e);
-		//this.e = e;
 		v = new ArrayList<ArrayList<PosArea>>(); 
 		super.tr = TipusRest.INFUENCIA;
-		//vt = new ArrayList<Servei.TipusServei>();
 	}
 	
-	public void AssignaPos(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	public void RecorreCjt () {
-		vt = new HashSet<TipusServei>();
-		for (int i = 0; i < ce.Tamany(); i++) {
-			if (ce.ObtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
-			vt.add(((Servei)ce.ObtenirEdifici(i)).consultarTipus());
-		}
-	}
-	
-	private boolean bfs (int x, int y) {
-		int tam = e.ObteX()*e.ObteY();
-		//int p = y*15+x;
-		
-		Queue<Integer> q = new ArrayDeque<Integer>();
-		
-		boolean[][] b = new boolean[e.ObteX()][e.ObteY()];
-		int[][] d = new int[e.ObteX()][e.ObteY()];
-		for (int i = 0; i < b.length; i++) {
-			for (int j = 0; j < b[0].length; j++) {
-				b[i][j] = false;
-				d[i][j] = 0;
-			}
-				
-		}
-		
-		//for (int i = 0; i < tam; i++) {
-			
-		if (!b[x][y]) {
-			q.add(y*15+x);
-			b[x][y] = true;
-			
-			while (!q.isEmpty()) {
-				int v = q.poll();
-				int i,j;
-				i = v%e.ObteX();
-				j = v/e.ObteX();
-				
-				if (e.ExisteixElementxy(i, j )) {
-					Edifici aux = ((Illa)e.ConsultarElementxy(i, j )).ConsultaEdifici();
-					int dis = d[i][j];
-					
-					if (aux.consultarSubclasse() == TipusEd.SER) {
-						TipusServei t = ((Servei)aux).consultarTipus();
-						
-						if (vt.contains(t)) {
-							if (((Servei)aux).ConsultarAreaInfluencia() < d[i][j]) return false;
-						}
-						
-						if (vt.isEmpty()) return true;
-						
-					}
-				}
-				
-				
-				
-				if (i+1 >= 0 && i+1 <= e.ObteX()-1 && e.ExisteixElementxy(i+1, j) && !b[i+1][j] ) {
-					q.add(v+1);
-					b[i+1][j] = true;
-					d[i+1][j] = d[i][j]+1;
-					
-				}
-				
-				if (i-1 >= 0 && i-1 <= e.ObteX()-1 && e.ExisteixElementxy(i-1, j) && !b[i-1][j] ) {
-					q.add(v+1);
-					b[i-1][j] = true;
-					d[i-1][j] = d[i][j]+1;
-					
-				}
-				
-				if (j+1 >= 0 && j+1 <= e.ObteY()-1 && e.ExisteixElementxy(i, j+1) && !b[i][j+1]) {
-					q.add(v+e.ObteX());
-					b[i][j+1] = true;
-					d[i][j+1] = d[i][j]+1;
-					
-				}
-				if (j-1 >= 0 && j-1 <= e.ObteY()-1 && e.ExisteixElementxy(i, j-1) && !b[i][j-1] ) {
-					q.add(v-e.ObteX());
-					b[i][j-1] = true;
-					d[i][j-1] = d[i][j]+1;
-					
-				}
-				
-				
-				
-					
-				//cosaaa
-				
-								
-			}
-			return true;
-			
-			
-		}
-		return true;
-			
-		//}
-	}
-	
-	public boolean CompleixRes2() {
-		return bfs(x, y);
-		
-	}
-	
-
-
+      
+        /**
+         * Comprova que es compleix la restricció.
+         * @return Cert si es compleix la restricció.
+         */
 	public boolean CompleixRes() {
-		
-		//System.out.println("M'HAN CRIDAT!!!");
-		
 		for (int i = 0; i < TipusServei.values().length; i++) {
 			v.add(new ArrayList<PosArea>());
 			v.get(i).clear();
 		}
-		
-		
 		for (int i = 0; i < e.ObteX(); i++) {
-			//System.out.print("it: " + i + ",");
 			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
-				//System.out.println(j);
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (ed.consultarSubclasse() == TipusEd.SER) {
 					Servei se = (Servei)ed;
-					
-					//System.out.println("Detectat servei: " + se.ConsultarCodi() + " " + se.ConsultarNom());
-					
 					for (int x = 0; x < TipusServei.values().length; x++) {
 						if (se.consultarTipus() == TipusServei.values()[x]) {
-							//System.out.println("afegit " + se.ConsultarNom() + " a: " + i + "," +j + " --> " + se.consultarTipus());
 							v.get(x).add(new PosArea(i, j, se.ConsultarAreaInfluencia()));
 							break;
 						}
 					} 
-					
-					/**
-					int x = 0;
-					switch (se.consultarTipus()) {
-					case Bombers:
-						x = 0;
-						break;
-						
-					case Centre_Cultural:
-						x = 1;
-						break;
-						
-					case Escola:
-						x = 2;
-						break;
-	
-					case Hospital:
-						x = 3;
-						break;
-	
-					case Parc:
-						x = 4;
-						break;
-	
-					case Policia:
-						x = 5;
-						break;
-						
-					case Preso:
-						x = 6;
-						break;
-	
-					default:
-						break;
-						
-					}
-					**/
-					
 				}
 			}
-
 		}
-		//System.out.println("fora bucle ueee");
-		
-		//boolean bool = true;
 		for (int i = 0; i < v.size(); i++) {
 			ArrayList<PosArea> vaux = v.get(i);
-			if (!ComprovaArees(vaux)) return false;	
-			
+			if (!ComprovaArees(vaux)) return false;		
 		}
 		return true;
 	}
 	
-	
+	/**
+         * Comprova que les arees ocupin tot el barri.
+         * @param v Posicions de tots els serveis d'un sol tipus.
+         * @return cert si es cobreixen l'àrea d0influència.
+         */
 	private boolean ComprovaArees(ArrayList<PosArea> v) {
-		//boolean b = true;
 		int Md, md;
 		for (int i = 0; i < v.size()-1; i++) {
-			//for (int j = 0; j < v.size(); j++) {
-			//if (i != j) {
 			PosArea p1 = v.get(i);
 			PosArea p2 = v.get(i+1);
 				
 			int inf = p1.area + p2.area;
 			int d = dist(p1.x, p1.y, p2.x, p2.y);
-				
-			//System.out.println(i + " vs " + i+1 + "   " + p1.x + "," + p1.y + " vs. " + p2.x + "," + p2.y + " ---- " + inf + "  " + d);
-				
 			if (inf < d || inf/2 > d) return false;
-			//}
-			//}
 		}
-		
 		return true;
 	}
 	
 	
-	
+	/**
+         * Assigna l'espai on es comprovarà la restricció.
+         * @param e Espai on s'aplicarà la restricció.
+         */
 	public void AssignaEspai(Espai e) {
 		this.e = e;
 	}
 
-	
+	/**
+         * Assigna un conjunt d'edificis a la restricció.
+         * @param e Espai on s'aplicarà la restricció.
+         */
 	public void AssignaCe(CjtEdificis ce) {
 		this.ce = ce;
 		

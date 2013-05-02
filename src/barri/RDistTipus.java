@@ -9,6 +9,15 @@ import static barri.Edifici.TipusEd.SER;
 public class RDistTipus extends RDistancia {
 	private Edifici e1, e2;
 
+        /**
+         * Crea una instancia de la Restricció de distancia segons el tipus dels edificis.
+         * @param ID Identificador de la restricció.
+         * @param d Distancia que aplicara la restricció.
+         * @param m Indica si la distancia es mínima o màxima.
+         * @param e1 Primer edifici del qual es comprovarà el tipus.
+         * @param e2 Segon edifici del qual es comprovarà el tipus.
+         * @param e Espai on es comprovarà la restricció.
+         */
 	public RDistTipus(int ID, int d, boolean m, Edifici e1, Edifici e2, Espai e) {
 		super(ID, d, m, e);
 		this.e1 = e1;
@@ -17,6 +26,10 @@ public class RDistTipus extends RDistancia {
 
 	}
 
+        /**
+         * Comprova que es compleix la restricció.
+         * @return Cert si es compleix la restricció.
+         */
 	public boolean CompleixRes() {
 		int dist_act;
 		int x, y;
@@ -97,8 +110,6 @@ public class RDistTipus extends RDistancia {
 
 		Pos p1;
 		Pos p2;
-		
-		//boolean b = true;
 		int di = 999999999;
 		for (int i = 0; i < l1.size(); i++) {
 			p1 = l1.get(i);
@@ -117,22 +128,42 @@ public class RDistTipus extends RDistancia {
 
 	}
 
+        /**
+         * Consulta el primer edifici de la restricció.
+         * @return L'edifici de la restricció.
+         */
 	public Edifici ConsultarEd1() {
 		return e1;
 	}
 
+        /**
+         * Modifica el primer edifici de la restricció.
+         * @return Nou edifici de la restricció.
+         */
 	public void ModificarEd1(Edifici e) {
 		e1 = e;
 	}
 
+        /**
+         * Consulta el segon edifici de la restricció.
+         * @return L'edifici de la restricció.
+         */
 	public Edifici ConsultarEd2() {
 		return e2;
 	}
 
+        /**
+         * Modifica el segon edifici de la restricció.
+         * @return L'edifici de la restricció.
+         */
 	public void ModificarEd2(Edifici e) {
 		e2 = e;
 	}
 	
+        /**
+         * Consulta informació sobre la restricció.
+         * @return Informació sobre la restricció.
+         */
 	public String Info() {
 		String s;
 		if (max) s = "maxima";
@@ -152,5 +183,4 @@ public class RDistTipus extends RDistancia {
 		
 		return ("Distancia " + s + " " + dist + " entre "+ s2 + " i " + s3);
 	}
-
 }

@@ -3,11 +3,15 @@ package barri;
 public class RAparcament extends RestriccioBarris implements REspai { 
 		
 		int ap, apact;
-		//CjtEdificis ce;
-		private Espai e;
-		
+		private Espai e;		
 		int aMin;
 
+                /**
+                 * Crea una instancia de la restricció d'aparcament.
+                 * @param ID Identificador de la restricció.
+                 * @param a Aparcament assignat.
+                 * @param e Espai on s'aplica la restricció.
+                 */
 		public RAparcament(int ID, int a, Espai e) {
 			super(ID);
 			ap = a;
@@ -17,38 +21,35 @@ public class RAparcament extends RestriccioBarris implements REspai {
 			aMin = 0;
 			
 		}
-
-		/**
-		public boolean CompleixRes() {
-			int c = 0;
-			
-			for (int i = 0; i < ce.tamany(); i++) {
-				Edifici aux = ce.obtenirEdifici(i);
-				TipusEd t = aux.consultarSubclasse();
-				
-				if (t == TipusEd.HAB) c = c + ((Habitatge) aux).ConsultarImpost();
-				else if (t == TipusEd.NEG) c = c + ((Negoci) aux).ConsultarImpost();
-			}
-			
-			if (c >= imp) return true;
-			else return false;
-		}
-		**/
 		
+                /**
+                 * Consulta l'aparcament assignat a la restricció.
+                 * @return L'aparcament assignat a la restricció.
+                 */
 		public int ConsultarAp() {
 			return ap;
 		}
 		
+                /**
+                 * Modifica l'aparcament assignat a la restricció.
+                 * @param a Nou aparcament assignat a la restricció.
+                 */
 		public void ModificarImp(int a) {
 			ap = a;
 		}
 		
-		
+		/**
+                 * Assigna l'aparcament actual de la restricció.
+                 * @param a 
+                 */
 		public void AssignaApAct(int a) {
 			apact = a;
 		}
 		
-		
+		/**
+                 * Comprova que es compleix la restricció.
+                 * @return Cert si es comleix la restricció.
+                 */
 		public boolean CompleixRes() {
 			if (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return CompleixFi();
 			
@@ -57,6 +58,10 @@ public class RAparcament extends RestriccioBarris implements REspai {
 			
 		}
 		
+                /**
+                 * Comprova que es compleixi la restricció.
+                 * @return cert si es compleix la restricció.
+                 */
 		public boolean CompleixFi() {
 			int n = 0;
 			for (int i = 0; i < e.ObteX(); i++) {
@@ -77,12 +82,6 @@ public class RAparcament extends RestriccioBarris implements REspai {
 					}
 				}
 			}
-			/**
-			if (n < imp) {
-				System.out.println("iTotal = " + n  + " Semblava que si pero noooooo!!!");
-				System.exit(1);
-			}
-			**/
 			if (n >= ap) return true;
 			else return false;
 			

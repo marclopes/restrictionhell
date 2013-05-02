@@ -8,22 +8,27 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 	int quant;
 	Edifici ed;
 	boolean max;
-	//CjtEdificis ce;
 	Espai e;
 	
-	//int q_act;
-
+        /**
+         * Crea una instancia de la restricció de quantitat.
+         * @param ID Identificador dde la restricció.
+         * @param q Quantitat que volem definir.
+         * @param e Edifici sobre el que volem definir la quantitat.
+         * @param m Cert -> Quantitat màxima. Fals -> Quantitat mínima.
+         */
 	public RQuantitat(int ID, int q, Edifici e, boolean m) {
 		super(ID);
 		quant = q;
 		ed = e;
 		max = m;
-		//this.ce = ce;
-		//q_act = 0;
 		super.tr = TipusRest.QUANTITAT;
 	}
 
-	
+	/**
+         * Comprova que es compleix la restricció.
+         * @return Cert si es compleix la restricció, fals en cas contrari.
+         */
 	public boolean CompleixRes() {
 		int q = 0;
 		for (int i = 0; i < e.ObteX(); i++) {
@@ -53,7 +58,11 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		return true;
 	}
 	
-	
+	/**
+         * Cromprova si l'edifici esta afectat per la restricció.
+         * @param e Edifici que volem comprovar.
+         * @return Cert si l'edifici està afectat per la restricció, fals en cas contrari.
+         */
 	public boolean EsAquest(Edifici e) {
 		
 		if (e.consultarSubclasse() == ed.consultarSubclasse()) {
@@ -74,38 +83,67 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		
 	}
 	
-	
+	/**
+         * Consulta la quantitat assignada a la restricció.
+         * @return La quantitat assignada a la restricció.
+         */
 	public int ConsultarQuant() {
 		return quant;
 	}
 	
+        /**
+         * Modifica la quantitat assignada a la restricció.
+         * @param q Nova quantitat que volem assignar.
+         */
 	public void ModificarQuant(int q) {
 		quant = q;
 	}
 	
+        /**
+         * Consulta si la quantitat es màxima o mínima.
+         * @return Cert -> màxim. Fals -> mínim.
+         */
 	public boolean EsMax() {
 		return max;
 	}
 	
+        /**
+         * Modifica si la restricció serà de quantitat mínima o màxima.
+         * @param m Indica amb cert que la quantitat serà màxima.
+         */
 	public void CanviaMax(boolean m) {
 		max = m;
 	}
 	
+        /**
+         * Consulta l'edifici afectat per la restricció.
+         * @return L'edifici afectat per la restricció.
+         */
 	public Edifici QuinEdifici() {
 		return ed;
 	}
 	
+        /**
+         * Modifica l'edifici afectat per la restricció.
+         * @param e L'edifici afectat per la restricció.
+         */
 	public void AssignaEdifici(Edifici e) {
 		ed = e;
 	}
 
-
-	
+        /**
+         * Assigna l'espai on es comprovarà la restricció.
+         * @param e L'espai on es comprovarà la restricció.
+         */
 	public void AssignaEspai(Espai e) {
 		this.e = e;
 		
 	}
 	
+        /**
+         * Mostra informació sobre la restricció.
+         * @return La informació de la restricció.
+         */
 	public String Info() {
 		String s;
 		if (max) s = "maxima";
@@ -114,6 +152,11 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		return ("Quantitat " + s + " de " + StrTipus(ed) + " = " + quant);
 	}
 	
+        /**
+         * Converteix el tipus d'edifici en un string.
+         * @param e Edifici que volem convertir el seu tipus.
+         * @return El tipus de l'edifici.
+         */
 	private String StrTipus(Edifici e) {
 		
 			if (e.consultarSubclasse() == TipusEd.HAB) {
