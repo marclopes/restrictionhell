@@ -21,7 +21,7 @@ public class RDistTipus extends RDistancia {
 		l1 = new ArrayList<Pos>();
 		l2 = new ArrayList<Pos>();
 
-		while (x < e.obteX() && y < e.obteY() && e.ExisteixElementxy(x, y)) {
+		while (x < e.ObteX() && y < e.ObteY() && e.ExisteixElementxy(x, y)) {
 
 			if (e.ExisteixElementxy(x, y)) {
 				Object o = e.ConsultarElementxy(x, y);
@@ -64,7 +64,7 @@ public class RDistTipus extends RDistancia {
 
 			}
 			x++;
-			if (x == e.obteX()) {
+			if (x == e.ObteX()) {
 				x = 0;
 				y++;
 			}

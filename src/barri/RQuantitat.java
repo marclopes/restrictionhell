@@ -26,8 +26,8 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 	
 	public boolean CompleixRes() {
 		int q = 0;
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 				Edifici aux = ((Illa)e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (aux.consultarSubclasse() == ed.consultarSubclasse()) {
 					if (aux.tipusEd == TipusEd.HAB) {
@@ -49,7 +49,7 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		
 		
 		if (max && q > quant) return false;
-		if (!max && q < quant && e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return false;
+		if (!max && q < quant && e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return false;
 		return true;
 	}
 	

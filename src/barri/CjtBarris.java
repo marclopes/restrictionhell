@@ -14,7 +14,7 @@ public class CjtBarris {
     }
     public void EliminarBarri(String nom){
       for (int i=0;i<cjtBarris.size();++i) {
-	    if (cjtBarris.get(i).consultarNom().equals(nom)) {
+	    if (cjtBarris.get(i).ConsultarNom().equals(nom)) {
 		cjtBarris.remove(i);
 		break;
 	    }
@@ -23,16 +23,27 @@ public class CjtBarris {
     
     public boolean ExisteixBarri(String nom){
       for (int i=0;i<cjtBarris.size();++i) {
-	  if (cjtBarris.get(i).consultarNom().equals(nom)) return true;
+	  if (cjtBarris.get(i).ConsultarNom().equals(nom)) return true;
       }
       return false;
     }
     
-    public Barri GetBarri(String nom){
+    public Barri ObtenirBarri(String nom){
       for (int i=0;i<cjtBarris.size();++i) {
-	  if (cjtBarris.get(i).consultarNom().equals(nom)) return cjtBarris.get(i);
+	  if (cjtBarris.get(i).ConsultarNom().equals(nom)) return cjtBarris.get(i);
       }
       return null;
     }
+    public void NetejarRestricions(int id){
+        for (Barri b : cjtBarris) {
+            b.EliminarRestriccio(id);
+        }
+    }
+    public void NetejarEdificis(String e){
+        for (Barri b : cjtBarris) {
+            b.BorraEdifici(e);
+        }
+    }
+    
 
 }

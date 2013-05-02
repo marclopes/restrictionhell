@@ -40,13 +40,13 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	}
 	
 	private boolean bfs (int x, int y) {
-		int tam = e.obteX()*e.obteY();
+		int tam = e.ObteX()*e.ObteY();
 		//int p = y*15+x;
 		
 		Queue<Integer> q = new ArrayDeque<Integer>();
 		
-		boolean[][] b = new boolean[e.obteX()][e.obteY()];
-		int[][] d = new int[e.obteX()][e.obteY()];
+		boolean[][] b = new boolean[e.ObteX()][e.ObteY()];
+		int[][] d = new int[e.ObteX()][e.ObteY()];
 		for (int i = 0; i < b.length; i++) {
 			for (int j = 0; j < b[0].length; j++) {
 				b[i][j] = false;
@@ -64,8 +64,8 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 			while (!q.isEmpty()) {
 				int v = q.poll();
 				int i,j;
-				i = v%e.obteX();
-				j = v/e.obteX();
+				i = v%e.ObteX();
+				j = v/e.ObteX();
 				
 				if (e.ExisteixElementxy(i, j )) {
 					Edifici aux = ((Illa)e.ConsultarElementxy(i, j )).ConsultaEdifici();
@@ -85,28 +85,28 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 				
 				
 				
-				if (i+1 >= 0 && i+1 <= e.obteX()-1 && e.ExisteixElementxy(i+1, j) && !b[i+1][j] ) {
+				if (i+1 >= 0 && i+1 <= e.ObteX()-1 && e.ExisteixElementxy(i+1, j) && !b[i+1][j] ) {
 					q.add(v+1);
 					b[i+1][j] = true;
 					d[i+1][j] = d[i][j]+1;
 					
 				}
 				
-				if (i-1 >= 0 && i-1 <= e.obteX()-1 && e.ExisteixElementxy(i-1, j) && !b[i-1][j] ) {
+				if (i-1 >= 0 && i-1 <= e.ObteX()-1 && e.ExisteixElementxy(i-1, j) && !b[i-1][j] ) {
 					q.add(v+1);
 					b[i-1][j] = true;
 					d[i-1][j] = d[i][j]+1;
 					
 				}
 				
-				if (j+1 >= 0 && j+1 <= e.obteY()-1 && e.ExisteixElementxy(i, j+1) && !b[i][j+1]) {
-					q.add(v+e.obteX());
+				if (j+1 >= 0 && j+1 <= e.ObteY()-1 && e.ExisteixElementxy(i, j+1) && !b[i][j+1]) {
+					q.add(v+e.ObteX());
 					b[i][j+1] = true;
 					d[i][j+1] = d[i][j]+1;
 					
 				}
-				if (j-1 >= 0 && j-1 <= e.obteY()-1 && e.ExisteixElementxy(i, j-1) && !b[i][j-1] ) {
-					q.add(v-e.obteX());
+				if (j-1 >= 0 && j-1 <= e.ObteY()-1 && e.ExisteixElementxy(i, j-1) && !b[i][j-1] ) {
+					q.add(v-e.ObteX());
 					b[i][j-1] = true;
 					d[i][j-1] = d[i][j]+1;
 					
@@ -145,9 +145,9 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 		}
 		
 		
-		for (int i = 0; i < e.obteX(); i++) {
+		for (int i = 0; i < e.ObteX(); i++) {
 			System.out.print("it: " + i + ",");
-			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 				System.out.println(j);
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (ed.consultarSubclasse() == TipusEd.SER) {

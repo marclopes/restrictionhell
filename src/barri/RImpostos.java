@@ -1,8 +1,5 @@
 package barri;
 
-import barri.Edifici.TipusEd;
-import barri.RestriccioBarris.Pos;
-
 
 
 public class RImpostos extends RestriccioBarris implements REspai{
@@ -55,7 +52,7 @@ public class RImpostos extends RestriccioBarris implements REspai{
 	
 	
 	public boolean CompleixRes() {
-		if (e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return CompleixFi();
+		if (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return CompleixFi();
 		
 		if (ia == -1) return true;
 		return (ia >= iMin);
@@ -64,8 +61,8 @@ public class RImpostos extends RestriccioBarris implements REspai{
 	
 	public boolean CompleixFi() {
 		int n = 0;
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				switch (ed.consultarSubclasse()) {
 				case HAB:
@@ -95,7 +92,7 @@ public class RImpostos extends RestriccioBarris implements REspai{
 
 	
 	private int calcMin() {
-		int s = e.obteX() * e.obteY();
+		int s = e.ObteX() * e.ObteY();
 		s = 4*s/5;
 		s = imp / s;
 		return s;

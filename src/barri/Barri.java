@@ -50,12 +50,12 @@ public class Barri implements Serializable {
          * @param e Edifici que volem afegir al conjunt d'edificis del barri.
          * @return Cert si s'ha pogut afegir l'edifici al barri. False si la classe de l'edifici no es la mateixa que la del barri.
          */
-	public boolean CarregaEdifici(Edifici e) {
-                if(!e.EtsClase(this.classe)){
+	public int CarregaEdifici(Edifici e) {
+                if(e.EtsClase(this.classe)){
                     lEdificis.AfegirEdifici(e);
-                    return true;
+                    return 0;
                 }
-                return false;
+                return -1;
 	}
 	
         /**
@@ -70,8 +70,11 @@ public class Barri implements Serializable {
          * Esborra un edifici del conjunt d'edificis del barri.
          * @param nom Nom de l'edifici que volem eliminar.
          */
-        public void BorraEdifici(String nom) {
-		lEdificis.EliminarEdifici(nom);
+        public int BorraEdifici(String nom) {
+		
+                if (!lEdificis.ExisteixEdifici(nom)) return -1;
+                lEdificis.EliminarEdifici(nom);
+                return 0;
 	}
 	
 	/**
@@ -89,35 +92,30 @@ public class Barri implements Serializable {
          * Afegeix una restriccio al conjunt de restriccions del barri.
          * @param r Restriccio que volem afegir.
          */
-	public void AfegeixRestriccio(RestriccioBarris r){
+	public int AfegeixRestriccio(RestriccioBarris r){
 	    if (r instanceof REspai) ((REspai)r).assignaEspai(espai);
 	    if (r instanceof RCjtEd) ((RCjtEd)r).assignaCe(lEdificis);
-	    
+	    for (int i=0;i<lRestriccions.size() ;++i){
+                if(lRestriccions.get(i).ObtenirId()==r.ObtenirId()) return -1;
+            }
 	    lRestriccions.add(r);
+            return 0;
 	}
         
         /**
          * Elimina una restriccio del conjunt de restriccions del barri.
          * @param id Identificador de la restriccio.
          */
-        public void EliminarRestriccio(int id) {
+        public int EliminarRestriccio(int id) {
 	    for(int i=0;i<lRestriccions.size();++i) {
 		if(lRestriccions.get(i).ObtenirId()==id) {
 		    lRestriccions.remove(i);
-		    break;
+		    return 0;
 		}
 	    }
-        
+            return -1;
         }
         
-        /**
-         * Comprova que el barri compleix totes les restriccions que te assignades.
-         * @return Cert si les compleix.
-         */
-	public boolean ComprovarRestriccions() {
-		return true;
-		
-	}
 	
 	// Consultores i modificadores
 	
@@ -309,6 +307,24 @@ public class Barri implements Serializable {
 	public Edifici ObteEd(int i) {
 		return lEdificis.ObtenirEdifici(i);
 	}
-
+        /**
+         * Comprova que l'edifici estigui afegit al barri 
+         * @param nom Nom del edifici a buscar
+         * @return retorna true si esta al barri, sino torna false
+         */
+        public boolean ExisteixEdifici(String nom) {
+            return lEdificis.ExisteixEdifici(nom);
+        }
+        /**
+         * Comprova que la restriccio estigui imposada al barri
+         * @param id identificador de la restriccio a buscar
+         * @return retorna true si la restriccio esta imposada al barri, sino torna false
+         */
+        public boolean ExisteixRest(int id){
+            for (int i=0; i<lRestriccions.size();++i){
+                if (lRestriccions.get(i).ObtenirId()==id) return true;
+            }
+            return false;
+        }
 }
 

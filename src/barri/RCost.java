@@ -30,7 +30,7 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	}
 	
 	public boolean CompleixRes() {
-		if (e.ExisteixElementxy(e.obteX()-1, e.obteY()-1)) return CompleixFi();
+		if (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return CompleixFi();
 		
 		if (max && cAct <= cost) return true;
 		if (!max && cAct >= cost) return true;
@@ -40,8 +40,8 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	
 	public boolean CompleixFi() {
 		int n = 0;
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 				Edifici ed = ((Illa) e.ConsultarElementxy(i, j)).ConsultaEdifici();
 				if (ed.consultarSubclasse() == TipusEd.SER) {
 					n = n + ((Servei)ed).ConsultarCost();
@@ -60,14 +60,14 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	public boolean CompleixRes2() {
 		int c = 0;
 		boolean b1, b2, b3;
-		//System.out.println((e.obteY()-1)/3 + " " );
-		b1 = ( (e.ExisteixElementxy(0, (e.obteY()-1)/3) && !e.ExisteixElementxy(1, (e.obteY()-1)/3)));
-		b2 = (e.ExisteixElementxy(0, 2*(e.obteY()-1)/3) && !e.ExisteixElementxy(1, 2*(e.obteY()-1)/3)); 
-		b3 = (e.ExisteixElementxy(e.obteX()-1, e.obteY()-1));
+		//System.out.println((e.ObteY()-1)/3 + " " );
+		b1 = ( (e.ExisteixElementxy(0, (e.ObteY()-1)/3) && !e.ExisteixElementxy(1, (e.ObteY()-1)/3)));
+		b2 = (e.ExisteixElementxy(0, 2*(e.ObteY()-1)/3) && !e.ExisteixElementxy(1, 2*(e.ObteY()-1)/3)); 
+		b3 = (e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1));
 		
 		if (true) {
-			for (int i = 0; i < e.obteX(); i++) {
-				for (int j = 0; j < e.obteY() && e.ExisteixElementxy(i, j); j++) {
+			for (int i = 0; i < e.ObteX(); i++) {
+				for (int j = 0; j < e.ObteY() && e.ExisteixElementxy(i, j); j++) {
 					Edifici aux = ((Illa)e.ConsultarElementxy(i, j)).ConsultaEdifici();
 					if (aux.consultarSubclasse() == TipusEd.SER) {
 						c = c + ((Servei) aux).ConsultarCost();

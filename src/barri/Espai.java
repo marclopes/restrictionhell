@@ -128,11 +128,11 @@ public class Espai {
       return aux.elem;
   }
   
-  public int obteX() {
+  public int ObteX() {
 	  return matriuElements.length;
   }
   
-  public int obteY() {
+  public int ObteY() {
 	  return matriuElements[0].length;
   }
 

@@ -2,21 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+//package domini;
 package barri;
-
 /**
  *
- * @author alex
+ * @author alejandro.martinez.romero
  */
 public abstract class Restriccio {
     
         //Atributs
-        int id;
-        boolean compleix;
-        
-        //protected TipusRest tr;
-        
-        //protected static Espai e;
+        private int id;
         
         //Constructora
 	
@@ -45,15 +40,13 @@ public abstract class Restriccio {
         }
         
         /**
-        * Retorna el boolea que indica si es compleix o no la restriccio.
-        */
-        public boolean Compleix(){
-            return compleix;
-        }
+         * Funcio amb la que cada restriccio treu la seva informació principal
+         */
+        public abstract void InfoRes();
         
         /**
         * Funcio que cada restriccio especifica implementa per a saber si es compleix.
         */
         public abstract boolean CompleixRes();
-        
+
 }
