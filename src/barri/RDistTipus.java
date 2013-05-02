@@ -113,8 +113,9 @@ public class RDistTipus extends RDistancia {
 		if (max) s = "maxima";
 		else s = "minima";
 		String s2, s3;
-		s2 = "";
-		s3 = "";
+		s2 = "null";
+		s3 = "null";
+		
 		if (e1.consultarSubclasse() == TipusEd.NEG) s2 = ((Negoci)e1).consultarTipus().toString();
 		else if (e1.consultarSubclasse() == TipusEd.HAB) s2 = ((Habitatge)e1).consultarTipus().toString();
 		else if (e1.consultarSubclasse() == TipusEd.SER) s2 = ((Servei)e1).consultarTipus().toString();
