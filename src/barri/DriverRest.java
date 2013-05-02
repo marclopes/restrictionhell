@@ -276,7 +276,7 @@ public class DriverRest {
 		}
 		
 		RQuantitat ra = new RQuantitat(1, q, hab, true);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -294,7 +294,7 @@ public class DriverRest {
 		}
 		
 		ra = new RQuantitat(1, q, hab, true);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -315,7 +315,7 @@ public class DriverRest {
 		}
 		
 		ra = new RQuantitat(1, q, hab, false);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -333,7 +333,7 @@ public class DriverRest {
 		}
 		
 		ra = new RQuantitat(1, q, hab, false);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -372,7 +372,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		RManteniment ra = new RManteniment(1, cb, e);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -396,7 +396,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		ra = new RManteniment(1, cb, e);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -417,8 +417,8 @@ public class DriverRest {
 		e = new Espai(10+2*in, 10+2*in);
 		RInfluencia ra = new RInfluencia(1, e);
 		
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY(); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY(); j++) {
 				if ((i+j) == 0 || (i == in && j == in)) {
 					InsertarElement(s, 1, i, j);
 					a = a + h.ConsultarAparcament();
@@ -430,7 +430,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -444,8 +444,8 @@ public class DriverRest {
 		e = new Espai(10+2*in, 10+2*in);
 		ra = new RInfluencia(1, e);
 		
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY(); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY(); j++) {
 				if ((i+j) == 0 || (i == in+1 && j == in)) {
 					InsertarElement(s, 1, i, j);
 					a = a + h.ConsultarAparcament();
@@ -457,7 +457,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		
@@ -492,7 +492,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		RManteniment ra = new RManteniment(1, im, e);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -517,7 +517,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		ra = new RManteniment(1, im, e);
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -713,7 +713,7 @@ public class DriverRest {
 				if (a < co) {
 					InsertarElement(s, 1, i, j);
 					a = a + s.ConsultarCost();
-					ra.augmentaCost(s.ConsultarCost());
+					ra.AugmentaCost(s.ConsultarCost());
 				}
 				else InsertarElement(s2, 2, i, j);
 			}
@@ -723,7 +723,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -740,7 +740,7 @@ public class DriverRest {
 				if (a < co+s.ConsultarCost()) {
 					InsertarElement(s, 1, i, j);
 					a = a + s.ConsultarCost();
-					ra.augmentaCost(s.ConsultarCost());
+					ra.AugmentaCost(s.ConsultarCost());
 				}
 				else InsertarElement(s2, 2, i, j);
 			}
@@ -748,7 +748,7 @@ public class DriverRest {
 		System.out.println("Afegint edificis amb cost totals: " + a);
 		
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -768,8 +768,8 @@ public class DriverRest {
 		int a = 0;
 		e = new Espai(10, 10);
 		RAparcament ra = new RAparcament(1, ap, e);
-		for (int i = 0; i < e.obteX(); i++) {
-			for (int j = 0; j < e.obteY(); j++) {
+		for (int i = 0; i < e.ObteX(); i++) {
+			for (int j = 0; j < e.ObteY(); j++) {
 				if (a < ap) {
 					InsertarElement(h, 1, i, j);
 					a = a + h.ConsultarAparcament();
@@ -781,7 +781,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		boolean compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
@@ -807,7 +807,7 @@ public class DriverRest {
 		
 		// hauria de complir!
 		
-		ra.assignaEspai(e);
+		ra.AssignaEspai(e);
 		compleix = ra.CompleixRes();
 		
 		if (compleix) System.out.println("Yeah");
