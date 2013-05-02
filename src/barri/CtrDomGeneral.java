@@ -87,17 +87,23 @@ public class CtrDomGeneral {
      *
      * @param dist Distancia maxima/minima entre els tipus d'edifici
      * @param max Indica si la distancia es maxima o minima
-     * @param el1
-     * @param el2
+     * @param el1 Tipus d'edifici sobre el que s'imposa la restriccio
+     * @param el2 Tipus d'edifici sobre el que s'imposa la restriccio
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int CrearRestriccioDistanciaTipus(int id, int dist, boolean max, String el1, String el2) {
-        Edifici e1 = ctrEdificis.ObtenirEdifici(el1);
-        Edifici e2 = ctrEdificis.ObtenirEdifici(el2);
-        if (e1 != null && e2 != null) {
-            return ctrRestric.CreaDistTipus(id, dist, max, e1, e2);
-        }
-        return -1;
+    public int CrearRestriccioDistanciaTipus(int id, int dist, boolean max, String el1, String el2, ) {
+        ctrRestric.CreaDistTipus(id, dist, max, null, null);
+        
+        TipusHab hab = StringHabtoEnum(el1);
+        TipusNegoci neg = StringNegtoEnum(el1);
+        TipusServei serv = StringSertoEnum(el1);
+        if ( hab != null ) ctrRestric.AssignaHab(id, 1 ,StringHabtoEnum(el1));
+        if (neg != null ) ctrRestric.AssignaNeg(id, 1 ,StringNegtoEnum(el1));
+        else ctrRestric.AssignaSer(id, 1 , StringSertoEnum(el1));
+        if ( hab != null ) ctrRestric.AssignaHab(id, 1 ,StringHabtoEnum(el2));
+        if (neg != null ) ctrRestric.AssignaNeg(id, 1 ,StringNegtoEnum(el2));
+        else ctrRestric.AssignaSer(id, 1 , StringSertoEnum(el2));
+        return ctrRestric.CreaDistTipus(id, dist, max, e1, e2);
     }
 
     /**
@@ -417,9 +423,9 @@ public class CtrDomGeneral {
             return Classes.Alta;
         } else if (c.equals("Mitja")) {
             return Classes.Mitja;
-        } else {
-            return Classes.Baixa;
-        }
+        } else if (c.equals("Baixa"))return Classes.Baixa;
+        return null;
+        
     }
 
     private Atribut StringToAtribut(String c) {
