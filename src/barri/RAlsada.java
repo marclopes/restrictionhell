@@ -24,16 +24,16 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
 		return true;
 	}
 	
-	public int consultarAlsada() {
+	public int ConsultarAlsada() {
 		return alsada;
 	}
 	
-	public void modificarAlsada(int a) {
+	public void ModificarAlsada(int a) {
 		alsada = a;
 	}
 	
 	
-	public void assignaCe(CjtEdificis ce) {
+	public void AssignaCe(CjtEdificis ce) {
 		this.ce = ce;
 	}
 

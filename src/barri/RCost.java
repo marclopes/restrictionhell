@@ -21,11 +21,11 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	}
 
 	
-	public void augmentaCost(int c) {
+	public void AugmentaCost(int c) {
 		cAct = cAct+c;
 	}
 	
-	public void redueixCost(int c) {
+	public void RedueixCost(int c) {
 		cAct = cAct - c;
 	}
 	
@@ -93,31 +93,31 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 	
 	**/
 	
-	public int consultarCost() {
+	public int ConsultarCost() {
 		return cost;
 	}
 	
-	public void modificarCost(int c) {
+	public void ModificarCost(int c) {
 		cost = c;
 	}
 	
 
 
 	
-	public boolean esMax() {
+	public boolean EsMax() {
 		return max;
 	}
 
 
 	
-	public void canviaMax(boolean m) {
+	public void CanviaMax(boolean m) {
 		max = m;
 		
 	}
 
 
 	@Override
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
 		
 	}

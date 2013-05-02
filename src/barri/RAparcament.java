@@ -35,16 +35,16 @@ public class RAparcament extends RestriccioBarris implements REspai {
 		}
 		**/
 		
-		public int consultarAp() {
+		public int ConsultarAp() {
 			return ap;
 		}
 		
-		public void modificarImp(int a) {
+		public void ModificarImp(int a) {
 			ap = a;
 		}
 		
 		
-		public void assignaApAct(int a) {
+		public void AssignaApAct(int a) {
 			apact = a;
 		}
 		
@@ -89,7 +89,8 @@ public class RAparcament extends RestriccioBarris implements REspai {
 		}
 
 		
-		private int calcMin() {
+
+		private int CalcMin() {
 			int s = e.ObteX() * e.ObteY();
 			s = 4*s/5;
 			s = ap / s;
@@ -97,9 +98,9 @@ public class RAparcament extends RestriccioBarris implements REspai {
 		}
 
 		@Override
-		public void assignaEspai(Espai e) {
+		public void AssignaEspai(Espai e) {
 			this.e = e;
-			aMin = calcMin();
+			aMin = CalcMin();
 			
 		}
 		

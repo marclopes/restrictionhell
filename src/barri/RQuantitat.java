@@ -54,38 +54,38 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 	}
 	
 	
-	public boolean esAquest(Edifici e) {
+	public boolean EsAquest(Edifici e) {
 		if (e.ConsultarNom().equals(ed.ConsultarNom())) return true;
 		else return false;
 	}
 	
-	public int consultarQuant() {
+	public int ConsultarQuant() {
 		return quant;
 	}
 	
-	public void modificarQuant(int q) {
+	public void ModificarQuant(int q) {
 		quant = q;
 	}
 	
-	public boolean esMax() {
+	public boolean EsMax() {
 		return max;
 	}
 	
-	public void canviaMax(boolean m) {
+	public void CanviaMax(boolean m) {
 		max = m;
 	}
 	
-	public Edifici quinEdifici() {
+	public Edifici QuinEdifici() {
 		return ed;
 	}
 	
-	public void assignaEdifici(Edifici e) {
+	public void AssignaEdifici(Edifici e) {
 		ed = e;
 	}
 
 
 	
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
 		
 	}

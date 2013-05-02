@@ -39,10 +39,10 @@ public class Main {
 	
 	
 	public Main() {
-		b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
+		b = new Barri("BonBarri",  Classes.Mitja, 15, 15);
 		//b = new Barri("BonBarri", 10000, 5000, 5000, Classes.Mitja, 5000, 15, 15);
 		//b = new Barri(n, po, pr, c, cl, a, xx, yy)
-		b.carregaEdifici(s1);
+		b.CarregaEdifici(s1);
 		//b.carregaEdifici(s3);
 		
 		//b.carregaEdifici(h2);
@@ -54,7 +54,7 @@ public class Main {
 		//b.carregaEdifici(s2);
 		
 		//b.carregaEdifici(h3);
-		b.carregaEdifici(h1);
+		b.CarregaEdifici(h1);
 		//b.carregaEdifici(h2);
 
 		

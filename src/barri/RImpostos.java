@@ -37,16 +37,16 @@ public class RImpostos extends RestriccioBarris implements REspai{
 	}
 	**/
 	
-	public int consultarImp() {
+	public int ConsultarImp() {
 		return imp;
 	}
 	
-	public void modificarImp(int i) {
+	public void ModificarImp(int i) {
 		imp = i;
 	}
 	
 	
-	public void assignaImpAct(int i) {
+	public void AssignaImpAct(int i) {
 		ia = i;
 	}
 	
@@ -91,7 +91,8 @@ public class RImpostos extends RestriccioBarris implements REspai{
 	}
 
 	
-	private int calcMin() {
+
+	private int CalcMin() {
 		int s = e.ObteX() * e.ObteY();
 		s = 4*s/5;
 		s = imp / s;
@@ -99,9 +100,9 @@ public class RImpostos extends RestriccioBarris implements REspai{
 	}
 
 	@Override
-	public void assignaEspai(Espai e) {
+	public void AssignaEspai(Espai e) {
 		this.e = e;
-		iMin = calcMin();
+		iMin = CalcMin();
 		
 	}
 	

@@ -1,6 +1,6 @@
 package barri;
 public interface RMax {
-	public boolean esMax();
+	public boolean EsMax();
 	
-	public void canviaMax(boolean m);
+	public void CanviaMax(boolean m);
 }
