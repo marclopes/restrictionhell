@@ -36,10 +36,13 @@ public abstract class RestriccioBarris extends Restriccio {
 	public TipusRest obteTipus() {
 		return tr;
 	}
-        @Override
-        public void InfoRes(){
-            
-        }
+	
+    
+    public void InfoRes(){
+        
+    }
+    
+    public abstract String Info();
 
 
 }

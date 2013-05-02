@@ -121,6 +121,14 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		this.e = e;
 		
 	}
+	
+	public String Info() {
+		String s;
+		if (max) s = "maxim";
+		else s = "minim";
+		
+		return ("Cost " + s + " " + cost);
+	}
 
 
 

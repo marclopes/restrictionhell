@@ -103,5 +103,9 @@ public class RAparcament extends RestriccioBarris implements REspai {
 			
 		}
 		
+		public String Info() {
+			return ("Aparcament minim "+ ap);
+		}
+		
 	}
 		

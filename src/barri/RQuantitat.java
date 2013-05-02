@@ -55,9 +55,25 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 	
 	
 	public boolean EsAquest(Edifici e) {
-		if (e.ConsultarNom().equals(ed.ConsultarNom())) return true;
-		else return false;
+		
+		if (e.consultarSubclasse() == ed.consultarSubclasse()) {
+			if (e.consultarSubclasse() == TipusEd.HAB) {
+				if (((Habitatge)e).consultarTipus() ==  ((Habitatge)ed).consultarTipus()) return true;
+				
+			} else if (e.consultarSubclasse() == TipusEd.NEG) {
+				if (((Negoci)e).consultarTipus() ==  ((Negoci)ed).consultarTipus()) return true;
+				
+			} else {
+				if (((Servei)e).consultarTipus() ==  ((Servei)ed).consultarTipus()) return true;
+				
+			}
+			
+			
+		}
+		return false;
+		
 	}
+	
 	
 	public int ConsultarQuant() {
 		return quant;
@@ -88,6 +104,28 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 	public void AssignaEspai(Espai e) {
 		this.e = e;
 		
+	}
+	
+	public String Info() {
+		String s;
+		if (max) s = "maxima";
+		else s = "minima";
+		
+		return ("Quantitat " + s + " de " + StrTipus(ed));
+	}
+	
+	private String StrTipus(Edifici e) {
+		
+			if (e.consultarSubclasse() == TipusEd.HAB) {
+				return ((Habitatge)e).consultarTipus().toString();
+				
+			} else if (e.consultarSubclasse() == TipusEd.NEG) {
+				return ((Negoci)e).consultarTipus().toString();
+				
+			} else {
+				return ((Servei)e).consultarTipus().toString();
+				
+			}
 	}
 	
 
