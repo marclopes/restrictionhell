@@ -289,15 +289,16 @@ public class CtrBarriDom {
         boolean comp = true;
         for (int i = 0; i < aux.TamRest(); i++) {
             TipusRest tr = aux.ObteRest(i).obteTipus();
+          //  System.out.println(aux.ObteRest(i).Info());
             if (tr == TipusRest.QUANTITAT) {
                 RQuantitat raux = ((RQuantitat) aux.ObteRest(i));
-                if (raux.EsMax()) {
+                if (raux.EsAquest(ed)) {
                     comp = comp && raux.CompleixRes();
                 }
 
             }
 
-            if (tr == TipusRest.DISTTIPUS) {
+            if (tr == TipusRest.DISTTIPUS || tr == TipusRest.APARCAMENT) {
                 comp = (comp && aux.ObteRest(i).CompleixRes());
 
                // if (!comp) {
@@ -306,7 +307,7 @@ public class CtrBarriDom {
                    //comp = false;
               //  }
             }
-
+            
 
             if (tr == TipusRest.INFUENCIA) {
                 ((RInfluencia) aux.ObteRest(i)).RecorreCjt();
@@ -354,11 +355,31 @@ public class CtrBarriDom {
                 comp = comp && b;
 
             }
+            
+            if (tr == TipusRest.MANTENIMENT) {
+                RManteniment raux = ((RManteniment) aux.ObteRest(i));
+                int c;
+                if (ed.consultarSubclasse() == TipusEd.HAB) {
+                    c = ((Habitatge) ed).ConsultarImpost();
+
+                } else if (ed.consultarSubclasse() == TipusEd.NEG) {
+                    c = ((Negoci) ed).ConsultarImpost();
+
+                } else {
+                    c = -1;
+                }
+
+                raux.AssignaImpAct(c);
+
+                boolean b = raux.CompleixRes();
+                comp = comp && b;
+
+            }
 
 
         }
 
-      //  System.out.println(" --> " + comp);
+       // System.out.println(" --> " + comp);
       //  System.out.println();
         return comp;
 

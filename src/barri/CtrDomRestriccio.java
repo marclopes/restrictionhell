@@ -64,13 +64,13 @@ public class CtrDomRestriccio {
         return -1;
     }
 
-    public int CreaRestDistCodi(int id, int dist, boolean max, int el1, int el2) {
+   /* public int CreaRestDistCodi(int id, int dist, boolean max, int el1, int el2) {
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
             lRest.AfegirRes(new RDistCodi(id, dist, max, el1, el2, null));
             return 0;
         }
         return -1;
-    }
+    }*/
 
     public int CreaDistTipus(int id, int dist, boolean max, Edifici el1, Edifici el2) {
         if (!ctrRestriccio.ExisteixRestriccio(id)) {

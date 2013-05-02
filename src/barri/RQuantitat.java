@@ -111,7 +111,7 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		if (max) s = "maxima";
 		else s = "minima";
 		
-		return ("Quantitat " + s + " de " + StrTipus(ed));
+		return ("Quantitat " + s + " de " + StrTipus(ed) + " = " + quant);
 	}
 	
 	private String StrTipus(Edifici e) {

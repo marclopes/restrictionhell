@@ -38,7 +38,7 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
 	}
 	
 	public String Info() {
-		return ("Alçada maxima "+ alsada);
+		return ("Alsada maxima "+ alsada);
 	}
 
 }
