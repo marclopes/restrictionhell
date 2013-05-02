@@ -75,10 +75,23 @@ public class Main {
 		
 		
 		cb.CreaBarri("Bon", Classes.Mitja, 15, 15);
-		cb.AfegirEdifici(s1, "Bon");
-		cb.AfegirEdifici(h1, "Bon");
-		cb.AfegirEdifici(h3, "Bon");
-		cb.AfegeixRestriccions("Bon", rtip);
+		
+		
+		s1.AfegirClase(Classes.Mitja);
+		h1.AfegirClase(Classes.Mitja);
+		h3.AfegirClase(Classes.Mitja);
+		
+		System.out.print(cb.AfegirEdifici(s1, "Bon"));
+		System.out.print(cb.AfegirEdifici(h1, "Bon"));
+		System.out.print(cb.AfegirEdifici(h3, "Bon"));
+		System.out.print(cb.AfegeixRestriccions("Bon", rtip));
+		
+
+		
+		b = cb.ObtenirBarri("Bon");
+		System.out.println();
+		System.out.println(b.ConsultarNom());
+		System.out.println(b.ObteEd(0).ConsultarNom() + "  " + b.ObteRest(0));
 		
 		if (cb.ObtenirBarri("Bon") != null) {
 			cb.Back(0, 0, 0, cb.ObtenirBarri("Bon"));
@@ -86,6 +99,14 @@ public class Main {
 		} else System.out.println("NUUUUUULL");
 		
 		cb.Imprimeix(cb.ObtenirBarri("Bon"));
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		if (b.preparaBack()) {
