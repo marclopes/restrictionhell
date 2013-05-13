@@ -3,8 +3,11 @@ package barri;
 /**
  * @autor albert
  */
+import Persistencia.CtrArxius;
+import Persistencia.CtrObjectes;
 import barri.CtrDomRestriccio.Atribut;
 import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
 import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
 import barri.Servei.TipusServei;
@@ -402,6 +405,19 @@ public class CtrDomGeneral {
         return null;
     }
 
+    private String EnumHabtoString(TipusHab n) {
+        if (n.equals(TipusHab.Casa)) {
+            return "Casa";
+        } else if (n.equals(TipusHab.Pis)) {
+            return "Pis";
+        } else if (n.equals(TipusHab.Mansio)) {
+            return "Mansio";
+        } else if (n.equals(TipusHab.Xalet)) {
+            return "Xalet";
+        }
+        return null;
+    }
+    
     private TipusServei StringSertoEnum(String n) {
         if (n.equals("Hospital")) {
             return TipusServei.Hospital;
@@ -417,6 +433,25 @@ public class CtrDomGeneral {
             return TipusServei.Parc;
         } else if (n.equals("Centre Cultural")) {
             return TipusServei.Centre_Cultural;
+        }
+        return null;
+    }
+    
+    private String EnumSertoString(TipusServei n) {
+        if (n.equals(TipusServei.Hospital)) {
+            return "Hospital";
+        } else if (n.equals(TipusServei.Escola)) {
+            return "Escola";
+        } else if (n.equals(TipusServei.Policia)) {
+            return "Policia";
+        } else if (n.equals(TipusServei.Preso)) {
+            return "Preso";
+        } else if (n.equals(TipusServei.Bombers)) {
+            return "Bombers";
+        } else if (n.equals(TipusServei.Parc)) {
+            return "Parc";
+        } else if (n.equals(TipusServei.Centre_Cultural)) {
+            return "Centre Cultural";
         }
         return null;
     }
@@ -441,6 +476,27 @@ public class CtrDomGeneral {
         }
         return null;
     }
+    
+    private String EnumNegtoString(TipusNegoci n) {
+        if (n.equals(TipusNegoci.Discoteca)) {
+            return "Discoteca";
+        } else if (n.equals(TipusNegoci.Banc)) {
+            return "Banc";
+        } else if (n.equals(TipusNegoci.Bar)) {
+            return "Bar";
+        } else if (n.equals(TipusNegoci.Restaurant)) {
+            return "Restaurant";
+        } else if (n.equals(TipusNegoci.Botiga_alimentacio)) {
+            return "Botiga alimentacio";
+        } else if (n.equals(TipusNegoci.Botiga_roba)) {
+            return "Botiga roba";
+        } else if (n.equals(TipusNegoci.Escola_privada)) {
+            return "Escola privada";
+        } else if (n.equals(TipusNegoci.Clinica)) {
+            return "Clinica";
+        }
+        return null;
+    }
 
     private Classes StringToClase(String c) {
         if (c.equals("Alta")) {
@@ -461,14 +517,6 @@ public class CtrDomGeneral {
             return Atribut.COST;
         } else if (c.equals("Distancia")) {
             return Atribut.DISTANCIA;
-            // } else if (c.equals("Codi1")) {
-            //    return Atribut.CODI1;
-            //} else if (c.equals("Codi2")) {
-            //     return Atribut.CODI2;
-    //    } else if (c.equals("Edifici1")) {
-    //        return Atribut.EDIFICI1;
-   //     } else if (c.equals("Edifici2")) {
-   //         return Atribut.EDIFICI2;
         } else if (c.equals("Impostos")) {
             return Atribut.IMPOSTOS;
         } else if (c.equals("Influencia")) {
@@ -477,15 +525,190 @@ public class CtrDomGeneral {
             return Atribut.QUANTITAT;
         } else if (c.equals("Maxim")) {
             return Atribut.MAXIM;
-    //    } else if (c.equals("Espai")) {
-    //        return Atribut.ESPAI;
-     //   } else if (c.equals("Cjt Edificis")) {
-     //       return Atribut.CJTEDIFICIS;
         }
         return null;
     }
-
+    
+    
+    /**
+     * Llista tots els edificis carregats
+     * @return 
+     */
     public ArrayList<String> LlistatEdificis() {
         return ctrEdificis.LlistatEdificis();
+    }
+    
+    
+    /**
+     * Consulta tots els edificis que hi ha al directori.
+     * @return Una llista amb el nom dels barris.
+     */
+    public ArrayList<String> LlistaCatalegEdificisDisc(){
+        ArrayList<String> l = new ArrayList<String>();
+        CtrArxius c = new CtrArxius();
+        l = c.llistaDirectori("ed_");
+        for (String s: l){
+            s = s.replace("bar_", "");
+        }
+        return l;
+    }
+    
+    /**
+     * Crea un fitxer editable amb extensió txt dins del directori ./data on el 
+     * nom es la concatenació de ed_ i el nom de l'edifici que volem guardar.
+     * @param e Edifici que volem guardar en un fitxet editable.
+     */
+    public void GuardaEdificiDiscText(Edifici e){
+        CtrArxius arxiu = new CtrArxius();
+        ArrayList<String> linies = new ArrayList();
+        String nom = e.ConsultarNom();
+        int codi = e.ConsultarCodi();
+        int h = e.ConsultarH();
+        int capacitat = e.ConsultarCapacitat();
+        int impost, aparcament, cost, manteniment, area;
+        
+        if(e.tipusEd == TipusEd.HAB){
+            impost = ((Habitatge) e).ConsultarImpost();
+            aparcament = ((Habitatge) e).ConsultarAparcament();
+            linies.add("Habitatge");
+            linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+            linies.add(String.valueOf(nom));
+            linies.add(String.valueOf(codi));
+            linies.add(String.valueOf(h));
+            linies.add(String.valueOf(capacitat));
+            linies.add(String.valueOf(impost));
+            linies.add(String.valueOf(aparcament));
+        }
+        else if(e.tipusEd == TipusEd.NEG){
+            impost = ((Negoci) e).ConsultarImpost();
+            aparcament = ((Negoci) e).ConsultarAparcament();
+            linies.add("Negoci");
+            linies.add(EnumNegtoString(((Negoci)e).consultarTipus()));
+            linies.add(String.valueOf(nom));
+            linies.add(String.valueOf(codi));
+            linies.add(String.valueOf(h));
+            linies.add(String.valueOf(capacitat));
+            linies.add(String.valueOf(impost));
+            linies.add(String.valueOf(aparcament));
+        }
+        else if(e.tipusEd == TipusEd.SER){
+            cost = ((Servei) e).ConsultarCost();
+            manteniment = ((Servei) e).ConsultarManteniment();
+            area = ((Servei) e).ConsultarAreaInfluencia();
+            linies.add("Servei");
+            linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+            linies.add(String.valueOf(nom));
+            linies.add(String.valueOf(codi));
+            linies.add(String.valueOf(h));
+            linies.add(String.valueOf(capacitat));
+            linies.add(String.valueOf(cost));
+            linies.add(String.valueOf(manteniment));
+            linies.add(String.valueOf(area));
+        }
+        arxiu.creaArxiu("ed_"+nom, linies);
+    }
+    
+    /**
+     * Llegeix els fitxers amb extensió txt del directori ./data i que comencen 
+     * amb el nom "ed_", i carrèga tots els edificis definits a dintre, ignora els
+     * edificis que estiguin mal declarats.  
+     */
+    public void CarregaEdificisDiscText(){
+        CtrArxius disc = new CtrArxius();
+        ArrayList<String> llista;
+        ArrayList<String> arxiu;
+        int i = 0;
+        String nom;
+        int codi, h, capacitat, impost, aparcament, cost, manteniment, area;
+        TipusHab t;
+        TipusNegoci n;
+        TipusServei se;
+        
+        llista = disc.llistaDirectori("ed_");
+        for(String s: llista){
+            arxiu = disc.llegir(s);
+            while (i < arxiu.size()){
+                if(arxiu.get(i).equals("Habitatge")){
+                    t = StringHabtoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        impost = Integer.parseInt(arxiu.get(i+6));
+                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                        ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
+                        i = i+7;
+                    } catch (NumberFormatException e){
+                    }
+                }
+                else if(arxiu.get(i).equals("Servei")){
+                    se = StringSertoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        cost = Integer.parseInt(arxiu.get(i+6));
+                        manteniment = Integer.parseInt(arxiu.get(i+7));
+                        area = Integer.parseInt(arxiu.get(i+8));
+                        ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
+                        i = i+8;
+                    } catch (NumberFormatException e){
+                    }
+                }
+                else if(arxiu.get(i).equals("Negoci")){
+                    n = StringNegtoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        impost = Integer.parseInt(arxiu.get(i+6));
+                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                        ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
+                        i = i+7;
+                    } catch (NumberFormatException e){
+                    }
+                }
+                i++;
+            }
+        }
+    }
+    
+    /**
+     * Consulta tots els barris que hi ha al directori.
+     * @return Una llista amb el nom dels barris.
+     */
+    public ArrayList<String> LlistaBarrisDisc(){
+        CtrArxius arxiu = new CtrArxius();
+        ArrayList<String> l = arxiu.llistaDirectori("bar_");
+        for (String s: l){
+            s = s.replace("bar_", "");
+        }
+        return l;
+    }
+    
+    /**
+     * Llegeix de disc una instancia de barri.
+     * @param f El nom del barri que volem carregar.
+     * @return La instancia del barri.
+     */
+    public Barri CarregaBarri(String f){
+        CtrArxius arxiu = new CtrArxius();
+        Object o = arxiu.llegirArxiu("bar_"+f);
+        Barri b = ((Barri) o);
+        return b;
+    }
+    
+    /**
+     * Guarda al disc una instancia de barri.
+     * @param b El barri que volem guardar.
+     * @return retorna Cert si pot guardar el barri .Fals tant si hi ha problemes com si ja existeixen objectes amb aquell nom
+     */
+    public boolean GuardaBarri(Barri b){
+        CtrObjectes arxiu = new CtrObjectes();
+        String nom = b.ConsultarNom();
+        return arxiu.creaObjecte("bar_"+nom, b);
     }
 }
