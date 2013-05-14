@@ -538,6 +538,20 @@ public class CtrDomGeneral {
         return ctrEdificis.LlistatEdificis();
     }
     
+    /**
+     * Crea un cataleg d'edificis buit.
+     * @param s Nom del catàleg que volem crear
+     * @return Cert si es pot crear el cataleg. Fals si no es pot crear.
+     */
+    public boolean CreaCatalegEdificis(String s){
+        CtrArxius c = new CtrArxius();
+        if(!c.existeix("ed_"+s)){
+            ArrayList<String> l = new ArrayList<String>();
+            c.creaArxiu("ed_"+s, l);
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Consulta tots els edificis que hi ha al directori.
@@ -548,7 +562,7 @@ public class CtrDomGeneral {
         CtrArxius c = new CtrArxius();
         l = c.llistaDirectori("ed_");
         for (String s: l){
-            s = s.replace("bar_", "");
+            s = s.replace("ed_", "");
         }
         return l;
     }
@@ -558,54 +572,105 @@ public class CtrDomGeneral {
      * nom es la concatenació de ed_ i el nom de l'edifici que volem guardar.
      * @param e Edifici que volem guardar en un fitxet editable.
      */
-    public void GuardaEdificiDiscText(Edifici e){
-        CtrArxius arxiu = new CtrArxius();
+    public int GuardaEdificiDiscText(Edifici e, String cataleg, boolean sobreescriure){
+        CtrArxius disc = new CtrArxius();
         ArrayList<String> linies = new ArrayList();
+        linies = disc.llegir("ed_"+cataleg);
         String nom = e.ConsultarNom();
-        int codi = e.ConsultarCodi();
-        int h = e.ConsultarH();
-        int capacitat = e.ConsultarCapacitat();
-        int impost, aparcament, cost, manteniment, area;
-        
-        if(e.tipusEd == TipusEd.HAB){
-            impost = ((Habitatge) e).ConsultarImpost();
-            aparcament = ((Habitatge) e).ConsultarAparcament();
-            linies.add("Habitatge");
-            linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
-            linies.add(String.valueOf(nom));
-            linies.add(String.valueOf(codi));
-            linies.add(String.valueOf(h));
-            linies.add(String.valueOf(capacitat));
-            linies.add(String.valueOf(impost));
-            linies.add(String.valueOf(aparcament));
+        int index = -100;
+        if(linies.contains(nom) && !sobreescriure){return -1;} //L'edifici ja existeix
+        else if(linies.contains(nom) && sobreescriure){
+            index = linies.indexOf(nom);
+            int codi = e.ConsultarCodi();
+            int h = e.ConsultarH();
+            int capacitat = e.ConsultarCapacitat();
+            int impost, aparcament, cost, manteniment, area;
+            if(e.tipusEd == TipusEd.HAB){
+                impost = ((Habitatge) e).ConsultarImpost();
+                aparcament = ((Habitatge) e).ConsultarAparcament();
+                linies.set(index-2, "Habitatge");
+                linies.set(index-1, EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.set(index, String.valueOf(nom));
+                linies.set(index+1, String.valueOf(codi));
+                linies.set(index+2, String.valueOf(h));
+                linies.set(index+3, String.valueOf(capacitat));
+                linies.set(index+4, String.valueOf(impost));
+                linies.set(index+5, String.valueOf(aparcament));
+            }
+            else if(e.tipusEd == TipusEd.NEG){
+                impost = ((Negoci) e).ConsultarImpost();
+                aparcament = ((Negoci) e).ConsultarAparcament();
+                linies.set(index-2, "Negoci");
+                linies.set(index-1, EnumNegtoString(((Negoci)e).consultarTipus()));
+                linies.set(index, String.valueOf(nom));
+                linies.set(index+1, String.valueOf(codi));
+                linies.set(index+2, String.valueOf(h));
+                linies.set(index+3, String.valueOf(capacitat));
+                linies.set(index+4, String.valueOf(impost));
+                linies.set(index+5, String.valueOf(aparcament));
+            }
+            else if(e.tipusEd == TipusEd.SER){
+                cost = ((Servei) e).ConsultarCost();
+                manteniment = ((Servei) e).ConsultarManteniment();
+                area = ((Servei) e).ConsultarAreaInfluencia();
+                linies.set(index-2, "Servei");
+                linies.set(index-1, EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.set(index, String.valueOf(nom));
+                linies.set(index+1, String.valueOf(codi));
+                linies.set(index+2, String.valueOf(h));
+                linies.set(index+3, String.valueOf(capacitat));
+                linies.set(index+4, String.valueOf(cost));
+                linies.set(index+5, String.valueOf(manteniment));
+                linies.set(index+6, String.valueOf(area));
+            }
         }
-        else if(e.tipusEd == TipusEd.NEG){
-            impost = ((Negoci) e).ConsultarImpost();
-            aparcament = ((Negoci) e).ConsultarAparcament();
-            linies.add("Negoci");
-            linies.add(EnumNegtoString(((Negoci)e).consultarTipus()));
-            linies.add(String.valueOf(nom));
-            linies.add(String.valueOf(codi));
-            linies.add(String.valueOf(h));
-            linies.add(String.valueOf(capacitat));
-            linies.add(String.valueOf(impost));
-            linies.add(String.valueOf(aparcament));
+        else{
+            int codi = e.ConsultarCodi();
+            int h = e.ConsultarH();
+            int capacitat = e.ConsultarCapacitat();
+            int impost, aparcament, cost, manteniment, area;
+            linies.add("");
+            if(e.tipusEd == TipusEd.HAB){
+                impost = ((Habitatge) e).ConsultarImpost();
+                aparcament = ((Habitatge) e).ConsultarAparcament();
+                linies.add("Habitatge");
+                linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.add(String.valueOf(nom));
+                linies.add(String.valueOf(codi));
+                linies.add(String.valueOf(h));
+                linies.add(String.valueOf(capacitat));
+                linies.add(String.valueOf(impost));
+                linies.add(String.valueOf(aparcament));
+            }
+            else if(e.tipusEd == TipusEd.NEG){
+                impost = ((Negoci) e).ConsultarImpost();
+                aparcament = ((Negoci) e).ConsultarAparcament();
+                linies.add("Negoci");
+                linies.add(EnumNegtoString(((Negoci)e).consultarTipus()));
+                linies.add(String.valueOf(nom));
+                linies.add(String.valueOf(codi));
+                linies.add(String.valueOf(h));
+                linies.add(String.valueOf(capacitat));
+                linies.add(String.valueOf(impost));
+                linies.add(String.valueOf(aparcament));
+            }
+            else if(e.tipusEd == TipusEd.SER){
+                cost = ((Servei) e).ConsultarCost();
+                manteniment = ((Servei) e).ConsultarManteniment();
+                area = ((Servei) e).ConsultarAreaInfluencia();
+                linies.add("Servei");
+                linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.add(String.valueOf(nom));
+                linies.add(String.valueOf(codi));
+                linies.add(String.valueOf(h));
+                linies.add(String.valueOf(capacitat));
+                linies.add(String.valueOf(cost));
+                linies.add(String.valueOf(manteniment));
+                linies.add(String.valueOf(area));
+            }
         }
-        else if(e.tipusEd == TipusEd.SER){
-            cost = ((Servei) e).ConsultarCost();
-            manteniment = ((Servei) e).ConsultarManteniment();
-            area = ((Servei) e).ConsultarAreaInfluencia();
-            linies.add("Servei");
-            linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
-            linies.add(String.valueOf(nom));
-            linies.add(String.valueOf(codi));
-            linies.add(String.valueOf(h));
-            linies.add(String.valueOf(capacitat));
-            linies.add(String.valueOf(cost));
-            linies.add(String.valueOf(manteniment));
-            linies.add(String.valueOf(area));
-        }
-        arxiu.creaArxiu("ed_"+nom, linies);
+        disc.creaArxiu("ed_"+cataleg, linies);
+        return index;
     }
     
     /**
@@ -613,9 +678,8 @@ public class CtrDomGeneral {
      * amb el nom "ed_", i carrèga tots els edificis definits a dintre, ignora els
      * edificis que estiguin mal declarats.  
      */
-    public void CarregaEdificisDiscText(){
+    public void CarregaCatalegEdifici(String s){
         CtrArxius disc = new CtrArxius();
-        ArrayList<String> llista;
         ArrayList<String> arxiu;
         int i = 0;
         String nom;
@@ -623,56 +687,53 @@ public class CtrDomGeneral {
         TipusHab t;
         TipusNegoci n;
         TipusServei se;
-        
-        llista = disc.llistaDirectori("ed_");
-        for(String s: llista){
-            arxiu = disc.llegir(s);
-            while (i < arxiu.size()){
-                if(arxiu.get(i).equals("Habitatge")){
-                    t = StringHabtoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
-                        ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
-                        i = i+7;
-                    } catch (NumberFormatException e){
-                    }
+        ctrEdificis.EliminarTotsEdificis();
+        arxiu = disc.llegir("ed_"+s);
+        while (i < arxiu.size()){
+            if(arxiu.get(i).equals("Habitatge")){
+                t = StringHabtoEnum(arxiu.get(i+1));
+                nom = arxiu.get(i+2);
+                try{
+                    codi = Integer.parseInt(arxiu.get(i+3));
+                    h = Integer.parseInt(arxiu.get(i+4));
+                    capacitat = Integer.parseInt(arxiu.get(i+5));
+                    impost = Integer.parseInt(arxiu.get(i+6));
+                    aparcament = Integer.parseInt(arxiu.get(i+7));
+                    ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
+                    i = i+7;
+                } catch (NumberFormatException e){
                 }
-                else if(arxiu.get(i).equals("Servei")){
-                    se = StringSertoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        cost = Integer.parseInt(arxiu.get(i+6));
-                        manteniment = Integer.parseInt(arxiu.get(i+7));
-                        area = Integer.parseInt(arxiu.get(i+8));
-                        ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
-                        i = i+8;
-                    } catch (NumberFormatException e){
-                    }
-                }
-                else if(arxiu.get(i).equals("Negoci")){
-                    n = StringNegtoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
-                        ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
-                        i = i+7;
-                    } catch (NumberFormatException e){
-                    }
-                }
-                i++;
             }
+            else if(arxiu.get(i).equals("Servei")){
+                se = StringSertoEnum(arxiu.get(i+1));
+                nom = arxiu.get(i+2);
+                try{
+                    codi = Integer.parseInt(arxiu.get(i+3));
+                    h = Integer.parseInt(arxiu.get(i+4));
+                    capacitat = Integer.parseInt(arxiu.get(i+5));
+                    cost = Integer.parseInt(arxiu.get(i+6));
+                    manteniment = Integer.parseInt(arxiu.get(i+7));
+                    area = Integer.parseInt(arxiu.get(i+8));
+                    ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
+                    i = i+8;
+                } catch (NumberFormatException e){
+                }
+            }
+            else if(arxiu.get(i).equals("Negoci")){
+                n = StringNegtoEnum(arxiu.get(i+1));
+                nom = arxiu.get(i+2);
+                try{
+                    codi = Integer.parseInt(arxiu.get(i+3));
+                    h = Integer.parseInt(arxiu.get(i+4));
+                    capacitat = Integer.parseInt(arxiu.get(i+5));
+                    impost = Integer.parseInt(arxiu.get(i+6));
+                    aparcament = Integer.parseInt(arxiu.get(i+7));
+                    ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
+                    i = i+7;
+                } catch (NumberFormatException e){
+                }
+            }
+            i++;
         }
     }
     
@@ -710,5 +771,10 @@ public class CtrDomGeneral {
         CtrObjectes arxiu = new CtrObjectes();
         String nom = b.ConsultarNom();
         return arxiu.creaObjecte("bar_"+nom, b);
+    }
+    
+    
+    public Edifici ObteEdifici(String s){
+        return ctrEdificis.ObtenirEdifici(s);
     }
 }
