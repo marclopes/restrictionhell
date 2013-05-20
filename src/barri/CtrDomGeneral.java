@@ -192,7 +192,6 @@ public class CtrDomGeneral {
     public int CreaHabitatge(int impost, int aparcament, String nom, int h, int capacitat, String tipus) {
         TipusHab k = StringHabtoEnum(tipus);
         return ctrEdificis.CreaHabitatge(impost, aparcament, nom, 0, h, capacitat, k);
-
     }
 
     /**
@@ -541,7 +540,7 @@ public class CtrDomGeneral {
     /**
      * Crea un cataleg d'edificis buit.
      * @param s Nom del catàleg que volem crear
-     * @return Cert si es pot crear el cataleg. Fals si no es pot crear.
+     * @return Cert si es pot crear el cataleg. Fals si ja existeix.
      */
     public boolean CreaCatalegEdificis(String s){
         CtrArxius c = new CtrArxius();
@@ -554,31 +553,36 @@ public class CtrDomGeneral {
     }
     
     /**
-     * Consulta tots els edificis que hi ha al directori.
-     * @return Una llista amb el nom dels barris.
+     * Consulta tots els catàlegs que hi ha al directori.
+     * @return Una llista amb els noms dels catàlegs sense extensió i sense prefix.
      */
     public ArrayList<String> LlistaCatalegEdificisDisc(){
         ArrayList<String> l = new ArrayList<String>();
         CtrArxius c = new CtrArxius();
         l = c.llistaDirectori("ed_");
-        for (String s: l){
-            s = s.replace("ed_", "");
+        int i = 0;
+        while(i < l.size()){
+            l.set(i, l.get(i).replaceAll("ed_", ""));
+            l.set(i, l.get(i).replaceAll(".txt", ""));
+            i++;
         }
         return l;
     }
     
     /**
-     * Crea un fitxer editable amb extensió txt dins del directori ./data on el 
-     * nom es la concatenació de ed_ i el nom de l'edifici que volem guardar.
-     * @param e Edifici que volem guardar en un fitxet editable.
+     * Guarda un edifici a un catàleg d'edificis.
+     * @param e Edifici que volem guardar.
+     * @param cataleg Nom del catàleg on el volem guardar.
+     * @param sobreescriure Cert: Es sobrescriu l'edifici si aquest ja existeix al catàleg. Fals
+     * @return -1 si l'edifici ja existeix i sobreescriure es fals. 1 si l'edifici ja existia i s'ha sobrescrit. 0 si el fitxer no existia i s'ha afegit. 
      */
     public int GuardaEdificiDiscText(Edifici e, String cataleg, boolean sobreescriure){
         CtrArxius disc = new CtrArxius();
         ArrayList<String> linies = new ArrayList();
         linies = disc.llegir("ed_"+cataleg);
         String nom = e.ConsultarNom();
-        int index = -100;
-        if(linies.contains(nom) && !sobreescriure){return -1;} //L'edifici ja existeix
+        int index, res = -1;
+        if(linies.contains(nom) && !sobreescriure){return res;} //L'edifici ja existeix
         else if(linies.contains(nom) && sobreescriure){
             index = linies.indexOf(nom);
             int codi = e.ConsultarCodi();
@@ -623,6 +627,7 @@ public class CtrDomGeneral {
                 linies.set(index+5, String.valueOf(manteniment));
                 linies.set(index+6, String.valueOf(area));
             }
+            res = 1;
         }
         else{
             int codi = e.ConsultarCodi();
@@ -668,15 +673,15 @@ public class CtrDomGeneral {
                 linies.add(String.valueOf(manteniment));
                 linies.add(String.valueOf(area));
             }
+            res = 0;
         }
         disc.creaArxiu("ed_"+cataleg, linies);
-        return index;
+        return res;
     }
     
     /**
-     * Llegeix els fitxers amb extensió txt del directori ./data i que comencen 
-     * amb el nom "ed_", i carrèga tots els edificis definits a dintre, ignora els
-     * edificis que estiguin mal declarats.  
+     * Elimina el catàleg actual i carrèga un catàleg d'edificis des d'un fitxer de text.
+     * @param s Nom del catàleg.
      */
     public void CarregaCatalegEdifici(String s){
         CtrArxius disc = new CtrArxius();
@@ -690,47 +695,49 @@ public class CtrDomGeneral {
         ctrEdificis.EliminarTotsEdificis();
         arxiu = disc.llegir("ed_"+s);
         while (i < arxiu.size()){
-            if(arxiu.get(i).equals("Habitatge")){
-                t = StringHabtoEnum(arxiu.get(i+1));
-                nom = arxiu.get(i+2);
-                try{
-                    codi = Integer.parseInt(arxiu.get(i+3));
-                    h = Integer.parseInt(arxiu.get(i+4));
-                    capacitat = Integer.parseInt(arxiu.get(i+5));
-                    impost = Integer.parseInt(arxiu.get(i+6));
-                    aparcament = Integer.parseInt(arxiu.get(i+7));
-                    ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
-                    i = i+7;
-                } catch (NumberFormatException e){
+            if(!arxiu.get(i).startsWith("#")){
+                if(arxiu.get(i).equals("Habitatge")){
+                    t = StringHabtoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        impost = Integer.parseInt(arxiu.get(i+6));
+                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                        ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
+                        i = i+7;
+                    } catch (NumberFormatException e){
+                    }
                 }
-            }
-            else if(arxiu.get(i).equals("Servei")){
-                se = StringSertoEnum(arxiu.get(i+1));
-                nom = arxiu.get(i+2);
-                try{
-                    codi = Integer.parseInt(arxiu.get(i+3));
-                    h = Integer.parseInt(arxiu.get(i+4));
-                    capacitat = Integer.parseInt(arxiu.get(i+5));
-                    cost = Integer.parseInt(arxiu.get(i+6));
-                    manteniment = Integer.parseInt(arxiu.get(i+7));
-                    area = Integer.parseInt(arxiu.get(i+8));
-                    ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
-                    i = i+8;
-                } catch (NumberFormatException e){
+                else if(arxiu.get(i).equals("Servei")){
+                    se = StringSertoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        cost = Integer.parseInt(arxiu.get(i+6));
+                        manteniment = Integer.parseInt(arxiu.get(i+7));
+                        area = Integer.parseInt(arxiu.get(i+8));
+                        ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
+                        i = i+8;
+                    } catch (NumberFormatException e){
+                    }
                 }
-            }
-            else if(arxiu.get(i).equals("Negoci")){
-                n = StringNegtoEnum(arxiu.get(i+1));
-                nom = arxiu.get(i+2);
-                try{
-                    codi = Integer.parseInt(arxiu.get(i+3));
-                    h = Integer.parseInt(arxiu.get(i+4));
-                    capacitat = Integer.parseInt(arxiu.get(i+5));
-                    impost = Integer.parseInt(arxiu.get(i+6));
-                    aparcament = Integer.parseInt(arxiu.get(i+7));
-                    ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
-                    i = i+7;
-                } catch (NumberFormatException e){
+                else if(arxiu.get(i).equals("Negoci")){
+                    n = StringNegtoEnum(arxiu.get(i+1));
+                    nom = arxiu.get(i+2);
+                    try{
+                        codi = Integer.parseInt(arxiu.get(i+3));
+                        h = Integer.parseInt(arxiu.get(i+4));
+                        capacitat = Integer.parseInt(arxiu.get(i+5));
+                        impost = Integer.parseInt(arxiu.get(i+6));
+                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                        ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
+                        i = i+7;
+                    } catch (NumberFormatException e){
+                    }
                 }
             }
             i++;
@@ -773,7 +780,11 @@ public class CtrDomGeneral {
         return arxiu.creaObjecte("bar_"+nom, b);
     }
     
-    
+    /**
+     * Consulta un edifici del cataleg actual.
+     * @param s Nom de l'edifici que volem consultar.
+     * @return L'edifici que volem consultar.
+     */
     public Edifici ObteEdifici(String s){
         return ctrEdificis.ObtenirEdifici(s);
     }

@@ -166,9 +166,7 @@ public class CtrEdDom {
      * Elimina tots els edificis del conjunt d'edificis del controlador.
      */
     public void EliminarTotsEdificis(){
-        for (int i=0; i< cjtEd.Tamany();++i){
-            cjtEd.EliminarEdifici(cjtEd.ObtenirEdifici(i));
-	}
+        cjtEd = new CjtEdificis();
     }
 
     /**
