@@ -10,14 +10,13 @@ import barri.Edifici.TipusEd;
 public class CtrBarriDom {
 
     private static CtrBarriDom ctrBarri = null;
-    private CjtBarris cjtBarris;
+    private static Barri barri = null;
     private boolean trobat = false;
 
     /**
      * Crea una instancia del controlador de Barris
      */
     private CtrBarriDom() {
-        cjtBarris = new CjtBarris();
     }
 
     /**
@@ -44,13 +43,8 @@ public class CtrBarriDom {
      * @param xx Dimensio X del barri
      * @param yy Dimensio Y del barri
      */
-    public int CreaBarri(String n, Classes cl, int xx, int yy) {
-        Barri barri = new Barri(n, cl, xx, yy);
-        if (cjtBarris.ExisteixBarri(n)) {
-            return -1;
-        }
-        cjtBarris.AfegirBarri(barri);
-        return 0;
+    public void CreaBarri(String n, Classes cl, int xx, int yy) {
+        barri = new Barri(n, cl, xx, yy);
     }
 
     /**
@@ -58,12 +52,8 @@ public class CtrBarriDom {
      *
      * @param n Nom del barri a eliminar
      */
-    public int EliminarBarri(String n) {
-        if (!cjtBarris.ExisteixBarri(n)) {
-            return -1;
-        }
-        cjtBarris.EliminarBarri(n);
-        return 0;
+    public void EliminarBarri() {
+        barri = null;
     }
 
     /**
@@ -72,8 +62,8 @@ public class CtrBarriDom {
      * @param n Nom del barri
      * @return Barri, instancia del barri amb nom n
      */
-    public Barri ObtenirBarri(String n) {
-        return cjtBarris.ObtenirBarri(n);
+    public Barri ObtenirBarri() {
+        return barri;
     }
 
     /**
@@ -82,21 +72,11 @@ public class CtrBarriDom {
      * @param nomBarri Nom del barri al que se li afegeix la restriccio
      * @param r Restriccio a afegir al barri
      */
-    public int AfegeixRestriccions(String nomBarri, RestriccioBarris r) {
-        Barri b = ctrBarri.ObtenirBarri(nomBarri);
-        if (b == null) {
+    public int AfegeixRestriccions(RestriccioBarris r) {
+        if (barri == null) {
             return -1;
         }
-        return b.AfegeixRestriccio(r);
-    }
-
-    /**
-     * Guarda el Barri en format .o
-     *
-     * @param n Nom del barri que es guarda
-     */
-    public void GuardarBarri(String n) {
-        //crida controlador persistencia
+        return barri.AfegeixRestriccio(r);
     }
 
     /**
@@ -105,14 +85,13 @@ public class CtrBarriDom {
      * @param e Edifici a afegir al barri
      * @param nomBarri Nom del barri al que se li afegeix l'edifici
      */
-    public int AfegirEdifici(Edifici e, String nomBarri) {
-        Barri b = ctrBarri.ObtenirBarri(nomBarri);
-        if (b != null) {
+    public int AfegirEdifici(Edifici e) {
+        if (barri != null) {
 
-            if (b.ExisteixEdifici(e.ConsultarNom())) {
+            if (barri.ExisteixEdifici(e.ConsultarNom())) {
                 return -1;
             }
-            return b.CarregaEdifici(e);
+            return barri.CarregaEdifici(e);
 
         }
         return -1;
@@ -124,13 +103,12 @@ public class CtrBarriDom {
      *
      * @param n Nom del barri a generar
      */
-    public int GenerarBarri(String n) {
-        Barri aux = ObtenirBarri(n);
-        if (ObtenirBarri(n) != null) {
-            if (PreparaBack(n)) {
-                Back2(0, 0, 0, aux);
-                PostBack(n);
-                Imprimeix(aux);
+    public int GenerarBarri() {
+        if (barri != null) {
+            if (PreparaBack()) {
+                Back2(0, 0, 0, barri);
+                PostBack();
+                Imprimeix(barri);
                 return 0;
             }
 
@@ -144,14 +122,11 @@ public class CtrBarriDom {
      * @param nomBarri Nom del barri al que se li elimina l'edifici
      * @param nomEdifici Nom del edifici que es vol eliminar
      */
-    public int TreureEdifici(String nomBarri, String nomEdifici) {
-        Barri aux = ctrBarri.ObtenirBarri(nomBarri);
-
-        if (aux == null) {
+    public int TreureEdifici(String nomEdifici) {
+        if (barri == null) {
             return -1;
         }
-        return aux.BorraEdifici(nomEdifici);
-
+        return barri.BorraEdifici(nomEdifici);
     }
 
     /**
@@ -160,13 +135,11 @@ public class CtrBarriDom {
      * @param nomBarri Nom del barri al que se li elimina la restriccio
      * @param idRest Identificador de la restriccio que es vol eliminar
      */
-    public int TreureRestriccio(String nomBarri, int idRest) {
-        Barri aux = ctrBarri.ObtenirBarri(nomBarri);
-        if (aux == null) {
+    public int TreureRestriccio(int idRest) {
+        if (barri == null) {
             return -1;
         }
-        return aux.EliminarRestriccio(idRest);
-
+        return barri.EliminarRestriccio(idRest);
     }
 
     /**
@@ -176,13 +149,12 @@ public class CtrBarriDom {
      * @param atribut Nom del atribut a modificar
      * @param valor valor que se li dona al atribut modificat
      */
-    public int ModificarBarri(String nomBarri, String atribut, String valor) {
-        Barri aux = ctrBarri.ObtenirBarri(nomBarri);
-        if (aux == null) {
+    public int ModificarBarri(String atribut, String valor) {
+        if (barri == null) {
             return -1;
         }
         if (atribut.equals("Nom")) {
-            aux.ModificarNom(valor);
+            barri.ModificarNom(valor);
 
             return 0;
             //  } else if (atribut.equals("Pressupost")) {
@@ -190,15 +162,15 @@ public class CtrBarriDom {
             // } else if (atribut.equals("Poblacio")) {
             //    aux.ModificarPoblacio(Integer.parseInt(valor));
         } else if (atribut.equals("Classe")) {
-            aux.ModificarClasse(StringToClase(valor));
+            barri.ModificarClasse(StringToClase(valor));
             return 0;
             //} else if (atribut.equals("Aparcament")) {
             //    aux.ModificarAparcament(Integer.parseInt(valor));
         } else if (atribut.equals("MidaX")) {
-            aux.ModificarX(Integer.parseInt(valor));
+            barri.ModificarX(Integer.parseInt(valor));
             return 0;
         } else if (atribut.equals("MidaY")) {
-            aux.ModificarY(Integer.parseInt(valor));
+            barri.ModificarY(Integer.parseInt(valor));
             return 0;
 
         }
@@ -215,13 +187,12 @@ public class CtrBarriDom {
         }
     }
 
-    public boolean PreparaBack(String n) {
+    public boolean PreparaBack() {
         trobat = false;
-        Barri aux = ObtenirBarri(n);
         boolean b = true;
-        for (int i = 0; i < aux.TamRest(); i++) {
-            if (aux.ObteRest(i) instanceof RAlsada) {
-                RestriccioBarris raux = aux.ObteRest(i);
+        for (int i = 0; i < barri.TamRest(); i++) {
+            if (barri.ObteRest(i) instanceof RAlsada) {
+                RestriccioBarris raux = barri.ObteRest(i);
 
                 if (!raux.CompleixRes()) {
                     System.out.println("No compleix: " + raux.tr);
@@ -232,12 +203,11 @@ public class CtrBarriDom {
         return b;
     }
 
-    public boolean PostBack(String n) {
-        Barri aux = ObtenirBarri(n);
+    public boolean PostBack() {
         boolean b = true;
-        for (int i = 0; i < aux.TamRest(); i++) {
-            if (aux.ObteRest(i) instanceof RQuantitat && !((RQuantitat) aux.ObteRest(i)).EsMax()) {
-                RQuantitat raux = (RQuantitat) aux.ObteRest(i);
+        for (int i = 0; i < barri.TamRest(); i++) {
+            if (barri.ObteRest(i) instanceof RQuantitat && !((RQuantitat) barri.ObteRest(i)).EsMax()) {
+                RQuantitat raux = (RQuantitat) barri.ObteRest(i);
                 if (raux.EsMax() == false) {
                     b = b && raux.CompleixRes();
                 }
@@ -615,12 +585,12 @@ public class CtrBarriDom {
      }
      }*/
     /**
-     * Elimina totes les restriccions amb aquest id de tots els barris
+     * Elimina la restriccio identificada amb id.
      *
      * @param id Id de la restriccio a eliminar
      */
     void NetejarRestriccions(int id) {
-        cjtBarris.NetejarRestricions(id);
+        barri.NetejarRestricions(id);
     }
 
     /**
@@ -629,6 +599,6 @@ public class CtrBarriDom {
      * @param nom Nom del edifici a eliminar
      */
     void NetejarEdificis(String nom) {
-        cjtBarris.NetejarEdificis(nom);
+        barri.NetejarEdificis(nom);
     }
 }
