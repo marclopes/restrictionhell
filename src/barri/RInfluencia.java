@@ -12,7 +12,7 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
 	
 	Espai e;
 	ArrayList<ArrayList<PosArea>> v;
-	CjtEdificis ce;
+	ArrayList< Pair<Edifici,Integer> > ce;
 	int x, y;
 	
         /**
@@ -88,9 +88,8 @@ public class RInfluencia extends RDistancia implements REspai, RCjtEd{
          * Assigna un conjunt d'edificis a la restricció.
          * @param e Espai on s'aplicarà la restricció.
          */
-	public void AssignaCe(CjtEdificis ce) {
+	public void AssignaCe(ArrayList< Pair<Edifici,Integer> > ce) {
 		this.ce = ce;
-		
 	}
 
 	@Override

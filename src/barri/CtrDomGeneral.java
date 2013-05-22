@@ -334,12 +334,15 @@ public class CtrDomGeneral {
      * @param nomEdifici Nom del edifici a afegir
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int AfegirEdifici(String nomBarri, String nomEdifici) {
+    public int AfegirEdifici(String nomBarri, String nomEdifici, int quantitat) {
+        if (nomEdifici.equals("Habitatge") || nomEdifici.equals("Negoci") || nomEdifici.equals("Servei")) {
+            
+        }
         Edifici e = ctrEdificis.ObtenirEdifici(nomEdifici);
-        if (e == null) {
+        if (e == null || quantitat <0) {
             return -1;
         }
-        return ctrBarri.AfegirEdifici(e, nomBarri);
+        return ctrBarri.AfegirEdifici(e,nomBarri,quantitat);
 
     }
 
@@ -366,8 +369,8 @@ public class CtrDomGeneral {
      * @param nomEdifici Nom del edifici a eliminar
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int TreuEdifici(String nomBarri, String nomEdifici) {
-        return ctrBarri.TreureEdifici(nomBarri, nomEdifici);
+    public int TreuEdifici(String nomBarri, String nomEdifici,int quantitat) {
+        return ctrBarri.TreureEdifici(nomBarri, nomEdifici,quantitat);
     }
 
     /**

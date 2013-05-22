@@ -9,17 +9,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import barri.Edifici.Classes;
+import java.util.Iterator;
 
 public class Barri implements Serializable {
-
+    
 	private String nom;
 	private int x, y, poblacio, pressupost, cost_m, aparcament;
         private Classes classe;
 	
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
-	private CjtEdificis lEdificis;
-	
+        private ArrayList< Pair<Edifici,Integer> > lEdificis;
+	//private CjtEdificis lEdificis;
+           
         /**
          * Crea una instancia de la classe Barri.
          * @param n Nom del Barri.
@@ -38,10 +40,8 @@ public class Barri implements Serializable {
 		y = yy;
 		espai = new Espai(x, y);
 		lRestriccions = new ArrayList<RestriccioBarris>();
-		lEdificis = new CjtEdificis();
-		
-		
-		
+		lEdificis = new ArrayList<Pair <Edifici,Integer> >();
+
 		
 	}
 	
@@ -50,9 +50,11 @@ public class Barri implements Serializable {
          * @param e Edifici que volem afegir al conjunt d'edificis del barri.
          * @return Cert si s'ha pogut afegir l'edifici al barri. False si la classe de l'edifici no es la mateixa que la del barri.
          */
-	public int CarregaEdifici(Edifici e) {
+	public int CarregaEdifici(Edifici e, int quantitat) {
                 if(e.EtsClase(this.classe)){
-                    lEdificis.AfegirEdifici(e);
+                    if (!lEdificis.contains(e)) {
+                        lEdificis.add(new Pair(e, quantitat));
+                    }
                     return 0;
                 }
                 return -1;
@@ -61,19 +63,24 @@ public class Barri implements Serializable {
         /**
          * Esborra un edifici del conjunt d'edificis del barri.
          * @param e Edifici que volem eliminar.
+         * @param quantitat indica la quantitat d'edificis que es volen borrar o
+         *  te valor -1 si es volen borrar tots
          */
-	public void BorraEdifici(Edifici e) {
-		lEdificis.EliminarEdifici(e);
+	public void BorraEdifici(Edifici e,int quantitat) {
+                Pair<Edifici,Integer> aux = ObtenirEdifQ(e.ConsultarNom());
+                aux.segon-=quantitat;
+		if (aux.segon<=0 || quantitat==-1) lEdificis.remove(aux);
 	}
         
         /**
          * Esborra un edifici del conjunt d'edificis del barri.
          * @param nom Nom de l'edifici que volem eliminar.
          */
-        public int BorraEdifici(String nom) {
-		
-                if (!lEdificis.ExisteixEdifici(nom)) return -1;
-                lEdificis.EliminarEdifici(nom);
+        public int BorraEdifici(String nom,int quantitat) {
+                Pair<Edifici,Integer> aux = ObtenirEdifQ(nom);
+                if (aux == null) return -1;
+                aux.segon-=quantitat;
+		if (aux.segon<=0 || quantitat==-1) lEdificis.remove(aux);
                 return 0;
 	}
 	
@@ -176,15 +183,16 @@ public class Barri implements Serializable {
 	}
 
         /**
-         * Modifica la classe social del barri.
+         * Modifica la classe social del barri i elimina qualsevol edifici incompatible.
          * @param classe Nova classe social del barri.
          */
 	public void ModificarClasse(Classes cl) {
-                Edifici e;
-                for(int i = 0; i < lEdificis.Tamany(); i++){
-                    e = lEdificis.ObtenirEdifici(i);
-                    if(!e.EtsClase(cl)) lEdificis.EliminarEdifici(e);
+                Pair<Edifici,Integer> e;
+                for(int i = 0; i < lEdificis.size(); i++){
+                    e = lEdificis.get(i);
+                    if(!e.primer.EtsClase(cl)) lEdificis.remove(e);
                 }
+                this.classe = cl;
 	}
         
         /**
@@ -296,7 +304,7 @@ public class Barri implements Serializable {
          * @return El tamany del conjunt d'edificis del barri.
          */
 	public int TamEd() {
-		return lEdificis.Tamany();
+		return lEdificis.size();
 	}
 	
         /**
@@ -305,7 +313,7 @@ public class Barri implements Serializable {
          * @return L'edifixi i-essim del conjunt d'edificis.
          */
 	public Edifici ObteEd(int i) {
-		return lEdificis.ObtenirEdifici(i);
+		return lEdificis.get(i).primer;
 	}
         /**
          * Comprova que l'edifici estigui afegit al barri 
@@ -313,7 +321,7 @@ public class Barri implements Serializable {
          * @return retorna true si esta al barri, sino torna false
          */
         public boolean ExisteixEdifici(String nom) {
-            return lEdificis.ExisteixEdifici(nom);
+            return ObtenirEdifQ(nom)==null;
         }
         /**
          * Comprova que la restriccio estigui imposada al barri
@@ -325,6 +333,13 @@ public class Barri implements Serializable {
                 if (lRestriccions.get(i).ObtenirId()==id) return true;
             }
             return false;
+        }
+        
+       private Pair<Edifici,Integer> ObtenirEdifQ(String nom) {
+                for (int i = 0 ; i< lEdificis.size();++i) {
+                    if (lEdificis.get(i).primer.nom.equals(nom) ) return lEdificis.get(i); 
+                }
+                return null;
         }
 }
 

@@ -303,7 +303,7 @@ public class CtrDomRestriccio {
      * @param id id de la rest
      * @param ce conjunt a assignar
      */
-    public void AssignaCjtEd(int id, CjtEdificis ce) {
+    public void AssignaCjtEd(int id, ArrayList< Pair<Edifici,Integer> > ce) {
         RestriccioBarris aux = ObtenirRest(id);
         if (aux instanceof RCjtEd) {
             ((RCjtEd) aux).AssignaCe(ce);

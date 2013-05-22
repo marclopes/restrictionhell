@@ -77,7 +77,7 @@ public class CjtBarris {
          */
     public void NetejarEdificis(String e){
         for (Barri b : cjtBarris) {
-            b.BorraEdifici(e);
+            b.BorraEdifici(e,-1);
         }
     }
     
