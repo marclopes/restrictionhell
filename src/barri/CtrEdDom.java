@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @authors Eduard Ricou
+ * @author Eduard Ricou
  */
 public class CtrEdDom {
 
@@ -166,7 +166,9 @@ public class CtrEdDom {
      * Elimina tots els edificis del conjunt d'edificis del controlador.
      */
     public void EliminarTotsEdificis(){
-        cjtEd = new CjtEdificis();
+        for (int i=0; i< cjtEd.Tamany();++i){
+            cjtEd.EliminarEdifici(cjtEd.ObtenirEdifici(i));
+	}
     }
 
     /**

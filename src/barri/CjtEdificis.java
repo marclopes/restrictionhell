@@ -111,9 +111,4 @@ public class CjtEdificis{
 	public int Tamany() {
 		return conEd.size();
 	}
-        
-        public void EliminarEdifici(int pos) {
-            conEd.remove(pos);
-        }
-        
 }

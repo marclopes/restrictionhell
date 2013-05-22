@@ -10,7 +10,6 @@ import barri.Edifici.TipusEd;
 public class CtrBarriDom {
 
     private static CtrBarriDom ctrBarri = null;
-    private Barri bActual=null;
     private CjtBarris cjtBarris;
     private boolean trobat = false;
 
@@ -106,14 +105,14 @@ public class CtrBarriDom {
      * @param e Edifici a afegir al barri
      * @param nomBarri Nom del barri al que se li afegeix l'edifici
      */
-    public int AfegirEdifici(Edifici e, String nomBarri,int quant) {
+    public int AfegirEdifici(Edifici e, String nomBarri) {
         Barri b = ctrBarri.ObtenirBarri(nomBarri);
         if (b != null) {
 
             if (b.ExisteixEdifici(e.ConsultarNom())) {
                 return -1;
             }
-            return b.CarregaEdifici(e,quant);
+            return b.CarregaEdifici(e);
 
         }
         return -1;
@@ -145,13 +144,13 @@ public class CtrBarriDom {
      * @param nomBarri Nom del barri al que se li elimina l'edifici
      * @param nomEdifici Nom del edifici que es vol eliminar
      */
-    public int TreureEdifici(String nomBarri, String nomEdifici,int quantitat) {
+    public int TreureEdifici(String nomBarri, String nomEdifici) {
         Barri aux = ctrBarri.ObtenirBarri(nomBarri);
 
         if (aux == null) {
             return -1;
         }
-        return aux.BorraEdifici(nomEdifici,quantitat);
+        return aux.BorraEdifici(nomEdifici);
 
     }
 
@@ -631,9 +630,5 @@ public class CtrBarriDom {
      */
     void NetejarEdificis(String nom) {
         cjtBarris.NetejarEdificis(nom);
-    }
-    void ActivarBarri(String nom) throws Exception{
-        bActual = cjtBarris.ObtenirBarri(nom);
-        if (bActual==null) throw new Exception("No existeix el barri que es vol activar");
     }
 }

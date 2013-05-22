@@ -1,10 +1,8 @@
 package barri;
 
-import java.util.ArrayList;
-
 public class RAlsada extends RestriccioBarris implements RCjtEd{
 	
-	ArrayList< Pair<Edifici,Integer> > ce;
+	CjtEdificis ce;
 	int alsada;
 	
         /**
@@ -13,7 +11,7 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
          * @param al Alçada màxima del barri
          * @param ce Conjunt d'edificis sobre el que es comprovarà la restricció.
          */
-	public RAlsada(int ID, int al, ArrayList< Pair<Edifici,Integer> > ce) {
+	public RAlsada(int ID, int al, CjtEdificis ce) {
 		super(ID);
 		this.ce = ce;
 		alsada = al;
@@ -26,8 +24,8 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
         * @return cert si es compleix la restricció.
         */
 	public boolean CompleixRes() {
-		for (int i = 0; i < ce.size(); i++) {
-			if (ce.get(i).primer.ConsultarH() > alsada) return false;
+		for (int i = 0; i < ce.Tamany(); i++) {
+			if (ce.ObtenirEdifici(i).ConsultarH() > alsada) return false;
 		}
 		
 		return true;
@@ -53,8 +51,7 @@ public class RAlsada extends RestriccioBarris implements RCjtEd{
          * Assigna un conjunt d'edificis a la restricció.
          * @param ce Nou conjunt d'edificis.
          */
-        
-	public void AssignaCe(ArrayList< Pair<Edifici,Integer> > ce) {
+	public void AssignaCe(CjtEdificis ce) {
 		this.ce = ce;
 	}
 	
