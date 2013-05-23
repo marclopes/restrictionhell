@@ -1,12 +1,13 @@
 package barri;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 /**
  *
  *
  @author albert
  */
-public class Espai {
+public class Espai implements Serializable{
   
   public class Pos{
    int x;

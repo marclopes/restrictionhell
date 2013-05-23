@@ -46,7 +46,10 @@ public class CtrBarriDom {
     public void CreaBarri(String n, Classes cl, int xx, int yy) {
         barri = new Barri(n, cl, xx, yy);
     }
-
+    
+    public void CreaBarri(Barri b) {
+        barri = b;
+    }
     /**
      * Elimina un barri amb nom n
      *

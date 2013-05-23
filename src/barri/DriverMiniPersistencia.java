@@ -23,9 +23,29 @@ public class DriverMiniPersistencia {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int i;
         CtrDomGeneral dm;
-        ArrayList<String> l = new ArrayList<String>();
         dm = CtrDomGeneral.ObtenirInstancia();
-        dm.CreaCatalegEdificis("Default");
+        ArrayList<String> l = new ArrayList<String>();
+        dm.CreaBarri("Can Tunis", "Baixa", 10, 10);
+        System.out.println("Barri creat");
+        dm.GuardaBarri();
+        System.out.println("Barri guardat");
+        l = dm.LlistaBarrisDisc();
+        for(String n: l){
+            System.out.println(n);
+        }
+        dm.CreaBarri("La Mina", "Baixa", 10, 10);
+        System.out.println("Barri creat");
+        dm.GuardaBarri();
+        System.out.println("Barri guardat");
+        dm.CarregaBarri("La Mina");
+        System.out.println("Barri carregat");
+        dm.CarregaCatalegEdifici("Default");
+        System.out.println("Edificis carregats al barri");
+        l = dm.LlistatEdificis();
+        for(String n: l){
+            System.out.println(n);
+        }
+        /*dm.CreaCatalegEdificis("Default");
         dm.CreaCatalegEdificis("Tunned");
         dm.CreaHabitatge(1222, 2, "edu", 1, 2, "Casa");
         dm.CreaHabitatge(1222, 2, "mar", 1, 2, "Casa");
@@ -37,7 +57,7 @@ public class DriverMiniPersistencia {
         dm.GuardaEdificiDiscText(dm.ObteEdifici("XXXXXX") , "Tunned", true);
         dm.EliminarEdifici("edu");
         dm.EliminarEdifici("mar");
-        dm.CarregaCatalegEdifici("Default");
+        dm.CarregaCatalegEdifici("Default");*/
         l = dm.LlistaCatalegEdificisDisc();
         for(String n: l){
             System.out.println(n);

@@ -305,30 +305,6 @@ public class CtrDomGeneral {
     }
 
     /**
-     * Crea edificis a partir d'un cataleg de edificis
-     *
-     * @param nomCataleg Nom del fitxer on esta el cataleg d'edificis
-     */
-    public void CarregarCatalegEdifici(String nomCataleg) {// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
-    }
-
-    /**
-     * Crea restriccions a patir d'un cataleg de restriccions
-     *
-     * @param nomCataleg Nom del fitxer on esta el cataleg de restriccions
-     */
-    public void CarregarCatalegRestriccio(String nomCataleg) {// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
-    }
-
-    /**
-     * Carrega barris guardas
-     *
-     * @param nomBarri Nom del arxiu .o que correspon al barri
-     */
-    public void CarregarBarri(String nomBarri) { //binari barri.
-    }
-
-    /**
      * Afegeix un edifici al barri donat
      *
      * @param nomBarri Nom del barri al que se li afegeix
@@ -561,8 +537,9 @@ public class CtrDomGeneral {
         ArrayList<String> l = new ArrayList<String>();
         CtrArxius c = new CtrArxius();
         l = c.llistaDirectori("ed_");
-        for (String s: l){
-            s = s.replace("ed_", "");
+        for (int i = 0;i<l.size();i++){
+            l.set(i, l.get(i).replaceAll("ed_", ""));
+            l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
     }
@@ -744,8 +721,9 @@ public class CtrDomGeneral {
     public ArrayList<String> LlistaBarrisDisc(){
         CtrArxius arxiu = new CtrArxius();
         ArrayList<String> l = arxiu.llistaDirectori("bar_");
-        for (String s: l){
-            s = s.replace("bar_", "");
+        for (int i = 0;i<l.size();i++){
+            l.set(i, l.get(i).replaceAll("bar_", ""));
+            l.set(i, l.get(i).replaceAll(".o", ""));
         }
         return l;
     }
@@ -755,11 +733,11 @@ public class CtrDomGeneral {
      * @param f El nom del barri que volem carregar.
      * @return La instancia del barri.
      */
-    public Barri CarregaBarri(String f){
-        CtrArxius arxiu = new CtrArxius();
-        Object o = arxiu.llegirArxiu("bar_"+f);
-        Barri b = ((Barri) o);
-        return b;
+    public void CarregaBarri(String f){
+        CtrObjectes arxiu = new CtrObjectes();
+        Object o = arxiu.llegirObjecte("bar_"+f);
+        Barri b = (Barri)o;
+        ctrBarri.CreaBarri(b);
     }
     
     /**
