@@ -82,4 +82,20 @@ public class RUSubHab extends RestriccioBarris implements RCjtEd {
     public void AssignaCe(CjtEdificis ce) {
         this.ce = ce;
     }
+    
+    public TipusHab ConsultaTipus(){
+        return tipus;
+    }
+    
+    public String ConsultaAtribut(){
+        return atribut;
+    }
+    
+    public int ConsultaValor(){
+        return valor;
+    }
+    
+    public boolean EsMax(){
+        return max;
+    }
 }

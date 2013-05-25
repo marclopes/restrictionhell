@@ -63,4 +63,15 @@ public class RUHab  extends RestriccioBarris implements RCjtEd {
         this.ce=ce;
     }
     
+    public String ConsultaAtribut(){
+        return atribut;
+    }
+    
+    public int ConsultaValor(){
+        return valor;
+    }
+    
+    public boolean EsMax(){
+        return max;
+    }
 }

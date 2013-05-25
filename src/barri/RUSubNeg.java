@@ -67,4 +67,19 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
         this.ce = ce;
     }
     
+    public TipusNegoci ConsultaTipus(){
+        return tipus;
+    }
+    
+    public String ConsultaAtribut(){
+        return atribut;
+    }
+    
+    public int ConsultaValor(){
+        return valor;
+    }
+    
+    public boolean EsMax(){
+        return max;
+    }
 }
