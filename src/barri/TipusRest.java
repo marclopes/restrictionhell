@@ -9,5 +9,11 @@ public enum TipusRest {
 	IMPOSTOS,
 	INFUENCIA,
 	MANTENIMENT,
-	QUANTITAT
+	QUANTITAT,
+        RUHAB,
+        RUNEG,
+        RUSERV,
+        RUSUBHAB,
+        RUSUBNEG,
+        RUSUBSERV
 }

@@ -25,7 +25,39 @@ public class DriverMiniPersistencia {
         CtrDomGeneral dm;
         dm = CtrDomGeneral.ObtenirInstancia();
         ArrayList<String> l = new ArrayList<String>();
-        dm.CreaBarri("Can Tunis", "Baixa", 10, 10);
+        ArrayList<String> ed = new ArrayList<String>();
+        int err = dm.CarregaCatalegEdifici("Default");
+        dm.CreaCatalegRestriccions("Default");
+        if(err == 0){
+            
+            dm.CrearRestriccioAlsada(1, 11);
+            dm.CreaRestriccioAparcament(2, 200);
+            dm.CrearRestriccioCost(3, 200000, true);
+            dm.CreaRestriccioImpostos(4, 50000);
+            dm.CreaRestriccioManteniment(5, 40000);
+            
+            dm.CrearRestriccioDistanciaTipus(6, 4, true, "Casa", "Casa");
+            
+            
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(1), "Default");
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(2), "Default");
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(3), "Default");
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(4), "Default");
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(5), "Default");
+            dm.GuardaRestriccioCataleg(dm.ObteRestriccio(6), "Default");
+        }
+        else{
+            System.out.println("Error al carregar edificis");
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        /*dm.CreaBarri("Can Tunis", "Baixa", 10, 10);
         System.out.println("Barri creat");
         dm.GuardaBarri();
         System.out.println("Barri guardat");
@@ -44,7 +76,8 @@ public class DriverMiniPersistencia {
         l = dm.LlistatEdificis();
         for(String n: l){
             System.out.println(n);
-        }
+        }*/
+        
         /*dm.CreaCatalegEdificis("Default");
         dm.CreaCatalegEdificis("Tunned");
         dm.CreaHabitatge(1222, 2, "edu", 1, 2, "Casa");
@@ -57,10 +90,10 @@ public class DriverMiniPersistencia {
         dm.GuardaEdificiDiscText(dm.ObteEdifici("XXXXXX") , "Tunned", true);
         dm.EliminarEdifici("edu");
         dm.EliminarEdifici("mar");
-        dm.CarregaCatalegEdifici("Default");*/
+        dm.CarregaCatalegEdifici("Default");
         l = dm.LlistaCatalegEdificisDisc();
         for(String n: l){
             System.out.println(n);
-        }
+        }*/
     }
 }
