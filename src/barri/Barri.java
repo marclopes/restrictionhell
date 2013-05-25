@@ -326,5 +326,14 @@ public class Barri implements Serializable {
             }
             return false;
         }
+        
+        public void NetejarRestricions(int id){
+           int i = lRestriccions.indexOf(id);
+           lRestriccions.remove(i);
+        }
+        
+        public void NetejarEdificis(String nom){
+            lEdificis.EliminarEdifici(nom);
+        }
 }
 

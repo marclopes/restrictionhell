@@ -55,10 +55,10 @@ public class CtrDomGeneral {
      * @param yy Dimensio Y del barri
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int CreaBarri(String n, String cl, int xx, int yy) {
+    public void CreaBarri(String n, String cl, int xx, int yy) {
         Classes tipClas;
         tipClas = StringToClase(cl);
-        return ctrBarri.CreaBarri(n, tipClas, xx, yy);
+        ctrBarri.CreaBarri(n, tipClas, xx, yy);
 
     }
 
@@ -236,8 +236,8 @@ public class CtrDomGeneral {
      * @param valor valor que se li dona al atribut a modificar
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int ModificarBarri(String nomBarri, String atribut, String valor) {
-        return ctrBarri.ModificarBarri(nomBarri, atribut, valor);
+    public int ModificarBarri(String atribut, String valor) {
+        return ctrBarri.ModificarBarri(atribut, valor);
     }
 
     /**
@@ -284,8 +284,8 @@ public class CtrDomGeneral {
      * @param nomBarri nom del barri a eliminar
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int EliminarBarri(String nomBarri) {
-        return ctrBarri.EliminarBarri(nomBarri);
+    public void EliminarBarri() {
+        ctrBarri.EliminarBarri();
     }
 
     /**
@@ -305,42 +305,18 @@ public class CtrDomGeneral {
     }
 
     /**
-     * Crea edificis a partir d'un cataleg de edificis
-     *
-     * @param nomCataleg Nom del fitxer on esta el cataleg d'edificis
-     */
-    public void CarregarCatalegEdifici(String nomCataleg) {// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
-    }
-
-    /**
-     * Crea restriccions a patir d'un cataleg de restriccions
-     *
-     * @param nomCataleg Nom del fitxer on esta el cataleg de restriccions
-     */
-    public void CarregarCatalegRestriccio(String nomCataleg) {// hauria de entrar el nom del fitxer per cridar al controlador de presitencia
-    }
-
-    /**
-     * Carrega barris guardas
-     *
-     * @param nomBarri Nom del arxiu .o que correspon al barri
-     */
-    public void CarregarBarri(String nomBarri) { //binari barri.
-    }
-
-    /**
      * Afegeix un edifici al barri donat
      *
      * @param nomBarri Nom del barri al que se li afegeix
      * @param nomEdifici Nom del edifici a afegir
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int AfegirEdifici(String nomBarri, String nomEdifici) {
+    public int AfegirEdifici(String nomEdifici) {
         Edifici e = ctrEdificis.ObtenirEdifici(nomEdifici);
         if (e == null) {
             return -1;
         }
-        return ctrBarri.AfegirEdifici(e, nomBarri);
+        return ctrBarri.AfegirEdifici(e);
 
     }
 
@@ -351,12 +327,12 @@ public class CtrDomGeneral {
      * @param idRestriccio Identificador de la restriccio
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int ImposarRestriccio(String nomBarri, int idRestriccio) {
+    public int ImposarRestriccio(int idRestriccio) {
         RestriccioBarris r = ctrRestric.ObtenirRest(idRestriccio);//crida al ctrRestric
         if (r == null) {
             return -1;
         }
-        return ctrBarri.AfegeixRestriccions(nomBarri, r);
+        return ctrBarri.AfegeixRestriccions(r);
 
     }
 
@@ -367,8 +343,8 @@ public class CtrDomGeneral {
      * @param nomEdifici Nom del edifici a eliminar
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int TreuEdifici(String nomBarri, String nomEdifici) {
-        return ctrBarri.TreureEdifici(nomBarri, nomEdifici);
+    public int TreuEdifici(String nomEdifici) {
+        return ctrBarri.TreureEdifici(nomEdifici);
     }
 
     /**
@@ -379,7 +355,7 @@ public class CtrDomGeneral {
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
     public int TreuRestriccio(String nomBarri, int idRestriccio) {
-        return ctrBarri.TreureRestriccio(nomBarri, idRestriccio);
+        return ctrBarri.TreureRestriccio(idRestriccio);
     }
 
     /**
@@ -388,8 +364,8 @@ public class CtrDomGeneral {
      * @param nomBarri Nom del barri que es vol generar
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int GeneraBarri(String nomBarri) {//crida a backtraking
-        return ctrBarri.GenerarBarri(nomBarri);
+    public int GeneraBarri() {//crida a backtraking
+        return ctrBarri.GenerarBarri();
     }
 
     private TipusHab StringHabtoEnum(String n) {
@@ -561,8 +537,9 @@ public class CtrDomGeneral {
         ArrayList<String> l = new ArrayList<String>();
         CtrArxius c = new CtrArxius();
         l = c.llistaDirectori("ed_");
-        for (String s: l){
-            s = s.replace("ed_", "");
+        for (int i = 0;i<l.size();i++){
+            l.set(i, l.get(i).replaceAll("ed_", ""));
+            l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
     }
@@ -744,8 +721,9 @@ public class CtrDomGeneral {
     public ArrayList<String> LlistaBarrisDisc(){
         CtrArxius arxiu = new CtrArxius();
         ArrayList<String> l = arxiu.llistaDirectori("bar_");
-        for (String s: l){
-            s = s.replace("bar_", "");
+        for (int i = 0;i<l.size();i++){
+            l.set(i, l.get(i).replaceAll("bar_", ""));
+            l.set(i, l.get(i).replaceAll(".o", ""));
         }
         return l;
     }
@@ -755,11 +733,11 @@ public class CtrDomGeneral {
      * @param f El nom del barri que volem carregar.
      * @return La instancia del barri.
      */
-    public Barri CarregaBarri(String f){
-        CtrArxius arxiu = new CtrArxius();
-        Object o = arxiu.llegirArxiu("bar_"+f);
-        Barri b = ((Barri) o);
-        return b;
+    public void CarregaBarri(String f){
+        CtrObjectes arxiu = new CtrObjectes();
+        Object o = arxiu.llegirObjecte("bar_"+f);
+        Barri b = (Barri)o;
+        ctrBarri.CreaBarri(b);
     }
     
     /**
@@ -767,10 +745,9 @@ public class CtrDomGeneral {
      * @param b El barri que volem guardar.
      * @return retorna Cert si pot guardar el barri .Fals tant si hi ha problemes com si ja existeixen objectes amb aquell nom
      */
-    public boolean GuardaBarri(Barri b){
+    public boolean GuardaBarri(){
         CtrObjectes arxiu = new CtrObjectes();
-        String nom = b.ConsultarNom();
-        return arxiu.creaObjecte("bar_"+nom, b);
+        return arxiu.creaObjecte("bar_"+ctrBarri.ObtenirBarri().ConsultarNom(), ctrBarri.ObtenirBarri());
     }
     
     

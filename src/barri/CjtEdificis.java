@@ -1,4 +1,5 @@
 package barri;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -6,7 +7,7 @@ import java.util.ArrayList;
  * @author Eduard Ricou
  */
 
-public class CjtEdificis{
+public class CjtEdificis implements Serializable{
 
 	private ArrayList<Edifici> conEd = new ArrayList<Edifici>();
 	
