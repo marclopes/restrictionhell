@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public class RUNeg extends RestriccioBarris implements RCjtEd {
 
-    private ArrayList< Pair<Edifici,Integer>> ce;
+    private CjtEdificis ce;
     private String atribut;
     private int valor;
     private boolean max;
 
-    public RUNeg(int id, String atribut, int valor, boolean max, ArrayList< Pair<Edifici,Integer>> ce) {
+    public RUNeg(int id, String atribut, int valor, boolean max, CjtEdificis ce) {
         super(id);
         this.atribut = atribut;
         this.valor = valor;
@@ -33,34 +33,34 @@ public class RUNeg extends RestriccioBarris implements RCjtEd {
 
     @Override
     public boolean CompleixRes() {
-        for (int i = 0; i < ce.size(); ++i) {
-            if (ce.get(i).primer instanceof Negoci && max) {
+        for (int i = 0; i < ce.Tamany(); ++i) {
+            if (ce.ObtenirEdifici(i) instanceof Negoci && max) {
                 if (atribut.equals("altura")) {
-                    if (ce.get(i).primer.ConsultarH() > valor) {
-                        ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) {
+                        return false;
                     }
                 } else if (atribut.equals("aparcament")) {
-                    if (((Negoci) ce.get(i).primer).ConsultarAparcament() > valor) {
-                        ce.remove(i);
+                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarAparcament() > valor) {
+                        return false;
                     }
                 } else if (atribut.equals("impostos")) {
-                    if (((Negoci) ce.get(i).primer).ConsultarImpost() > valor) {
-                        ce.remove(i);
+                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarImpost() > valor) {
+                        return false;
                     }
                 }
 
-            } else if (ce.get(i).primer instanceof Negoci) {
+            } else if (ce.ObtenirEdifici(i) instanceof Negoci) {
                 if (atribut.equals("altura")) {
-                    if (ce.get(i).primer.ConsultarH() < valor) {
-                        ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) {
+                        return false;
                     }
                 } else if (atribut.equals("aparcament")) {
-                    if (((Negoci) ce.get(i).primer).ConsultarAparcament() < valor) {
-                        ce.remove(i);
+                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarAparcament() < valor) {
+                        return false;
                     }
                 } else if (atribut.equals("impostos")) {
-                    if (((Negoci) ce.get(i).primer).ConsultarImpost() < valor) {
-                        ce.remove(i);
+                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarImpost() < valor) {
+                        return false;
                     }
                 }
             }
@@ -69,7 +69,7 @@ public class RUNeg extends RestriccioBarris implements RCjtEd {
     }
 
     @Override
-    public void AssignaCe(ArrayList<Pair<Edifici,Integer>> ce) {
+    public void AssignaCe(CjtEdificis ce) {
         this.ce = ce;
     }
 }

@@ -13,13 +13,13 @@ import java.util.ArrayList;
  */
 public class RUSubServ extends RestriccioBarris implements RCjtEd {
 
-    private ArrayList< Pair<Edifici,Integer>> ce;
+    private CjtEdificis ce;
     private String atribut;
     private int valor;
     private TipusServei tipus;
     private boolean max;
 
-    public RUSubServ(int id, TipusServei tipus, String atribut, int valor, boolean max, ArrayList< Pair<Edifici,Integer>> ce) {
+    public RUSubServ(int id, TipusServei tipus, String atribut, int valor, boolean max, CjtEdificis ce) {
         super(id);
         this.tipus = tipus;
         this.atribut = atribut;
@@ -35,42 +35,42 @@ public class RUSubServ extends RestriccioBarris implements RCjtEd {
 
     @Override
     public boolean CompleixRes() {
-        for (int i = 0; i < ce.size(); ++i) {
-            if ((ce.get(i).primer instanceof Servei) && ((Servei) ce.get(i).primer).consultarTipus() == tipus && max) {
+        for (int i = 0; i < ce.Tamany(); ++i) {
+            if ((ce.ObtenirEdifici(i) instanceof Servei) && ((Servei) ce.ObtenirEdifici(i)).consultarTipus() == tipus && max) {
                 if (atribut.equals("altura")) {
-                    if (ce.get(i).primer.ConsultarH() > valor) {
-                        ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) {
+                        return false;
                     }
                 } else if (atribut.equals("area")) {
-                    if (((Servei) ce.get(i).primer).ConsultarAreaInfluencia() > valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarAreaInfluencia() > valor) {
+                        return false;
                     }
                 } else if (atribut.equals("cost")) {
-                    if (((Servei) ce.get(i).primer).ConsultarCost() > valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarCost() > valor) {
+                        return false;
                     }
                 } else if (atribut.equals("manteniment")) {
-                    if (((Servei) ce.get(i).primer).ConsultarManteniment() > valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarManteniment() > valor) {
+                        return false;
                     }
                 }
 
-            } else if ((ce.get(i).primer instanceof Servei) && ((Servei) ce.get(i).primer).consultarTipus() == tipus) {
+            } else if ((ce.ObtenirEdifici(i) instanceof Servei) && ((Servei) ce.ObtenirEdifici(i)).consultarTipus() == tipus) {
                 if (atribut.equals("altura")) {
-                    if (ce.get(i).primer.ConsultarH() < valor) {
-                        ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) {
+                        return false;
                     }
                 } else if (atribut.equals("area")) {
-                    if (((Servei) ce.get(i).primer).ConsultarAreaInfluencia() < valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarAreaInfluencia() < valor) {
+                        return false;
                     }
                 } else if (atribut.equals("cost")) {
-                    if (((Servei) ce.get(i).primer).ConsultarCost() < valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarCost() < valor) {
+                        return false;
                     }
                 } else if (atribut.equals("manteniment")) {
-                    if (((Servei) ce.get(i).primer).ConsultarManteniment() < valor) {
-                        ce.remove(i);
+                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarManteniment() < valor) {
+                        return false;
                     }
                 }
             }
@@ -79,7 +79,7 @@ public class RUSubServ extends RestriccioBarris implements RCjtEd {
     }
 
     @Override
-    public void AssignaCe(ArrayList<Pair<Edifici,Integer>> ce) {
+    public void AssignaCe(CjtEdificis ce) {
         this.ce = ce;
     }
 }

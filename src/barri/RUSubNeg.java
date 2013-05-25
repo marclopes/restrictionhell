@@ -12,13 +12,13 @@ import java.util.ArrayList;
  * @author albert
  */
 public class RUSubNeg extends RestriccioBarris implements RCjtEd{
-    private ArrayList< Pair<Edifici,Integer>> ce;
+    private CjtEdificis ce;
     private String atribut;
     private int valor;
     private TipusNegoci tipus;
     private boolean max;
     
-    public RUSubNeg (int id,TipusNegoci tipus,String atribut,int valor,boolean max,ArrayList< Pair<Edifici,Integer>> ce){
+    public RUSubNeg (int id,TipusNegoci tipus,String atribut,int valor,boolean max,CjtEdificis ce){
         super(id);
         this.tipus = tipus;
         this.atribut=atribut;
@@ -33,29 +33,29 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
 
     @Override
     public boolean CompleixRes() {
-        for (int i =0 ; i< ce.size() ; ++i ) {
-            if ((ce.get(i).primer instanceof Negoci) && ((Negoci)ce.get(i).primer).consultarTipus() == tipus && max) {
+        for (int i =0 ; i< ce.Tamany() ; ++i ) {
+            if ((ce.ObtenirEdifici(i) instanceof Negoci) && ((Negoci)ce.ObtenirEdifici(i)).consultarTipus() == tipus && max) {
                 if (atribut.equals("altura")){
-                    if (ce.get(i).primer.ConsultarH() > valor) ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) return false;
                 } else if(atribut.equals("aparcament")){
-                    if (( (Habitatge)ce.get(i).primer).ConsultarAparcament()> valor) ce.remove(i);
+                    if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarAparcament()> valor) return false;
                 } else if (atribut.equals("impostos")) {
-                     if (( (Habitatge)ce.get(i).primer).ConsultarImpost()> valor) ce.remove(i);
+                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarImpost()> valor) return false;
                 }
                 else if (atribut.equals("capacitat")) {
-                     if (( (Habitatge)ce.get(i).primer).ConsultarCapacitat()> valor) ce.remove(i);
+                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarCapacitat()> valor) return false;
                 }
                 
-            } else if ((ce.get(i).primer instanceof Negoci) && ((Negoci)ce.get(i).primer).consultarTipus() == tipus) {
+            } else if ((ce.ObtenirEdifici(i) instanceof Negoci) && ((Negoci)ce.ObtenirEdifici(i)).consultarTipus() == tipus) {
                 if (atribut.equals("altura")){
-                    if (ce.get(i).primer.ConsultarH() < valor) ce.remove(i);
+                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) return false;
                 } else if(atribut.equals("aparcament")){
-                    if (( (Habitatge)ce.get(i).primer).ConsultarAparcament()< valor) ce.remove(i);
+                    if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarAparcament()< valor) return false;
                 } else if (atribut.equals("impostos")) {
-                     if (( (Habitatge)ce.get(i).primer).ConsultarImpost()< valor) ce.remove(i);
+                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarImpost()< valor) return false;
                 }
                 else if (atribut.equals("capacitat")) {
-                     if (( (Habitatge)ce.get(i).primer).ConsultarCapacitat()< valor) ce.remove(i);
+                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarCapacitat()< valor) return false;
                 }
             }
         }
@@ -63,7 +63,7 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
     }
 
     @Override
-    public void AssignaCe(ArrayList<Pair<Edifici,Integer>> ce) {
+    public void AssignaCe(CjtEdificis ce) {
         this.ce = ce;
     }
     
