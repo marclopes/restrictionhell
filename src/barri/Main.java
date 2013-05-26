@@ -21,10 +21,14 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int opcio = 0;
         String in;
-        while (opcio != 15) {
+        while (opcio != 17) {
 
             switch (opcio) {
                 case 1:
+                    if (controlador.BarriCarregat()) {
+                        System.out.println("Aquesta opcio sobrescriura el barri actual");
+                        System.out.println("Assegureu-vos que heu guardat el barri en cas de voler-lo conservar");
+                    }
                     CreaBarri();
                     break;
                 case 2:
@@ -66,6 +70,12 @@ public class Main {
                 case 14:
                     TreureRestriccio();
                     break;
+                case 15:
+                    GuardaBarri();
+                    break;
+                case 16:
+                    CarregaBarri();
+                    break;
             }
             System.out.println("Seleccioni una opcio");
             System.out.println("1. Crear barri");
@@ -82,7 +92,8 @@ public class Main {
             System.out.println("12. Elimina restriccio");
             System.out.println("13. Treure edifici d'un barri");
             System.out.println("14. Treure restriccio d'un barri");
-            System.out.println("15. Sortir");
+            System.out.println("15. Guarda Barri");
+            System.out.println("16. Carregar Barri");
             boolean esvalid = false;
             while (!esvalid) {
                 try {
@@ -91,9 +102,18 @@ public class Main {
                     if (opcio < 1) {
                         throw new Exception();
                     }
+                    if (!controlador.BarriCarregat()) {
+                        if (opcio == 2 || opcio == 3 || opcio == 4 || opcio == 5 || opcio == 6 || opcio == 13 || opcio == 14 || opcio ==15) {
+                            throw new Exception("Cal crear o carregar un barri primer");
+                        }
+                    }
                     esvalid = true;
                 } catch (Exception e) {
-                    System.out.println("Parametre errorni, reintrodueix");
+                    if (e.getMessage() == null) {
+                        System.out.println("Parametre errorni, reintrodueix");
+                    } else {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }
@@ -323,8 +343,8 @@ public class Main {
         if (n.equals("Barri")) {
             System.out.println("1. Nom");
             System.out.println("2. Classe");
-            System.out.println("1. MidaX");
-            System.out.println("1. MidaY");
+            System.out.println("3. MidaX");
+            System.out.println("4. MidaY");
 
         } else if (n.equals("Edifici")) {
 
@@ -407,13 +427,9 @@ public class Main {
             }
         }
 
-        int result = controlador.CreaBarri(nom, classe, x, y);
-        if (result == 0) {
+        controlador.CreaBarri(nom, classe, x, y);
             System.out.println("S'ha creat correctament el barri " + nom
                     + " de classe " + classe + " i mides " + x + " " + y);
-        } else {
-            System.out.println("Error al crear el barri");
-        }
     }
 
     private static void ModificaBarri() {
@@ -422,12 +438,12 @@ public class Main {
         nom = atribut = valor = " ";
         int tipus = 0;
         boolean esvalid = false;
-        System.out.println("Introdueix nom del barri");
+        /*System.out.println("Introdueix nom del barri");
         try {
-            nom = br.readLine();
+        nom = br.readLine();
         } catch (Exception e) {
-        }
-        esvalid = false;
+        }*/
+        //esvalid = false;
         while (!esvalid) {
             System.out.println("Introdueix atribut a modificar");
             ImprimirModOp("Barri");
@@ -461,7 +477,7 @@ public class Main {
                 System.out.println("Parametre errorni, reintrodueix");
             }
         }
-        int result = controlador.ModificarBarri(nom, atribut, valor);
+        int result = controlador.ModificarBarri(atribut, valor);
         if (result == 0) {
             System.out.println("S'ha modificat el barri correctament");
         } else {
@@ -470,37 +486,25 @@ public class Main {
     }
 
     private static void EliminaBarri() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String nom;
-        nom = " ";
-        System.out.println("Introdueix nom del barri");
-        try {
-            nom = br.readLine();
-        } catch (Exception e) {
-        }
-        int result = controlador.EliminarBarri(nom);
-        if (result == 0) {
+        controlador.EliminarBarri();
             System.out.println("S'ha eliminat el barri correctament");
-        } else {
-            System.out.println("Error al eliminar el barri");
-        }
     }
 
     private static void AfegirEdifici() {
         String nom, valor;
         nom = valor = " ";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del barri");
+        /* System.out.println("Introdueix nom del barri");
         try {
-            nom = br.readLine();
+        nom = br.readLine();
         } catch (Exception e) {
-        }
+        }*/
         System.out.println("Introdueix nom del edifici");
         try {
             valor = br.readLine();
         } catch (Exception e) {
         }
-        int result = controlador.AfegirEdifici(nom, valor);
+        int result = controlador.AfegirEdifici(valor);
         if (result == 0) {
             System.out.println("S'ha afegit l'edifici al barri correctament");
         } else {
@@ -515,11 +519,11 @@ public class Main {
         int result = 0;
         boolean esvalid;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del barri");
+        /* System.out.println("Introdueix nom del barri");
         try {
-            nom = br.readLine();
+        nom = br.readLine();
         } catch (Exception e) {
-        }
+        }*/
         esvalid = false;
         while (!esvalid) {
             System.out.println("Vols imposar una restriccio de d'area d'influencia?");
@@ -539,7 +543,7 @@ public class Main {
         }
         switch (select) {
             case 1:
-                result = controlador.ImposarRestriccio(nom, 0);
+                result = controlador.ImposarRestriccio(0);
                 if (result == 0) {
                     System.out.println("S'ha imposat la restriccio al barri correctament");
                 } else {
@@ -558,7 +562,7 @@ public class Main {
                         System.out.println("Parametre errorni, reintrodueix");
                     }
                 }
-                result = controlador.ImposarRestriccio(nom, id);
+                result = controlador.ImposarRestriccio(id);
                 if (result == 0) {
                     System.out.println("S'ha imposat la restriccio al barri correctament");
                 } else {
@@ -879,10 +883,15 @@ public class Main {
             System.out.println("Introdueix valor del atribut");
             try {
                 valor = br.readLine();
-                if (tipus != 3) {
-                    if (Integer.parseInt(valor) < 1) {
+                if (tipus == 2) {
+                    ImprimirClasses();
+                    if (Integer.parseInt(valor) < 1 || Integer.parseInt(valor) > 7) {
                         throw new Exception();
                     }
+                    DefinirClasse(nom, Integer.parseInt(valor));
+                } else if (Integer.parseInt(valor) < 1) {
+                    throw new Exception();
+
                 }
             } catch (Exception e) {
                 System.out.println("Parametre errorni, reintrodueix");
@@ -898,7 +907,7 @@ public class Main {
 
     private static void CreaRestriccio() {
         String classe, valor;
-        int id, tipus, x, y, area, imp, result,quant;
+        int id, tipus, x, y, area, imp, result, quant;
         classe = valor = " ";
         id = tipus = x = y = area = imp = result = quant = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -1213,12 +1222,12 @@ public class Main {
     private static void GeneraBarri() {
         String nom = " ";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del barri");
+        /*System.out.println("Introdueix nom del barri");
         try {
-            nom = br.readLine();
+        nom = br.readLine();
         } catch (Exception e) {
-        }
-        int result = controlador.GeneraBarri(nom);
+        }*/
+        int result = controlador.GeneraBarri();
         if (result == 0) {
             System.out.println("El barri s'ha generat correctament");
         } else {
@@ -1314,37 +1323,22 @@ public class Main {
         }
     }
 
-    private static void EliminarBarri() {
-        String nom = " ";
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del barri");
-        try {
-            nom = br.readLine();
-        } catch (Exception e) {
-        }
-        int result = controlador.EliminarBarri(nom);
-        if (result == 0) {
-            System.out.println("S'ha eliminat correctament el barri");
-        } else {
-            System.out.println("Error al eliminar el barri");
-        }
-    }
 
     private static void TreureEdifici() {
         String nom, valor;
         nom = valor = " ";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del barri");
+        /* System.out.println("Introdueix nom del barri");
         try {
-            nom = br.readLine();
+        nom = br.readLine();
         } catch (Exception e) {
-        }
+        }*/
         System.out.println("Introdueix nom del edifici");
         try {
             valor = br.readLine();
         } catch (Exception e) {
         }
-        int result = controlador.TreuEdifici(nom, valor);
+        int result = controlador.TreuEdifici(valor);
         if (result == 0) {
             System.out.println("S'ha eliminat l'edifici del barri correctament");
         } else {
@@ -1394,6 +1388,7 @@ public class Main {
     }
 
     private static void DefinirClasse(String nom, int tipus) {
+
         switch (tipus) {
             case 1:
                 controlador.ModificarEdifici(nom, "classe", "Alta");
@@ -1405,19 +1400,15 @@ public class Main {
                 controlador.ModificarEdifici(nom, "classe", "Baixa");
                 break;
             case 4:
-                controlador.ModificarEdifici(nom, "classe", "Alta");
-                controlador.ModificarEdifici(nom, "classe", "Mitja");
+                controlador.ModificarEdifici(nom, "classe", "Alta" + "Mitja");
                 break;
             case 5:
-                controlador.ModificarEdifici(nom, "classe", "Alta");
-                controlador.ModificarEdifici(nom, "classe", "Baixa");
+                controlador.ModificarEdifici(nom, "classe", "Alta" + "Baixa");
             case 6:
-                controlador.ModificarEdifici(nom, "classe", "Mitja");
-                controlador.ModificarEdifici(nom, "classe", "Baixa");
+                controlador.ModificarEdifici(nom, "classe", "Mitja" + "Baixa");
             case 7:
-                controlador.ModificarEdifici(nom, "classe", "Alta");
-                controlador.ModificarEdifici(nom, "classe", "Mitja");
-                controlador.ModificarEdifici(nom, "classe", "Baixa");
+                controlador.ModificarEdifici(nom, "classe", "Alta" + "Mitja" + "Baixa");
+
         }
     }
 
@@ -1436,5 +1427,13 @@ public class Main {
         } else {
             System.out.println("Error al eliminar l'edifici");
         }
+    }
+
+    private static void GuardaBarri() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private static void CarregaBarri() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -112,8 +112,12 @@ public class CtrEdDom {
             tmpEdifici.ModificarCapacitat(Integer.parseInt(valor));
             return 0;
         } else if (atribut.equals("classe")) {
-            Classes k = StringToClase(valor);
-            tmpEdifici.AfegirClase(k);
+            tmpEdifici.EliminarClase(Classes.Alta);
+            tmpEdifici.EliminarClase(Classes.Mitja);
+            tmpEdifici.EliminarClase(Classes.Baixa);
+            if (valor.contains("Alta")) tmpEdifici.AfegirClase(Classes.Alta);
+            if (valor.contains("Mitja")) tmpEdifici.AfegirClase(Classes.Mitja);
+            if (valor.contains("Baixa")) tmpEdifici.AfegirClase(Classes.Baixa);
             return 0;
         } else {
             if (tmpEdifici instanceof Habitatge) {

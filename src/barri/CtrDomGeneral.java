@@ -912,4 +912,8 @@ public class CtrDomGeneral {
     public boolean CarregaCatalegRestriccions(){
         return true;
     }
+
+    boolean BarriCarregat() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
