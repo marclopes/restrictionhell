@@ -99,10 +99,12 @@ public class RUSubHab extends RestriccioBarris {
     public boolean CompleixRes() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-        public void AssignarMax(String max) {
+    
+    public void AssignarMax(String max) {
         if (max.equals("Maxim"))this.max =true;
         else if(max.equals("Minim")) this.max = false;
     }
+    
     public void AssignaValor(int valor){
         this.valor = valor;
     }

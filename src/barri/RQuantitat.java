@@ -1,13 +1,18 @@
 package barri;
 
-import barri.Edifici.TipusEd;
+import java.util.ArrayList;
 
-public class RQuantitat extends RestriccioBarris implements RMax, REspai{
+import barri.Edifici.TipusEd;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
+
+public class RQuantitat extends RestriccioBarris {
 	
 	
-	int quant;
-	Edifici ed;
-	boolean max;
+	int quant, qa;
+	String e1;
+//	boolean max;
 	Espai e;
 	
         /**
@@ -17,18 +22,20 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
          * @param e Edifici sobre el que volem definir la quantitat.
          * @param m Cert -> Quantitat màxima. Fals -> Quantitat mínima.
          */
-	public RQuantitat(int ID, int q, Edifici e, boolean m) {
+	public RQuantitat(int ID, int q, String e) {
 		super(ID);
 		quant = q;
-		ed = e;
-		max = m;
+		e1 = e;
 		super.tr = TipusRest.QUANTITAT;
+		qa = 0;
 	}
 
 	/**
          * Comprova que es compleix la restricció.
          * @return Cert si es compleix la restricció, fals en cas contrari.
          */
+	
+	/**
 	public boolean CompleixRes() {
 		int q = 0;
 		for (int i = 0; i < e.ObteX(); i++) {
@@ -57,31 +64,15 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 		if (!max && q < quant && e.ExisteixElementxy(e.ObteX()-1, e.ObteY()-1)) return false;
 		return true;
 	}
-	
+	**/
+
 	/**
          * Cromprova si l'edifici esta afectat per la restricció.
          * @param e Edifici que volem comprovar.
          * @return Cert si l'edifici està afectat per la restricció, fals en cas contrari.
          */
-	public boolean EsAquest(Edifici e) {
-		
-		if (e.consultarSubclasse() == ed.consultarSubclasse()) {
-			if (e.consultarSubclasse() == TipusEd.HAB) {
-				if (((Habitatge)e).consultarTipus() ==  ((Habitatge)ed).consultarTipus()) return true;
-				
-			} else if (e.consultarSubclasse() == TipusEd.NEG) {
-				if (((Negoci)e).consultarTipus() ==  ((Negoci)ed).consultarTipus()) return true;
-				
-			} else {
-				if (((Servei)e).consultarTipus() ==  ((Servei)ed).consultarTipus()) return true;
-				
-			}
-			
-			
-		}
-		return false;
-		
-	}
+	
+	
 	
 	/**
          * Consulta la quantitat assignada a la restricció.
@@ -103,53 +94,31 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
          * Consulta si la quantitat es màxima o mínima.
          * @return Cert -> màxim. Fals -> mínim.
          */
-	public boolean EsMax() {
-		return max;
-	}
-	
-        /**
-         * Modifica si la restricció serà de quantitat mínima o màxima.
-         * @param m Indica amb cert que la quantitat serà màxima.
-         */
-	public void CanviaMax(boolean m) {
-		max = m;
-	}
 	
         /**
          * Consulta l'edifici afectat per la restricció.
          * @return L'edifici afectat per la restricció.
          */
-	public Edifici QuinEdifici() {
-		return ed;
+	public String QuinEdifici() {
+		return e1;
 	}
 	
         /**
          * Modifica l'edifici afectat per la restricció.
          * @param e L'edifici afectat per la restricció.
          */
-	public void AssignaEdifici(Edifici e) {
-		ed = e;
+	public void AssignaEdifici(String e) {
+		e1 = e;
 	}
 
-        /**
-         * Assigna l'espai on es comprovarà la restricció.
-         * @param e L'espai on es comprovarà la restricció.
-         */
-	public void AssignaEspai(Espai e) {
-		this.e = e;
-		
-	}
-	
+  
         /**
          * Mostra informació sobre la restricció.
          * @return La informació de la restricció.
          */
 	public String Info() {
-		String s;
-		if (max) s = "maxima";
-		else s = "minima";
 		
-		return ("Quantitat " + s + " de " + StrTipus(ed) + " = " + quant);
+		return ("Quantitat maxima de " + e1 + " = " + quant);
 	}
 	
         /**
@@ -172,6 +141,126 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
 				
 			}
 	}
+
+		@Override
+		public boolean prop(ArrayList<Assignacions> va, Assignacio a) {
+			qa++;
+			if (qa == quant) {
+				for (int i = 0; i < va.size(); i++) {
+					Assignacions aux = va.get(i);
+					if (aux.val) {
+						for (int j = 0; j < aux.va.size(); j++) {
+							Assignacio aa = aux.va.get(j);
+							
+							if (afecta(aa)) aa.val = false;
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		@Override
+		public boolean afecta(Assignacio a) {
+			Edifici ed = a.e;
+			int val1 = 0;
+			
+			if (ed.ConsultarNom().equals(e1)) {
+				val1 = 1;
+				
+			} else if (ed.consultarSubclasse() == StringTedToEnum(e1)) {
+				val1 = 1;
+				
+			} else if (ed instanceof Habitatge) {
+				if (((Habitatge)ed).consultarTipus() == StringHabtoEnum(e1)) {
+					val1 = 1;
+				}
+				
+			} else if (ed instanceof Negoci) {
+				if (((Negoci)ed).consultarTipus() == StringNegtoEnum(e1)) {
+					val1 = 1;
+				}
+				
+			} else if (ed instanceof Servei) {
+				if (((Servei)ed).consultarTipus() == StringSertoEnum(e1)) {
+					val1 = 1;
+				}
+			}
+			
+			
+			
+			return (val1==1);
+		}
+
+		@Override
+		public boolean CompleixRes() {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	
+		
+
+		
+		private TipusEd StringTedToEnum(String n) {
+			try {
+				TipusEd et = TipusEd.valueOf(n);
+				return et;
+			} catch (IllegalArgumentException e) {
+				return null;
+			}
+		}
+		
+		 private TipusHab StringHabtoEnum(String n) {
+		        if (n.equals("Casa")) {
+		            return TipusHab.Casa;
+		        } else if (n.equals("Pis")) {
+		            return TipusHab.Pis;
+		        } else if (n.equals("Mansio")) {
+		            return TipusHab.Mansio;
+		        } else if (n.equals("Xalet")) {
+		            return TipusHab.Xalet;
+		        }
+		        return null;
+		    }
+
+		    private TipusServei StringSertoEnum(String n) {
+		        if (n.equals("Hospital")) {
+		            return TipusServei.Hospital;
+		        } else if (n.equals("Escola")) {
+		            return TipusServei.Escola;
+		        } else if (n.equals("Policia")) {
+		            return TipusServei.Policia;
+		        } else if (n.equals("Preso")) {
+		            return TipusServei.Preso;
+		        } else if (n.equals("Bombers")) {
+		            return TipusServei.Bombers;
+		        } else if (n.equals("Parc")) {
+		            return TipusServei.Parc;
+		        } else if (n.equals("Centre Cultural")) {
+		            return TipusServei.Centre_Cultural;
+		        }
+		        return null;
+		    }
+
+		    private TipusNegoci StringNegtoEnum(String n) {
+		        if (n.equals("Discoteca")) {
+		            return TipusNegoci.Discoteca;
+		        } else if (n.equals("Banc")) {
+		            return TipusNegoci.Banc;
+		        } else if (n.equals("Bar")) {
+		            return TipusNegoci.Bar;
+		        } else if (n.equals("Restaurant")) {
+		            return TipusNegoci.Restaurant;
+		        } else if (n.equals("Botiga alimentacio")) {
+		            return TipusNegoci.Botiga_alimentacio;
+		        } else if (n.equals("Botiga roba")) {
+		            return TipusNegoci.Botiga_roba;
+		        } else if (n.equals("Escola privada")) {
+		            return TipusNegoci.Escola_privada;
+		        } else if (n.equals("Clinica")) {
+		            return TipusNegoci.Clinica;
+		        }
+		        return null;
+		    }
 
 }
