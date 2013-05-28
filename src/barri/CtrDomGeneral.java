@@ -907,7 +907,7 @@ public class CtrDomGeneral {
     public boolean CarregaCatalegRestriccions(String cataleg){
         ArrayList<String> l = disc.llegir("res_"+cataleg);
         int i = 0, enter, id = 1, x;
-        String s;
+        String s, f;
         Edifici e1 = null, e2 = null;
         boolean max;
         while(i < l.size()){
@@ -965,6 +965,7 @@ public class CtrDomGeneral {
                 }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestImpostos(id, enter);
                 id++;
+                i = i +1 ;
             }
             else if(l.get(i).equals("Manteniment")){
                 try{
@@ -972,13 +973,80 @@ public class CtrDomGeneral {
                 }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestManteniment(id, enter);
                 id++;
+                i = i + 1;
             }
-            else if(l.get(i).equals("Atribut habitatge")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else if(l.get(i).equals("Atribut negoci")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else if(l.get(i).equals("Atribut servei")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else if(l.get(i).equals("Atribut tipus habitatge")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else if(l.get(i).equals("Atribut tipus negoci")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            else if(l.get(i).equals("Atribut tipus servei")){}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            else if(l.get(i).equals("Atribut habitatge")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+2));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+3);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUHab(id,s,enter,max);
+                id++;
+                i = i + 3;
+            }
+            else if(l.get(i).equals("Atribut negoci")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+2));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+3);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUNeg(id,s,enter,max);
+                id++;
+                i = i + 3;
+            }
+            else if(l.get(i).equals("Atribut servei")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+2));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+3);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUServ(id,s,enter,max);
+                id++;
+                i = i + 3;
+            }
+            else if(l.get(i).equals("Atribut tipus habitatge")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+3));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+4);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUSubHab(id,StringHabtoEnum(l.get(i+2)),s,enter,max);
+                id++;
+                i = i + 4;
+            }
+            else if(l.get(i).equals("Atribut tipus negoci")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+3));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+4);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUSubNeg(id,StringNegtoEnum(l.get(i+2)),s,enter,max);
+                id++;
+                i = i + 4;
+            }
+            else if(l.get(i).equals("Atribut tipus servei")){
+                s = l.get(i+1);
+                try{
+                    enter = Integer.parseInt(l.get(i+3));
+                }catch(NumberFormatException e){return false;}
+                f = l.get(i+4);
+                if(f.equals("Maxim")) max = true;
+                else max = false;
+                ctrRestric.CreaRestriccioRUSubServ(id,StringSertoEnum(l.get(i+2)),s,enter,max);
+                id++;
+                i = i + 4;
+            }
             i++;
         }
         return true;
