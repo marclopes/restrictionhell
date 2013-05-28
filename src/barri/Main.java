@@ -4,6 +4,13 @@
  */
 package barri;
 
+import java.util.ArrayList;
+
+import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
+import barri.Habitatge.TipusHab;
+import barri.Negoci.TipusNegoci;
+import barri.Servei.TipusServei;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -15,7 +22,7 @@ import java.util.ArrayList;
 public class Main {
 
     private static CtrDomGeneral controlador = CtrDomGeneral.ObtenirInstancia();
-
+	
     public static void main(String[] args) {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -5,12 +5,19 @@ import barri.Edifici.TipusEd;
 
 
 
-public class RCost extends RestriccioBarris implements RMax, REspai {
+public class RCost extends RestriccioBarris implements RMax, RCjtEd {
 	
 	int cost, cAct;
 	boolean max;
-	Espai e;
+	CjtEdificis ce;
 
+<<<<<<< HEAD
+	public RCost(int ID, int co, boolean m, CjtEdificis ce) {
+		super(ID);
+		cost = co;
+		max = m;
+		this.ce = ce;
+=======
         /**
          * Crea una instancia de la restricció de cost.
          * @param ID Identificador de la restrició.
@@ -22,14 +29,18 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		super(ID);
 		cost = co;
 		max = m;
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 		super.tr = TipusRest.COST;
 		cAct = 0; 
 	}
 
 	/**
+<<<<<<< HEAD
+=======
          * Incrementa el cost actual de la restricció.
          * @param c L'increment del cost.
          */
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 	public void AugmentaCost(int c) {
 		cAct = cAct+c;
 	}
@@ -108,11 +119,15 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		
 	}
 
+<<<<<<< HEAD
+	
+=======
 	@Override
 	public void AssignaEspai(Espai e) {
 		this.e = e;
 		
 	}
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 	
 	public String Info() {
 		String s;
@@ -122,4 +137,31 @@ public class RCost extends RestriccioBarris implements RMax, REspai {
 		return ("Cost " + s + " " + cost);
 	}
 
+<<<<<<< HEAD
+	@Override
+	public void AssignaCe(CjtEdificis ce) {
+		this.ce = ce;
+		
+	}
+
+
+	@Override
+	public boolean CompleixRes() {
+		cAct = 0;
+		//boolean comp = true;
+		for (int i = 0; i < ce.Tamany(); i++) {
+			if (ce.ObtenirEdifici(i).consultarSubclasse() == TipusEd.SER)
+				cAct = cAct + ((Servei)ce.ObtenirEdifici(i)).ConsultarCost();
+		}
+		
+	
+		if (cAct < cost && !max) return false;
+		else if (cAct > cost && max) return false;
+		else return true;
+		
+	}
+
+
+=======
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 }

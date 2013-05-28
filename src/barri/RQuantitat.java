@@ -159,6 +159,8 @@ public class RQuantitat extends RestriccioBarris implements RMax, REspai{
          */
 	private String StrTipus(Edifici e) {
 		
+		if (e == null) return null;
+		
 			if (e.consultarSubclasse() == TipusEd.HAB) {
 				return ((Habitatge)e).consultarTipus().toString();
 				

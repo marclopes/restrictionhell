@@ -27,10 +27,12 @@ public class CjtEdificis implements Serializable{
          * @param e és l'edifici que volem afegir.
          */
 	public boolean AfegirEdifici(Edifici e){
+		
             if(!this.ExisteixEdifici(e.ConsultarNom())){
                 this.conEd.add(e);
                 return true;
             }
+            this.conEd.add(e);
             return false;
 	}
 	

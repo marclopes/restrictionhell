@@ -1,12 +1,20 @@
 package barri;
 
-public class RManteniment extends RestriccioBarris implements REspai {
+public class RManteniment extends RestriccioBarris implements RCjtEd {
 
 
+<<<<<<< HEAD
+    int costBarri;
+    //Espai e;
+    CjtEdificis ce;
+    int ia, im;
+    RImpostos rint;
+=======
         int costBarri;
         Espai e;
         int ia, im;
         RImpostos rint;
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 
 	/**
          * Comprova que es compleix la restricció.
@@ -31,6 +39,7 @@ public class RManteniment extends RestriccioBarris implements REspai {
          */
 	public void ModificarCostBArri(int cb) {
 		costBarri = cb;
+		rint.ModificarImp(cb);
 	}
 
         /**
@@ -47,6 +56,17 @@ public class RManteniment extends RestriccioBarris implements REspai {
             rint = new RImpostos(super.ObtenirId()/*id*/, costBarri, e);
         }
 
+<<<<<<< HEAD
+
+    public RManteniment(int ID, int cb, CjtEdificis ce) {
+        super(ID);
+        costBarri = cb;
+        this.ce = ce;
+        super.tr = TipusRest.MANTENIMENT;
+        rint = new RImpostos(super.ObtenirId()/*id*/, costBarri, ce);
+    }
+
+=======
         /**
          * Assigna l'espai on es comprovarà la restricció.
          * @param e Espai on s'aplicarà la restricció.
@@ -55,6 +75,7 @@ public class RManteniment extends RestriccioBarris implements REspai {
 		this.e = e;
 		rint.AssignaEspai(e);
 	}
+>>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 	
         /**
          * Assigna els impostos que es recapten a la restricció.
@@ -71,6 +92,12 @@ public class RManteniment extends RestriccioBarris implements REspai {
          */
 	public String Info() {
 		return ("Barri autosuficient en el seu manteniment");
+	}
+
+	@Override
+	public void AssignaCe(CjtEdificis ce) {
+		this.ce = ce;
+		
 	}
 	
 

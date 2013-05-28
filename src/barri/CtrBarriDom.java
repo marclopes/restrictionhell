@@ -1,4 +1,12 @@
+/**
+
+Nomes un barri, retorn barri actual
+
+**/
 package barri;
+
+import java.util.ArrayList;
+import java.util.Stack;
 
 import barri.Edifici.Classes;
 import barri.Edifici.TipusEd;
@@ -11,8 +19,18 @@ import java.util.ArrayList;
 public class CtrBarriDom {
 
     private static CtrBarriDom ctrBarri = null;
-    private static Barri barri = null;
+    private CjtBarris cjtBarris;
+    public static Barri barri; 
     private boolean trobat = false;
+    
+    ArrayList<Integer> estat[][];
+    
+    //ArrayList<Assignacions> va;
+    ArrayList<Assignacio> sol_def;
+    
+//    private Stack<ArrayList<Assignacions>> va_antic = new Stack<ArrayList<Assignacions>>();
+//    private Stack<ArrayList<Assignacio>> sol_antic = new Stack<ArrayList<Assignacio>>();
+    
 
     /**
      * Crea una instancia del controlador de Barris
@@ -113,18 +131,6 @@ public class CtrBarriDom {
      *
      * @param n Nom del barri a generar
      */
-    public int GenerarBarri() {
-        if (barri != null) {
-            if (PreparaBack()) {
-                Back2(0, 0, 0, barri);
-                PostBack();
-                Imprimeix(barri);
-                return 0;
-            }
-
-        }
-        return -1;
-    }
 
     /**
      * Elimina l'edicifi amb nomEdifici del barri amb nomBarri
@@ -187,6 +193,12 @@ public class CtrBarriDom {
         return -1;
     }
 
+    
+    /**
+     * Converteix una Classe social en format String a enum
+     * @param c La classe social en String
+     * @return la Classe social en format enum
+     */
     private Classes StringToClase(String c) {
         if (c.equals("Alta")) {
             return Classes.Alta;
@@ -196,404 +208,221 @@ public class CtrBarriDom {
             return Classes.Baixa;
         }
     }
+  
+    
+    public void fc(int na, ArrayList<Assignacions> va, ArrayList<Assignacio> sol) {
+    	
+    	
+    	System.out.println("__________________________________________");
+    	System.out.println("FC: n_sol = " + sol.size() + "  i va.pos = " + na);
+    	
+    	if (na < va.size()) {
+    		// pillem var
+    		//for (int i = 0; i < va.size(); i++) {
+    			Assignacions aux = va.get(na);
+    			
+				if (true /** no colocat**/) {
+					
+//					for (int j = 0; j < aux.va.size(); j++) {
+//						System.out.println(aux.va.get(j) + " ... " + j + " de " + aux.va.size());
+//					}
+					
+					
+//					va_antic.push((ArrayList<Assignacions>) va.clone());
+//					sol_antic.push((ArrayList<Assignacio>) sol.clone());
+					
+					
+					//ArrayList<Assignacio> sol_antic = copias(sol);
+					
+//					ArrayList<Assignacions> va_antic = (ArrayList<Assignacions>) va.clone();
+//					ArrayList<Assignacio> sol_antic = (ArrayList<Assignacio>) sol.clone();
+					
+//					ArrayList<Assignacions> va_antic = va;
+//					ArrayList<Assignacio> sol_antic = sol;
+					
+//					// i intentem ficarli un val
+					for (int j = 0; j < aux.va.size(); j++) {
+						ArrayList<Assignacions> va_antic = copiav(va);
+						Assignacio a = aux.va.get(j);
+						if (a.val) {
+							System.out.println("Var num: " + sol.size() + " valor " + j + " de " + aux.va.size() + " pro " + va_antic.get(0).va.size() + ": " + aux.va.get(j).e.ConsultarNom() + " " + aux.va.get(j).x + "," + aux.va.get(j).y);
+							
+							va.get(na).asAct = new Assignacio(a.x, a.y, a.e);
+							
+							sol.add(a);
+							
+	//						for (int k = 0; k < va_antic.get(0).va.size(); k++) {
+	//							System.out.println(va_antic.get(0).va.get(k) + " ... " + k + " de " + va_antic.get(0).va.size());
+	//						}
+							
+							
+//							System.out.println(" - asAct es: " + aux.asAct);
+							System.out.println(" - asAct es: " + va.get(na).asAct);
+	//						for (int k = 0; k < va_antic.get(0).va.size(); k++) {
+	//							System.out.println(va_antic.get(0).va.get(k) + " ... " + k + " de " + va_antic.get(0).va.size());
+	//						}
+							System.out.print("va.get(" + na + ").val era = " + va.get(na).val);
+							va.get(na).val = false;
+							System.out.println(" i ara  = " + va.get(na).val);
+							//System.exit(0);
+							borra(va, a.x, a.y);
+	//						System.out.println("INFO ABANS:");
+	//						int size = 0;
+	//						for (int i = 0; i < va.size(); i++) {
+	//							size += va.get(i).va.size();
+	//							Assignacions as = va.get(i);
+	////							System.out.println(as.va.get(0).e.ConsultarNom());
+	//							for (int k = 0; k < as.va.size(); k++) {
+	//								if (!as.va.isEmpty()) {
+	//									System.out.println(as.va.get(k).e.ConsultarNom());
+	//									break;
+	//								}
+	//							}
+	//						}
+	//						
+//							System.out.println(" - asAct es: " + va.get(na).asAct);
+//							for (int z = 0; z < va.size(); z++) {
+//				       			Assignacions auxi = va.get(z);
+//				       			System.out.println("Var " + z + " ja ta: " + auxi.asAct);
+//				       		}
+							boolean boo = propaga(va, va.get(na).asAct);
+							
+	//						System.out.println(size);
+	//						System.out.println("DESPRES: ");
+	//						size = 0;
+	//						for (int i = 0; i < va.size(); i++) {
+	//							size += va.get(i).va.size();
+	//							Assignacions as = va.get(i);
+	////							System.out.println(as.va.get(0).e.ConsultarNom());
+	//							for (int k = 0; k < as.va.size(); k++) {
+	//								if (!as.va.isEmpty()) {
+	//									System.out.println(as.va.get(k).e.ConsultarNom());
+	//									break;
+	//								} else System.out.println("em");
+	//							}
+	//						}
+	//						System.out.println(size);
+							
+							
+							
+							System.out.println("boo = " + boo);
+							if (boo) {
+								System.out.println("Sizeee-eh: " + va.size() + " buidilluuu-uh: " + dominiBuit(na+1, va));
+								if (dominiBuit(na+1, va) == -1) {
+									System.out.println(" * ELECCIO: " + a);
+									int m, n;
+									fc(na+1, va, sol);
+									
+									if (va.isEmpty() || va.size() == 0 || trobat) {
+										System.out.println(sol.size() + " vs " + va.size());
+										//trobat = true;
+										return;
+										
+									} else {
+										System.out.println("PUTAAAA");
+										// seguent valor, RESTABLIC ESTAT I SOL!!
+//										sol = sol_antic;
+										sol.remove(sol.size()-1);
+										va = va_antic;
+										
+	//									va = va_antic.pop();
+	//									sol = sol_antic.pop();
+									}
+									
+									
+								} else {
+	
+									System.out.println(" - Domini buit: " + dominiBuit(na+1, va) + " --> " + va.get(dominiBuit(na+1, va)).toString() );
+									// seguent valor
+//									sol = sol_antic;
+									sol.remove(sol.size()-1);
+									va = va_antic;
+	//								va = va_antic.pop();
+	//								sol = sol_antic.pop();
+								}
+								
+								
+							} else if (!trobat){
+								System.out.println(" ! Error al propagar! --- > va: " + va.get(0) + " antic: " + va_antic.get(0));
+								System.out.println(" ! Error al propagar! --- > va: " + va.get(0).va.size() + " antic: " + va_antic.get(0).va.size());
+//								sol = (ArrayList<Assignacio>) sol_antic.clone();
+								sol.remove(sol.size()-1);
+								va = (ArrayList<Assignacions>) va_antic.clone();
+	//							va = va_antic.pop();
+	//							sol = sol_antic.pop();
+								System.out.println(" ! Error al propagar! --- > va: " + va.size() + " antic: " + va_antic.size());
+								System.out.println(" ! Error al propagar! --- > va: " + va.get(0).va.size() + " antic: " + va_antic.get(0).va.size());
+								
+							}
+						}
+					}
+				}
+				
+				
+			} else {
+				System.out.println("Finutiiiiii");
+				trobat = true;
+				sol_def = (ArrayList<Assignacio>) sol.clone();
+			}
+    		
+    		return;
+    		
+    	}
 
-    public boolean PreparaBack() {
-        trobat = false;
-        boolean b = true;
-        for (int i = 0; i < barri.TamRest(); i++) {
-            if (barri.ObteRest(i) instanceof RAlsada) {
-                RestriccioBarris raux = barri.ObteRest(i);
-
-                if (!raux.CompleixRes()) {
-                    System.out.println("No compleix: " + raux.tr);
-                    b = false;
-                }
-            }
-        }
-        return b;
+    
+    private boolean propaga(ArrayList<Assignacions> va, Assignacio a) {
+    	for (int i = 0; i < barri.TamRest(); i++) {
+           if (barri.ObteRest(i).afecta(a)) {
+        	   System.out.println(" - Rest " + barri.ObteRest(i).ObtenirId() + " afecta a " + a.e.ConsultarNom());
+        	   
+        	   boolean boo = barri.ObteRest(i).prop(va, a);
+        	   if (!boo) return false;
+           }
+			
+		}
+    	return true;
     }
 
-    public boolean PostBack() {
-        boolean b = true;
-        for (int i = 0; i < barri.TamRest(); i++) {
-            if (barri.ObteRest(i) instanceof RQuantitat && !((RQuantitat) barri.ObteRest(i)).EsMax()) {
-                RQuantitat raux = (RQuantitat) barri.ObteRest(i);
-                if (raux.EsMax() == false) {
-                    b = b && raux.CompleixRes();
-                }
-            }
-        }
-        return b;
-    }
-
-    void Back(int id, int x, int y, Barri aux) {
-
-        if (id < aux.ConsultarX() * aux.ConsultarY()) {
-            //if (id < (10)) {
-            System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
-
-            for (int i = 0; i < aux.TamEd() && !trobat; i++) {
-
-
-                aux.ObteEd(i).ModificarId(id);
-                aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
-
-
-                //if (x == 14 && y == 14) continue;
-                System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i).nom + " a " + x + ", " + y);
-                boolean b;
-
-                if (b = Legal(aux.ObteEd(i), x, y, aux)) {
-
-                    if (x == (aux.ConsultarX()) - 1) {
-                        Back(id + 1, 0, y + 1, aux);
-                    } else {
-                        Back(id + 1, x + 1, y, aux);
-                    }
-
-                }
-
-
-            }
-            if (!trobat) {
-                aux.BorraIlla(x, y);
-            }
-
-        } else {
-            trobat = true;
-
-        }
-    }
-
-    boolean Legal(Edifici ed, int x, int y, Barri aux) {
-        boolean comp = true;
-        for (int i = 0; i < aux.TamRest(); i++) {
-            TipusRest tr = aux.ObteRest(i).obteTipus();
-          //  System.out.println(aux.ObteRest(i).Info());
-            if (tr == TipusRest.QUANTITAT) {
-                RQuantitat raux = ((RQuantitat) aux.ObteRest(i));
-                if (raux.EsAquest(ed)) {
-                    comp = comp && raux.CompleixRes();
-                }
-
-            }
-
-            if (tr == TipusRest.DISTTIPUS || tr == TipusRest.APARCAMENT) {
-                comp = (comp && aux.ObteRest(i).CompleixRes());
-
-               // if (!comp) {
-                   // System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
-               //     System.out.println();
-                   //comp = false;
-              //  }
-            }
-            
-
-            if (tr == TipusRest.INFUENCIA) {
-                comp = (comp && aux.ObteRest(i).CompleixRes());
-
-               /* if (!comp) {
-                    System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
-                    System.out.println();
-                    //comp = false;
-                }*/
-            }
-
-            if (tr == TipusRest.COST) {
-                if (ed.consultarSubclasse() == TipusEd.SER) {
-                    if (((RCost) aux.ObteRest(i)).EsMax()) {
-                        int c = ((Servei) ed).ConsultarCost();
-                        ((RCost) aux.ObteRest(i)).AugmentaCost(c);
-                        boolean b = ((RCost) aux.ObteRest(i)).CompleixRes();
-                        comp = comp && b;
-                        if (!b) {
-                            ((RCost) aux.ObteRest(i)).RedueixCost(c);
-                        }
-                    }
-                }
-            }
-
-
-            if (tr == TipusRest.IMPOSTOS) {
-                RImpostos raux = ((RImpostos) aux.ObteRest(i));
-                int c;
-                if (ed.consultarSubclasse() == TipusEd.HAB) {
-                    c = ((Habitatge) ed).ConsultarImpost();
-
-                } else if (ed.consultarSubclasse() == TipusEd.NEG) {
-                    c = ((Negoci) ed).ConsultarImpost();
-
-                } else {
-                    c = -1;
-                }
-
-                raux.AssignaImpAct(c);
-
-                boolean b = raux.CompleixRes();
-                comp = comp && b;
-
-            }
-            
-            if (tr == TipusRest.MANTENIMENT) {
-                RManteniment raux = ((RManteniment) aux.ObteRest(i));
-                int c;
-                if (ed.consultarSubclasse() == TipusEd.HAB) {
-                    c = ((Habitatge) ed).ConsultarImpost();
-
-                } else if (ed.consultarSubclasse() == TipusEd.NEG) {
-                    c = ((Negoci) ed).ConsultarImpost();
-
-                } else {
-                    c = -1;
-                }
-
-                raux.AssignaImpAct(c);
-
-                boolean b = raux.CompleixRes();
-                comp = comp && b;
-
-            }
-
-
-        }
-
-       // System.out.println(" --> " + comp);
-      //  System.out.println();
-        return comp;
-
+    
+    private int dominiBuit(int na, ArrayList<Assignacions> va) {
+    	for (int i = na; i < va.size(); i++) {
+    		boolean mal = true;
+			for (int j = 0; j < va.get(i).va.size() && mal; j++) {
+				if (va.get(i).va.get(j).val == true) mal = false;
+			}
+			if (mal) return i;
+		}
+    	
+    	return -1;
 
     }
-
-    public void Imprimeix(Barri aux) {
-        for (int i = 0; i < aux.ConsultarX(); i++) {
-            for (int j = 0; j < aux.ConsultarY(); j++) {
-                String n;
-                if (aux.ConsultarEdifici(i, j) != null) {
-                    n = aux.ConsultarEdifici(i, j).ConsultarNom();
-                } else {
-                    n = "nn";
-                }
-                System.out.print(n + " ");
-            }
-            System.out.println();
-        }
-
+    
+    public void iniciVA() {
+    	for (int i = 0; i < barri.ConsultarX(); i++) {
+			for (int j = 0; j < barri.ConsultarY(); j++) {
+				for (int ne = 0; ne < barri.TamEd(); ne++) {
+					
+				}
+			}
+		}
     }
+    
+    private void borra(ArrayList<Assignacions> va, int x, int y) {
+    	System.out.println(" - Borrat el " + x +"," +y);
+    	for (int i = 0; i < va.size(); i++) {
+    		Assignacions aux = va.get(i);
+    		
+    		if (aux.val) {				
+				for (int j = 0; j < aux.va.size(); j++) {
+					
+					if (aux.va.get(j).x == x && aux.va.get(j).y == y) aux.va.get(j).val = false;
+				}
+    		}
+    	}
 
-    void Back2(int id, int x, int y, Barri aux) {
-        if (id < aux.ConsultarX() * aux.ConsultarY()) {
-            //if (id < (10)) {
-           // System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
-
-            int index = (int) (Math.random() * aux.TamEd());
-
-            for (int j = 0; j < aux.TamEd() && !trobat; j++) {
-
-                int i = (index + j) % aux.TamEd();
-
-                aux.ObteEd(i).ModificarId(id);
-                aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
-
-
-                //if (x == 14 && y == 14) continue;
-               // System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i) + " a " + x + ", " + y);
-                boolean b;
-                if (b = Legal(aux.ObteEd(i), x, y, aux)) {
-
-                    if (x == (aux.ConsultarX()) - 1) {
-                        Back2(id + 1, 0, y + 1, aux);
-                    } else {
-                        Back2(id + 1, x + 1, y, aux);
-                    }
-
-                }
-           //     System.out.println(" --> " + b);
-              //  System.out.println();
-
-            }
-            if (!trobat) {
-                aux.BorraIlla(x, y);
-            }
-
-        } else {
-            trobat = true;
-        }
-    }
-
-    /*    private void Back(int id, int x, int y, Barri aux) {
-     if (id < aux.ConsultarX() * aux.ConsultarY()) {
-     //if (id < (10)) {
-     System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
-
-     for (int i = 0; i < aux.TamEd() && !trobat; i++) {
+    } 
 
 
-     aux.ObteEd(i).ModificarId(id);
-     aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
-
-
-     //if (x == 14 && y == 14) continue;
-     System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i).nom + " a " + x + ", " + y);
-     boolean b;
-     if (b = Legal(aux.ObteEd(i), x, y, aux)) {
-
-     if (x == (aux.ConsultarX()) - 1) {
-     Back(id + 1, 0, y + 1, aux);
-     } else {
-     Back(id + 1, x + 1, y, aux);
-     }
-
-     }
-
-
-     }
-     if (!trobat) {
-     aux.BorraIlla(x, y);
-     }
-
-     } else {
-     trobat = true;
-
-     }
-     }*
-
-     boolean Legal(Edifici ed, int x, int y, Barri aux) {
-     boolean comp = true;
-     for (int i = 0; i < aux.TamRest(); i++) {
-     TipusRest tr = aux.ObteRest(i).obteTipus();
-
-     if (tr == TipusRest.QUANTITAT) {
-     RQuantitat raux = ((RQuantitat) aux.ObteRest(i));
-     if (raux.EsMax()) {
-     comp = comp && raux.CompleixRes();
-     }
-
-     }
-
-     if (tr == TipusRest.DISTTIPUS) {
-     comp = (comp && aux.ObteRest(i).CompleixRes());
-
-     if (!comp) {
-     System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
-     System.out.println();
-     //comp = false;
-     }
-     }
-
-
-     if (tr == TipusRest.INFUENCIA) {
-     ((RInfluencia) aux.ObteRest(i)).RecorreCjt();
-     ((RInfluencia) aux.ObteRest(i)).AssignaPos(x, y);
-     comp = (comp && aux.ObteRest(i).CompleixRes());
-
-     if (!comp) {
-     System.out.println(" --> " + false + "  " + aux.ObteRest(i).obteTipus());
-     System.out.println();
-     //comp = false;
-     }
-     }
-
-     if (tr == TipusRest.COST) {
-     if (ed.consultarSubclasse() == TipusEd.SER) {
-     if (((RCost) aux.ObteRest(i)).EsMax()) {
-     int c = ((Servei) ed).ConsultarCost();
-     ((RCost) aux.ObteRest(i)).AugmentaCost(c);
-     boolean b = ((RCost) aux.ObteRest(i)).CompleixRes();
-     comp = comp && b;
-     if (!b) {
-     ((RCost) aux.ObteRest(i)).RedueixCost(c);
-     }
-     }
-     }
-     }
-
-
-     if (tr == TipusRest.IMPOSTOS) {
-     RImpostos raux = ((RImpostos) aux.ObteRest(i));
-     int c;
-     if (ed.consultarSubclasse() == TipusEd.HAB) {
-     c = ((Habitatge) ed).ConsultarImpost();
-
-     } else if (ed.consultarSubclasse() == TipusEd.NEG) {
-     c = ((Negoci) ed).ConsultarImpost();
-
-     } else {
-     c = -1;
-     }
-
-     raux.AssignaImpAct(c);
-
-     boolean b = raux.CompleixRes();
-     comp = comp && b;
-
-     }
-
-
-     }
-
-     System.out.println(" --> " + comp);
-     System.out.println();
-     return comp;
-
-
-     }
-
-     public void Imprimeix(Barri aux) {
-     for (int i = 0; i < aux.ConsultarX(); i++) {
-     for (int j = 0; j < aux.ConsultarY(); j++) {
-     String n;
-     if (aux.ConsultarEdifici(i, j) != null) {
-     n = aux.ConsultarEdifici(i, j).ConsultarNom();
-     } else {
-     n = "nn";
-     }
-     System.out.print(n + " ");
-     }
-     System.out.println();
-     }
-
-     }
-
-     void Back2(int id, int x, int y, Barri aux) {
-     if (id < aux.ConsultarX() * aux.ConsultarY()) {
-     //if (id < (10)) {
-     System.out.println("BAAAACK id:" + id + " pos: " + x + ", " + y);
-
-     int index = (int) (Math.random() * aux.TamEd());
-
-     for (int j = 0; j < aux.TamEd() && !trobat; j++) {
-
-     int i = (index + j) % aux.TamEd();
-
-     aux.ObteEd(i).ModificarId(id);
-     aux.AfegirAlBarri(aux.ObteEd(i), id, x, y);
-
-
-     //if (x == 14 && y == 14) continue;
-     System.out.println("Intento afegir: " + id + " " + i + " " + aux.ObteEd(i) + " a " + x + ", " + y);
-     boolean b;
-     if (b = Legal(aux.ObteEd(i), x, y, aux)) {
-
-     if (x == (aux.ConsultarX()) - 1) {
-     Back2(id + 1, 0, y + 1, aux);
-     } else {
-     Back2(id + 1, x + 1, y, aux);
-     }
-
-     }
-     System.out.println(" --> " + b);
-     System.out.println();
-
-     }
-     if (!trobat) {
-     aux.BorraIlla(x, y);
-     }
-
-     } else {
-     trobat = true;
-
-     }
-     }*/
     /**
      * Elimina la restriccio identificada amb id.
      *
@@ -613,4 +442,26 @@ public class CtrBarriDom {
     }
     
     
+    public ArrayList<Assignacio> ObteSol() {
+    	return sol_def;
+    }
+    
+    private  ArrayList<Assignacions> copiav(ArrayList<Assignacions> src) {
+    	ArrayList<Assignacions> au = new ArrayList<Assignacions> ();
+		for (int i = 0; i < src.size(); i++) {
+			au.add((Assignacions) src.get(i).clone());
+			
+		}
+		return au;
+    }
+    
+    private  ArrayList<Assignacio> copias(ArrayList<Assignacio> src) {
+    	ArrayList<Assignacio> au = new ArrayList<Assignacio> ();
+		for (int i = 0; i < src.size(); i++) {
+			au.add((Assignacio) src.get(i).clone());
+			
+		}
+		return au;
+    }
 }
+

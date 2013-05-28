@@ -1,4 +1,7 @@
 package barri;
+
+import java.util.ArrayList;
+
 public abstract class RestriccioBarris extends Restriccio {
 	public class Pos {
 		public int x, y;
@@ -43,6 +46,11 @@ public abstract class RestriccioBarris extends Restriccio {
     }
     
     public abstract String Info();
+    
+    public abstract boolean prop(ArrayList<Assignacions> va, Assignacio a);
+
+	public abstract boolean afecta(Assignacio a);
+    	
 
 
 }

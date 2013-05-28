@@ -11,6 +11,7 @@ public class CtrDomRestriccio {
     public enum Atribut {
 
         ALSADA,
+        APARCAMENT,
         COST,
         DISTANCIA,
         //CODI1,
@@ -21,6 +22,7 @@ public class CtrDomRestriccio {
         INFLUENCIA,
         QUANTITAT,
         MAXIM,
+        MANTENIMENT
         //ESPAI,
         //CJTEDIFICIS
     };
@@ -77,23 +79,6 @@ public class CtrDomRestriccio {
     }
 
   
-   /* /**
-     * Crea una restriccio de DISTCODI (no funcional)
-     * @param id la id de la rest
-     * @param dist la dist entre els 2 edificis
-     * @param max distancia maxima o minima
-     * @param el1 el id del edifici1
-     * @param el2 el iod del edifici2
-     * @return torna 0 si ha anat be i 1 si no
-     */ 
-  /*  public int CreaRestDistCodi(int id, int dist, boolean max, int el1, int el2) {
-        if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RDistCodi(id, dist, max, el1, el2, null));
-            return 0;
-        }
-        return -1;
-    }*/
-
     
     
     /**
@@ -156,7 +141,8 @@ public class CtrDomRestriccio {
      * @param id la id de la rest
      * @param quantitat la quantitat a indicar
      * @param max true si maxim
-     * @param e el edifici al qual s'aplica la restricciï¿½
+     * @param e el edifici al qual s'aplica la restricci—
+     * @param e el edifici al qual s'aplica la restriccio
      * @return 0 si ha anat be, -1 si no
      */
     public int CreaRestQuantitat(int id, int quantitat, boolean max, Edifici e) {
