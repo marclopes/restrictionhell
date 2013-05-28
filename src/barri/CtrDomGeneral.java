@@ -61,7 +61,6 @@ public class CtrDomGeneral {
         Classes tipClas;
         tipClas = StringToClase(cl);
         ctrBarri.CreaBarri(n, tipClas, xx, yy);
-
     }
 
     /**
@@ -178,6 +177,30 @@ public class CtrDomGeneral {
 
         return ctrRestric.CreaRestAparcaments(id, aparcaments);
 
+    }
+    
+    public int CreaRestriccioRUHab(int id,String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUHab(id, s, valor, max);
+    }
+    
+    public int CreaRestriccioRUNeg(int id,String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUNeg(id, s, valor, max);
+    }
+    
+    public int CreaRestriccioRUServ(int id,String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUServ(id, s, valor, max);
+    }
+    
+    public int CreaRestriccioRUSubHab(int id, String tipus, String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUSubHab(id, StringHabtoEnum(tipus), s, valor, max);
+    }
+    
+    public int CreaRestriccioRUSubNeg(int id, String tipus, String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUSubNeg(id, StringNegtoEnum(tipus), s, valor, max);
+    }
+    
+    public int CreaRestriccioRUSubServ(int id, String tipus, String s, int valor, boolean max){
+        return ctrRestric.CreaRestriccioRUSubServ(id, StringSertoEnum(tipus), s, valor, max);
     }
 
     /**
@@ -313,20 +336,7 @@ public class CtrDomGeneral {
      * @param nomEdifici Nom del edifici a afegir
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int AfegirEdifici(String nomEdifici,int quantitat) {
-        if (nomEdifici.equals("Habitatge")) {
-            
-        } else if (nomEdifici.equals("Negoci")){
-            
-        } else if (nomEdifici.equals("Servei")) {
-            
-        } else if (StringHabtoEnum(nomEdifici)!=null) {
-            
-        } else if (StringNegtoEnum(nomEdifici)!=null) {
-            
-        } else if (StringSertoEnum(nomEdifici)!=null) {
-            
-        }
+    public int AfegirEdifici(String nomEdifici) {
         Edifici e = ctrEdificis.ObtenirEdifici(nomEdifici);
         if (e == null) {
             return -1;
@@ -515,7 +525,17 @@ public class CtrDomGeneral {
         } else if (c.equals("Quantitat")) {
             return Atribut.QUANTITAT;
         } else if (c.equals("Maxim")) {
-            return Atribut.MAXIM;
+            return Atribut.RUHAB;
+        } else if (c.equals("Maxim")) {
+            return Atribut.RUNEG;
+        } else if (c.equals("Maxim")) {
+            return Atribut.RUSER;
+        } else if (c.equals("Maxim")) {
+            return Atribut.RUSUBHAB;
+        } else if (c.equals("Maxim")) {
+            return Atribut.RUSUBNEG;
+        } else if (c.equals("Maxim")) {
+            return Atribut.RUSUBSER;
         }
         return null;
     }
@@ -675,53 +695,61 @@ public class CtrDomGeneral {
         TipusHab t;
         TipusNegoci n;
         TipusServei se;
-        ctrEdificis.EliminarTotsEdificis();
         arxiu = disc.llegir("ed_"+s);
         while (i < arxiu.size()){
             if(arxiu.get(i).equals("Habitatge")){
                 if(i+7<arxiu.size()){
                     t = StringHabtoEnum(arxiu.get(i+1));
+                    if(t == null) return -1;
                     nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                    if(!ctrEdificis.ExisteixEdifici(nom)){
+                        try{
+                            codi = Integer.parseInt(arxiu.get(i+3));
+                            h = Integer.parseInt(arxiu.get(i+4));
+                            capacitat = Integer.parseInt(arxiu.get(i+5));
+                            impost = Integer.parseInt(arxiu.get(i+6));
+                            aparcament = Integer.parseInt(arxiu.get(i+7));
+                        } catch (NumberFormatException e){return 11;}
                         ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
-                        i = i+7;
-                    } catch (NumberFormatException e){return 11;}
+                    }
+                    i = i+7;
                 }else return 1;
             }
             else if(arxiu.get(i).equals("Servei")){
                 if(i+8<arxiu.size()){
                     se = StringSertoEnum(arxiu.get(i+1));
+                    if(se == null) return -1;
                     nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        cost = Integer.parseInt(arxiu.get(i+6));
-                        manteniment = Integer.parseInt(arxiu.get(i+7));
-                        area = Integer.parseInt(arxiu.get(i+8));
-                        ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
+                    if(!ctrEdificis.ExisteixEdifici(nom)){
+                        try{
+                            codi = Integer.parseInt(arxiu.get(i+3));
+                            h = Integer.parseInt(arxiu.get(i+4));
+                            capacitat = Integer.parseInt(arxiu.get(i+5));
+                            cost = Integer.parseInt(arxiu.get(i+6));
+                            manteniment = Integer.parseInt(arxiu.get(i+7));
+                            area = Integer.parseInt(arxiu.get(i+8));
+                            ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
+                        } catch (NumberFormatException e){return 12;}
                         i = i+8;
-                    } catch (NumberFormatException e){return 12;}
+                    }
                 }else return 2;
             }
             else if(arxiu.get(i).equals("Negoci")){
                 if(i+7<arxiu.size()){
                     n = StringNegtoEnum(arxiu.get(i+1));
+                    if(n == null) return -1;
                     nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
-                        ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
+                    if(!ctrEdificis.ExisteixEdifici(nom)){
+                        try{
+                            codi = Integer.parseInt(arxiu.get(i+3));
+                            h = Integer.parseInt(arxiu.get(i+4));
+                            capacitat = Integer.parseInt(arxiu.get(i+5));
+                            impost = Integer.parseInt(arxiu.get(i+6));
+                            aparcament = Integer.parseInt(arxiu.get(i+7));
+                            ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
+                        } catch (NumberFormatException e){return 13;}
                         i = i+7;
-                    } catch (NumberFormatException e){return 13;}
+                    }
                 }else return 3;
             }
             i++;
@@ -781,7 +809,8 @@ public class CtrDomGeneral {
      * @return Una llista amb el nom de tots els catalegs guardats a la carpeta Data.
      */
     public ArrayList<String> LlistaCatalegRestriccionsDisc(){
-        ArrayList<String> l = disc.llistaDirectori("res_");
+        CtrArxius arxiu = new CtrArxius();
+        ArrayList<String> l = arxiu.llistaDirectori("res_");
         for (int i = 0;i<l.size();i++){
             l.set(i, l.get(i).replaceAll("res_", ""));
             l.set(i, l.get(i).replaceAll(".txt", ""));
@@ -790,16 +819,18 @@ public class CtrDomGeneral {
     }
     
     
-    public int CreaCatalegRestriccions(String s){
-        if(!disc.existeix("res_"+s)){
+    public boolean CreaCatalegRestriccions(String s){
+        CtrArxius c = new CtrArxius();
+        if(!c.existeix("res_"+s)){
             ArrayList<String> l = new ArrayList<String>();
-            disc.creaArxiu("res_"+s, l);
-            return 0;
+            c.creaArxiu("res_"+s, l);
+            return true;
         }
-        return -1;
+        return false;
     }
     
-    public int GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
+    public boolean GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
+        CtrArxius disc = new CtrArxius();
         String s;
         int valor;
         boolean b;
@@ -911,11 +942,12 @@ public class CtrDomGeneral {
         }
         linies.add("");
         disc.creaArxiu("res_"+cataleg, linies);
-        return 0;
+        return true;
     }
     
-    public int CarregaCatalegRestriccions(String cataleg){
+    public boolean CarregaCatalegRestriccions(String cataleg){
         ArrayList<String> l = disc.llegir("res_"+cataleg);
+        ctrRestric = CtrDomRestriccio.ObteInstancia();
         int i = 0, enter, id = 1, x;
         String s, f;
         Edifici e1 = null, e2 = null;
@@ -924,7 +956,7 @@ public class CtrDomGeneral {
             if(l.get(i).equals("Alçada")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestAlsada(id, enter);
                 id++;
                 i = i + 1;
@@ -932,7 +964,7 @@ public class CtrDomGeneral {
             else if(l.get(i).equals("Aparcament")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestAparcaments(id, enter);
                 id++;
                 i = i + 1;
@@ -940,7 +972,7 @@ public class CtrDomGeneral {
             else if(l.get(i).equals("Cost")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 s = l.get(i+2);
                 if(s.equals("Maxim")) max = true;
                 else max = false;
@@ -951,7 +983,7 @@ public class CtrDomGeneral {
             else if(l.get(i).equals("Distancia")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 s = l.get(i+2);
                 if(s.equals("Maxim")) max = true;
                 else max = false;
@@ -972,7 +1004,7 @@ public class CtrDomGeneral {
             else if(l.get(i).equals("Impostos")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestImpostos(id, enter);
                 id++;
                 i = i +1 ;
@@ -980,7 +1012,7 @@ public class CtrDomGeneral {
             else if(l.get(i).equals("Manteniment")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                }catch(NumberFormatException e){return false;}
                 ctrRestric.CreaRestManteniment(id, enter);
                 id++;
                 i = i + 1;
@@ -1059,12 +1091,16 @@ public class CtrDomGeneral {
             }
             i++;
         }
-        return 0;
+        return true;
     }
-
+    
     boolean BarriCarregat() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+    
+    /*public ArrayList<String> LlistaRestriccions(String s){
+        
+    }*/
     
     private int ComprovaTipusEd(String s){
         if(s.equals("Casa") || s.equals("Pis") || s.equals("Xalet") || s.equals("Mansio")){return 1;}
