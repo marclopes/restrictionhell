@@ -1127,7 +1127,7 @@ public class CtrDomGeneral {
     }
 
     public boolean BarriCarregat() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return ctrBarri.BarriCarregat();
     }
 
     public ArrayList<String> LlistaFitxes(String prefix) {

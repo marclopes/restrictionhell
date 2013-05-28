@@ -19,6 +19,7 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
+        private CjtEdificis TempEd;
 	
         /**
          * Crea una instancia de la classe Barri.
@@ -39,8 +40,7 @@ public class Barri implements Serializable {
 		espai = new Espai(x, y);
 		lRestriccions = new ArrayList<RestriccioBarris>();
 		lEdificis = new CjtEdificis();
-		
-		
+		TempEd = new CjtEdificis();
 		
 		
 	}
@@ -58,6 +58,15 @@ public class Barri implements Serializable {
                 return -1;
 	}
 	
+        public int CarregaEdificiTemp(Edifici e) {
+                if(e.EtsClase(this.classe)){
+                    TempEd.AfegirEdifici(e);
+                    return 0;
+                }
+                return -1;
+	}
+	
+        
         public void CarregaEdificis(ArrayList<Edifici> e) {
                 for(Edifici l: e){
                     lEdificis.AfegirEdifici(l);

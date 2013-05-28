@@ -1442,11 +1442,10 @@ public class Main {
     }
 
     private static void GuardaBarri() {
-
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (!controlador.GuardaBarri()) System.out.println("El barri s'ha guardat correctament");
+        else System.out.println("Error al guadar el barri");
     }
 
     private static void CarregaBarri() {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

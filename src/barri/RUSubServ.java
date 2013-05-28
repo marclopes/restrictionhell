@@ -11,20 +11,18 @@ import java.util.ArrayList;
  *
  * @author albert
  */
-public class RUSubServ extends RestriccioBarris implements RCjtEd {
+public class RUSubServ extends RestriccioBarris{
 
-    private CjtEdificis ce;
     private String atribut;
     private int valor;
     private TipusServei tipus;
     private boolean max;
 
-    public RUSubServ(int id, TipusServei tipus, String atribut, int valor, boolean max, CjtEdificis ce) {
+    public RUSubServ(int id, TipusServei tipus, String atribut, int valor, boolean max) {
         super(id);
         this.tipus = tipus;
         this.atribut = atribut;
         this.valor = valor;
-        this.ce = ce;
         this.max = max;
     }
 
@@ -33,55 +31,49 @@ public class RUSubServ extends RestriccioBarris implements RCjtEd {
         return "Restriccio subtipus Servei " + atribut + " " + valor;
     }
 
-    @Override
-    public boolean CompleixRes() {
-        for (int i = 0; i < ce.Tamany(); ++i) {
-            if ((ce.ObtenirEdifici(i) instanceof Servei) && ((Servei) ce.ObtenirEdifici(i)).consultarTipus() == tipus && max) {
+    public boolean CompleixRes(Edifici e) {
+
+            if ((e instanceof Servei) && ((Servei) e).consultarTipus() == tipus && max) {
                 if (atribut.equals("altura")) {
-                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) {
+                    if (e.ConsultarH() > valor) {
                         return false;
                     }
                 } else if (atribut.equals("area")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarAreaInfluencia() > valor) {
+                    if (((Servei) e).ConsultarAreaInfluencia() > valor) {
                         return false;
                     }
                 } else if (atribut.equals("cost")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarCost() > valor) {
+                    if (((Servei) e).ConsultarCost() > valor) {
                         return false;
                     }
                 } else if (atribut.equals("manteniment")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarManteniment() > valor) {
+                    if (((Servei) e).ConsultarManteniment() > valor) {
                         return false;
                     }
                 }
 
-            } else if ((ce.ObtenirEdifici(i) instanceof Servei) && ((Servei) ce.ObtenirEdifici(i)).consultarTipus() == tipus) {
+            } else if ((e instanceof Servei) && ((Servei) e).consultarTipus() == tipus) {
                 if (atribut.equals("altura")) {
-                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) {
+                    if (e.ConsultarH() < valor) {
                         return false;
                     }
                 } else if (atribut.equals("area")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarAreaInfluencia() < valor) {
+                    if (((Servei) e).ConsultarAreaInfluencia() < valor) {
                         return false;
                     }
                 } else if (atribut.equals("cost")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarCost() < valor) {
+                    if (((Servei) e).ConsultarCost() < valor) {
                         return false;
                     }
                 } else if (atribut.equals("manteniment")) {
-                    if (((Servei) ce.ObtenirEdifici(i)).ConsultarManteniment() < valor) {
+                    if (((Servei) e).ConsultarManteniment() < valor) {
                         return false;
                     }
                 }
             }
-        }
         return true;
     }
 
-    @Override
-    public void AssignaCe(CjtEdificis ce) {
-        this.ce = ce;
-    }
     
     public TipusServei ConsultaTipus(){
         return tipus;
@@ -97,5 +89,27 @@ public class RUSubServ extends RestriccioBarris implements RCjtEd {
     
     public boolean EsMax(){
         return max;
+    }
+        public void AssignarMax(String max) {
+        if (max.equals("Maxim"))this.max =true;
+        else if(max.equals("Minim")) this.max = false;
+    }
+    public void AssignaValor(int valor){
+        this.valor = valor;
+    }
+
+    @Override
+    public boolean prop(ArrayList<Assignacions> va, Assignacio a) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean afecta(Assignacio a) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean CompleixRes() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
