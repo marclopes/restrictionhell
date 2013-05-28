@@ -103,7 +103,7 @@ public class Main {
                         throw new Exception();
                     }
                     if (!controlador.BarriCarregat()) {
-                        if (opcio == 2 || opcio == 3 || opcio == 4 || opcio == 5 || opcio == 6 || opcio == 13 || opcio == 14 || opcio ==15) {
+                        if (opcio == 2 || opcio == 3 || opcio == 4 || opcio == 5 || opcio == 6 || opcio == 13 || opcio == 14 || opcio == 15) {
                             throw new Exception("Cal crear o carregar un barri primer");
                         }
                     }
@@ -428,8 +428,8 @@ public class Main {
         }
 
         controlador.CreaBarri(nom, classe, x, y);
-            System.out.println("S'ha creat correctament el barri " + nom
-                    + " de classe " + classe + " i mides " + x + " " + y);
+        System.out.println("S'ha creat correctament el barri " + nom
+                + " de classe " + classe + " i mides " + x + " " + y);
     }
 
     private static void ModificaBarri() {
@@ -487,30 +487,36 @@ public class Main {
 
     private static void EliminaBarri() {
         controlador.EliminarBarri();
-            System.out.println("S'ha eliminat el barri correctament");
+        System.out.println("S'ha eliminat el barri correctament");
     }
 
     private static void AfegirEdifici() {
-        String nom, valor;
-        nom = valor = " ";
+        String valor;
+        int quantitat = 0;
+        valor = " ";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        /* System.out.println("Introdueix nom del barri");
-        try {
-        nom = br.readLine();
-        } catch (Exception e) {
-        }*/
         System.out.println("Introdueix nom del edifici");
         try {
             valor = br.readLine();
         } catch (Exception e) {
         }
-        int result = controlador.AfegirEdifici(valor);
-        if (result == 0) {
-            System.out.println("S'ha afegit l'edifici al barri correctament");
-        } else {
-            System.out.println("Error al afegir l'edifici al barri");
+        System.out.println("Quants edificis vols colocar?");
+        boolean esvalid = false;
+        while (!esvalid) {
+            try {
+                quantitat = Integer.parseInt(br.readLine());
+            } catch (Exception e) {
+            }
         }
+            int result = controlador.AfegirEdifici(valor, quantitat);
+            if (result == 0) {
+                System.out.println("S'ha afegit l'edifici al barri correctament");
+            } else {
+                System.out.println("Error al afegir l'edifici al barri");
+            }
     }
+
+    
 
     private static void ImposarRestriccio() {
         String nom = " ";
@@ -1323,7 +1329,6 @@ public class Main {
         }
     }
 
-
     private static void TreureEdifici() {
         String nom, valor;
         nom = valor = " ";
@@ -1430,6 +1435,7 @@ public class Main {
     }
 
     private static void GuardaBarri() {
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
