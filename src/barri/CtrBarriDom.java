@@ -2,6 +2,7 @@ package barri;
 
 import barri.Edifici.Classes;
 import barri.Edifici.TipusEd;
+import java.util.ArrayList;
 
 /**
  *
@@ -100,6 +101,12 @@ public class CtrBarriDom {
         return -1;
     }
 
+    public void AfegirEdificis(ArrayList<Edifici> e) {
+        if (barri != null) {
+            barri.CarregaEdificis(e);
+
+        }
+    }
     /**
      * Genera una possible distribucio dels edificis del barri amb les
      * restriccions donades
