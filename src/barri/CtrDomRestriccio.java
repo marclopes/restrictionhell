@@ -34,7 +34,6 @@ public class CtrDomRestriccio {
      */
     private CtrDomRestriccio() {
         lRest = new CjtRestriccions();
-        //ctrRestriccio.CreaRestInfluencia();
     }
 
     /**
@@ -141,7 +140,7 @@ public class CtrDomRestriccio {
      * @param id la id de la rest
      * @param quantitat la quantitat a indicar
      * @param max true si maxim
-     * @param e el edifici al qual s'aplica la restricci—
+     * @param e el edifici al qual s'aplica la restricciï¿½
      * @param e el edifici al qual s'aplica la restriccio
      * @return 0 si ha anat be, -1 si no
      */

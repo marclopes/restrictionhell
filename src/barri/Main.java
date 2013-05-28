@@ -4,13 +4,7 @@
  */
 package barri;
 
-import java.util.ArrayList;
 
-import barri.Edifici.Classes;
-import barri.Edifici.TipusEd;
-import barri.Habitatge.TipusHab;
-import barri.Negoci.TipusNegoci;
-import barri.Servei.TipusServei;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -1447,5 +1441,18 @@ public class Main {
     }
 
     private static void CarregaBarri() {
+        String nom ="";
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Introdueix el nom del barri a carregar");
+        try {
+            nom = br.readLine();
+        } catch (Exception e) {
+        }
+        if (controlador.CarregaBarri(nom)) {
+             System.out.println("El barri s'ha carregat correctament");
+        }
+        else {
+            System.out.println("Error al carregar el barri amb nom " +nom);
+        }
     }
 }
