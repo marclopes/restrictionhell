@@ -2,23 +2,13 @@ package barri;
 import java.util.ArrayList;
 
 import barri.Edifici.TipusEd;
-<<<<<<< HEAD
 import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
 import barri.Servei.TipusServei;
-=======
-import static barri.Edifici.TipusEd.HAB;
-import static barri.Edifici.TipusEd.NEG;
-import static barri.Edifici.TipusEd.SER;
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 
 public class RDistTipus extends RDistancia implements RCjtEd{
 	private String e1, e2;
 	private CjtEdificis ce;
-
-<<<<<<< HEAD
-	public RDistTipus(int ID, int d, boolean m, String e1, String e2, Espai e) {
-=======
         /**
          * Crea una instancia de la Restricció de distancia segons el tipus dels edificis.
          * @param ID Identificador de la restricció.
@@ -28,128 +18,22 @@ public class RDistTipus extends RDistancia implements RCjtEd{
          * @param e2 Segon edifici del qual es comprovarà el tipus.
          * @param e Espai on es comprovarà la restricció.
          */
-	public RDistTipus(int ID, int d, boolean m, Edifici e1, Edifici e2, Espai e) {
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
+
+	public RDistTipus(int ID, int d, boolean m, String e1, String e2, Espai e) {
+
 		super(ID, d, m, e);
 		this.e1 = e1;
 		this.e2 = e2;
 		super.tr = TipusRest.DISTTIPUS;
 
 	}
-<<<<<<< HEAD
-/**
-=======
+
 
         /**
          * Comprova que es compleix la restricció.
          * @return Cert si es compleix la restricció.
          */
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
-	public boolean CompleixRes() {
-		int dist_act;
-		int x, y;
-		x = y = 0;
 
-		ArrayList<Pos> l1, l2;
-		l1 = new ArrayList<Pos>();
-		l2 = new ArrayList<Pos>();
-
-		while (x < e.ObteX() && y < e.ObteY() && e.ExisteixElementxy(x, y)) {
-
-			if (e.ExisteixElementxy(x, y)) {
-				Object o = e.ConsultarElementxy(x, y);
-				Edifici ed = ((Illa) e.ConsultarElementxy(x, y)).ConsultaEdifici();
-
-				if (ed.consultarSubclasse() == e1.consultarSubclasse()) {
-					switch (ed.consultarSubclasse()) {
-					case HAB:
-						if (((Habitatge) ed).consultarTipus() == ((Habitatge) e1).consultarTipus()) {
-							l1.add(new Pos(x, y));
-						}
-
-						break;
-
-					case NEG:
-						if (((Negoci) ed).consultarTipus() == ((Negoci) e1).consultarTipus()) {
-							l1.add(new Pos(x, y));
-						}
-				
-						break;
-
-					case SER:
-						if (((Servei) ed).consultarTipus() == ((Servei) e1).consultarTipus()) {
-							l1.add(new Pos(x, y));
-						}
-						break;
-
-					default:
-						break;
-					}
-					
-				}
-					if (ed.consultarSubclasse() == e2.consultarSubclasse()) {
-						switch (ed.consultarSubclasse()) {
-						case HAB:
-
-							if (((Habitatge) ed).consultarTipus() == ((Habitatge) e2).consultarTipus()) {
-								l2.add(new Pos(x, y));
-							}
-							break;
-
-						case NEG:
-
-							if (((Negoci) ed).consultarTipus() == ((Negoci) e2).consultarTipus()) {
-								l2.add(new Pos(x, y));
-							}
-							break;
-
-						case SER:
-
-							if (((Servei) ed).consultarTipus() == ((Servei) e2).consultarTipus()) {
-								l2.add(new Pos(x, y));
-							}
-							break;
-
-						default:
-							break;
-						}
-				}
-
-			}
-			x++;
-			if (x == e.ObteX()) {
-				x = 0;
-				y++;
-			}
-		}
-
-		Pos p1;
-		Pos p2;
-<<<<<<< HEAD
-		
-		//boolean b = true;
-=======
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
-		int di = 999999999;
-		for (int i = 0; i < l1.size(); i++) {
-			p1 = l1.get(i);
-			for (int j = 0; j < l2.size(); j++) {
-				p2 = l2.get(j);
-				
-				if (dist(p1.x, p1.y, p2.x, p2.y) < di && dist(p1.x, p1.y, p2.x, p2.y) != 0) di = dist(p1.x, p1.y, p2.x, p2.y);
-
-			}	
-			
-			
-		}
-		if(max && di > dist) return false;
-		if (!max && di < dist) return false;
-		return true;
-
-	}
-**/
-
-<<<<<<< HEAD
 	public String ConsultarEd1() {
 		return e1;
 	}
@@ -378,45 +262,12 @@ public class RDistTipus extends RDistancia implements RCjtEd{
 		
 		return val1 + val2;
 	}
-	
-=======
-        /**
-         * Consulta el primer edifici de la restricció.
-         * @return L'edifici de la restricció.
-         */
-	public Edifici ConsultarEd1() {
-		return e1;
-	}
 
-        /**
-         * Modifica el primer edifici de la restricció.
-         * @return Nou edifici de la restricció.
-         */
-	public void ModificarEd1(Edifici e) {
-		e1 = e;
-	}
-
-        /**
-         * Consulta el segon edifici de la restricció.
-         * @return L'edifici de la restricció.
-         */
-	public Edifici ConsultarEd2() {
-		return e2;
-	}
-
-        /**
-         * Modifica el segon edifici de la restricció.
-         * @return L'edifici de la restricció.
-         */
-	public void ModificarEd2(Edifici e) {
-		e2 = e;
-	}
-	
         /**
          * Consulta informació sobre la restricció.
          * @return Informació sobre la restricció.
          */
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
+
 	public String Info() {
 		String s;
 		if (max) s = "maxima";
@@ -443,7 +294,7 @@ public class RDistTipus extends RDistancia implements RCjtEd{
 		this.ce = ce;
 		
 	}
-<<<<<<< HEAD
+
 	
 	
 	private TipusEd StringTedToEnum(String n) {
@@ -514,6 +365,4 @@ public class RDistTipus extends RDistancia implements RCjtEd{
 		}
 
 
-=======
->>>>>>> e4c5f07292b716dd9aa4f259b244c09e9543232c
 }
