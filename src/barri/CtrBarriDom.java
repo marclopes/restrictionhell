@@ -604,4 +604,6 @@ public class CtrBarriDom {
     void NetejarEdificis(String nom) {
         barri.NetejarEdificis(nom);
     }
+    
+    
 }

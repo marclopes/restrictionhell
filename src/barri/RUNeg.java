@@ -31,39 +31,37 @@ public class RUNeg extends RestriccioBarris implements RCjtEd {
         return "Restriccio Negoci " + atribut + " " + valor;
     }
 
-    @Override
-    public boolean CompleixRes() {
-        for (int i = 0; i < ce.Tamany(); ++i) {
-            if (ce.ObtenirEdifici(i) instanceof Negoci && max) {
+    //@Override
+    public boolean CompleixRes(Edifici e) {       
+            if (e instanceof Negoci && max) {
                 if (atribut.equals("altura")) {
-                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) {
+                    if (e.ConsultarH() > valor) {
                         return false;
                     }
                 } else if (atribut.equals("aparcament")) {
-                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarAparcament() > valor) {
+                    if (((Negoci) e).ConsultarAparcament() > valor) {
                         return false;
                     }
                 } else if (atribut.equals("impostos")) {
-                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarImpost() > valor) {
+                    if (((Negoci) e).ConsultarImpost() > valor) {
                         return false;
                     }
                 }
 
-            } else if (ce.ObtenirEdifici(i) instanceof Negoci) {
+            } else if (e instanceof Negoci) {
                 if (atribut.equals("altura")) {
-                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) {
+                    if (e.ConsultarH() < valor) {
                         return false;
                     }
                 } else if (atribut.equals("aparcament")) {
-                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarAparcament() < valor) {
+                    if (((Negoci) e).ConsultarAparcament() < valor) {
                         return false;
                     }
                 } else if (atribut.equals("impostos")) {
-                    if (((Negoci) ce.ObtenirEdifici(i)).ConsultarImpost() < valor) {
+                    if (((Negoci) e).ConsultarImpost() < valor) {
                         return false;
                     }
                 }
-            }
         }
         return true;
     }
@@ -83,5 +81,10 @@ public class RUNeg extends RestriccioBarris implements RCjtEd {
     
     public boolean EsMax(){
         return max;
+    }
+
+    @Override
+    public boolean CompleixRes() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

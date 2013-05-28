@@ -239,4 +239,18 @@ public class CtrEdDom {
         return aux;
         
     }
+    
+    public ArrayList<String> LlistatEdificis(String tipus){
+        ArrayList<String> aux = new ArrayList<String>();
+        ArrayList<Edifici> edi = ObtenirEdificisTipus(tipus);
+        for(int i = 0 ; i<edi.size();++i){
+            aux.add(edi.get(i).ConsultarNom());
+        }
+        return aux;
+    }
+    
+    public ArrayList<Edifici> ObtenirEdificisTipus(String tipus) {
+        return cjtEd.ObtenirEdificisTipus(tipus);
+    }
+     
 }

@@ -21,7 +21,7 @@ public class CtrDomGeneral {
     private CtrDomRestriccio ctrRestric;
     private CtrArxius disc = new CtrArxius();
     private CtrObjectes obj = new CtrObjectes();
-    
+
     /**
      * Crea una instancia del Controlador general de domini
      */
@@ -61,7 +61,6 @@ public class CtrDomGeneral {
         Classes tipClas;
         tipClas = StringToClase(cl);
         ctrBarri.CreaBarri(n, tipClas, xx, yy);
-
     }
 
     /**
@@ -86,7 +85,7 @@ public class CtrDomGeneral {
     }
 
     /* public void CrearRestriccioDistanciaCodi() {
-     }*/
+    }*/
     /**
      * Crea una restriccio de distancia sobre 2 tipus d'edificis
      *
@@ -104,24 +103,25 @@ public class CtrDomGeneral {
             TipusServei serv = StringSertoEnum(el1);
             if (hab != null) {
                 ctrRestric.AssignaHab(id, 1, StringHabtoEnum(el1));
-            }
-            else if (neg != null) {
+            } else if (neg != null) {
                 ctrRestric.AssignaNeg(id, 1, StringNegtoEnum(el1));
-            } else if (serv != null){
+            } else if (serv != null) {
                 ctrRestric.AssignaSer(id, 1, StringSertoEnum(el1));
+            } else {
+                return -1;
             }
-            else return -1;
             hab = StringHabtoEnum(el2);
             neg = StringNegtoEnum(el2);
             serv = StringSertoEnum(el2);
             if (hab != null) {
                 ctrRestric.AssignaHab(id, 2, StringHabtoEnum(el2));
-            }
-            else if (neg != null) {
+            } else if (neg != null) {
                 ctrRestric.AssignaNeg(id, 2, StringNegtoEnum(el2));
-            } else if (serv != null){
+            } else if (serv != null) {
                 ctrRestric.AssignaSer(id, 2, StringSertoEnum(el2));
-            } else return -1;
+            } else {
+                return -1;
+            }
         }
         return rest;
     }
@@ -313,26 +313,21 @@ public class CtrDomGeneral {
      * @param nomEdifici Nom del edifici a afegir
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
-    public int AfegirEdifici(String nomEdifici,int quantitat) {
-        if (nomEdifici.equals("Habitatge")) {
-            
-        } else if (nomEdifici.equals("Negoci")){
-            
-        } else if (nomEdifici.equals("Servei")) {
-            
-        } else if (StringHabtoEnum(nomEdifici)!=null) {
-            
-        } else if (StringNegtoEnum(nomEdifici)!=null) {
-            
-        } else if (StringSertoEnum(nomEdifici)!=null) {
-            
+    public int AfegirEdifici(String nomEdifici, int quantitat) {
+        ArrayList<Edifici> aux;
+        if (nomEdifici.equals("Habitatge") || nomEdifici.equals("Negoci") || nomEdifici.equals("Servei") || StringHabtoEnum(nomEdifici) != null || StringNegtoEnum(nomEdifici) != null || StringSertoEnum(nomEdifici) != null) {
+            aux = ctrEdificis.ObtenirEdificisTipus(nomEdifici);
+            for (Edifici e : aux) {
+                ctrBarri.AfegirEdifici(e);
+            }
+            return 0;
+        } else {
+            Edifici e = ctrEdificis.ObtenirEdifici(nomEdifici);
+            if (e == null) {
+                return -1;
+            }
+            return ctrBarri.AfegirEdifici(e);
         }
-        Edifici e = ctrEdificis.ObtenirEdifici(nomEdifici);
-        if (e == null) {
-            return -1;
-        }
-        return ctrBarri.AfegirEdifici(e);
-
     }
 
     /**
@@ -408,7 +403,7 @@ public class CtrDomGeneral {
         }
         return null;
     }
-    
+
     private TipusServei StringSertoEnum(String n) {
         if (n.equals("Hospital")) {
             return TipusServei.Hospital;
@@ -427,7 +422,7 @@ public class CtrDomGeneral {
         }
         return null;
     }
-    
+
     private String EnumSertoString(TipusServei n) {
         if (n.equals(TipusServei.Hospital)) {
             return "Hospital";
@@ -467,7 +462,7 @@ public class CtrDomGeneral {
         }
         return null;
     }
-    
+
     private String EnumNegtoString(TipusNegoci n) {
         if (n.equals(TipusNegoci.Discoteca)) {
             return "Discoteca";
@@ -519,8 +514,7 @@ public class CtrDomGeneral {
         }
         return null;
     }
-    
-    
+
     /**
      * Llista tots els edificis carregats
      * @return 
@@ -528,127 +522,124 @@ public class CtrDomGeneral {
     public ArrayList<String> LlistatEdificis() {
         return ctrEdificis.LlistatEdificis();
     }
-    
+
     /**
      * Crea un cataleg d'edificis buit.
      * @param s Nom del catàleg que volem crear
      * @return Cert si es pot crear el cataleg. Fals si no es pot crear.
      */
-    public boolean CreaCatalegEdificis(String s){
-        if(!disc.existeix("ed_"+s)){
+    public boolean CreaCatalegEdificis(String s) {
+        if (!disc.existeix("ed_" + s)) {
             ArrayList<String> l = new ArrayList<String>();
-            disc.creaArxiu("ed_"+s, l);
+            disc.creaArxiu("ed_" + s, l);
             return true;
         }
         return false;
     }
-    
+
     /**
      * Consulta tots els edificis que hi ha al directori.
      * @return Una llista amb el nom dels barris.
      */
-    public ArrayList<String> LlistaCatalegEdificisDisc(){
+    public ArrayList<String> LlistaCatalegEdificisDisc() {
         ArrayList<String> l = new ArrayList<String>();
         l = disc.llistaDirectori("ed_");
-        for (int i = 0;i<l.size();i++){
+        for (int i = 0; i < l.size(); i++) {
             l.set(i, l.get(i).replaceAll("ed_", ""));
             l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
     }
-    
+
     /**
      * Crea un fitxer editable amb extensió txt dins del directori ./data on el 
      * nom es la concatenació de ed_ i el nom de l'edifici que volem guardar.
      * @param e Edifici que volem guardar en un fitxet editable.
      */
-    public int GuardaEdificiDiscText(Edifici e, String cataleg, boolean sobreescriure){
+    public int GuardaEdificiDiscText(Edifici e, String cataleg, boolean sobreescriure) {
         ArrayList<String> linies = new ArrayList();
-        linies = disc.llegir("ed_"+cataleg);
+        linies = disc.llegir("ed_" + cataleg);
         String nom = e.ConsultarNom();
         int index = -100;
-        if(linies.contains(nom) && !sobreescriure){return -1;} //L'edifici ja existeix
-        else if(linies.contains(nom) && sobreescriure){
+        if (linies.contains(nom) && !sobreescriure) {
+            return -1;
+        } //L'edifici ja existeix
+        else if (linies.contains(nom) && sobreescriure) {
             index = linies.indexOf(nom);
             int codi = e.ConsultarCodi();
             int h = e.ConsultarH();
             int capacitat = e.ConsultarCapacitat();
             int impost, aparcament, cost, manteniment, area;
-            if(e.tipusEd == TipusEd.HAB){
+            if (e.tipusEd == TipusEd.HAB) {
                 impost = ((Habitatge) e).ConsultarImpost();
                 aparcament = ((Habitatge) e).ConsultarAparcament();
-                linies.set(index-2, "Habitatge");
-                linies.set(index-1, EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.set(index - 2, "Habitatge");
+                linies.set(index - 1, EnumHabtoString(((Habitatge) e).consultarTipus()));
                 linies.set(index, String.valueOf(nom));
-                linies.set(index+1, String.valueOf(codi));
-                linies.set(index+2, String.valueOf(h));
-                linies.set(index+3, String.valueOf(capacitat));
-                linies.set(index+4, String.valueOf(impost));
-                linies.set(index+5, String.valueOf(aparcament));
-            }
-            else if(e.tipusEd == TipusEd.NEG){
+                linies.set(index + 1, String.valueOf(codi));
+                linies.set(index + 2, String.valueOf(h));
+                linies.set(index + 3, String.valueOf(capacitat));
+                linies.set(index + 4, String.valueOf(impost));
+                linies.set(index + 5, String.valueOf(aparcament));
+            } else if (e.tipusEd == TipusEd.NEG) {
                 impost = ((Negoci) e).ConsultarImpost();
                 aparcament = ((Negoci) e).ConsultarAparcament();
-                linies.set(index-2, "Negoci");
-                linies.set(index-1, EnumNegtoString(((Negoci)e).consultarTipus()));
+                linies.set(index - 2, "Negoci");
+                linies.set(index - 1, EnumNegtoString(((Negoci) e).consultarTipus()));
                 linies.set(index, String.valueOf(nom));
-                linies.set(index+1, String.valueOf(codi));
-                linies.set(index+2, String.valueOf(h));
-                linies.set(index+3, String.valueOf(capacitat));
-                linies.set(index+4, String.valueOf(impost));
-                linies.set(index+5, String.valueOf(aparcament));
-            }
-            else if(e.tipusEd == TipusEd.SER){
+                linies.set(index + 1, String.valueOf(codi));
+                linies.set(index + 2, String.valueOf(h));
+                linies.set(index + 3, String.valueOf(capacitat));
+                linies.set(index + 4, String.valueOf(impost));
+                linies.set(index + 5, String.valueOf(aparcament));
+            } else if (e.tipusEd == TipusEd.SER) {
                 cost = ((Servei) e).ConsultarCost();
                 manteniment = ((Servei) e).ConsultarManteniment();
                 area = ((Servei) e).ConsultarAreaInfluencia();
-                linies.set(index-2, "Servei");
-                linies.set(index-1, EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.set(index - 2, "Servei");
+                linies.set(index - 1, EnumHabtoString(((Habitatge) e).consultarTipus()));
                 linies.set(index, String.valueOf(nom));
-                linies.set(index+1, String.valueOf(codi));
-                linies.set(index+2, String.valueOf(h));
-                linies.set(index+3, String.valueOf(capacitat));
-                linies.set(index+4, String.valueOf(cost));
-                linies.set(index+5, String.valueOf(manteniment));
-                linies.set(index+6, String.valueOf(area));
+                linies.set(index + 1, String.valueOf(codi));
+                linies.set(index + 2, String.valueOf(h));
+                linies.set(index + 3, String.valueOf(capacitat));
+                linies.set(index + 4, String.valueOf(cost));
+                linies.set(index + 5, String.valueOf(manteniment));
+                linies.set(index + 6, String.valueOf(area));
             }
-        }
-        else{
+        } else {
             int codi = e.ConsultarCodi();
             int h = e.ConsultarH();
             int capacitat = e.ConsultarCapacitat();
             int impost, aparcament, cost, manteniment, area;
             linies.add("");
-            if(e.tipusEd == TipusEd.HAB){
+            if (e.tipusEd == TipusEd.HAB) {
                 impost = ((Habitatge) e).ConsultarImpost();
                 aparcament = ((Habitatge) e).ConsultarAparcament();
                 linies.add("Habitatge");
-                linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.add(EnumHabtoString(((Habitatge) e).consultarTipus()));
                 linies.add(String.valueOf(nom));
                 linies.add(String.valueOf(codi));
                 linies.add(String.valueOf(h));
                 linies.add(String.valueOf(capacitat));
                 linies.add(String.valueOf(impost));
                 linies.add(String.valueOf(aparcament));
-            }
-            else if(e.tipusEd == TipusEd.NEG){
+            } else if (e.tipusEd == TipusEd.NEG) {
                 impost = ((Negoci) e).ConsultarImpost();
                 aparcament = ((Negoci) e).ConsultarAparcament();
                 linies.add("Negoci");
-                linies.add(EnumNegtoString(((Negoci)e).consultarTipus()));
+                linies.add(EnumNegtoString(((Negoci) e).consultarTipus()));
                 linies.add(String.valueOf(nom));
                 linies.add(String.valueOf(codi));
                 linies.add(String.valueOf(h));
                 linies.add(String.valueOf(capacitat));
                 linies.add(String.valueOf(impost));
                 linies.add(String.valueOf(aparcament));
-            }
-            else if(e.tipusEd == TipusEd.SER){
+            } else if (e.tipusEd == TipusEd.SER) {
                 cost = ((Servei) e).ConsultarCost();
                 manteniment = ((Servei) e).ConsultarManteniment();
                 area = ((Servei) e).ConsultarAreaInfluencia();
                 linies.add("Servei");
-                linies.add(EnumHabtoString(((Habitatge)e).consultarTipus()));
+                linies.add(EnumHabtoString(((Habitatge) e).consultarTipus()));
                 linies.add(String.valueOf(nom));
                 linies.add(String.valueOf(codi));
                 linies.add(String.valueOf(h));
@@ -658,16 +649,16 @@ public class CtrDomGeneral {
                 linies.add(String.valueOf(area));
             }
         }
-        disc.creaArxiu("ed_"+cataleg, linies);
+        disc.creaArxiu("ed_" + cataleg, linies);
         return index;
     }
-    
+
     /**
      * Llegeix els fitxers amb extensió txt del directori ./data i que comencen 
      * amb el nom "ed_", i carrèga tots els edificis definits a dintre, ignora els
      * edificis que estiguin mal declarats.  
      */
-    public int CarregaCatalegEdifici(String s){
+    public int CarregaCatalegEdifici(String s) {
         ArrayList<String> arxiu;
         int i = 0;
         String nom;
@@ -676,384 +667,459 @@ public class CtrDomGeneral {
         TipusNegoci n;
         TipusServei se;
         ctrEdificis.EliminarTotsEdificis();
-        arxiu = disc.llegir("ed_"+s);
-        while (i < arxiu.size()){
-            if(arxiu.get(i).equals("Habitatge")){
-                if(i+7<arxiu.size()){
-                    t = StringHabtoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
+        arxiu = disc.llegir("ed_" + s);
+        while (i < arxiu.size()) {
+            if (arxiu.get(i).equals("Habitatge")) {
+                if (i + 7 < arxiu.size()) {
+                    t = StringHabtoEnum(arxiu.get(i + 1));
+                    nom = arxiu.get(i + 2);
+                    try {
+                        codi = Integer.parseInt(arxiu.get(i + 3));
+                        h = Integer.parseInt(arxiu.get(i + 4));
+                        capacitat = Integer.parseInt(arxiu.get(i + 5));
+                        impost = Integer.parseInt(arxiu.get(i + 6));
+                        aparcament = Integer.parseInt(arxiu.get(i + 7));
                         ctrEdificis.CreaHabitatge(impost, aparcament, nom, codi, h, capacitat, t);
-                        i = i+7;
-                    } catch (NumberFormatException e){return 11;}
-                }else return 1;
-            }
-            else if(arxiu.get(i).equals("Servei")){
-                if(i+8<arxiu.size()){
-                    se = StringSertoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        cost = Integer.parseInt(arxiu.get(i+6));
-                        manteniment = Integer.parseInt(arxiu.get(i+7));
-                        area = Integer.parseInt(arxiu.get(i+8));
+                        i = i + 7;
+                    } catch (NumberFormatException e) {
+                        return 11;
+                    }
+                } else {
+                    return 1;
+                }
+            } else if (arxiu.get(i).equals("Servei")) {
+                if (i + 8 < arxiu.size()) {
+                    se = StringSertoEnum(arxiu.get(i + 1));
+                    nom = arxiu.get(i + 2);
+                    try {
+                        codi = Integer.parseInt(arxiu.get(i + 3));
+                        h = Integer.parseInt(arxiu.get(i + 4));
+                        capacitat = Integer.parseInt(arxiu.get(i + 5));
+                        cost = Integer.parseInt(arxiu.get(i + 6));
+                        manteniment = Integer.parseInt(arxiu.get(i + 7));
+                        area = Integer.parseInt(arxiu.get(i + 8));
                         ctrEdificis.CreaServei(cost, manteniment, area, nom, codi, h, capacitat, se);
-                        i = i+8;
-                    } catch (NumberFormatException e){return 12;}
-                }else return 2;
-            }
-            else if(arxiu.get(i).equals("Negoci")){
-                if(i+7<arxiu.size()){
-                    n = StringNegtoEnum(arxiu.get(i+1));
-                    nom = arxiu.get(i+2);
-                    try{
-                        codi = Integer.parseInt(arxiu.get(i+3));
-                        h = Integer.parseInt(arxiu.get(i+4));
-                        capacitat = Integer.parseInt(arxiu.get(i+5));
-                        impost = Integer.parseInt(arxiu.get(i+6));
-                        aparcament = Integer.parseInt(arxiu.get(i+7));
+                        i = i + 8;
+                    } catch (NumberFormatException e) {
+                        return 12;
+                    }
+                } else {
+                    return 2;
+                }
+            } else if (arxiu.get(i).equals("Negoci")) {
+                if (i + 7 < arxiu.size()) {
+                    n = StringNegtoEnum(arxiu.get(i + 1));
+                    nom = arxiu.get(i + 2);
+                    try {
+                        codi = Integer.parseInt(arxiu.get(i + 3));
+                        h = Integer.parseInt(arxiu.get(i + 4));
+                        capacitat = Integer.parseInt(arxiu.get(i + 5));
+                        impost = Integer.parseInt(arxiu.get(i + 6));
+                        aparcament = Integer.parseInt(arxiu.get(i + 7));
                         ctrEdificis.CreaNegoci(impost, aparcament, nom, codi, h, capacitat, n);
-                        i = i+7;
-                    } catch (NumberFormatException e){return 13;}
-                }else return 3;
+                        i = i + 7;
+                    } catch (NumberFormatException e) {
+                        return 13;
+                    }
+                } else {
+                    return 3;
+                }
             }
             i++;
         }
         return 0;
     }
-    
+
     /**
      * Consulta tots els barris que hi ha al directori.
      * @return Una llista amb el nom dels barris.
      */
-    public ArrayList<String> LlistaBarrisDisc(){
+    public ArrayList<String> LlistaBarrisDisc() {
         ArrayList<String> l = disc.llistaDirectori("bar_");
-        for (int i = 0;i<l.size();i++){
+        for (int i = 0; i < l.size(); i++) {
             l.set(i, l.get(i).replaceAll("bar_", ""));
             l.set(i, l.get(i).replaceAll(".o", ""));
         }
         return l;
     }
-    
+
     /**
      * Llegeix de disc una instancia de barri.
      * @param f El nom del barri que volem carregar.
      * @return La instancia del barri.
      */
-    public boolean CarregaBarri(String f){
-        if(obj.existeix("bar_"+f)){
-            Object o = obj.llegirObjecte("bar_"+f);
-            Barri b = (Barri)o;
+    public boolean CarregaBarri(String f) {
+        if (obj.existeix("bar_" + f)) {
+            Object o = obj.llegirObjecte("bar_" + f);
+            Barri b = (Barri) o;
             ctrBarri.CreaBarri(b);
             return true;
         }
         return false;
     }
-    
+
     /**
      * Guarda al disc una instancia de barri.
      * @param b El barri que volem guardar.
      * @return retorna Cert si pot guardar el barri .Fals tant si hi ha problemes com si ja existeixen objectes amb aquell nom
      */
-    public boolean GuardaBarri(){
-        return obj.creaObjecte("bar_"+ctrBarri.ObtenirBarri().ConsultarNom(), ctrBarri.ObtenirBarri());
+    public boolean GuardaBarri() {
+        return obj.creaObjecte("bar_" + ctrBarri.ObtenirBarri().ConsultarNom(), ctrBarri.ObtenirBarri());
     }
-    
+
     //Aquesta funciona es per proves
-    public Edifici ObteEdifici(String s){
+    public Edifici ObteEdifici(String s) {
         return ctrEdificis.ObtenirEdifici(s);
     }
-    
+
     //Aquesta funciona es per proves
-    public RestriccioBarris ObteRestriccio(int id){
+    public RestriccioBarris ObteRestriccio(int id) {
         return ctrRestric.ObtenirRest(id);
     }
-    
+
     /**
      * Consulta tot els catàlegs de restriccions que hi ha guardats.
      * @return Una llista amb el nom de tots els catalegs guardats a la carpeta Data.
      */
-    public ArrayList<String> LlistaCatalegRestriccionsDisc(){
+    public ArrayList<String> LlistaCatalegRestriccionsDisc() {
         ArrayList<String> l = disc.llistaDirectori("res_");
-        for (int i = 0;i<l.size();i++){
+        for (int i = 0; i < l.size(); i++) {
             l.set(i, l.get(i).replaceAll("res_", ""));
             l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
     }
-    
-    
-    public int CreaCatalegRestriccions(String s){
-        if(!disc.existeix("res_"+s)){
+
+    public int CreaCatalegRestriccions(String s) {
+        if (!disc.existeix("res_" + s)) {
             ArrayList<String> l = new ArrayList<String>();
-            disc.creaArxiu("res_"+s, l);
+            disc.creaArxiu("res_" + s, l);
             return 0;
         }
         return -1;
     }
-    
-    public int GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
+
+    public int GuardaRestriccioCataleg(RestriccioBarris r, String cataleg) {
         String s;
         int valor;
         boolean b;
         ArrayList<String> linies = new ArrayList();
-        linies = disc.llegir("res_"+cataleg);
+        linies = disc.llegir("res_" + cataleg);
         TipusRest t = r.obteTipus();
-        if(t == TipusRest.ALSADA){
+        if (t == TipusRest.ALSADA) {
             linies.add("Alçada");
             int h = ((RAlsada) r).ConsultarAlsada();
             linies.add(String.valueOf(h));
-        }
-        else if(t == TipusRest.APARCAMENT){
+        } else if (t == TipusRest.APARCAMENT) {
             linies.add("Aparcament");
             int ap = ((RAparcament) r).ConsultarAp();
             linies.add(String.valueOf(ap));
-        }
-        else if(t == TipusRest.COST){
+        } else if (t == TipusRest.COST) {
             linies.add("Cost");
             int cost = ((RCost) r).ConsultarCost();
             boolean maxcost = ((RCost) r).EsMax();
             linies.add(String.valueOf(cost));
-            if(maxcost)linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.DISTTIPUS){
+            if (maxcost) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.DISTTIPUS) {
             linies.add("Distancia");
             int d = ((RDistTipus) r).ConsultarDist();
             linies.add(String.valueOf(d));
             boolean maxd = ((RDistTipus) r).EsMax();
-            if(maxd)linies.add("Maxim");
-            else linies.add("Minim");
+            if (maxd) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
             Edifici e1 = ((RDistTipus) r).ConsultarEd1();
             Edifici e2 = ((RDistTipus) r).ConsultarEd2();
             TipusEd te = e1.consultarSubclasse();
-            if(te == TipusEd.HAB)linies.add(EnumHabtoString(((Habitatge) e1).consultarTipus()));
-            else if(te == TipusEd.NEG)linies.add(EnumNegtoString(((Negoci) e1).consultarTipus()));
-            else if(te == TipusEd.SER)linies.add(EnumSertoString(((Servei) e1).consultarTipus()));
+            if (te == TipusEd.HAB) {
+                linies.add(EnumHabtoString(((Habitatge) e1).consultarTipus()));
+            } else if (te == TipusEd.NEG) {
+                linies.add(EnumNegtoString(((Negoci) e1).consultarTipus()));
+            } else if (te == TipusEd.SER) {
+                linies.add(EnumSertoString(((Servei) e1).consultarTipus()));
+            }
             te = e2.consultarSubclasse();
-            if(te == TipusEd.HAB)linies.add(EnumHabtoString(((Habitatge) e2).consultarTipus()));
-            else if(te == TipusEd.NEG)linies.add(EnumNegtoString(((Negoci) e2).consultarTipus()));
-            else if(te == TipusEd.SER)linies.add(EnumSertoString(((Servei) e2).consultarTipus()));
-        }
-        else if(t == TipusRest.IMPOSTOS){
+            if (te == TipusEd.HAB) {
+                linies.add(EnumHabtoString(((Habitatge) e2).consultarTipus()));
+            } else if (te == TipusEd.NEG) {
+                linies.add(EnumNegtoString(((Negoci) e2).consultarTipus()));
+            } else if (te == TipusEd.SER) {
+                linies.add(EnumSertoString(((Servei) e2).consultarTipus()));
+            }
+        } else if (t == TipusRest.IMPOSTOS) {
             linies.add("Impostos");
             int imp = ((RImpostos) r).ConsultarImp();
             linies.add(String.valueOf(imp));
-        }
-        else if(t == TipusRest.MANTENIMENT){
+        } else if (t == TipusRest.MANTENIMENT) {
             linies.add("Manteniment");
             int mant = ((RManteniment) r).ConsultarCostBarri();
             linies.add(String.valueOf(mant));
-        }
-        else if(t == TipusRest.RUHAB){
+        } else if (t == TipusRest.RUHAB) {
             linies.add("Atribut habitatge");
             s = ((RUHab) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUHab) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUHab) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.RUNEG){
+            if (((RUHab) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.RUNEG) {
             linies.add("Atribut negoci");
             s = ((RUNeg) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUNeg) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUNeg) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.RUSERV){
+            if (((RUNeg) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.RUSERV) {
             linies.add("Atribut servei");
             s = ((RUServ) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUServ) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUServ) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.RUSUBHAB){
+            if (((RUServ) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.RUSUBHAB) {
             linies.add("Atribut tipus habitatge");
             linies.add(EnumHabtoString(((RUSubHab) r).ConsultaTipus()));
             s = ((RUSubHab) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUSubHab) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUSubHab) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.RUSUBNEG){
+            if (((RUSubHab) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.RUSUBNEG) {
             linies.add("Atribut tipus negoci");
             linies.add(EnumNegtoString(((RUSubNeg) r).ConsultaTipus()));
             s = ((RUSubNeg) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUSubNeg) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUSubNeg) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
-        }
-        else if(t == TipusRest.RUSUBSERV){
+            if (((RUSubNeg) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
+        } else if (t == TipusRest.RUSUBSERV) {
             linies.add("Atribut tipus servei");
             linies.add(EnumSertoString(((RUSubServ) r).ConsultaTipus()));
             s = ((RUSubServ) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUSubServ) r).ConsultaValor();
             linies.add(String.valueOf(valor));
-            if(((RUSubServ) r).EsMax())linies.add("Maxim");
-            else linies.add("Minim");
+            if (((RUSubServ) r).EsMax()) {
+                linies.add("Maxim");
+            } else {
+                linies.add("Minim");
+            }
         }
         linies.add("");
-        disc.creaArxiu("res_"+cataleg, linies);
+        disc.creaArxiu("res_" + cataleg, linies);
         return 0;
     }
-    
-    public int CarregaCatalegRestriccions(String cataleg){
-        ArrayList<String> l = disc.llegir("res_"+cataleg);
+
+    public int CarregaCatalegRestriccions(String cataleg) {
+        ArrayList<String> l = disc.llegir("res_" + cataleg);
         int i = 0, enter, id = 1, x;
         String s, f;
         Edifici e1 = null, e2 = null;
         boolean max;
-        while(i < l.size()){
-            if(l.get(i).equals("Alçada")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+        while (i < l.size()) {
+            if (l.get(i).equals("Alçada")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
                 ctrRestric.CreaRestAlsada(id, enter);
                 id++;
                 i = i + 1;
-            }
-            else if(l.get(i).equals("Aparcament")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+            } else if (l.get(i).equals("Aparcament")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
                 ctrRestric.CreaRestAparcaments(id, enter);
                 id++;
                 i = i + 1;
-            }
-            else if(l.get(i).equals("Cost")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
-                s = l.get(i+2);
-                if(s.equals("Maxim")) max = true;
-                else max = false;
+            } else if (l.get(i).equals("Cost")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                s = l.get(i + 2);
+                if (s.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
                 ctrRestric.CreaRestCost(id, enter, max);
                 id++;
                 i = i + 2;
-            }
-            else if(l.get(i).equals("Distancia")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
-                s = l.get(i+2);
-                if(s.equals("Maxim")) max = true;
-                else max = false;
-                s = l.get(i+3);
+            } else if (l.get(i).equals("Distancia")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                s = l.get(i + 2);
+                if (s.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                s = l.get(i + 3);
                 x = ComprovaTipusEd(s);
-                if(x == 1){e1 = new Habitatge(0,0,"",0,0,0,StringHabtoEnum(s));}
-                else if(x == 1){e1 = new Negoci(0,0,"",0,0,0,StringNegtoEnum(s));}
-                else if(x == 1){e1 = new Servei(0,0,0,"",0,0,0,StringSertoEnum(s));}
-                s = l.get(i+4);
+                if (x == 1) {
+                    e1 = new Habitatge(0, 0, "", 0, 0, 0, StringHabtoEnum(s));
+                } else if (x == 1) {
+                    e1 = new Negoci(0, 0, "", 0, 0, 0, StringNegtoEnum(s));
+                } else if (x == 1) {
+                    e1 = new Servei(0, 0, 0, "", 0, 0, 0, StringSertoEnum(s));
+                }
+                s = l.get(i + 4);
                 x = ComprovaTipusEd(s);
-                if(x == 1){e2 = new Habitatge(0,0,"",0,0,0,StringHabtoEnum(s));}
-                else if(x == 1){e2 = new Negoci(0,0,"",0,0,0,StringNegtoEnum(s));}
-                else if(x == 1){e2 = new Servei(0,0,0,"",0,0,0,StringSertoEnum(s));}
+                if (x == 1) {
+                    e2 = new Habitatge(0, 0, "", 0, 0, 0, StringHabtoEnum(s));
+                } else if (x == 1) {
+                    e2 = new Negoci(0, 0, "", 0, 0, 0, StringNegtoEnum(s));
+                } else if (x == 1) {
+                    e2 = new Servei(0, 0, 0, "", 0, 0, 0, StringSertoEnum(s));
+                }
                 ctrRestric.CreaDistTipus(id, id, max, e1, e2);
                 id++;
                 i = i + 4;
-            }
-            else if(l.get(i).equals("Impostos")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+            } else if (l.get(i).equals("Impostos")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
                 ctrRestric.CreaRestImpostos(id, enter);
                 id++;
-                i = i +1 ;
-            }
-            else if(l.get(i).equals("Manteniment")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return -1;}
+                i = i + 1;
+            } else if (l.get(i).equals("Manteniment")) {
+                try {
+                    enter = Integer.parseInt(l.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
                 ctrRestric.CreaRestManteniment(id, enter);
                 id++;
                 i = i + 1;
-            }
-            else if(l.get(i).equals("Atribut habitatge")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+3);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUHab(id,s,enter,max);
+            } else if (l.get(i).equals("Atribut habitatge")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 2));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 3);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUHab(id, s, enter, max);
                 id++;
                 i = i + 3;
-            }
-            else if(l.get(i).equals("Atribut negoci")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+3);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUNeg(id,s,enter,max);
+            } else if (l.get(i).equals("Atribut negoci")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 2));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 3);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUNeg(id, s, enter, max);
                 id++;
                 i = i + 3;
-            }
-            else if(l.get(i).equals("Atribut servei")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+3);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUServ(id,s,enter,max);
+            } else if (l.get(i).equals("Atribut servei")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 2));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 3);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUServ(id, s, enter, max);
                 id++;
                 i = i + 3;
-            }
-            else if(l.get(i).equals("Atribut tipus habitatge")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+4);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUSubHab(id,StringHabtoEnum(l.get(i+2)),s,enter,max);
+            } else if (l.get(i).equals("Atribut tipus habitatge")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 3));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 4);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUSubHab(id, StringHabtoEnum(l.get(i + 2)), s, enter, max);
                 id++;
                 i = i + 4;
-            }
-            else if(l.get(i).equals("Atribut tipus negoci")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+4);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUSubNeg(id,StringNegtoEnum(l.get(i+2)),s,enter,max);
+            } else if (l.get(i).equals("Atribut tipus negoci")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 3));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 4);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUSubNeg(id, StringNegtoEnum(l.get(i + 2)), s, enter, max);
                 id++;
                 i = i + 4;
-            }
-            else if(l.get(i).equals("Atribut tipus servei")){
-                s = l.get(i+1);
-                try{
-                    enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
-                f = l.get(i+4);
-                if(f.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestriccioRUSubServ(id,StringSertoEnum(l.get(i+2)),s,enter,max);
+            } else if (l.get(i).equals("Atribut tipus servei")) {
+                s = l.get(i + 1);
+                try {
+                    enter = Integer.parseInt(l.get(i + 3));
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+                f = l.get(i + 4);
+                if (f.equals("Maxim")) {
+                    max = true;
+                } else {
+                    max = false;
+                }
+                ctrRestric.CreaRestriccioRUSubServ(id, StringSertoEnum(l.get(i + 2)), s, enter, max);
                 id++;
                 i = i + 4;
             }
@@ -1062,14 +1128,31 @@ public class CtrDomGeneral {
         return 0;
     }
 
-    boolean BarriCarregat() {
+    public boolean BarriCarregat() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
-    private int ComprovaTipusEd(String s){
-        if(s.equals("Casa") || s.equals("Pis") || s.equals("Xalet") || s.equals("Mansio")){return 1;}
-        else if (s.equals("Discoteca") || s.equals("Banc") || s.equals("Bar") || s.equals("Restaurant") || s.equals("Botiga_roba") || s.equals("Botiga_alimentacio") || s.equals("Escola_privada") || s.equals("Clinica")){return 2;}
-        else if (s.equals("Hospital") || s.equals("Escola") || s.equals("Policia") || s.equals("Preso") || s.equals("Bombers") || s.equals("Parc") || s.equals("Centre_cultural")){return 3;}
+
+    public ArrayList<String> LlistaFitxes(String prefix) {
+        //Barris comencen per bar_ ,catalegs edificis per ed_ i catalegs restriccions per res_
+        return disc.llistaDirectori(prefix);
+    }
+
+    public ArrayList<String> LlistaEdificis() {
+        return ctrEdificis.LlistatEdificis();
+    }
+
+    public ArrayList<String> LlistaEdificis(String tipus) {
+        return ctrEdificis.LlistatEdificis(tipus);
+    }
+
+    private int ComprovaTipusEd(String s) {
+        if (s.equals("Casa") || s.equals("Pis") || s.equals("Xalet") || s.equals("Mansio")) {
+            return 1;
+        } else if (s.equals("Discoteca") || s.equals("Banc") || s.equals("Bar") || s.equals("Restaurant") || s.equals("Botiga_roba") || s.equals("Botiga_alimentacio") || s.equals("Escola_privada") || s.equals("Clinica")) {
+            return 2;
+        } else if (s.equals("Hospital") || s.equals("Escola") || s.equals("Policia") || s.equals("Preso") || s.equals("Bombers") || s.equals("Parc") || s.equals("Centre_cultural")) {
+            return 3;
+        }
         return -1;
     }
 }

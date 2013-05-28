@@ -29,33 +29,31 @@ public class RUServ  extends RestriccioBarris implements RCjtEd {
         return "Restriccio Servi " + atribut + " " + valor;
     }
 
-    @Override
-    public boolean CompleixRes() {
-        for (int i =0 ; i< ce.Tamany() ; ++i ) {
-            if (ce.ObtenirEdifici(i) instanceof Servei && max ) {
+//    @Override
+    public boolean CompleixRes(Edifici e) {
+            if (e instanceof Servei && max ) {
                 if (atribut.equals("altura")){
-                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) return false;
+                    if (e.ConsultarH() > valor) return false;
                 } else if(atribut.equals("area")){
-                    if (( (Servei)ce.ObtenirEdifici(i)).ConsultarAreaInfluencia()> valor) return false;
+                    if (( (Servei)e).ConsultarAreaInfluencia()> valor) return false;
                 } else if (atribut.equals("cost")) {
-                     if (( (Servei)ce.ObtenirEdifici(i)).ConsultarCost()> valor) return false;
+                     if (( (Servei)e).ConsultarCost()> valor) return false;
                 }
                 else if (atribut.equals("manteniment")) {
-                     if (( (Servei)ce.ObtenirEdifici(i)).ConsultarManteniment()> valor) return false;
+                     if (( (Servei)e).ConsultarManteniment()> valor) return false;
                 }
                 
-            } else if(ce.ObtenirEdifici(i) instanceof Servei) {
+            } else if(e instanceof Servei) {
                 if (atribut.equals("altura")){
-                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) return false;
+                    if (e.ConsultarH() < valor) return false;
                 } else if(atribut.equals("area")){
-                    if (( (Servei)ce.ObtenirEdifici(i)).ConsultarAreaInfluencia()< valor) return false;
+                    if (( (Servei)e).ConsultarAreaInfluencia()< valor) return false;
                 } else if (atribut.equals("cost")) {
-                     if (( (Servei)ce.ObtenirEdifici(i)).ConsultarCost()< valor) return false;
+                     if (( (Servei)e).ConsultarCost()< valor) return false;
                 }
                 else if (atribut.equals("manteniment")) {
-                     if (( (Servei)ce.ObtenirEdifici(i)).ConsultarManteniment()< valor) return false;
+                     if (( (Servei)e).ConsultarManteniment()< valor) return false;
                 }
-            }
         }
         return true;
     }
@@ -75,6 +73,11 @@ public class RUServ  extends RestriccioBarris implements RCjtEd {
     
     public boolean EsMax(){
         return max;
+    }
+
+    @Override
+    public boolean CompleixRes() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
 

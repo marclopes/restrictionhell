@@ -31,34 +31,32 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
           return "Restriccio subtipus Negoci " + atribut + " " + valor;
     }
 
-    @Override
-    public boolean CompleixRes() {
-        for (int i =0 ; i< ce.Tamany() ; ++i ) {
-            if ((ce.ObtenirEdifici(i) instanceof Negoci) && ((Negoci)ce.ObtenirEdifici(i)).consultarTipus() == tipus && max) {
+//    @Override
+    public boolean CompleixRes(Edifici e) {
+            if ((e instanceof Negoci) && ((Negoci)e).consultarTipus() == tipus && max) {
                 if (atribut.equals("altura")){
-                    if (ce.ObtenirEdifici(i).ConsultarH() > valor) return false;
+                    if (e.ConsultarH() > valor) return false;
                 } else if(atribut.equals("aparcament")){
-                    if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarAparcament()> valor) return false;
+                    if (( (Habitatge)e).ConsultarAparcament()> valor) return false;
                 } else if (atribut.equals("impostos")) {
-                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarImpost()> valor) return false;
+                     if (( (Habitatge)e).ConsultarImpost()> valor) return false;
                 }
                 else if (atribut.equals("capacitat")) {
-                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarCapacitat()> valor) return false;
+                     if (( (Habitatge)e).ConsultarCapacitat()> valor) return false;
                 }
                 
-            } else if ((ce.ObtenirEdifici(i) instanceof Negoci) && ((Negoci)ce.ObtenirEdifici(i)).consultarTipus() == tipus) {
+            } else if ((e instanceof Negoci) && ((Negoci)e).consultarTipus() == tipus) {
                 if (atribut.equals("altura")){
-                    if (ce.ObtenirEdifici(i).ConsultarH() < valor) return false;
+                    if (e.ConsultarH() < valor) return false;
                 } else if(atribut.equals("aparcament")){
-                    if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarAparcament()< valor) return false;
+                    if (( (Habitatge)e).ConsultarAparcament()< valor) return false;
                 } else if (atribut.equals("impostos")) {
-                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarImpost()< valor) return false;
+                     if (( (Habitatge)e).ConsultarImpost()< valor) return false;
                 }
                 else if (atribut.equals("capacitat")) {
-                     if (( (Habitatge)ce.ObtenirEdifici(i)).ConsultarCapacitat()< valor) return false;
+                     if (( (Habitatge)e).ConsultarCapacitat()< valor) return false;
                 }
             }
-        }
         return true;
     }
 
@@ -81,5 +79,10 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
     
     public boolean EsMax(){
         return max;
+    }
+
+    @Override
+    public boolean CompleixRes() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

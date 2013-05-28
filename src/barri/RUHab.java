@@ -26,8 +26,8 @@ public class RUHab  extends RestriccioBarris implements RCjtEd {
         return "Restriccio Habitatges " + atribut + " " + valor;
     }
 
-    @Override
-    public boolean CompleixRes() {
+    //@Override
+    public boolean CompleixRes(Edifici e) {
             if (e instanceof Habitatge && max) {
                 if (atribut.equals("altura")){
                     if (e.ConsultarH() > valor) return false;
