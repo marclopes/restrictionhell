@@ -58,6 +58,12 @@ public class Barri implements Serializable {
                 return -1;
 	}
 	
+        public void CarregaEdificis(ArrayList<Edifici> e) {
+                for(Edifici l: e){
+                    lEdificis.AfegirEdifici(l);
+                }
+	}
+        
         /**
          * Esborra un edifici del conjunt d'edificis del barri.
          * @param e Edifici que volem eliminar.
