@@ -183,6 +183,43 @@ public class CtrDomRestriccio {
         return -1;
     }
 
+       
+    public int CreaRestriccioRUHab(int id, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUHab(id,s,valor,max,null));
+        }
+        return -1;
+    }
+    public int CreaRestriccioRUNeg(int id, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUNeg(id,s,valor,max,null));
+        }
+        return -1;
+    }
+    public int CreaRestriccioRUServ(int id, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUServ(id,s,valor,max,null));
+        }
+        return -1;
+    }
+    public int CreaRestriccioRUSubHab(int id, TipusHab t, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUSubHab(id,t,s,valor,max,null));
+        }
+        return -1;
+    }
+    public int CreaRestriccioRUSubNeg(int id, TipusNegoci t, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUSubNeg(id,t,s,valor,max,null));
+        }
+        return -1;
+    }
+    public int CreaRestriccioRUSubServ(int id,TipusServei t, String s, int valor, boolean max){
+        if (!ctrRestriccio.ExisteixRestriccio(id)) {
+            lRest.AfegirRes(new RUSubServ(id,t,s,valor,max,null));
+        }
+        return -1;
+    }
     
     /**
      * Tipus de restriccio
