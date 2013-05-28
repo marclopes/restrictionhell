@@ -194,7 +194,15 @@ public class CtrEdDom {
     public Edifici ObtenirEdifici(String n) {
         return cjtEd.ObtenirEdifici(n);
     }
+    
+    public Edifici ObtenirEdifici(int i) {
+        return cjtEd.ObtenirEdifici(i);
+    }
 
+    public int Tamany() {
+        return cjtEd.Tamany();
+    }
+    
     /**
      * Comprova que l'edifici identificat per nom existeix.
      *
