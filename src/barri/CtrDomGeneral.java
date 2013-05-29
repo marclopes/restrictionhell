@@ -888,7 +888,7 @@ public class CtrDomGeneral {
                 try{
                     enter = Integer.parseInt(l.get(i+1));
                 }catch(NumberFormatException e){return -1;}
-                ctrRestric.CreaRestriccioGlobal(++idRes, cataleg, enter);
+                ctrRestric.CreaRestriccioGlobal(++idRes, s, enter);
                 i = i + 1;
             }
             else if(l.get(i).equals("Distancia")){
@@ -1043,6 +1043,7 @@ public class CtrDomGeneral {
     /*public ArrayList<String> LlistaRestriccions(String s){
         
     }*/
+    /*
     public ArrayList<String> ObteEdClas(String tipus,String clase) {
         if (tipus.equals("Habitatge")) {
             return ctrEdificis.ObteEdClas(TipusEd.HAB,clase);
@@ -1052,6 +1053,6 @@ public class CtrDomGeneral {
             return ctrEdificis.ObteEdClas(TipusEd.SER,clase);
         } else return null;
     }
-
+*/
 
 }

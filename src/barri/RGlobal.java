@@ -20,7 +20,7 @@ public class RGlobal extends RestriccioBarris{
 	@Override
 	public String Info() {
 		// TODO Auto-generated method stub
-		return null;
+		return (atrib + " maxim = " + val);
 	}
 
 	@Override
