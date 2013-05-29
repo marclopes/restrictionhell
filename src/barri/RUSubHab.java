@@ -30,7 +30,7 @@ public class RUSubHab extends RestriccioBarris {
 
     @Override
     public String Info() {
-        return "Restriccio subtipus Habitatge " + atribut + " " + valor;
+        return "Restriccio subtipus d'Habitatge "+ tipus.toString() + atribut + " " + valor;
     }
 
     //@Override
@@ -99,10 +99,12 @@ public class RUSubHab extends RestriccioBarris {
     public boolean CompleixRes() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-        public void AssignarMax(String max) {
+    
+    public void AssignarMax(String max) {
         if (max.equals("Maxim"))this.max =true;
         else if(max.equals("Minim")) this.max = false;
     }
+    
     public void AssignaValor(int valor){
         this.valor = valor;
     }

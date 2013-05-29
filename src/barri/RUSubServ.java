@@ -28,7 +28,7 @@ public class RUSubServ extends RestriccioBarris{
 
     @Override
     public String Info() {
-        return "Restriccio subtipus Servei " + atribut + " " + valor;
+        return "Restriccio subtipus de Servei "+tipus.toString() + atribut + " " + valor;
     }
 
     public boolean CompleixRes(Edifici e) {

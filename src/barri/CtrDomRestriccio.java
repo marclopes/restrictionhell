@@ -22,7 +22,8 @@ public class CtrDomRestriccio {
         INFLUENCIA,
         QUANTITAT,
         MAXIM,
-        MANTENIMENT
+        MANTENIMENT,
+        VALOR
         //ESPAI,
         //CJTEDIFICIS
     };
@@ -43,41 +44,19 @@ public class CtrDomRestriccio {
     public static CtrDomRestriccio ObteInstancia() {
         if (ctrRestriccio == null) {
             ctrRestriccio = new CtrDomRestriccio();
-            ctrRestriccio.CreaRestInfluencia();
         }
         return ctrRestriccio;
     }
 
-    /**
-     * Crea una Restriccio d'alsada
-     * @param id La id de la rest
-     * @param alsada La alsada de la rest
-     * @return torna 0 si ha anar be i 1 si no
-     */
-    public int CreaRestAlsada(int id, int alsada) {
+    
+    public int CreaRestriccioGlobal(int id, String atribut, int valor) {
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-        	lRest.AfegirRes(new RAlsada(id, alsada, null));
+        	lRest.AfegirRes(new RGlobal(id,atribut,valor));
            // lRest.add(new RAlsada(id, alsada, null));
             return 0;
         }
         return -1;
     }
-    
-    /**
-     * Crea una Restriccio de cost
-     * @param id La id de la rest
-     * @param cost El cost de la rest
-     * @return torna 0 si ha anat be i 1 si no
-     */
-    public int CreaRestCost(int id, int cost, boolean max) {
-        if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RCost(id, cost, max, null));
-            return 0;
-        }
-        return -1;
-    }
-
-  
     
     
     /**
@@ -89,52 +68,14 @@ public class CtrDomRestriccio {
      * @param el2 el edifici2
      * @return
      */
-    public int CreaDistTipus(int id, int dist, boolean max, Edifici el1, Edifici el2) {
+    public int CreaDistTipus(int id, int dist, boolean max, String el1, String el2) {
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
             lRest.AfegirRes(new RDistTipus(id, dist, max, el1, el2, null));
             return 0;
         }
         return -1;
     }
-
-    
-    /**
-     * Crea restriccio de impostos
-     * @param id la id de la rest
-     * @param imp la quantitat d'impostos
-     * @return 0 si tot ha anat be, -1 si no
-     */
-    public int CreaRestImpostos(int id, int imp) {
-        if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RImpostos(id, imp, null));
-            return 0;
-        }
-        return -1;
-    }
-
-    /**
-     * Crea una Restriccio de influencia
-     */
-    private void CreaRestInfluencia() {
-        lRest.AfegirRes(new RInfluencia(0, null));
-    }
-
-    
-    
-    /**
-     * crea una restriccio de manteniment
-     * @param id la id de la rest
-     * @param costBarri el cost del barri
-     * @return 0 si ha anat be, -1 si no
-     */
-    public int CreaRestManteniment(int id, int costBarri) {
-        if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RManteniment(id, costBarri, null));
-            return 0;
-        }
-        return -1;
-    }
-
+   
     /**
      * crea una restriccio de quantitat
      * @param id la id de la rest
@@ -144,64 +85,47 @@ public class CtrDomRestriccio {
      * @param e el edifici al qual s'aplica la restriccio
      * @return 0 si ha anat be, -1 si no
      */
-    public int CreaRestQuantitat(int id, int quantitat, boolean max, Edifici e) {
+    public int CreaRestQuantitat(int id, int quantitat, boolean max, String e) {
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RQuantitat(id, quantitat, e, max));
+            lRest.AfegirRes(new RQuantitat(id, quantitat, e));
             return 0;
         }
         return -1;
     }
 
-    
-    
-    /**
-     * crea una restriccio d' aparcaments
-     * @param id la id de la rest
-     * @param aparcaments numero d'aparcaments
-     * @return
-     */
-    public int CreaRestAparcaments(int id, int aparcaments) {
-        if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RAparcament(id, aparcaments, null));
-            return 0;
-        }
-        return -1;
-    }
-
-       
     public int CreaRestriccioRUHab(int id, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUHab(id,s,valor,max,null));
+            lRest.AfegirRes(new RUHab(id,s,valor,max));
         }
         return -1;
     }
     public int CreaRestriccioRUNeg(int id, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUNeg(id,s,valor,max,null));
+            lRest.AfegirRes(new RUNeg(id,s,valor,max));
         }
         return -1;
     }
     public int CreaRestriccioRUServ(int id, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUServ(id,s,valor,max,null));
+            lRest.AfegirRes(new RUServ(id,s,valor,max));
         }
         return -1;
     }
     public int CreaRestriccioRUSubHab(int id, TipusHab t, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUSubHab(id,t,s,valor,max,null));
+            lRest.AfegirRes(new RUSubHab(id,t,s,valor,max));
         }
         return -1;
     }
     public int CreaRestriccioRUSubNeg(int id, TipusNegoci t, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUSubNeg(id,t,s,valor,max,null));
+            lRest.AfegirRes(new RUSubNeg(id,t,s,valor,max));
         }
         return -1;
     }
     public int CreaRestriccioRUSubServ(int id,TipusServei t, String s, int valor, boolean max){
         if (!ctrRestriccio.ExisteixRestriccio(id)) {
-            lRest.AfegirRes(new RUSubServ(id,t,s,valor,max,null));
+            lRest.AfegirRes(new RUSubServ(id,t,s,valor,max));
         }
         return -1;
     }
@@ -228,37 +152,53 @@ public class CtrDomRestriccio {
     public int ModificarRestriccio(int id, Atribut atribut, String valor) {
         RestriccioBarris aux = ObtenirRest(id);
         int val = Integer.parseInt(valor);
-
-        if (atribut == Atribut.ALSADA && aux.obteTipus() == TipusRest.ALSADA) {
-            ((RAlsada) aux).ModificarAlsada(val);
+        if (aux instanceof RGlobal) {
+            ((RGlobal)aux).AssignaVal(val);
             return 0;
-
-        } else if (atribut == Atribut.COST && aux.obteTipus() == TipusRest.COST) {
-            ((RCost) aux).ModificarCost(val);
+        }
+        if (aux instanceof RUHab) {
+            if (atribut == Atribut.MAXIM)
+                ((RUHab)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUHab)aux).AssignaValor(val);
             return 0;
-
-        } else if (atribut == Atribut.IMPOSTOS && aux.obteTipus() == TipusRest.IMPOSTOS) {
-            ((RImpostos) aux).ModificarImp(val);
+        }
+        if (aux instanceof RUNeg) {
+            if (atribut == Atribut.MAXIM)
+                ((RUNeg)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUNeg)aux).AssignaValor(val);
             return 0;
-        } else if (atribut == Atribut.QUANTITAT && aux.obteTipus() == TipusRest.QUANTITAT) {
-            ((RQuantitat) aux).ModificarQuant(val);
+        }
+        if (aux instanceof RUServ) {
+            if (atribut == Atribut.MAXIM)
+                ((RUServ)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUServ)aux).AssignaValor(val);
             return 0;
-
-            /**
-             * } else if (atribut == Atribut.ESPAI && aux instanceof REspai) {
-             *
-             */
-        } else if (atribut == Atribut.MAXIM && aux instanceof RMax) {
-            if (val != 0) {
-                ((RMax) aux).CanviaMax(true);
-            } else {
-                ((RMax) aux).CanviaMax(false);
-            }
+        }
+        if (aux instanceof RUSubHab) {
+            if (atribut == Atribut.MAXIM)
+                ((RUSubHab)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUSubHab)aux).AssignaValor(val);
             return 0;
-
+        }
+        if (aux instanceof RUSubNeg) {
+            if (atribut == Atribut.MAXIM)
+                ((RUSubNeg)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUSubNeg)aux).AssignaValor(val);
+            return 0;
+        }
+        if (aux instanceof RUSubServ) {
+            if (atribut == Atribut.MAXIM)
+                ((RUSubServ)aux).AssignarMax(valor);
+            if (atribut == Atribut.VALOR)
+                ((RUSubServ)aux).AssignaValor(val);
+            return 0;
         }
         return -1;
-
     }
 
    
@@ -268,10 +208,10 @@ public class CtrDomRestriccio {
      * @param nEd numero d'edifici (1r o 2n)
      * @param th tipus d'habitatge
      */
-    public void AssignaHab(int id, int nEd, TipusHab th) {
+    /*public void AssignaHab(int id, int nEd, TipusHab th) {
     	Habitatge ed = new Habitatge(0, 0, "aux", 0, 0, 0, th);
     	AssignaEdPriv(id, nEd, ed);
-    }
+    }*/
     
     /**
      * Assigna un negoci a la restriccio
@@ -279,10 +219,10 @@ public class CtrDomRestriccio {
      * @param nEd numero d'edifici (1r o 2n)
      * @param tn tipus de negoci
      */
-    public void AssignaNeg(int id, int nEd, TipusNegoci tn) {
+    /*public void AssignaNeg(int id, int nEd, TipusNegoci tn) {
     	Negoci ed = new Negoci(0, 0, "aux", 0, 0, 0, tn);
     	AssignaEdPriv(id, nEd, ed);
-    }
+    }*/
     
     
     /**
@@ -291,10 +231,10 @@ public class CtrDomRestriccio {
      * @param nEd numero d'edicifi
      * @param ts tipus de servei
      */
-    public void AssignaSer(int id, int nEd, TipusServei ts) {
+   /* public void AssignaSer(int id, int nEd, TipusServei ts) {
     	Servei ed = new Servei(0, 0, 0, "aux", 0, 0, 0, ts);
     	AssignaEdPriv(id, nEd, ed);
-    }
+    }*/
     
     
     
@@ -306,7 +246,7 @@ public class CtrDomRestriccio {
      * @param nEd numero d'edifici
      * @param ed edifici a afegir el seu tipus
      */
-    private void AssignaEdPriv(int id, int nEd, Edifici ed) {
+    private void AssignaEdPriv(int id, int nEd, String ed) {
         RestriccioBarris aux = ObtenirRest(id);
         if (nEd == 2 && aux instanceof RDistTipus) {
             ((RDistTipus) aux).ModificarEd2(ed);

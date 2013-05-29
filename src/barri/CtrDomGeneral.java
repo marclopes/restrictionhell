@@ -63,25 +63,10 @@ public class CtrDomGeneral {
         ctrBarri.CreaBarri(n, tipClas, xx, yy);
     }
 
-    /**
-     * Crea una restriccio de tipus alçada
-     *
-     * @param alsada Es l'alçada maxima que defineix la restriccio
-     * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
-     */
-    public int CrearRestriccioAlsada(int id, int alsada) { // esperar nova clase restriccio
-        return ctrRestric.CreaRestAlsada(id, alsada);
-    }
-
-    /**
-     * Crea una restriccio de tipus cost
-     *
-     * @param cost Es el cost maxim/minim del barri
-     * @param max Indica si el cost es maxim o el cost es minim
-     * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
-     */
-    public int CrearRestriccioCost(int id, int cost, boolean max) {
-        return ctrRestric.CreaRestCost(id, cost, max);
+    
+    public int CrearRestriccioGlobal(int id, String s, int valor){
+        ctrRestric.CreaRestriccioGlobal(id, s, valor);
+        return 0;
     }
 
     /* public void CrearRestriccioDistanciaCodi() {
@@ -96,56 +81,7 @@ public class CtrDomGeneral {
      * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
      */
     public int CrearRestriccioDistanciaTipus(int id, int dist, boolean max, String el1, String el2) {
-        int rest = ctrRestric.CreaDistTipus(id, dist, max, null, null);
-        if (rest == 0) {
-            TipusHab hab = StringHabtoEnum(el1);
-            TipusNegoci neg = StringNegtoEnum(el1);
-            TipusServei serv = StringSertoEnum(el1);
-            if (hab != null) {
-                ctrRestric.AssignaHab(id, 1, StringHabtoEnum(el1));
-            } else if (neg != null) {
-                ctrRestric.AssignaNeg(id, 1, StringNegtoEnum(el1));
-            } else if (serv != null) {
-                ctrRestric.AssignaSer(id, 1, StringSertoEnum(el1));
-            } else {
-                return -1;
-            }
-            hab = StringHabtoEnum(el2);
-            neg = StringNegtoEnum(el2);
-            serv = StringSertoEnum(el2);
-            if (hab != null) {
-                ctrRestric.AssignaHab(id, 2, StringHabtoEnum(el2));
-            } else if (neg != null) {
-                ctrRestric.AssignaNeg(id, 2, StringNegtoEnum(el2));
-            } else if (serv != null) {
-                ctrRestric.AssignaSer(id, 2, StringSertoEnum(el2));
-            } else {
-                return -1;
-            }
-        }
-        return rest;
-    }
-
-    /**
-     * Crea una restriccio d'impostos
-     *
-     * @param imp Impostos minims que cal recaptar
-     * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
-     */
-    public int CreaRestriccioImpostos(int id, int imp) {
-        return ctrRestric.CreaRestImpostos(id, imp);
-    }
-
-    /**
-     * Crea una restriccio sobre el cost de manteniment
-     *
-     * 
-     * @param cost Qost maxim de manteniment de serveis publics
-     * @return Retorna un codi d'error (0 si s'ha fet be, -1 si s'ha fet
-     * malament)
-     */
-    public int CreaRestriccioManteniment(int id, int cost) {
-        return ctrRestric.CreaRestManteniment(id, cost);
+        return ctrRestric.CreaDistTipus(id, dist, max, el1, el2);
     }
 
     /**
@@ -159,25 +95,7 @@ public class CtrDomGeneral {
      * malament)
      */
     public int CreaRestriccioQuantitat(int id, int quantitat, boolean max, String edifici) {
-        Edifici e = ctrEdificis.ObtenirEdifici(edifici);
-        if (e != null) {
-            return ctrRestric.CreaRestQuantitat(id, quantitat, max, e);
-
-        }
-        return -1;
-    }
-
-    /**
-     * Crea una restriccio de quantitat minim d'aparcaments
-     *
-     * @param id Identificador de la restriccio
-     * @param aparcaments nombre minim d'aparcaments
-     * @return retorna 0 si tot ha anat be i -1 si hi ha hagut problemes
-     */
-    public int CreaRestriccioAparcament(int id, int aparcaments) {
-
-        return ctrRestric.CreaRestAparcaments(id, aparcaments);
-
+            return ctrRestric.CreaRestQuantitat(id, quantitat, max, edifici);
     }
     
     public int CreaRestriccioRUHab(int id,String s, int valor, boolean max){
@@ -845,25 +763,11 @@ public class CtrDomGeneral {
         ArrayList<String> linies = new ArrayList();
         linies = disc.llegir("res_" + cataleg);
         TipusRest t = r.obteTipus();
-        if (t == TipusRest.ALSADA) {
-            linies.add("Alçada");
-            int h = ((RAlsada) r).ConsultarAlsada();
-            linies.add(String.valueOf(h));
-        } else if (t == TipusRest.APARCAMENT) {
-            linies.add("Aparcament");
-            int ap = ((RAparcament) r).ConsultarAp();
-            linies.add(String.valueOf(ap));
-        } else if (t == TipusRest.COST) {
-            linies.add("Cost");
-            int cost = ((RCost) r).ConsultarCost();
-            boolean maxcost = ((RCost) r).EsMax();
-            linies.add(String.valueOf(cost));
-            if (maxcost) {
-                linies.add("Maxim");
-            } else {
-                linies.add("Minim");
-            }
-        } else if (t == TipusRest.DISTTIPUS) {
+        if(r instanceof RGlobal ) {
+            linies.add(((RGlobal) r).ObteAtrib());
+            linies.add(String.valueOf(((RGlobal) r).ObteVal()));
+        }
+        else if (t == TipusRest.DISTTIPUS) {
             linies.add("Distancia");
             int d = ((RDistTipus) r).ConsultarDist();
             linies.add(String.valueOf(d));
@@ -873,32 +777,10 @@ public class CtrDomGeneral {
             } else {
                 linies.add("Minim");
             }
-            Edifici e1 = ((RDistTipus) r).ConsultarEd1();
-            Edifici e2 = ((RDistTipus) r).ConsultarEd2();
-            TipusEd te = e1.consultarSubclasse();
-            if (te == TipusEd.HAB) {
-                linies.add(EnumHabtoString(((Habitatge) e1).consultarTipus()));
-            } else if (te == TipusEd.NEG) {
-                linies.add(EnumNegtoString(((Negoci) e1).consultarTipus()));
-            } else if (te == TipusEd.SER) {
-                linies.add(EnumSertoString(((Servei) e1).consultarTipus()));
-            }
-            te = e2.consultarSubclasse();
-            if (te == TipusEd.HAB) {
-                linies.add(EnumHabtoString(((Habitatge) e2).consultarTipus()));
-            } else if (te == TipusEd.NEG) {
-                linies.add(EnumNegtoString(((Negoci) e2).consultarTipus()));
-            } else if (te == TipusEd.SER) {
-                linies.add(EnumSertoString(((Servei) e2).consultarTipus()));
-            }
-        } else if (t == TipusRest.IMPOSTOS) {
-            linies.add("Impostos");
-            int imp = ((RImpostos) r).ConsultarImp();
-            linies.add(String.valueOf(imp));
-        } else if (t == TipusRest.MANTENIMENT) {
-            linies.add("Manteniment");
-            int mant = ((RManteniment) r).ConsultarCostBarri();
-            linies.add(String.valueOf(mant));
+            String e1 = ((RDistTipus) r).ConsultarEd1();
+            String e2 = ((RDistTipus) r).ConsultarEd2();
+            linies.add(e1);
+            linies.add(e2);
         } else if (t == TipusRest.RUHAB) {
             linies.add("Atribut habitatge");
             s = ((RUHab) r).ConsultaAtribut();
@@ -980,36 +862,18 @@ public class CtrDomGeneral {
         ArrayList<String> l = disc.llegir("res_"+cataleg);
         ctrRestric = CtrDomRestriccio.ObteInstancia();
         int i = 0, enter, id = 1, x;
-        String s, f;
+        String s, f, s1, s2;
         Edifici e1 = null, e2 = null;
         boolean max;
         while(i < l.size()){
-            if(l.get(i).equals("Alçada")){
+            s = l.get(i);
+            if(s.equals("APARCAMENT") || s.equals("COST") || s.equals("IMPOSTOS") || s.equals("MANTENIMENT")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
                 }catch(NumberFormatException e){return false;}
-                ctrRestric.CreaRestAlsada(id, enter);
+                ctrRestric.CreaRestriccioGlobal(id, cataleg, enter);
                 id++;
                 i = i + 1;
-            }
-            else if(l.get(i).equals("Aparcament")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
-                ctrRestric.CreaRestAparcaments(id, enter);
-                id++;
-                i = i + 1;
-            }
-            else if(l.get(i).equals("Cost")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
-                s = l.get(i+2);
-                if(s.equals("Maxim")) max = true;
-                else max = false;
-                ctrRestric.CreaRestCost(id, enter, max);
-                id++;
-                i = i + 2;
             }
             else if(l.get(i).equals("Distancia")){
                 try{
@@ -1018,35 +882,11 @@ public class CtrDomGeneral {
                 s = l.get(i+2);
                 if(s.equals("Maxim")) max = true;
                 else max = false;
-                s = l.get(i+3);
-                x = ComprovaTipusEd(s);
-                if(x == 1){e1 = new Habitatge(0,0,"",0,0,0,StringHabtoEnum(s));}
-                else if(x == 1){e1 = new Negoci(0,0,"",0,0,0,StringNegtoEnum(s));}
-                else if(x == 1){e1 = new Servei(0,0,0,"",0,0,0,StringSertoEnum(s));}
-                s = l.get(i+4);
-                x = ComprovaTipusEd(s);
-                if(x == 1){e2 = new Habitatge(0,0,"",0,0,0,StringHabtoEnum(s));}
-                else if(x == 1){e2 = new Negoci(0,0,"",0,0,0,StringNegtoEnum(s));}
-                else if(x == 1){e2 = new Servei(0,0,0,"",0,0,0,StringSertoEnum(s));}
-                ctrRestric.CreaDistTipus(id, id, max, e1, e2);
+                s1 = l.get(i+3);
+                s2 = l.get(i+4);
+                ctrRestric.CreaDistTipus(id, id, max, s1, s2);
                 id++;
                 i = i + 4;
-            }
-            else if(l.get(i).equals("Impostos")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
-                ctrRestric.CreaRestImpostos(id, enter);
-                id++;
-                i = i +1 ;
-            }
-            else if(l.get(i).equals("Manteniment")){
-                try{
-                    enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
-                ctrRestric.CreaRestManteniment(id, enter);
-                id++;
-                i = i + 1;
             }
             else if(l.get(i).equals("Atribut habitatge")){
                 s = l.get(i+1);
@@ -1147,12 +987,4 @@ public class CtrDomGeneral {
     /*public ArrayList<String> LlistaRestriccions(String s){
         
     }*/
-    
-    private int ComprovaTipusEd(String s){
-        if(s.equals("Casa") || s.equals("Pis") || s.equals("Xalet") || s.equals("Mansio")){return 1;}
-        else if (s.equals("Discoteca") || s.equals("Banc") || s.equals("Bar") || s.equals("Restaurant") || s.equals("Botiga_roba") || s.equals("Botiga_alimentacio") || s.equals("Escola_privada") || s.equals("Clinica")){return 2;}
-        else if (s.equals("Hospital") || s.equals("Escola") || s.equals("Policia") || s.equals("Preso") || s.equals("Bombers") || s.equals("Parc") || s.equals("Centre_cultural")){return 3;}
-
-        return -1;
-    }
 }

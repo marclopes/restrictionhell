@@ -6,6 +6,7 @@ package barri;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -493,16 +494,54 @@ public class Main {
 
     private static void AfegirEdifici() {
         String valor;
-        int quantitat = 0;
+        int quantitat,introduccio;
+        quantitat = introduccio =0;
         valor = " ";
+        boolean esvalid=false;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Introdueix nom del edifici");
-        try {
-            valor = br.readLine();
-        } catch (Exception e) {
+        System.out.println("Vols Introduir :");
+        System.out.println("1.Qualsevol Habitatge");
+        System.out.println("2.Qualsevol Negoci");
+        System.out.println("3.Qualsevol Servei");
+        System.out.println("4.Qualsevol Habitatge de un tipus concret");
+        System.out.println("5.Qualsevol Negoci de un tipus concret");
+        System.out.println("6.Qualsevol Servei de un tipus concret");
+        System.out.println("7.Un edifici concret");
+        esvalid =false;
+        while(!esvalid){
+            try {
+                introduccio = Integer.parseInt(br.readLine());
+                if (introduccio > 7 || introduccio < 1) throw new Exception();
+                esvalid = true;
+            } catch (Exception e) {
+                System.out.println("Parametre errorni, reintrodueix");
+            }
         }
+        
+        switch(introduccio) {
+            case 1:
+            break;
+            case 2:
+            break;
+            case 3:
+                
+            break;
+            case 4:
+                ImprimirTipus("Habitatge");
+                
+            break;
+            case 5:
+                ImprimirTipus("Negoci");
+            break;
+            case 6:
+                ImprimirTipus("Servei");
+            break;
+            case 7:
+            break;
+        }
+        
         System.out.println("Quants edificis vols colocar?");
-        boolean esvalid = false;
+        esvalid = false;
         while (!esvalid) {
             try {
                 quantitat = Integer.parseInt(br.readLine());
@@ -516,8 +555,6 @@ public class Main {
                 System.out.println("Error al afegir l'edifici al barri");
             }
     }
-
-    
 
     private static void ImposarRestriccio() {
         String nom = " ";
@@ -1038,7 +1075,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CrearRestriccioAlsada(id, x);
+                        result = controlador.CrearRestriccioGlobal(id,"ALTURA",x);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1057,7 +1094,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        esvalid = false;
+                     /*   esvalid = false;
                         while (!esvalid) {
                             System.out.println("Cost maxim o minim?");
                             System.out.println("1. Maxim");
@@ -1076,8 +1113,8 @@ public class Main {
                             } catch (Exception e) {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
-                        }
-                        result = controlador.CrearRestriccioCost(id, area, max);
+                        }*/
+                        result = controlador.CrearRestriccioGlobal(id,"COST",area);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1099,7 +1136,7 @@ public class Main {
                             }
                         }
 
-                        result = controlador.CreaRestriccioManteniment(id, area);
+                        result = controlador.CrearRestriccioGlobal(id,"MANTENIMENT",area);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1118,7 +1155,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CreaRestriccioImpostos(id, imp);
+                        result = controlador.CrearRestriccioGlobal(id,"IMPOSTOS",imp);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1203,7 +1240,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CreaRestriccioAparcament(id, x);
+                        result = controlador.CrearRestriccioGlobal(id,"APARCAMENT",x);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1436,8 +1473,11 @@ public class Main {
     }
 
     private static void GuardaBarri() {
-        if (!controlador.GuardaBarri()) System.out.println("El barri s'ha guardat correctament");
-        else System.out.println("Error al guadar el barri");
+        if (controlador.GuardaBarri()) {
+             System.out.println("S'ha guardat el barri correctament");
+        } else {
+             System.out.println("Error al guardar el barri");
+        }
     }
 
     private static void CarregaBarri() {
@@ -1454,5 +1494,7 @@ public class Main {
         else {
             System.out.println("Error al carregar el barri amb nom " +nom);
         }
+
     }
+
 }

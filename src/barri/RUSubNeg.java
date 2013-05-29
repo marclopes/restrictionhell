@@ -26,7 +26,7 @@ public class RUSubNeg extends RestriccioBarris implements RCjtEd{
     }
     @Override
     public String Info() {
-          return "Restriccio subtipus Negoci " + atribut + " " + valor;
+          return "Restriccio subtipus Negoci " + tipus.toString() + atribut + " " + valor;
     }
 
 //    @Override

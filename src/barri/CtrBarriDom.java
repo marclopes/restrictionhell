@@ -88,6 +88,8 @@ public class CtrBarriDom {
         return barri;
     }
 
+    public int GenerarBarri(){return 1;}
+    
     /**
      * Afegeix la restriccio r al barri amb nom nomBarri
      *
@@ -109,6 +111,7 @@ public class CtrBarriDom {
      */
     public int AfegirEdifici(Edifici e) {
         if (barri != null) {
+
             if (barri.ExisteixEdifici(e.ConsultarNom())) {
                 return -1;
             }
@@ -117,12 +120,7 @@ public class CtrBarriDom {
         }
         return -1;
     }
-    public int AfegirEdificiTemp(Edifici e) {
-        if (barri!=null) {
-            return barri.CarregaEdificiTemp(e);
-        }
-        return -1;
-    }
+
     public void AfegirEdificis(ArrayList<Edifici> e) {
         if (barri != null) {
             barri.CarregaEdificis(e);
@@ -468,8 +466,9 @@ public class CtrBarriDom {
 		return au;
     }
 
-    boolean BarriCarregat() {
-        return barri != null;
+    public boolean  BarriCarregat() {
+        if(barri!=null) return true;
+        else return false;
     }
 }
 
