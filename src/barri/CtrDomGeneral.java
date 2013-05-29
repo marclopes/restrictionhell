@@ -482,13 +482,13 @@ public class CtrDomGeneral {
      * @param s Nom del catàleg que volem crear
      * @return Cert si es pot crear el cataleg. Fals si no es pot crear.
      */
-    public boolean CreaCatalegEdificis(String s) {
+    public int CreaCatalegEdificis(String s) {
         if (!disc.existeix("ed_" + s)) {
             ArrayList<String> l = new ArrayList<String>();
             disc.creaArxiu("ed_" + s, l);
-            return true;
+            return 0;
         }
-        return false;
+        return -1;
     }
 
     /**
@@ -700,14 +700,14 @@ public class CtrDomGeneral {
      * @param f El nom del barri que volem carregar.
      * @return La instancia del barri.
      */
-    public boolean CarregaBarri(String f) {
+    public int CarregaBarri(String f) {
         if (obj.existeix("bar_" + f)) {
             Object o = obj.llegirObjecte("bar_" + f);
             Barri b = (Barri) o;
             ctrBarri.CreaBarri(b);
-            return true;
+            return 0;
         }
-        return false;
+        return -1;
     }
 
     /**
@@ -757,7 +757,7 @@ public class CtrDomGeneral {
     }
 
     
-    public boolean GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
+    public int GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
         String s;
         int valor;
         boolean b;
@@ -854,12 +854,12 @@ public class CtrDomGeneral {
         }
         linies.add("");
         disc.creaArxiu("res_" + cataleg, linies);
-        return true;
+        return 0;
     }
 
 
     
-     public boolean CarregaCatalegRestriccions(String cataleg){
+     public int CarregaCatalegRestriccions(String cataleg){
         ArrayList<String> l = disc.llegir("res_"+cataleg);
         ctrRestric = CtrDomRestriccio.ObteInstancia();
         int i = 0, enter, x;
@@ -871,14 +871,14 @@ public class CtrDomGeneral {
             if(s.equals("APARCAMENT") || s.equals("COST") || s.equals("IMPOSTOS") || s.equals("MANTENIMENT")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 ctrRestric.CreaRestriccioGlobal(++idRes, cataleg, enter);
                 i = i + 1;
             }
             else if(l.get(i).equals("Distancia")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 s = l.get(i+2);
                 if(s.equals("Maxim")) max = true;
                 else max = false;
@@ -891,7 +891,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -902,7 +902,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -913,7 +913,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -924,7 +924,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -935,7 +935,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -946,7 +946,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -955,7 +955,7 @@ public class CtrDomGeneral {
             }
             i++;
         }
-        return true;
+        return 0;
     
     }
 
