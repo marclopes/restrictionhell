@@ -4,7 +4,6 @@
  */
 package barri;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class Main {
 
     private static CtrDomGeneral controlador = CtrDomGeneral.ObtenirInstancia();
-	
+
     public static void main(String[] args) {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -494,10 +493,10 @@ public class Main {
 
     private static void AfegirEdifici() {
         String valor;
-        int quantitat,introduccio;
-        quantitat = introduccio =0;
+        int quantitat, introduccio;
+        quantitat = introduccio = 0;
         valor = " ";
-        boolean esvalid=false;
+        boolean esvalid = false;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Vols Introduir :");
         System.out.println("1.Qualsevol Habitatge");
@@ -507,39 +506,86 @@ public class Main {
         System.out.println("5.Qualsevol Negoci de un tipus concret");
         System.out.println("6.Qualsevol Servei de un tipus concret");
         System.out.println("7.Un edifici concret");
-        esvalid =false;
-        while(!esvalid){
+        esvalid = false;
+        while (!esvalid) {
             try {
                 introduccio = Integer.parseInt(br.readLine());
-                if (introduccio > 7 || introduccio < 1) throw new Exception();
+                if (introduccio > 7 || introduccio < 1) {
+                    throw new Exception();
+                }
                 esvalid = true;
             } catch (Exception e) {
                 System.out.println("Parametre errorni, reintrodueix");
             }
         }
-        
-        switch(introduccio) {
+
+        switch (introduccio) {
             case 1:
-            break;
+                valor = "Habitatge";
+                break;
             case 2:
-            break;
+                valor = "Negoci";
+                break;
             case 3:
-                
-            break;
+                valor = "Servei";
+                break;
             case 4:
                 ImprimirTipus("Habitatge");
-                
-            break;
+                esvalid = false;
+                while (!esvalid) {
+                    try {
+                        introduccio = Integer.parseInt(br.readLine());
+                        if (introduccio > 4 || introduccio < 1) {
+                            throw new Exception();
+                        }
+                        esvalid = true;
+                    } catch (Exception e) {
+                        System.out.println("Parametre erroni, reintrodueix");
+                    }
+                }
+                valor = NumTipAString(introduccio, "Habitatge");
+                break;
             case 5:
                 ImprimirTipus("Negoci");
-            break;
+                esvalid = false;
+                while (!esvalid) {
+                    try {
+                        introduccio = Integer.parseInt(br.readLine());
+                        if (introduccio > 8 || introduccio < 1) {
+                            throw new Exception();
+                        }
+                        esvalid = true;
+                    } catch (Exception e) {
+                        System.out.println("Parametre erroni, reintrodueix");
+                    }
+                }
+                valor = NumTipAString(introduccio, "Negoci");
+                break;
             case 6:
                 ImprimirTipus("Servei");
-            break;
+                esvalid = false;
+                while (!esvalid) {
+                    try {
+                        introduccio = Integer.parseInt(br.readLine());
+                        if (introduccio > 7 || introduccio < 1) {
+                            throw new Exception();
+                        }
+                        esvalid = true;
+                    } catch (Exception e) {
+                        System.out.println("Parametre erroni, reintrodueix");
+                    }
+                }
+                valor = NumTipAString(introduccio, "Servei");
+                break;
             case 7:
-            break;
+                System.out.print("Introdueix nom del edifici");
+                try {
+                    valor = br.readLine();
+                } catch (Exception e) {
+                }
+                break;
         }
-        
+
         System.out.println("Quants edificis vols colocar?");
         esvalid = false;
         while (!esvalid) {
@@ -548,12 +594,12 @@ public class Main {
             } catch (Exception e) {
             }
         }
-            int result = controlador.AfegirEdifici(valor, quantitat);
-            if (result == 0) {
-                System.out.println("S'ha afegit l'edifici al barri correctament");
-            } else {
-                System.out.println("Error al afegir l'edifici al barri");
-            }
+        int result = controlador.AfegirEdifici(valor, quantitat);
+        if (result == 0) {
+            System.out.println("S'ha afegit l'edifici al barri correctament");
+        } else {
+            System.out.println("Error al afegir l'edifici al barri");
+        }
     }
 
     private static void ImposarRestriccio() {
@@ -1075,7 +1121,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CrearRestriccioGlobal(id,"ALTURA",x);
+                        result = controlador.CrearRestriccioGlobal(id, "ALTURA", x);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1094,27 +1140,27 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                     /*   esvalid = false;
+                        /*   esvalid = false;
                         while (!esvalid) {
-                            System.out.println("Cost maxim o minim?");
-                            System.out.println("1. Maxim");
-                            System.out.println("2. Minim");
-                            try {
-                                y = Integer.parseInt(br.readLine());
-                                if (y == 1) {
-                                    max = true;
-                                } else if (y == 2) {
-                                    max = false;
-                                } else {
-                                    throw new Exception();
-                                }
-                                esvalid = true;
-
-                            } catch (Exception e) {
-                                System.out.println("Parametre errorni, reintrodueix");
-                            }
+                        System.out.println("Cost maxim o minim?");
+                        System.out.println("1. Maxim");
+                        System.out.println("2. Minim");
+                        try {
+                        y = Integer.parseInt(br.readLine());
+                        if (y == 1) {
+                        max = true;
+                        } else if (y == 2) {
+                        max = false;
+                        } else {
+                        throw new Exception();
+                        }
+                        esvalid = true;
+                        
+                        } catch (Exception e) {
+                        System.out.println("Parametre errorni, reintrodueix");
+                        }
                         }*/
-                        result = controlador.CrearRestriccioGlobal(id,"COST",area);
+                        result = controlador.CrearRestriccioGlobal(id, "COST", area);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1136,7 +1182,7 @@ public class Main {
                             }
                         }
 
-                        result = controlador.CrearRestriccioGlobal(id,"MANTENIMENT",area);
+                        result = controlador.CrearRestriccioGlobal(id, "MANTENIMENT", area);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1155,7 +1201,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CrearRestriccioGlobal(id,"IMPOSTOS",imp);
+                        result = controlador.CrearRestriccioGlobal(id, "IMPOSTOS", imp);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1240,7 +1286,7 @@ public class Main {
                                 System.out.println("Parametre errorni, reintrodueix");
                             }
                         }
-                        result = controlador.CrearRestriccioGlobal(id,"APARCAMENT",x);
+                        result = controlador.CrearRestriccioGlobal(id, "APARCAMENT", x);
                         if (result == 0) {
                             System.out.println("S'ha creat la restriccio correctament");
                         } else {
@@ -1474,14 +1520,14 @@ public class Main {
 
     private static void GuardaBarri() {
         if (controlador.GuardaBarri()) {
-             System.out.println("S'ha guardat el barri correctament");
+            System.out.println("S'ha guardat el barri correctament");
         } else {
-             System.out.println("Error al guardar el barri");
+            System.out.println("Error al guardar el barri");
         }
     }
 
     private static void CarregaBarri() {
-        String nom ="";
+        String nom = "";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Introdueix el nom del barri a carregar");
         try {
@@ -1489,12 +1535,10 @@ public class Main {
         } catch (Exception e) {
         }
         if (controlador.CarregaBarri(nom)) {
-             System.out.println("El barri s'ha carregat correctament");
-        }
-        else {
-            System.out.println("Error al carregar el barri amb nom " +nom);
+            System.out.println("El barri s'ha carregat correctament");
+        } else {
+            System.out.println("Error al carregar el barri amb nom " + nom);
         }
 
     }
-
 }
