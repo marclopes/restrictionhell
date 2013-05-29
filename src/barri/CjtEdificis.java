@@ -56,6 +56,10 @@ public class CjtEdificis implements Serializable{
                         }
 		}
 	}
+        
+        public void EliminarTotsEdificis(){
+            conEd.clear();
+        }
 	
 	/**
          * Consultora per obtenir un edifici identificat per nom del conjunt.
