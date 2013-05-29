@@ -625,6 +625,7 @@ public class CtrDomGeneral {
         TipusNegoci n;
         TipusServei se;
         arxiu = disc.llegir("ed_"+s);
+        ctrEdificis.EliminarTotsEdificis();
         while (i < arxiu.size()){
             if(arxiu.get(i).equals("Habitatge")){
                 if(i+7<arxiu.size()){
