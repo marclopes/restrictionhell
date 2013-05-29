@@ -9,8 +9,6 @@ import java.util.ArrayList;
 /**
  *
  * @author Eduard Ricou
- * La classe CjtEdificis es contenidor d'edificis que permet afegir, eliminar i consultar els edificis que conté.
- * @version 3.0
  */
 
 public class CjtEdificis implements Serializable{
@@ -26,9 +24,7 @@ public class CjtEdificis implements Serializable{
 	
 	/**
          * Afegeix un edifici al conjunt.
-         * @param e Edifici que volem afegir.
-         * @return <code>true</code> si ha pogut afegir l'edifici al conjunt
-         *         <code>false</code> si ja exsteix un edifici amb el mateix identificador i no s'ha pogut afegir.
+         * @param e és l'edifici que volem afegir.
          */
 	public boolean AfegirEdifici(Edifici e){
 		
@@ -42,7 +38,7 @@ public class CjtEdificis implements Serializable{
 	
         /**
          * Elimina un edifici del conjunt.
-         * @param e Edifici que volem eliminar.
+         * @param e és l'edifici que volem eliminar.
          */
         public void EliminarEdifici(Edifici e){
 		this.conEd.remove(e);
@@ -50,7 +46,7 @@ public class CjtEdificis implements Serializable{
         
         /**
          * Elimina un edifici identificat per el seu nom del conjunt.
-         * @param nom Nom de l'edifici que volem eliminar.
+         * @param nom és el nom de l'edifici que volem eliminar.
          */
         public void EliminarEdifici(String nom){
 		for(Edifici e: conEd){
@@ -61,17 +57,14 @@ public class CjtEdificis implements Serializable{
 		}
 	}
         
-        /**
-         * Elimina tots els edificis del conjunt.
-         */
         public void EliminarTotsEdificis(){
             conEd.clear();
         }
 	
 	/**
          * Consultora per obtenir un edifici identificat per nom del conjunt.
-         * @param nom Nom de l'edifici que volem obtenir.
-         * @return Edifici identificat per nom.
+         * @param nom és el nom de l'edifici que volem obtenir.
+         * @return L'edifici identificat per nom.
          */
 	public Edifici ObtenirEdifici(String nom){
 		for(Edifici e: conEd){
@@ -82,9 +75,8 @@ public class CjtEdificis implements Serializable{
         
         /**
          * Comprova si existeix l'edifici identificat per nom al conjunt.
-         * @param nom Nom de l'edifici que volem comprovar.
-         * @return <code>true</code> si l'edifici identificat per nom és al conjunt.
-         *         <code>false</code> si l'edifici no hi és al conjunt.
+         * @param nom és el nom de l'edifici que volem comprovar.
+         * @return cert si l'edifici identificat per nom és al conjunt.
          */
         public boolean ExisteixEdifici(String nom){
                 for(Edifici e: conEd){
@@ -95,8 +87,8 @@ public class CjtEdificis implements Serializable{
         
         /**
          * Consultora per saber la posició del edifici identificat per nom dins del conjunt.
-         * @param nom Nom de l'edifici que volem consultar-ne la posició.
-         * @return Posició de l'edifici dins del conjunt.
+         * @param nom és el nom de l'edifici que volem consultar-ne la posició.
+         * @return la posició de l'edifici dins del conjunt.
          */
         public int ObtenirPosicio(String nom) {
                 for(Edifici e: conEd){
@@ -107,8 +99,8 @@ public class CjtEdificis implements Serializable{
 	
         /**
          * Consultora per saber la posició del edifici dins del conjunt.
-         * @param e Edifici que volem consultar-ne la posició.
-         * @return Posició de l'edifici dins del conjunt.
+         * @param e és l'edifici que volem consultar-ne la posició.
+         * @return la posició de l'edifici dins del conjunt.
          */
         public int ObtenirPosicio(Edifici e) {
 		return conEd.indexOf(e);
@@ -116,8 +108,8 @@ public class CjtEdificis implements Serializable{
         
         /**
          * Consultora per obtenir un edifici a partir de la seva posició al conjunt.
-         * @param pos Posició al conjunt de l'edifici que volem obtenir.
-         * @return Edifici de la posició pos.
+         * @param pos és la posició al conjunt de l'edifici que volem obtenir.
+         * @return l'edifici de la posició pos.
          */
 	public Edifici ObtenirEdifici(int pos) {
 		return conEd.get(pos);
@@ -125,17 +117,12 @@ public class CjtEdificis implements Serializable{
 	
         /**
          * Consultora del tamany del conjunt.
-         * @return Tamany del conjunt.
+         * @return el tamany del conjunt.
          */
 	public int Tamany() {
 		return conEd.size();
 	}
         
-        /**
-         * Consultora del edificis que te el conjunt i que són d'un tipus determinat.
-         * @param tipus Tipus d'edificis que volem consultar.
-         * @return Vector amb els edificis que són del tipus <code>tipus</code>
-         */
         public ArrayList<Edifici> ObtenirEdificisTipus(String tipus) {
             ArrayList<Edifici> aux = new ArrayList<Edifici>();
             if (tipus.equals("Habitatge")) {

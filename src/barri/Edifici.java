@@ -1,29 +1,19 @@
 package barri;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Eduard Ricou
- * Classe abstracta que defineix atributs genercis dels edificis i permet consultar-los i modificar-los.
- * @version 3.0
  */
 
-public abstract class Edifici extends Objecte implements Serializable {
+public abstract class Edifici extends Objecte {
 
-        /**
-         * Enumera els tipus d'edificis que poden existir.
-         */
 	public enum TipusEd {
 		HAB,
 		SER,
 		NEG
 	};
-        
-        /**
-         * Enumeració de les classes socials a les que pot pertanyer un edifici.
-         */
 	public enum Classes {
 		Alta,
 		Mitja,
@@ -33,6 +23,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	private int h;
 	private int capacitat;
 	private ArrayList<Classes> clases = new ArrayList<Classes>();
+	
 	protected TipusEd tipusEd;
 	
         /**
@@ -45,10 +36,10 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Crea una instancia de la classe Edifici.
-        * @param nom Nom descriptiu i identificador de l'edifici.
-        * @param id Codi numèric de l'edifici
-        * @param h Alçada de l'edifici.
-        * @param capacitat Nombre de persones que caben a l'edifici.
+        * @param nom és El nom descriptiu de l'edifici.
+        * @param id és l'identificador de l'edifici
+        * @param h és l'alçada de l'edifici.
+        * @param capacitat ens diu quantes persones caben a l'edifici.
         */
         
 	public Edifici(String nom, int id, int h, int capacitat){
@@ -61,7 +52,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Consultora de l'identificador de l'edifici.
-        * @return Identificador de l'edifici
+        * @return El l'identificador de l'edifici
         */
         
 	public int ConsultarCodi(){
@@ -70,7 +61,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Consultora de l'alçada de l'edifici.
-        * @return alçada de l'edifici
+        * @return L'alçada de l'edifici
         */
         
 	public int ConsultarH(){
@@ -79,7 +70,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Consultora de la capacitat de l'edifici.
-        * @return Capacitat de l'edifici
+        * @return La capacitat de l'edifici
         */
         
 	public int ConsultarCapacitat(){
@@ -88,7 +79,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Consultora de les classes a les que pertany l'edifici.
-        * @return Llista de classes a les que pertany l'edifici.
+        * @return La llista de classes a les que pertany l'edifici.
         */
         
 	public ArrayList ConsultarClases(){
@@ -98,8 +89,7 @@ public abstract class Edifici extends Objecte implements Serializable {
         /** 
         * Consultora per saber si l'edifici pertany a una classe.
         * @param c és la clases que volem consultar.
-        * @return <code>true</code> si l'edifici pertany a la classe.
-        *         <code>false</code> si l'edifici no pertany a la classe.
+        * @return true si l'edifici pertany a la classe.
         */
         
 	public boolean EtsClase(Classes c){
@@ -113,15 +103,18 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Consultora del tipus de l'edifici.
-        * @return Tipus d'edifici.
+        * @return El tipus de l'edifici
         */
 	public TipusEd consultarSubclasse() {
 		return this.tipusEd;
         }
 	
+	
+	/* MODIFICADORES */
+	
         /** 
         * Modificadora de l'alçada de l'edifici.
-        * @param h Nova alçada de l'edifici.
+        * @param h La nova alçada de l'edifici.
         */
         
 	public void ModificarH(int h){
@@ -130,7 +123,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	
         /** 
         * Modificadora de la capacitat de l'edifici.
-        * @param capacitat Nova capacitat de l'edifici.
+        * @param capacitat La nova capacitat de l'edifici.
         */
         
 	public void ModificarCapacitat(int capacitat){
@@ -139,7 +132,7 @@ public abstract class Edifici extends Objecte implements Serializable {
 	       
         /** 
         * Afegeix la una classe social a l'edifici.
-        * @param c Classe que volem afegir.
+        * @param c La classe que volem afegir.
         */
         
         public void AfegirClase(Classes c){
@@ -150,7 +143,7 @@ public abstract class Edifici extends Objecte implements Serializable {
         
         /** 
         * Elimina una classe social a l'edifici.
-        * @param c Classe social que volem eliminar.
+        * @param c La classe social que volem eliminar.
         */
         
         public void EliminarClase(Classes c){

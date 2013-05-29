@@ -55,7 +55,7 @@ public class NewJDialog extends javax.swing.JDialog {
                 jToggleButton4ActionPerformed(evt);
             }
         });
-        jToggleButton4.setBounds(650, 390, 33, 23);
+        jToggleButton4.setBounds(670, 390, 33, 23);
         jLayeredPane1.add(jToggleButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -68,12 +68,12 @@ public class NewJDialog extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         jPanel1.setViewportView(jPanel2);
 
-        jPanel1.setBounds(20, 80, 650, 300);
+        jPanel1.setBounds(10, 70, 650, 610);
         jLayeredPane1.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setText("jButton1");
@@ -101,9 +101,9 @@ public class NewJDialog extends javax.swing.JDialog {
         
         boton[i] = new JButton();
         boton[i].setVisible(true);
-        boton[i].setSize(20,20);
-        int x = 20 * i;
-        int y = 20 * j;
+        boton[i].setSize(25,25);
+        int x = 25 * i;
+        int y = 25 * j;
         boton[i].setLocation(x, y);
         //boton[i].setBorder(new BevelBorder(0));
         boton[i].setBackground(Color.red);

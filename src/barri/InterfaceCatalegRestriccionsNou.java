@@ -11,12 +11,12 @@ import java.awt.Toolkit;
  *
  * @author Carlos
  */
-public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
+public class InterfaceCatalegRestriccionsNou extends javax.swing.JDialog {
 
     /**
-     * Creates new form InterfaceCatalegEdificiNou
+     * Creates new form InterfaceCatalegRestriccionsNou
      */
-    public InterfaceCatalegEdificiNou(java.awt.Frame parent, boolean modal) {
+    public InterfaceCatalegRestriccionsNou(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -30,11 +30,11 @@ public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,7 +43,11 @@ public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Nom del nou catàleg:");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel3.setText("Al crear un nou cataleg, aquest es convertirà en l'actual:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel2.setText("Asegura-te'n d'haver guardat el catàleg actual abans.");
 
         jButton1.setText("Crear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,11 +56,7 @@ public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel2.setText("Asegura-te'n d'haver guardat el catàleg actual abans.");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setText("Al crear un nou cataleg, aquest es convertirà en l'actual:");
+        jLabel1.setText("Nom del nou catàleg:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,12 +99,12 @@ public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         CtrDomGeneral ctrDG = CtrDomGeneral.ObtenirInstancia();
-        ctrDG.CreaCatalegEdificis(jTextField1.getText());
+        ctrDG.CreaCatalegRestriccions(jTextField1.getText());
         setVisible(false);
         dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -139,20 +139,20 @@ public class InterfaceCatalegEdificiNou extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfaceCatalegEdificiNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCatalegRestriccionsNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfaceCatalegEdificiNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCatalegRestriccionsNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfaceCatalegEdificiNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCatalegRestriccionsNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfaceCatalegEdificiNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceCatalegRestriccionsNou.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InterfaceCatalegEdificiNou dialog = new InterfaceCatalegEdificiNou(new javax.swing.JFrame(), true);
+                InterfaceCatalegRestriccionsNou dialog = new InterfaceCatalegRestriccionsNou(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -3,16 +3,11 @@ package barri;
 
 /**
  *
- * @author Eduard Ricou
- * La classe Negoci permet crear instancies de negoci, consultar els seus atributs i modificar-los.
- * @version 3.0
+ *
+ @author Eduard Ricou
  */
 
 public class Negoci extends Edifici{
-    
-        /**
-         * Enumeració dels tipus de servei que existeixen.
-         */
 	public enum TipusNegoci {
 		Discoteca,
 		Banc,
@@ -23,11 +18,9 @@ public class Negoci extends Edifici{
 		Escola_privada,
 		Clinica
 	};
-        
 	private int impost;
 	private int aparcament;
 	private TipusNegoci tipus;
-        
         /**
         * Crea una instancia de la clase sense inicialitzar 
         */ 
@@ -37,13 +30,12 @@ public class Negoci extends Edifici{
 	
         /** 
         * Crea una instancia de la classe Negoci.
-        * @param impost Ompostos que paga el negoci.
-        * @param aparcament Places d'aparcament que té el negoci.
-        * @param nom Nom descriptiu i identificador del negoci.
-        * @param codi Codi numeric del negoci.
-        * @param h Alçada del negoci.
-        * @param capacitat Aforament del negoci.
-        * @param t Tipus de Negoci que volem crear.
+        * @param impost són els impostos que paga el negoci.
+        * @param aparcament són les places d'aparcament que té el negoci.
+        * @param nom és El nom descriptiu del negoci.
+        * @param id és l'identificador del negoci.
+        * @param h és l'alçada del negoci.
+        * @param capacitat ens diu quantes persones caben al negoci.
         */
         
 	public Negoci(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusNegoci t){
@@ -56,7 +48,7 @@ public class Negoci extends Edifici{
         
         /**
          * Consultora dels impostos que paga el negoci.
-         * @return Impostos que paga el negoci.
+         * @return els impostos que paga el negoci.
          */
 	
 	public int ConsultarImpost(){
@@ -65,16 +57,16 @@ public class Negoci extends Edifici{
         
         /**
          * Consultora de les places d'aparcament del negoci.
-         * @return Places d'aparcament del negoci.
+         * @return Les places d'aparcament del negoci.
          */
 	
 	public int ConsultarAparcament(){
 		return this.aparcament;
 	}
         
-       /** 
+        	/** 
         * Consultora de la subclase de Negoci.
-        * @return Tipus de negoci
+        * @return El tipus de negoci
         */
         
 	public TipusNegoci consultarTipus() {
@@ -83,7 +75,7 @@ public class Negoci extends Edifici{
 	
         /**
          * Modificadora dels impostos que paga el negoci.
-         * @param impost Nou impost que pagarà el negoci.
+         * @param impost és el nou impost que pagarà el negoci.
          */
         
 	public void ModificarImpost(int impost){
@@ -92,7 +84,7 @@ public class Negoci extends Edifici{
 	
         /**
          * Modificadora del nombre de places d'aparcament del negoci.
-         * @param aparcament Nou nombre de places d'aparcament del negoci.
+         * @param aparcament El nou nombre de places d'aparcament del negoci.
          */
         
 	public void ModificarAparcament(int aparcament){
@@ -101,7 +93,7 @@ public class Negoci extends Edifici{
         
          /** 
         * Modificadora del tipus de negoci.
-        * @param t Nou tipus de negoci.
+        * @param t El nou tipus de negoci.
         */
         
 	public void modificarTipus(TipusNegoci t) {

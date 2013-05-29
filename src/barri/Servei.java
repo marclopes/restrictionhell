@@ -1,26 +1,21 @@
 package barri;
 /**
  *
- * @author Eduard Ricou
- * La classe Servei permet crear instancies de servei, consultar els seus atributs i modificar-los.
- * @version 3.0
+ *
+ @author Eduard Ricou
  */
 
-public class Servei extends Edifici{
+public class Servei extends Edifici{ // canviar nom per ServeiPublic
 	
-    /**
-     * Enumeració dels tipus de servei que existeixen.
-     */
 	public enum TipusServei {
-            Hospital,
-            Escola,
-            Policia,
-            Preso,
-            Bombers,
-            Parc,
-            Centre_Cultural
+		Hospital,
+		Escola,
+		Policia,
+		Preso,
+		Bombers,
+		Parc,
+		Centre_Cultural
 	}
-        
 	private TipusServei tipus;
 	private int cost;
 	private int manteniment;
@@ -35,14 +30,13 @@ public class Servei extends Edifici{
 	
         /** 
         * Crea una instancia de la classe Servei.
-        * @param cost Cost de construir el servei.
-        * @param manteniment Cost de manteniment del servei.
-        * @param area Area d'influencia del servei.
-        * @param nom Nom descriptiu i identificador del servei.
-        * @param codi Codi numeric del servei.
-        * @param h Alçada del servei.
-        * @param capacitat Persones que caben al servei.
-        * @param t Tipus de servei que volem crear.
+        * @param cost és el cost de posar en marxa el servei.
+        * @param manteniment és el cost de manteniment del servei.
+        * @param area és l'area d'influencia del servei.
+        * @param nom és El nom descriptiu del servei.
+        * @param id és l'identificador del servei.
+        * @param h és l'alçada del servei.
+        * @param capacitat ens diu quantes persones caben al servei.
         */
         
 	public Servei(int cost, int manteniment, int area, String nom, int codi, int h, int capacitat, TipusServei t){
@@ -56,7 +50,7 @@ public class Servei extends Edifici{
 	
         /**
          * Consultora del cost de construcció del servei.
-         * @return Cost de construcció del servei
+         * @return el cost de construcció del servei
          */
         
 	public int ConsultarCost(){
@@ -65,7 +59,7 @@ public class Servei extends Edifici{
 	
         /**
          * Consultora del cost de manteniment del servei.
-         * @return Cost de manteniment del servei.
+         * @return el cost de manteniment del servei.
          */
         
 	public int ConsultarManteniment(){
@@ -74,7 +68,7 @@ public class Servei extends Edifici{
 
         /**
          * Consultora de l'àrea d'influencia del servei.
-         * @return Àrea d'influència del servei.
+         * @return l'àrea d'influència del servei.
          */
         
 	public int ConsultarAreaInfluencia(){
@@ -83,7 +77,7 @@ public class Servei extends Edifici{
         
         	/** 
         * Consultora de la subclase del servei.
-        * @return Subclasse de l'edifici
+        * @return la subclasse de l'edifici
         */
         
 	public TipusServei consultarTipus() {
@@ -92,7 +86,7 @@ public class Servei extends Edifici{
 	
         /**
          * Modifica el cost de construcció del servei.
-         * @param cost Nou cost de construcció del servei.
+         * @param cost el nou cost de construcció del servei.
          */
         
 	public void ModificarCost(int cost){
@@ -101,7 +95,7 @@ public class Servei extends Edifici{
         
         /**
          * Modifica el cost de manteniment del servei.
-         * @param manteniment Nou cost de manteniment del servei.
+         * @param manteniment el nou cost de manteniment del servei.
          */
 	
 	public void ModificarManteniment(int manteniment){
@@ -110,7 +104,7 @@ public class Servei extends Edifici{
 	
         /**
          * Modifica l'àrea d'influencia del servei.
-         * @param area Nova àrea d'influencia del servei.
+         * @param area la nova àrea d'influencia del servei.
          */
         
 	public void ModificarAreaInfluencia(int area){
@@ -119,7 +113,7 @@ public class Servei extends Edifici{
         
         /** 
         * Modificadora del tipus del servei.
-        * @param t Nou tipus del servei.
+        * @param t El nou tipus del servei.
         */
         
 	public void modificarTipus(TipusServei t) {
