@@ -993,6 +993,30 @@ public class CtrDomGeneral {
         return ctrBarri.ObteNomBarri();
     }
     
+    public int ConsultaPressupostBarri(){
+        return ctrBarri.ConsultaPressupostBarri();
+    }
+    
+    public int ConsultaAparcamentBarri(){
+        return ctrBarri.ConsultaAparcamentBarri();
+    }
+    
+    public int ConsultaMantenimentBarri(){
+        return ctrBarri.ConsultaMantenimentBarri();
+    }
+    
+    public int ConsultaPoblacioBarri(){
+        return ctrBarri.ConsultaPoblacioBarri();
+    }
+    
+    public int ConsultaXBarri(){
+        return ctrBarri.ConsultaXBarri();
+    }
+    
+    public int ConsultaYBarri(){
+        return ctrBarri.ConsultaYBarri();
+    }
+    
     public ArrayList<String> ObteInfoRestriccionsConjunt(){
         return ctrRestric.ObteInfoRestriccionsConjunt();
     }

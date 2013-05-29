@@ -409,6 +409,30 @@ public class CtrBarriDom {
 
     }
     
+    public int ConsultaPressupostBarri(){
+        return barri.ConstultarPressupost();
+    }
+    
+    public int ConsultaAparcamentBarri(){
+        return barri.ConsultarAparcament();
+    }
+    
+    public int ConsultaMantenimentBarri(){
+        return barri.ConsultarCost_m();
+    }
+    
+    public int ConsultaPoblacioBarri(){
+        return barri.ConsultarPoblacio();
+    }
+    
+    public int ConsultaXBarri(){
+        return barri.ConsultarX();
+    }
+    
+    public int ConsultaYBarri(){
+        return barri.ConsultarY();
+    }
+    
     public void iniciVA() {
     	for (int i = 0; i < barri.ConsultarX(); i++) {
 			for (int j = 0; j < barri.ConsultarY(); j++) {
