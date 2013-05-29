@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class CtrBarriDom {
 
     private static CtrBarriDom ctrBarri = null;
-    private CjtBarris cjtBarris;
     public static Barri barri; 
     private boolean trobat = false;
     
@@ -103,6 +102,17 @@ public class CtrBarriDom {
         return barri.AfegeixRestriccio(r);
     }
 
+    public int ObteNRestriccions(){
+        return barri.TamRest();
+    }
+    
+    public ArrayList<String> ObteInfoRestriccionsBarri(){
+        return barri.ObteInfoRestriccionsBarri();
+    }
+    
+    public String ObteNomBarri(){
+        return barri.ConsultarNom();
+    }
     /**
      * Afegeix edifici e al barri amb nomBarri
      *
@@ -121,9 +131,9 @@ public class CtrBarriDom {
         return -1;
     }
 
-    public void AfegirEdificis(ArrayList<Edifici> e) {
+    public void AfegirEdificis(ArrayList<Edifici> e, int quant) {
         if (barri != null) {
-            barri.CarregaEdificis(e);
+            barri.CarregaEdificis(e, quant);
 
         }
     }

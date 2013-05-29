@@ -342,6 +342,14 @@ public class CtrDomRestriccio {
     	return ((RestriccioBarris)lRest.ConsultarRes(id)).Info();
     }
     
+    public ArrayList<String> ObteInfoRestriccionsConjunt(){
+        ArrayList<String> s = new ArrayList<String>();
+        ArrayList<Restriccio> l = lRest.ConsultarCjt();
+        for(int i = 0; i < l.size(); i++){
+            s.add(((RestriccioBarris) l.get(i)).Info());
+        }
+        return s;
+    }
     /**
      * public String toString(int id) { RestriccioBarris aux = obtRest(id);
      * String s = aux.obteTipus() + ": ";

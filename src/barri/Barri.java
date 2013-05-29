@@ -19,6 +19,8 @@ public class Barri implements Serializable {
 	private Espai espai;
 	private ArrayList<RestriccioBarris> lRestriccions;
 	private CjtEdificis lEdificis;
+        
+        private ArrayList<Assignacions> va;
 	
         /**
          * Crea una instancia de la classe Barri.
@@ -39,6 +41,7 @@ public class Barri implements Serializable {
 		espai = new Espai(x, y);
 		lRestriccions = new ArrayList<RestriccioBarris>();
 		lEdificis = new CjtEdificis();
+                va = new ArrayList<Assignacions>();
 		
 		
 		
@@ -57,11 +60,23 @@ public class Barri implements Serializable {
                 }
                 return -1;
 	}
-	
-        public void CarregaEdificis(ArrayList<Edifici> e) {
-                for(Edifici l: e){
-                    lEdificis.AfegirEdifici(l);
-                }
+        
+        public ArrayList<String> ObteInfoRestriccionsBarri(){
+            ArrayList<String> s = new ArrayList<String>();
+            for(int i = 0; i<lRestriccions.size(); i++){
+                s.add(lRestriccions.get(i).Info());
+            }
+            return s;
+        }
+        
+        public void CarregaEdificis(ArrayList<Edifici> e, int q) {
+            
+            ///heeeeey
+            prepVA(va, q, e);
+            
+                //for(Edifici l: e){
+                  //  lEdificis.AfegirEdifici(l);
+              //  }
 	}
         
         /**
@@ -340,6 +355,24 @@ public class Barri implements Serializable {
         
         public void NetejarEdificis(String nom){
             lEdificis.EliminarEdifici(nom);
+        }
+        
+        
+        private void prepVA(ArrayList<Assignacions> va, int nn, ArrayList<Edifici> ve) {
+        for (int n = 0; n < nn; n++) {
+            Assignacions as = new Assignacions();
+
+            for (int ne = 0; ne < ve.size(); ne++) {
+                for (int i = 0; i < this.ConsultarX(); i++) {
+                    for (int j = 0; j < this.ConsultarY(); j++) {
+
+                        as.va.add(new Assignacio(i, j, ve.get(ne)));
+                        
+                    }
+                }
+           }
+                va.add(as);
+            }
         }
 }
 
