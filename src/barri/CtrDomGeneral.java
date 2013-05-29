@@ -709,7 +709,7 @@ public class CtrDomGeneral {
         }
         return false;
     }
-
+   
     /**
      * Guarda al disc una instancia de barri.
      * @param b El barri que volem guardar.
