@@ -239,7 +239,19 @@ public class CtrEdDom {
 
     public ArrayList<String> LlistatEdificis() {
         ArrayList<String> aux = new ArrayList<String>();
-        for (int i=0; i< cjtEd.Tamany();++i){
+        aux.add("Habitatge");
+        aux.add("Negoci");
+        aux.add("Servei");
+        for(int j = 0;j < TipusHab.values().length; j++){
+            aux.add(TipusHab.values()[j].toString());
+        }
+        for(int j = 0;j < TipusNegoci.values().length; j++){
+            aux.add(TipusNegoci.values()[j].toString());
+        }
+        for(int j = 0;j < TipusServei.values().length; j++){
+            aux.add(TipusServei.values()[j].toString());
+        }
+        for (int i = 0; i< cjtEd.Tamany();++i){
             aux.add(cjtEd.ObtenirEdifici(i).ConsultarNom());
 	}
         return aux;
