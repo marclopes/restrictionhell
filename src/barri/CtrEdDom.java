@@ -1,6 +1,7 @@
 package barri;
 
 import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
 import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
 import barri.Servei.TipusServei;
@@ -262,12 +263,12 @@ public class CtrEdDom {
     }
 
 
-    public ArrayList<String> ObteEdClas(TipusHab hab, String clase) {
+    public ArrayList<String> ObteEdClas(TipusEd ed, String clase) {
     Classes cl = StringToClase(clase);
         ArrayList<String> ret = new ArrayList<String>();
         for (int i = 0 ; i < cjtEd.Tamany();++i ){
             Edifici aux =  cjtEd.ObtenirEdifici(i);
-            if (((Habitatge)aux).EtsClase(cl) && ((Habitatge)aux).consultarTipus() ==hab ){
+            if (aux.EtsClase(cl) && (aux).consultarSubclasse()==ed ){
                 ret.add(aux.ConsultarNom());
             }
         }
@@ -275,29 +276,5 @@ public class CtrEdDom {
         return ret;    
     }
 
-    public ArrayList<String> ObteEdClas(TipusNegoci neg, String clase) {
-        Classes cl = StringToClase(clase);
-        ArrayList<String> ret = new ArrayList<String>();
-        for (int i = 0 ; i < cjtEd.Tamany();++i ){
-            Edifici aux =  cjtEd.ObtenirEdifici(i);
-            if (((Negoci)aux).EtsClase(cl) && ((Negoci)aux).consultarTipus() ==neg ){
-                ret.add(aux.ConsultarNom());
-            }
-        }
-        
-        return ret; 
-    }
-    public ArrayList<String> ObteEdClas(TipusServei servei, String clase) {
-        Classes cl = StringToClase(clase);
-        ArrayList<String> ret = new ArrayList<String>();
-        for (int i = 0 ; i < cjtEd.Tamany();++i ){
-            Edifici aux =  cjtEd.ObtenirEdifici(i);
-            if (((Servei)aux).EtsClase(cl) && ((Serveis)aux).consultarTipus() ==servei ){
-                ret.add(aux.ConsultarNom());
-            }
-        }
-        
-        return ret; 
-    }
-     
+    
 }

@@ -715,6 +715,7 @@ public class CtrDomGeneral {
         return -1;
     }
 
+
     public boolean EliminaBarriDisc(String s){
         return obj.esborra("bar_"+s);
     }
@@ -1043,12 +1044,12 @@ public class CtrDomGeneral {
         
     }*/
     public ArrayList<String> ObteEdClas(String tipus,String clase) {
-        if (StringHabtoEnum(tipus)!=null) {
-            return ctrEdificis.ObteEdClas(StringHabtoEnum(tipus),clase);
-        } else if (StringNegtoEnum(tipus)!= null) {
-            return ctrEdificis.ObteEdClas(StringNegtoEnum(tipus),clase);
-        } else if (StringSertoEnum(tipus)!=null) {
-            return ctrEdificis.ObteEdClas(StringSertoEnum(tipus),clase);
+        if (tipus.equals("Habitatge")) {
+            return ctrEdificis.ObteEdClas(TipusEd.HAB,clase);
+        } else if (tipus.equals("Negoci")) {
+            return ctrEdificis.ObteEdClas(TipusEd.NEG,clase);
+        } else if (tipus.equals("Servei")) {
+            return ctrEdificis.ObteEdClas(TipusEd.SER,clase);
         } else return null;
     }
 
