@@ -1,6 +1,7 @@
 package barri;
 
 import barri.Edifici.Classes;
+import barri.Edifici.TipusEd;
 import barri.Habitatge.TipusHab;
 import barri.Negoci.TipusNegoci;
 import barri.Servei.TipusServei;
@@ -260,5 +261,20 @@ public class CtrEdDom {
     public ArrayList<Edifici> ObtenirEdificisTipus(String tipus) {
         return cjtEd.ObtenirEdificisTipus(tipus);
     }
-     
+
+
+    public ArrayList<String> ObteEdClas(TipusEd ed, String clase) {
+    Classes cl = StringToClase(clase);
+        ArrayList<String> ret = new ArrayList<String>();
+        for (int i = 0 ; i < cjtEd.Tamany();++i ){
+            Edifici aux =  cjtEd.ObtenirEdifici(i);
+            if (aux.EtsClase(cl) && (aux).consultarSubclasse()==ed ){
+                ret.add(aux.ConsultarNom());
+            }
+        }
+        
+        return ret;    
+    }
+
+    
 }

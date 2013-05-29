@@ -482,13 +482,13 @@ public class CtrDomGeneral {
      * @param s Nom del catàleg que volem crear
      * @return Cert si es pot crear el cataleg. Fals si no es pot crear.
      */
-    public boolean CreaCatalegEdificis(String s) {
+    public int CreaCatalegEdificis(String s) {
         if (!disc.existeix("ed_" + s)) {
             ArrayList<String> l = new ArrayList<String>();
             disc.creaArxiu("ed_" + s, l);
-            return true;
+            return 0;
         }
-        return false;
+        return -1;
     }
 
     /**
@@ -503,6 +503,10 @@ public class CtrDomGeneral {
             l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
+    }
+    
+    public boolean BorrarCatalegEdifici(String s){
+        return disc.esborra("ed_"+s);
     }
 
     /**
@@ -700,22 +704,29 @@ public class CtrDomGeneral {
      * @param f El nom del barri que volem carregar.
      * @return La instancia del barri.
      */
-    public boolean CarregaBarri(String f) {
+    public int CarregaBarri(String f) {
         if (obj.existeix("bar_" + f)) {
             Object o = obj.llegirObjecte("bar_" + f);
             Barri b = (Barri) o;
             ctrBarri.CreaBarri(b);
-            return true;
+            return 0;
         }
-        return false;
+        return -1;
     }
-   
+
+
+    public boolean EliminaBarriDisc(String s){
+        return obj.esborra("bar_"+s);
+    }
+    
     /**
      * Guarda al disc una instancia de barri.
      * @param b El barri que volem guardar.
      * @return retorna Cert si pot guardar el barri .Fals tant si hi ha problemes com si ja existeixen objectes amb aquell nom
      */
-    public boolean GuardaBarri() {
+    public boolean GuardaBarri() 
+    {
+        if(obj.existeix("bar_"+ ctrBarri.ObtenirBarri().ConsultarNom())) return false;
         return obj.creaObjecte("bar_" + ctrBarri.ObtenirBarri().ConsultarNom(), ctrBarri.ObtenirBarri());
     }
 
@@ -744,6 +755,10 @@ public class CtrDomGeneral {
         }
         return l;
     }
+    
+    public boolean BorrarCatalegRestriccio(String s){
+        return disc.esborra("res_"+s);
+    }
 
     
     public int CreaCatalegRestriccions(String s){
@@ -757,7 +772,7 @@ public class CtrDomGeneral {
     }
 
     
-    public boolean GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
+    public int GuardaRestriccioCataleg(RestriccioBarris r, String cataleg){
         String s;
         int valor;
         boolean b;
@@ -854,12 +869,12 @@ public class CtrDomGeneral {
         }
         linies.add("");
         disc.creaArxiu("res_" + cataleg, linies);
-        return true;
+        return 0;
     }
 
 
     
-     public boolean CarregaCatalegRestriccions(String cataleg){
+     public int CarregaCatalegRestriccions(String cataleg){
         ArrayList<String> l = disc.llegir("res_"+cataleg);
         ctrRestric = CtrDomRestriccio.ObteInstancia();
         int i = 0, enter, x;
@@ -871,14 +886,14 @@ public class CtrDomGeneral {
             if(s.equals("APARCAMENT") || s.equals("COST") || s.equals("IMPOSTOS") || s.equals("MANTENIMENT")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 ctrRestric.CreaRestriccioGlobal(++idRes, cataleg, enter);
                 i = i + 1;
             }
             else if(l.get(i).equals("Distancia")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 s = l.get(i+2);
                 if(s.equals("Maxim")) max = true;
                 else max = false;
@@ -891,7 +906,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -902,7 +917,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -913,7 +928,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+3);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -924,7 +939,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -935,7 +950,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -946,7 +961,7 @@ public class CtrDomGeneral {
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
-                }catch(NumberFormatException e){return false;}
+                }catch(NumberFormatException e){return -1;}
                 f = l.get(i+4);
                 if(f.equals("Maxim")) max = true;
                 else max = false;
@@ -955,7 +970,7 @@ public class CtrDomGeneral {
             }
             i++;
         }
-        return true;
+        return 0;
     
     }
 
@@ -993,10 +1008,49 @@ public class CtrDomGeneral {
         return ctrBarri.ObteNomBarri();
     }
     
+    public int ConsultaPressupostBarri(){
+        return ctrBarri.ConsultaPressupostBarri();
+    }
+    
+    public int ConsultaAparcamentBarri(){
+        return ctrBarri.ConsultaAparcamentBarri();
+    }
+    
+    public int ConsultaMantenimentBarri(){
+        return ctrBarri.ConsultaMantenimentBarri();
+    }
+    
+    public int ConsultaPoblacioBarri(){
+        return ctrBarri.ConsultaPoblacioBarri();
+    }
+    
+    public int ConsultaXBarri(){
+        return ctrBarri.ConsultaXBarri();
+    }
+    
+    public int ConsultaYBarri(){
+        return ctrBarri.ConsultaYBarri();
+    }
+    
+    public String ConsultaClasseBarri(){
+        return ctrBarri.ConsultaClasseBarri();
+    }
+    
     public ArrayList<String> ObteInfoRestriccionsConjunt(){
         return ctrRestric.ObteInfoRestriccionsConjunt();
     }
     /*public ArrayList<String> LlistaRestriccions(String s){
         
     }*/
+    public ArrayList<String> ObteEdClas(String tipus,String clase) {
+        if (tipus.equals("Habitatge")) {
+            return ctrEdificis.ObteEdClas(TipusEd.HAB,clase);
+        } else if (tipus.equals("Negoci")) {
+            return ctrEdificis.ObteEdClas(TipusEd.NEG,clase);
+        } else if (tipus.equals("Servei")) {
+            return ctrEdificis.ObteEdClas(TipusEd.SER,clase);
+        } else return null;
+    }
+
+
 }
