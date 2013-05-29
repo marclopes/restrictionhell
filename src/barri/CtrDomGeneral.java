@@ -1017,6 +1017,10 @@ public class CtrDomGeneral {
         return ctrBarri.ConsultaYBarri();
     }
     
+    public String ConsultaClasseBarri(){
+        return ConsultaClasseBarri();
+    }
+    
     public ArrayList<String> ObteInfoRestriccionsConjunt(){
         return ctrRestric.ObteInfoRestriccionsConjunt();
     }

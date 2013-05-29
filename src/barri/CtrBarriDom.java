@@ -425,6 +425,14 @@ public class CtrBarriDom {
         return barri.ConsultarPoblacio();
     }
     
+    public String ConsultaClasseBarri(){
+        Classes c = barri.ConsultarClasse();
+        if(c == Classes.Alta) return "Alta";
+        if(c == Classes.Baixa) return "Baixa";
+        if(c == Classes.Mitja) return "Mitja";
+        else return null;
+    }
+    
     public int ConsultaXBarri(){
         return barri.ConsultarX();
     }
