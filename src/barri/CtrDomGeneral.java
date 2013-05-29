@@ -785,7 +785,7 @@ public class CtrDomGeneral {
             linies.add(String.valueOf(((RGlobal) r).ObteVal()));
         }
         else if (t == TipusRest.DISTTIPUS) {
-            linies.add("Distancia");
+            linies.add("DISTANCIA");
             int d = ((RDistTipus) r).ConsultarDist();
             linies.add(String.valueOf(d));
             boolean maxd = ((RDistTipus) r).EsMax();
@@ -799,7 +799,7 @@ public class CtrDomGeneral {
             linies.add(e1);
             linies.add(e2);
         } else if (t == TipusRest.RUHAB) {
-            linies.add("Atribut habitatge");
+            linies.add("ATRIBUT HABITATGE");
             s = ((RUHab) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUHab) r).ConsultaValor();
@@ -810,7 +810,7 @@ public class CtrDomGeneral {
                 linies.add("Minim");
             }
         } else if (t == TipusRest.RUNEG) {
-            linies.add("Atribut negoci");
+            linies.add("ATRIBUT NEGOCI");
             s = ((RUNeg) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUNeg) r).ConsultaValor();
@@ -821,7 +821,7 @@ public class CtrDomGeneral {
                 linies.add("Minim");
             }
         } else if (t == TipusRest.RUSERV) {
-            linies.add("Atribut servei");
+            linies.add("ATRIBUT SERVEI");
             s = ((RUServ) r).ConsultaAtribut();
             linies.add(s);
             valor = ((RUServ) r).ConsultaValor();
@@ -832,7 +832,7 @@ public class CtrDomGeneral {
                 linies.add("Minim");
             }
         } else if (t == TipusRest.RUSUBHAB) {
-            linies.add("Atribut tipus habitatge");
+            linies.add("ATRIBUT TIPUS HABITATGE");
             linies.add(EnumHabtoString(((RUSubHab) r).ConsultaTipus()));
             s = ((RUSubHab) r).ConsultaAtribut();
             linies.add(s);
@@ -844,7 +844,7 @@ public class CtrDomGeneral {
                 linies.add("Minim");
             }
         } else if (t == TipusRest.RUSUBNEG) {
-            linies.add("Atribut tipus negoci");
+            linies.add("ATRIBUT TIPUS NEGOCI");
             linies.add(EnumNegtoString(((RUSubNeg) r).ConsultaTipus()));
             s = ((RUSubNeg) r).ConsultaAtribut();
             linies.add(s);
@@ -856,7 +856,7 @@ public class CtrDomGeneral {
                 linies.add("Minim");
             }
         } else if (t == TipusRest.RUSUBSERV) {
-            linies.add("Atribut tipus servei");
+            linies.add("ATRIBUT TIPUS SERVEI");
             linies.add(EnumSertoString(((RUSubServ) r).ConsultaTipus()));
             s = ((RUSubServ) r).ConsultaAtribut();
             linies.add(s);
@@ -891,7 +891,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioGlobal(++idRes, s, enter);
                 i = i + 1;
             }
-            else if(l.get(i).equals("Distancia")){
+            else if(l.get(i).equals("DISTANCIA")){
                 try{
                     enter = Integer.parseInt(l.get(i+1));
                 }catch(NumberFormatException e){return -1;}
@@ -903,7 +903,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaDistTipus(++idRes, enter, max, s1, s2);
                 i = i + 4;
             }
-            else if(l.get(i).equals("Atribut habitatge")){
+            else if(l.get(i).equals("ATRIBUT HABITATGE")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
@@ -914,7 +914,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioRUHab(++idRes,s,enter,max);
                 i = i + 3;
             }
-            else if(l.get(i).equals("Atribut negoci")){
+            else if(l.get(i).equals("ATRIBUT NEGOCI")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
@@ -925,7 +925,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioRUNeg(++idRes,s,enter,max);
                 i = i + 3;
             }
-            else if(l.get(i).equals("Atribut servei")){
+            else if(l.get(i).equals("ATRIBUT NEGOCI")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+2));
@@ -936,7 +936,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioRUServ(++idRes,s,enter,max);
                 i = i + 3;
             }
-            else if(l.get(i).equals("Atribut tipus habitatge")){
+            else if(l.get(i).equals("ATRIBUT TIPUS HABITATGE")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
@@ -947,7 +947,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioRUSubHab(++idRes,StringHabtoEnum(l.get(i+2)),s,enter,max);
                 i = i + 4;
             }
-            else if(l.get(i).equals("Atribut tipus negoci")){
+            else if(l.get(i).equals("ATRIBUT TIPUS NEGOCI")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
@@ -958,7 +958,7 @@ public class CtrDomGeneral {
                 ctrRestric.CreaRestriccioRUSubNeg(++idRes,StringNegtoEnum(l.get(i+2)),s,enter,max);
                 i = i + 4;
             }
-            else if(l.get(i).equals("Atribut tipus servei")){
+            else if(l.get(i).equals("ATRIBUT TIPUS SERVEI")){
                 s = l.get(i+1);
                 try{
                     enter = Integer.parseInt(l.get(i+3));
