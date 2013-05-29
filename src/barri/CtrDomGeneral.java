@@ -504,6 +504,10 @@ public class CtrDomGeneral {
         }
         return l;
     }
+    
+    public boolean BorrarCatalegEdifici(String s){
+        return disc.esborra("ed_"+s);
+    }
 
     /**
      * Crea un fitxer editable amb extensió txt dins del directori ./data on el 
@@ -710,6 +714,10 @@ public class CtrDomGeneral {
         return -1;
     }
 
+    public boolean EliminaBarriDisc(String s){
+        return disc.esborra("bar_"+s);
+    }
+    
     /**
      * Guarda al disc una instancia de barri.
      * @param b El barri que volem guardar.
@@ -743,6 +751,10 @@ public class CtrDomGeneral {
             l.set(i, l.get(i).replaceAll(".txt", ""));
         }
         return l;
+    }
+    
+    public boolean BorrarCatalegRestriccio(String s){
+        return disc.esborra("res_"+s);
     }
 
     
