@@ -723,7 +723,9 @@ public class CtrDomGeneral {
      * @param b El barri que volem guardar.
      * @return retorna Cert si pot guardar el barri .Fals tant si hi ha problemes com si ja existeixen objectes amb aquell nom
      */
-    public boolean GuardaBarri() {
+    public boolean GuardaBarri() 
+    {
+        if(obj.existeix("bar_"+ ctrBarri.ObtenirBarri().ConsultarNom())) return false;
         return obj.creaObjecte("bar_" + ctrBarri.ObtenirBarri().ConsultarNom(), ctrBarri.ObtenirBarri());
     }
 
