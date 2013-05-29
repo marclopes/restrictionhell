@@ -260,5 +260,44 @@ public class CtrEdDom {
     public ArrayList<Edifici> ObtenirEdificisTipus(String tipus) {
         return cjtEd.ObtenirEdificisTipus(tipus);
     }
+
+
+    public ArrayList<String> ObteEdClas(TipusHab hab, String clase) {
+    Classes cl = StringToClase(clase);
+        ArrayList<String> ret = new ArrayList<String>();
+        for (int i = 0 ; i < cjtEd.Tamany();++i ){
+            Edifici aux =  cjtEd.ObtenirEdifici(i);
+            if (((Habitatge)aux).EtsClase(cl) && ((Habitatge)aux).consultarTipus() ==hab ){
+                ret.add(aux.ConsultarNom());
+            }
+        }
+        
+        return ret;    
+    }
+
+    public ArrayList<String> ObteEdClas(TipusNegoci neg, String clase) {
+        Classes cl = StringToClase(clase);
+        ArrayList<String> ret = new ArrayList<String>();
+        for (int i = 0 ; i < cjtEd.Tamany();++i ){
+            Edifici aux =  cjtEd.ObtenirEdifici(i);
+            if (((Negoci)aux).EtsClase(cl) && ((Negoci)aux).consultarTipus() ==neg ){
+                ret.add(aux.ConsultarNom());
+            }
+        }
+        
+        return ret; 
+    }
+    public ArrayList<String> ObteEdClas(TipusServei servei, String clase) {
+        Classes cl = StringToClase(clase);
+        ArrayList<String> ret = new ArrayList<String>();
+        for (int i = 0 ; i < cjtEd.Tamany();++i ){
+            Edifici aux =  cjtEd.ObtenirEdifici(i);
+            if (((Servei)aux).EtsClase(cl) && ((Serveis)aux).consultarTipus() ==servei ){
+                ret.add(aux.ConsultarNom());
+            }
+        }
+        
+        return ret; 
+    }
      
 }
