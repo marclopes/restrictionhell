@@ -2,12 +2,16 @@ package barri;
 
 /**
  *
- *
- @author Eduard Ricou
+ * @author Eduard Ricou
+ * La classe Habitatge permet crear instancies d'habitatge, consultar els seus atributs i modificar-los.
+ * @version 3.0
  */
 
 public class Habitatge extends Edifici{
 
+        /**
+         * Enumeració dels tipus d'habitatge que existeixen.
+         */
 	public enum TipusHab {
 		Casa,
 		Pis,
@@ -28,13 +32,14 @@ public class Habitatge extends Edifici{
 	}
 	
         /** 
-        * Crea una instancia de la classe Negoci.
-        * @param impost són els impostos que paga el negoci.
-        * @param aparcament són les places d'aparcament que té el negoci.
-        * @param nom és El nom descriptiu del negoci.
-        * @param id és l'identificador del negoci.
-        * @param h és l'alçada del negoci.
-        * @param capacitat ens diu quantes persones caben al negoci.
+        * Crea una instancia de la classe Habitatge.
+        * @param impost Impostos que paga l'habitatge.
+        * @param aparcament Places d'aparcament que té l'habitatge.
+        * @param nom Nom descriptiu de l'habitatge.
+        * @param codi Codi numèric de l'habitatge.
+        * @param h Alçada de l'habitatge.
+        * @param capacitat Capacitat de l'habitatge
+        * @param t Tipus d'habitatge.
         */
         
 	public Habitatge(int impost, int aparcament, String nom, int codi, int h, int capacitat, TipusHab t){
@@ -47,7 +52,7 @@ public class Habitatge extends Edifici{
 	
         /**
          * Consultora dels impostos que paga l'habitatge.
-         * @return els impostos que paga l'habitatge.
+         * @return Impostos que paga l'habitatge.
          */
         
 	public int ConsultarImpost(){
@@ -56,7 +61,7 @@ public class Habitatge extends Edifici{
 	
         /**
          * Consultora de les places d'aparcament que té l'habitatge.
-         * @return el nombre de places d'aparcament de l'habitatge.
+         * @return Nombre de places d'aparcament de l'habitatge.
          */
         
 	public int ConsultarAparcament(){
@@ -65,7 +70,7 @@ public class Habitatge extends Edifici{
 	
         /** 
         * Consultora de la subclase de l'edifici.
-        * @return la subclasse de l'edifici
+        * @return Subclasse de l'edifici
         */
         
 	public TipusHab consultarTipus() {
@@ -74,7 +79,7 @@ public class Habitatge extends Edifici{
         
         /**
          * Modifica els impostos que paga l'habitatge.
-         * @param impost els nous impostos que pagarà l'habitatge.
+         * @param impost Nou impost que pagarà l'habitatge.
          */
         
 	public void ModificarImpost(int impost){
@@ -83,7 +88,7 @@ public class Habitatge extends Edifici{
 	
         /**
          * Modifica el nombre de places d'aparcament de l'habitatge.
-         * @param aparcament el nou nombre de places d'aparcament de l'habitatge.
+         * @param aparcament Nou nombre de places d'aparcament de l'habitatge.
          */
         
 	public void ModificarAparcament(int aparcament){
@@ -92,7 +97,7 @@ public class Habitatge extends Edifici{
 	
          /** 
         * Modificadora del tipus de l'habitatge.
-        * @param t El nou tipus de l'habitatge.
+        * @param t Nou tipus de l'habitatge.
         */
         
 	public void modificarTipus(TipusHab t) {

@@ -3,6 +3,8 @@ package barri;
 /**
  *
  * @author Eduard Ricou
+ * La classe Illa es un contenidor d'un sol edifici.
+ * @version 3.0
  */
 public class Illa{
 
@@ -16,7 +18,7 @@ public class Illa{
         
 	/** 
         * Crea una instancia de la classe Illa inicialitzada.
-        * @param e És l'edifici amb que s'inicialitza l'illa 
+        * @param e Edifici amb que s'inicialitza l'illa 
 	*/
 	public Illa(Edifici e){
 		this.edifici = e;
@@ -24,7 +26,7 @@ public class Illa{
         
 	/** 
         * Assignar un edifici a la illa 
-        * @param e És l'edifici que s'assigna a l'Illa 
+        * @param e Edifici que s'assigna a l'Illa 
 	*/
 	public void AssignaEdifici(Edifici e){
 		this.edifici = e;
@@ -39,7 +41,7 @@ public class Illa{
         
 	/** 
         * Consulta l'edifici de l'Illa 
-        * @return edifici de l'illa
+        * @return Edifici de l'illa
 	*/
 	public Edifici ConsultaEdifici(){
 		return this.edifici;
@@ -47,7 +49,8 @@ public class Illa{
 
         /** 
         * Consulta si l'illa es buida 
-        * @return cert si l'illa conté un edifici
+        * @return <code>true</code> si l'illa conté un edifici
+        *         <code>false</code> si l'illa no conté cap edifici.
 	*/
         public boolean EsBuida(){
 		return (this.edifici == null);
